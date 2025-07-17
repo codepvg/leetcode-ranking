@@ -69,7 +69,10 @@ let dailyData = [];
   console.log("...");
   console.log(" ");
 
-  console.log("Writing daily data to file...")
+  console.log("Sorting collected data...");
+  dailyData.sort((a, b) => b.score - a.score);
+
+  console.log("Writing Sorted daily data to file...")
   const filepath = path.join(__dirname, "..", "data", "daily", getFileName());
   try {
     fs.writeFileSync(filepath, JSON.stringify(dailyData, null, 2), "utf8");
