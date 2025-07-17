@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Example User",
+    "id": "numb3r5",
+    "data": {
+      "easySolved": 525,
+      "mediumSolved": 1068,
+      "hardSolved": 420
+    },
+    "score": 5829
+  },
+  {
+    "name": "Example User",
+    "id": "Yawn_Sean",
+    "data": {
+      "easySolved": 241,
+      "mediumSolved": 599,
+      "hardSolved": 242
+    },
+    "score": 3248
+  },
+  {
+    "name": "Example User",
+    "id": "PurpleCrayon",
+    "data": {
+      "easySolved": 203,
+      "mediumSolved": 389,
+      "hardSolved": 192
+    },
+    "score": 2330
+  },
+  {
+    "name": "Example User",
+    "id": "neal_wu",
+    "data": {
+      "easySolved": 60,
+      "mediumSolved": 141,
+      "hardSolved": 52
+    },
+    "score": 743
+  },
+  {
+    "name": "Example User",
+    "id": "dnialh",
+    "data": {
+      "easySolved": 62,
+      "mediumSolved": 117,
+      "hardSolved": 56
+    },
+    "score": 693
+  },
+  {
+    "name": "Example User",
+    "id": "fjzzq2002",
+    "data": {
+      "easySolved": 111,
+      "mediumSolved": 87,
+      "hardSolved": 29
+    },
+    "score": 517
+  },
+  {
+    "name": "Jagdish Prajapati",
+    "id": "jagdish15",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 15
+  }
+]
