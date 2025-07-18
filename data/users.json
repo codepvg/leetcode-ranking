@@ -1,9 +1,34 @@
 [
-  { "name": "Jagdish Prajapati", "id": "jagdish15" },
-  { "name": "Example User", "id": "neal_wu" },
-  { "name": "Example User", "id": "fjzzq2002" },
-  { "name": "Example User", "id": "Yawn_Sean" },
-  { "name": "Example User", "id": "numb3r5" },
-  { "name": "Example User", "id": "dnialh" },
-  { "name": "Example User", "id": "PurpleCrayon" }
+  {
+    "name": "Jagdish Prajapati",
+    "id": "jagdish15"
+  },
+  {
+    "name": "Example User",
+    "id": "neal_wu"
+  },
+  {
+    "name": "Example User",
+    "id": "fjzzq2002"
+  },
+  {
+    "name": "Example User",
+    "id": "Yawn_Sean"
+  },
+  {
+    "name": "Example User",
+    "id": "numb3r5"
+  },
+  {
+    "name": "Example User",
+    "id": "dnialh"
+  },
+  {
+    "name": "Example User",
+    "id": "PurpleCrayon"
+  },
+  {
+    "name": "VAISHALI DILIP WARE",
+    "id": "Vaishali ware "
+  }
 ]
