@@ -21,6 +21,10 @@ app.get("/registration", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "registration.html"));
 });
 
+app.get("/uptime", (req, res) => {
+  res.json({ status: "Website is running ✅" });
+});
+
 app.get("/api/overall", (req, res) => {
   res.sendFile(path.join(__dirname, "data", "overall.json"));
 });
