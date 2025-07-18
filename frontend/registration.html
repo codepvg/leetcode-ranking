@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - CodePVG</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">CodePVG Leaderboard</a>
+            <ul class="nav-links">
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="registration.html" class="active">Registration</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="page">
+        <div class="form-container">
+            <div class="form-card" id="registration-form">
+                <h1 class="page-title">Join the Leaderboard</h1>
+                
+                <p class="text-center" style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem;">
+                    Register to start tracking your LeetCode progress and compete with your peers!
+                </p>
+
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-input" 
+                            placeholder="Enter your full name" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leetcodeId" class="form-label">LeetCode Username</label>
+                        <input 
+                            type="text" 
+                            id="leetcodeId" 
+                            name="leetcodeId" 
+                            class="form-input" 
+                            placeholder="Enter your LeetCode username" 
+                            required
+                        >
+                        <small class="form-help">
+                            This should match your username on leetcode.com/username
+                        </small>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-primary" style="margin: 0 auto;">
+                            Register Now
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success message (hidden by default) -->
+            <div class="form-card success-container hidden" id="success-message">
+                <div class="success-icon">✅</div>
+                <h2 class="success-title">Registration Successful!</h2>
+                <p class="success-message" id="welcome-message">
+                    Welcome to the CodePVG LeetCode Leaderboard!
+                </p>
+                <button class="btn btn-primary" onclick="resetForm()">
+                    Register Another User
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showSuccess(name) {
+            document.getElementById('registration-form').classList.add('hidden');
+            document.getElementById('success-message').classList.remove('hidden');
+            document.getElementById('welcome-message').textContent = 
+                `Welcome to the CodePVG LeetCode Leaderboard, ${name}!`;
+        }
+
+        function resetForm() {
+            document.getElementById('registration-form').classList.remove('hidden');
+            document.getElementById('success-message').classList.add('hidden');
+            document.getElementById('registrationForm').reset();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('registrationForm');
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(form);
+                const name = formData.get('name');
+                const leetcodeId = formData.get('leetcodeId');
+                
+                if (name && leetcodeId) {
+                    // Here you would typically send the data to your backend
+                    console.log('Registration data:', { name, leetcodeId });
+                    
+                    // Show success message
+                    showSuccess(name);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
