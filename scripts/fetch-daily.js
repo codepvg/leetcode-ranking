@@ -43,7 +43,7 @@ function getFileName(daysAgo) {
   }
 
   const baseUrl = "https://leetcode-api-faisalshohag.vercel.app/";
-  const interval = users.length > 10 ? (users.length > 100 ? 9500 : 6500) : 0;
+  const interval = users.length > 100 ? 9500 : 7000;
   let overallData = [];
 
   console.log(" ");
