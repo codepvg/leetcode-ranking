@@ -9,11 +9,11 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">CodePVG Leaderboard</a>
+            <a href="/" class="logo">CodePVG Leaderboard</a>
             <ul class="nav-links">
-                <li><a href="leaderboard.html">Leaderboard</a></li>
-                <li><a href="registration.html" class="active">Registration</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="/about" class="active">About</a></li>
             </ul>
         </div>
     </nav>
@@ -63,7 +63,6 @@
                 </form>
             </div>
 
-            <!-- Success message (hidden by default) -->
             <div class="form-card success-container hidden" id="success-message">
                 <div class="success-icon">✅</div>
                 <h2 class="success-title">Registration Successful!</h2>
@@ -102,10 +101,8 @@
                 const leetcodeId = formData.get('leetcodeId');
                 
                 if (name && leetcodeId) {
-                    // Here you would typically send the data to your backend
                     console.log('Registration data:', { name, leetcodeId });
                     
-                    // Show success message
                     showSuccess(name);
                 }
             });

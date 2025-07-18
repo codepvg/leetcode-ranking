@@ -95,7 +95,7 @@ body {
 }
 
 .navbar .nav-links a:hover,
-.navbar .nav-links a.active {
+.navbar .nav-links {
   color: #4ade80;
 }
 

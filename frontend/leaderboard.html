@@ -9,11 +9,11 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">CodePVG Leaderboard</a>
+            <a href="/" class="logo">CodePVG Leaderboard</a>
             <ul class="nav-links">
-                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
-                <li><a href="registration.html">Registration</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="/leaderboard">Leaderboard</a></li>
+                <li><a href="/registration">Registration</a></li>
+                <li><a href="/about" class="active">About</a></li>
             </ul>
         </div>
     </nav>
@@ -40,152 +40,38 @@
                 </div>
                 
                 <div id="leaderboard-body">
-                    <!-- Content will be populated by JavaScript -->
+                    
                 </div>
             </div>
             
             <div class="mobile-cards" id="mobile-cards">
-                <!-- Mobile cards will be populated by JavaScript -->
+
             </div>
         </div>
     </main>
 
     <script>
-        // Sample data (in a real app, this would be fetched from your JSON files)
-        const leaderboardData = {
-            overall: [
-                {
-                    name: "Alex Chen",
-                    id: "numb3r5",
-                    data: { easySolved: 525, mediumSolved: 1068, hardSolved: 420 },
-                    score: 5829
-                },
-                {
-                    name: "Sarah Kim",
-                    id: "Yawn_Sean",
-                    data: { easySolved: 241, mediumSolved: 599, hardSolved: 242 },
-                    score: 3248
-                },
-                {
-                    name: "Mike Rodriguez",
-                    id: "PurpleCrayon",
-                    data: { easySolved: 203, mediumSolved: 389, hardSolved: 192 },
-                    score: 2330
-                },
-                {
-                    name: "Emily Zhang",
-                    id: "neal_wu",
-                    data: { easySolved: 60, mediumSolved: 141, hardSolved: 52 },
-                    score: 743
-                },
-                {
-                    name: "David Park",
-                    id: "dnialh",
-                    data: { easySolved: 62, mediumSolved: 117, hardSolved: 56 },
-                    score: 693
-                },
-                {
-                    name: "Lisa Wang",
-                    id: "fjzzq2002",
-                    data: { easySolved: 111, mediumSolved: 87, hardSolved: 29 },
-                    score: 517
-                },
-                {
-                    name: "Jagdish Prajapati",
-                    id: "jagdish15",
-                    data: { easySolved: 9, mediumSolved: 2, hardSolved: 0 },
-                    score: 15
-                }
-            ],
-            weekly: [
-                {
-                    name: "Alex Chen",
-                    id: "numb3r5",
-                    data: { easySolved: 45, mediumSolved: 28, hardSolved: 12 },
-                    score: 221
-                },
-                {
-                    name: "Sarah Kim",
-                    id: "Yawn_Sean",
-                    data: { easySolved: 38, mediumSolved: 22, hardSolved: 8 },
-                    score: 174
-                },
-                {
-                    name: "Mike Rodriguez",
-                    id: "PurpleCrayon",
-                    data: { easySolved: 32, mediumSolved: 18, hardSolved: 6 },
-                    score: 140
-                },
-                {
-                    name: "Emily Zhang",
-                    id: "neal_wu",
-                    data: { easySolved: 28, mediumSolved: 15, hardSolved: 4 },
-                    score: 115
-                },
-                {
-                    name: "David Park",
-                    id: "dnialh",
-                    data: { easySolved: 25, mediumSolved: 12, hardSolved: 3 },
-                    score: 96
-                },
-                {
-                    name: "Lisa Wang",
-                    id: "fjzzq2002",
-                    data: { easySolved: 22, mediumSolved: 8, hardSolved: 2 },
-                    score: 72
-                },
-                {
-                    name: "Jagdish Prajapati",
-                    id: "jagdish15",
-                    data: { easySolved: 9, mediumSolved: 2, hardSolved: 0 },
-                    score: 15
-                }
-            ],
-            daily: [
-                {
-                    name: "Alex Chen",
-                    id: "numb3r5",
-                    data: { easySolved: 15, mediumSolved: 8, hardSolved: 2 },
-                    score: 65
-                },
-                {
-                    name: "Sarah Kim",
-                    id: "Yawn_Sean",
-                    data: { easySolved: 12, mediumSolved: 6, hardSolved: 1 },
-                    score: 43
-                },
-                {
-                    name: "Mike Rodriguez",
-                    id: "PurpleCrayon",
-                    data: { easySolved: 10, mediumSolved: 4, hardSolved: 1 },
-                    score: 33
-                },
-                {
-                    name: "Emily Zhang",
-                    id: "neal_wu",
-                    data: { easySolved: 8, mediumSolved: 3, hardSolved: 0 },
-                    score: 23
-                },
-                {
-                    name: "David Park",
-                    id: "dnialh",
-                    data: { easySolved: 7, mediumSolved: 2, hardSolved: 0 },
-                    score: 17
-                },
-                {
-                    name: "Lisa Wang",
-                    id: "fjzzq2002",
-                    data: { easySolved: 5, mediumSolved: 1, hardSolved: 0 },
-                    score: 9
-                },
-                {
-                    name: "Jagdish Prajapati",
-                    id: "jagdish15",
-                    data: { easySolved: 3, mediumSolved: 0, hardSolved: 0 },
-                    score: 3
-                }
-            ]
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tab);
+                });
+            });
+
+            fetchLeaderboardData();
+        });
+
+        const leaderboardData = {};
+
+        async function fetchLeaderboardData() {
+            const endpoints = ['overall', 'weekly', 'daily'];
+            for (const type of endpoints) {
+                const response = await fetch(`/api/${type}`);
+                leaderboardData[type] = await response.json();
+            }
+
+            setActiveTab('overall');
+        }
 
         function getRankIcon(rank) {
             switch (rank) {
@@ -199,16 +85,14 @@
         function renderLeaderboard(data) {
             const body = document.getElementById('leaderboard-body');
             const mobileCards = document.getElementById('mobile-cards');
-            
-            // Clear existing content
+
             body.innerHTML = '';
             mobileCards.innerHTML = '';
             
             data.forEach((user, index) => {
                 const rank = index + 1;
                 const icon = getRankIcon(rank);
-                
-                // Desktop row
+
                 const row = document.createElement('div');
                 row.className = 'leaderboard-row';
                 row.innerHTML = `
@@ -221,8 +105,7 @@
                     <div class="score">${user.score}</div>
                 `;
                 body.appendChild(row);
-                
-                // Mobile card
+
                 const card = document.createElement('div');
                 card.className = 'mobile-card';
                 card.innerHTML = `
@@ -252,7 +135,6 @@
         }
 
         function setActiveTab(activeTab) {
-            // Update tab buttons
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
                 if (tab.dataset.tab === activeTab) {
@@ -260,20 +142,16 @@
                 }
             });
             
-            // Render data for active tab
             renderLeaderboard(leaderboardData[activeTab]);
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            // Set up tab click handlers
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     setActiveTab(tab.dataset.tab);
                 });
             });
             
-            // Load initial data
             setActiveTab('overall');
         });
     </script>
