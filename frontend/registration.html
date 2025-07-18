@@ -101,10 +101,32 @@
                 const leetcodeId = formData.get('leetcodeId');
                 
                 if (name && leetcodeId) {
-                    console.log('Registration data:', { name, leetcodeId });
-                    
-                    showSuccess(name);
+                    fetch("https://lc-backend-k2ty.onrender.com/user", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            id: leetcodeId
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Failed to register user");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("User registered successfully:", data);
+                        showSuccess(name);
+                    })
+                    .catch(error => {
+                        alert("An error occurred during registration. Please try again.");
+                        console.error(error);
+                    });
                 }
+
             });
         });
     </script>
