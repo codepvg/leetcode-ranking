@@ -108,8 +108,8 @@
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            name: name,
-                            id: leetcodeId
+                            name: name.trim(),
+                            id: leetcodeId.trim()
                         })
                     })
                     .then(response => {
