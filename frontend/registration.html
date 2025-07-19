@@ -91,10 +91,28 @@
             document.getElementById('registrationForm').reset();
         }
 
+        function isValidId(id) {
+            return fetch(`https://leetcode-api-faisalshohag.vercel.app/${id.trim()}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const errors = data.errors;
+                return !(errors && errors.some(err => err.message === "That user does not exist."));
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                return true;
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('registrationForm');
             
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const formData = new FormData(form);
@@ -102,6 +120,13 @@
                 const leetcodeId = formData.get('leetcodeId');
                 
                 if (name && leetcodeId) {
+                    const isValid = await isValidId(leetcodeId);
+
+                    if (!isValid) {
+                        alert("Please enter a valid LeetCode Username!");
+                        return;
+                    }
+
                     fetch("https://lc-backend-k2ty.onrender.com/user", {
                         method: "POST",
                         headers: {
