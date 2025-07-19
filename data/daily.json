@@ -1,23 +1,13 @@
 [
   {
-    "name": "Jagdish Prajapati",
-    "id": "jagdish15",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": null
-    },
-    "score": 8
-  },
-  {
     "name": "Example User",
     "id": "numb3r5",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 1,
+      "mediumSolved": 0,
       "hardSolved": null
     },
-    "score": 3
+    "score": 0
   },
   {
     "name": "Example User",
@@ -62,6 +52,16 @@
   {
     "name": "Example User",
     "id": "fjzzq2002",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": null
+    },
+    "score": 0
+  },
+  {
+    "name": "Jagdish Prajapati",
+    "id": "jagdish15",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
