@@ -6,9 +6,9 @@ async function fetchData(url) {
   try {
     const res = await axios.get(url);
     return {
-      easySolved: res.data.easySolved,
-      mediumSolved: res.data.mediumSolved,
-      hardSolved: res.data.hardSolved
+      easySolved: res.data.easySolved || 0,
+      mediumSolved: res.data.mediumSolved || 0,
+      hardSolved: res.data.hardSolved || 0
     };
   } catch (err) {
     console.error("API failed to respond: ", err.message);
