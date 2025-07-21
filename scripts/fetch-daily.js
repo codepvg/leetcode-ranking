@@ -112,9 +112,9 @@ function getFileName(daysAgo) {
       dailyData.splice(i--, 1);
       continue;
     }
-    dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved || 0;
-    dailyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved || 0;
-    dailyData[i].data.hardSolved -= previousData[previousIndex].data.eahardSolved || 0;
+    dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
+    dailyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
+    dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
     dailyData[i].score = dailyData[i].data.easySolved + dailyData[i].data.mediumSolved * 3 + dailyData[i].data.hardSolved * 5;
   }
   console.log("Calculation done");
@@ -156,9 +156,9 @@ function getFileName(daysAgo) {
       weeklyData.splice(i--, 1);
       continue;
     }
-    weeklyData[i].data.easySolved -= previousData[previousIndex].data.easySolved || 0;
-    weeklyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved || 0;
-    weeklyData[i].data.hardSolved -= previousData[previousIndex].data.eahardSolved || 0;
+    weeklyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
+    weeklyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
+    weeklyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
     weeklyData[i].score = weeklyData[i].data.easySolved + weeklyData[i].data.mediumSolved * 3 + weeklyData[i].data.hardSolved * 5;
   }
   console.log("Calculation done");
