@@ -10,14 +10,34 @@
     "score": 1199
   },
   {
+    "name": "Sushant Borde",
+    "id": "Sbking_391",
+    "data": {
+      "easySolved": 93,
+      "mediumSolved": 106,
+      "hardSolved": 26
+    },
+    "score": 541
+  },
+  {
     "name": "Mansi Wagh",
     "id": "mansi_65478",
     "data": {
       "easySolved": 110,
-      "mediumSolved": 108,
+      "mediumSolved": 111,
       "hardSolved": 9
     },
-    "score": 479
+    "score": 488
+  },
+  {
+    "name": "Aryan Botre",
+    "id": "aryanbotre18",
+    "data": {
+      "easySolved": 99,
+      "mediumSolved": 71,
+      "hardSolved": 10
+    },
+    "score": 362
   },
   {
     "name": "Harshad Bhalsing",
@@ -28,16 +48,6 @@
       "hardSolved": 13
     },
     "score": 350
-  },
-  {
-    "name": "Aryan Botre",
-    "id": "aryanbotre18",
-    "data": {
-      "easySolved": 99,
-      "mediumSolved": 71,
-      "hardSolved": 6
-    },
-    "score": 342
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -70,6 +80,16 @@
     "score": 117
   },
   {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 49,
+      "mediumSolved": 17,
+      "hardSolved": 0
+    },
+    "score": 100
+  },
+  {
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
@@ -78,16 +98,6 @@
       "hardSolved": 0
     },
     "score": 97
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 45,
-      "mediumSolved": 17,
-      "hardSolved": 0
-    },
-    "score": 96
   },
   {
     "name": "Neevan Redkar",
@@ -125,29 +135,29 @@
     "data": {
       "easySolved": 37,
       "mediumSolved": 10,
-      "hardSolved": 0
+      "hardSolved": 1
     },
-    "score": 67
+    "score": 72
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 12,
-      "mediumSolved": 12,
+      "easySolved": 14,
+      "mediumSolved": 14,
       "hardSolved": 1
     },
-    "score": 53
+    "score": 61
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 13,
-      "hardSolved": 0
+      "mediumSolved": 14,
+      "hardSolved": 1
     },
-    "score": 46
+    "score": 54
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -233,11 +243,11 @@
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
-      "easySolved": 3,
+      "easySolved": 5,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 3
+    "score": 5
   },
   {
     "name": "Mehak Zutshi",
