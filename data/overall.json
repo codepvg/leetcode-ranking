@@ -24,20 +24,20 @@
     "id": "mansi_65478",
     "data": {
       "easySolved": 110,
-      "mediumSolved": 111,
+      "mediumSolved": 112,
       "hardSolved": 9
     },
-    "score": 488
+    "score": 491
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
       "easySolved": 99,
-      "mediumSolved": 71,
+      "mediumSolved": 73,
       "hardSolved": 10
     },
-    "score": 362
+    "score": 368
   },
   {
     "name": "Harshad Bhalsing",
@@ -83,11 +83,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 49,
-      "mediumSolved": 17,
+      "easySolved": 50,
+      "mediumSolved": 20,
       "hardSolved": 0
     },
-    "score": 100
+    "score": 110
   },
   {
     "name": "Samruddhi Garge",
@@ -103,11 +103,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 53,
-      "mediumSolved": 11,
+      "easySolved": 55,
+      "mediumSolved": 12,
       "hardSolved": 0
     },
-    "score": 86
+    "score": 91
   },
   {
     "name": "Vaishnavi Borkar",
@@ -124,8 +124,18 @@
     "id": "_rahul-173",
     "data": {
       "easySolved": 9,
-      "mediumSolved": 22,
+      "mediumSolved": 24,
       "hardSolved": 0
+    },
+    "score": 81
+  },
+  {
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 17,
+      "hardSolved": 2
     },
     "score": 75
   },
@@ -140,24 +150,14 @@
     "score": 72
   },
   {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
-    "data": {
-      "easySolved": 14,
-      "mediumSolved": 14,
-      "hardSolved": 1
-    },
-    "score": 61
-  },
-  {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 14,
+      "mediumSolved": 15,
       "hardSolved": 1
     },
-    "score": 54
+    "score": 57
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -203,11 +203,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 10,
+      "easySolved": 11,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 10
+    "score": 11
   },
   {
     "name": "Aradhana Hingane",
