@@ -33,11 +33,11 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 99,
-      "mediumSolved": 73,
+      "easySolved": 100,
+      "mediumSolved": 74,
       "hardSolved": 10
     },
-    "score": 368
+    "score": 372
   },
   {
     "name": "Harshad Bhalsing",
@@ -58,6 +58,16 @@
       "hardSolved": 1
     },
     "score": 138
+  },
+  {
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
+    "data": {
+      "easySolved": 52,
+      "mediumSolved": 21,
+      "hardSolved": 4
+    },
+    "score": 135
   },
   {
     "name": "Shrutika Bhosale",
@@ -84,10 +94,20 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 50,
-      "mediumSolved": 20,
+      "mediumSolved": 21,
       "hardSolved": 0
     },
-    "score": 110
+    "score": 113
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 56,
+      "mediumSolved": 16,
+      "hardSolved": 0
+    },
+    "score": 104
   },
   {
     "name": "Samruddhi Garge",
@@ -98,16 +118,6 @@
       "hardSolved": 0
     },
     "score": 97
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 55,
-      "mediumSolved": 12,
-      "hardSolved": 0
-    },
-    "score": 91
   },
   {
     "name": "Vaishnavi Borkar",
@@ -173,11 +183,21 @@
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
     "data": {
-      "easySolved": 9,
-      "mediumSolved": 3,
+      "easySolved": 11,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 18
+    "score": 23
+  },
+  {
+    "name": "Aryan Anoop Parihar",
+    "id": "AryanParihar07",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 17
   },
   {
     "name": "YASH YOGESH BORA",
@@ -198,16 +218,6 @@
       "hardSolved": 0
     },
     "score": 15
-  },
-  {
-    "name": "Aryan Anoop Parihar",
-    "id": "AryanParihar07",
-    "data": {
-      "easySolved": 11,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 11
   },
   {
     "name": "Aradhana Hingane",
@@ -362,6 +372,16 @@
   {
     "name": "Jalkote Vidyasagar",
     "id": "Sagar_04",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Yash Gaiwkad",
+    "id": "yash_gaikwad_08",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
