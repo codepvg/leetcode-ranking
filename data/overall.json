@@ -25,19 +25,19 @@
     "data": {
       "easySolved": 111,
       "mediumSolved": 112,
-      "hardSolved": 9
+      "hardSolved": 10
     },
-    "score": 492
+    "score": 497
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 100,
+      "easySolved": 101,
       "mediumSolved": 77,
       "hardSolved": 10
     },
-    "score": 381
+    "score": 382
   },
   {
     "name": "Harshad Bhalsing",
@@ -63,11 +63,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 52,
+      "easySolved": 54,
       "mediumSolved": 21,
       "hardSolved": 4
     },
-    "score": 135
+    "score": 137
   },
   {
     "name": "Shrutika Bhosale",
@@ -84,10 +84,10 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 52,
-      "mediumSolved": 22,
+      "mediumSolved": 24,
       "hardSolved": 0
     },
-    "score": 118
+    "score": 124
   },
   {
     "name": "Yash Jawale",
@@ -95,19 +95,19 @@
     "data": {
       "easySolved": 23,
       "mediumSolved": 28,
-      "hardSolved": 2
+      "hardSolved": 3
     },
-    "score": 117
+    "score": 122
   },
   {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 56,
+      "easySolved": 57,
       "mediumSolved": 17,
       "hardSolved": 1
     },
-    "score": 112
+    "score": 113
   },
   {
     "name": "Samruddhi Garge",
@@ -140,6 +140,16 @@
     "score": 81
   },
   {
+    "name": "Pranav Sunilkumar Ijantkar",
+    "id": "RagePool",
+    "data": {
+      "easySolved": 40,
+      "mediumSolved": 11,
+      "hardSolved": 1
+    },
+    "score": 78
+  },
+  {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
@@ -148,16 +158,6 @@
       "hardSolved": 2
     },
     "score": 77
-  },
-  {
-    "name": "Pranav Sunilkumar Ijantkar",
-    "id": "RagePool",
-    "data": {
-      "easySolved": 38,
-      "mediumSolved": 11,
-      "hardSolved": 1
-    },
-    "score": 76
   },
   {
     "name": "Shrikant Mhaske",
@@ -223,11 +223,21 @@
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
-      "easySolved": 3,
+      "easySolved": 8,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 9
+    "score": 14
+  },
+  {
+    "name": "Mahantesh madalgi",
+    "id": "mahantesh_00",
+    "data": {
+      "easySolved": 7,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 13
   },
   {
     "name": "Ajinkya Ashish Moharir",
