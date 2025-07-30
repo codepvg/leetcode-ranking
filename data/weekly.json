@@ -14,40 +14,30 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 8,
+      "mediumSolved": 7,
       "hardSolved": 2
     },
-    "score": 39
+    "score": 36
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 9,
+      "mediumSolved": 7,
       "hardSolved": 0
     },
-    "score": 34
+    "score": 28
   },
   {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 5,
+      "easySolved": 4,
       "mediumSolved": 6,
       "hardSolved": 1
     },
-    "score": 28
-  },
-  {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 6,
-      "hardSolved": 1
-    },
-    "score": 24
+    "score": 27
   },
   {
     "name": "Mansi Wagh",
@@ -64,8 +54,18 @@
     "id": "shreeya25",
     "data": {
       "easySolved": 8,
-      "mediumSolved": 3,
+      "mediumSolved": 4,
       "hardSolved": 0
+    },
+    "score": 20
+  },
+  {
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 4,
+      "hardSolved": 1
     },
     "score": 17
   },
@@ -73,31 +73,21 @@
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
-      "easySolved": 4,
-      "mediumSolved": 1,
+      "easySolved": 3,
+      "mediumSolved": 2,
       "hardSolved": 1
     },
-    "score": 12
+    "score": 14
   },
   {
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
     "data": {
-      "easySolved": 2,
+      "easySolved": 3,
       "mediumSolved": 1,
       "hardSolved": 1
     },
-    "score": 10
-  },
-  {
-    "name": "Rahul Ravindra Kate",
-    "id": "_rahul-173",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 8
+    "score": 11
   },
   {
     "name": "Aryan Anoop Parihar",
@@ -108,6 +98,16 @@
       "hardSolved": 0
     },
     "score": 7
+  },
+  {
+    "name": "Rahul Ravindra Kate",
+    "id": "_rahul-173",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 6
   },
   {
     "name": "Yash Jawale",
@@ -123,11 +123,11 @@
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
-      "easySolved": 2,
+      "easySolved": 5,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 2
+    "score": 5
   },
   {
     "name": "Aditya Kulkarni",
@@ -202,6 +202,16 @@
   {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
