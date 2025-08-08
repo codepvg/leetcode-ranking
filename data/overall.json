@@ -35,9 +35,9 @@
     "data": {
       "easySolved": 112,
       "mediumSolved": 115,
-      "hardSolved": 13
+      "hardSolved": 14
     },
-    "score": 522
+    "score": 527
   },
   {
     "name": "Aryan Botre",
@@ -74,10 +74,10 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 59,
-      "mediumSolved": 28,
+      "mediumSolved": 30,
       "hardSolved": 0
     },
-    "score": 143
+    "score": 149
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -134,10 +134,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 22,
+      "mediumSolved": 24,
       "hardSolved": 3
     },
-    "score": 99
+    "score": 105
   },
   {
     "name": "Rahul Ravindra Kate",
@@ -184,10 +184,10 @@
     "id": "shreeya25",
     "data": {
       "easySolved": 14,
-      "mediumSolved": 11,
+      "mediumSolved": 12,
       "hardSolved": 0
     },
-    "score": 47
+    "score": 50
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -253,11 +253,11 @@
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
-      "easySolved": 18,
+      "easySolved": 19,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 21
+    "score": 22
   },
   {
     "name": "Aryan Anoop Parihar",
