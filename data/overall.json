@@ -53,11 +53,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 45,
-      "mediumSolved": 80,
+      "easySolved": 46,
+      "mediumSolved": 83,
       "hardSolved": 13
     },
-    "score": 350
+    "score": 360
   },
   {
     "name": "Rayyan Shaikh",
@@ -240,6 +240,16 @@
     "score": 27
   },
   {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
+    "data": {
+      "easySolved": 22,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 25
+  },
+  {
     "name": "Shrinidhi Upadhye",
     "id": "shirya205",
     "data": {
@@ -248,16 +258,6 @@
       "hardSolved": 1
     },
     "score": 25
-  },
-  {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
-    "data": {
-      "easySolved": 21,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 24
   },
   {
     "name": "Aryan Anoop Parihar",
