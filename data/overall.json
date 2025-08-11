@@ -14,10 +14,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 107,
-      "mediumSolved": 150,
+      "mediumSolved": 151,
       "hardSolved": 12
     },
-    "score": 617
+    "score": 620
   },
   {
     "name": "Sushant Borde",
@@ -44,20 +44,30 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 102,
-      "mediumSolved": 91,
+      "mediumSolved": 95,
       "hardSolved": 14
     },
-    "score": 445
+    "score": 457
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 46,
-      "mediumSolved": 83,
+      "mediumSolved": 84,
       "hardSolved": 13
     },
-    "score": 360
+    "score": 363
+  },
+  {
+    "name": "Vedant Banaitkar",
+    "id": "vedantbanaitkar",
+    "data": {
+      "easySolved": 107,
+      "mediumSolved": 30,
+      "hardSolved": 2
+    },
+    "score": 207
   },
   {
     "name": "Rayyan Shaikh",
@@ -73,11 +83,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 59,
+      "easySolved": 60,
       "mediumSolved": 32,
       "hardSolved": 0
     },
-    "score": 155
+    "score": 156
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -100,6 +110,16 @@
     "score": 131
   },
   {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 58,
+      "mediumSolved": 22,
+      "hardSolved": 1
+    },
+    "score": 129
+  },
+  {
     "name": "Yash Jawale",
     "id": "Cross440",
     "data": {
@@ -108,16 +128,6 @@
       "hardSolved": 3
     },
     "score": 128
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 58,
-      "mediumSolved": 21,
-      "hardSolved": 1
-    },
-    "score": 126
   },
   {
     "name": "Samruddhi Garge",
@@ -144,10 +154,10 @@
     "id": "_rahul-173",
     "data": {
       "easySolved": 9,
-      "mediumSolved": 24,
+      "mediumSolved": 25,
       "hardSolved": 2
     },
-    "score": 91
+    "score": 94
   },
   {
     "name": "Vaishnavi Borkar",
@@ -183,11 +193,11 @@
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
-      "easySolved": 14,
+      "easySolved": 15,
       "mediumSolved": 12,
       "hardSolved": 0
     },
-    "score": 50
+    "score": 51
   },
   {
     "name": "Abhishek Laxman Guntuk",
