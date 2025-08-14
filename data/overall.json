@@ -54,10 +54,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 46,
-      "mediumSolved": 86,
+      "mediumSolved": 87,
       "hardSolved": 13
     },
-    "score": 369
+    "score": 372
   },
   {
     "name": "Vedant Banaitkar",
@@ -70,6 +70,16 @@
     "score": 207
   },
   {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 61,
+      "mediumSolved": 34,
+      "hardSolved": 0
+    },
+    "score": 163
+  },
+  {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
@@ -78,16 +88,6 @@
       "hardSolved": 4
     },
     "score": 162
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 60,
-      "mediumSolved": 33,
-      "hardSolved": 0
-    },
-    "score": 159
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -133,21 +133,21 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 18,
+      "easySolved": 20,
       "mediumSolved": 28,
       "hardSolved": 4
     },
-    "score": 122
+    "score": 124
   },
   {
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
       "easySolved": 48,
-      "mediumSolved": 23,
+      "mediumSolved": 24,
       "hardSolved": 0
     },
-    "score": 117
+    "score": 120
   },
   {
     "name": "Rahul Ravindra Kate",
@@ -213,11 +213,11 @@
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
     "data": {
-      "easySolved": 7,
+      "easySolved": 9,
       "mediumSolved": 8,
-      "hardSolved": 1
+      "hardSolved": 2
     },
-    "score": 36
+    "score": 43
   },
   {
     "name": "YASH YOGESH BORA",
@@ -233,21 +233,21 @@
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
     "data": {
-      "easySolved": 12,
+      "easySolved": 13,
       "mediumSolved": 5,
       "hardSolved": 1
     },
-    "score": 32
+    "score": 33
   },
   {
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
       "easySolved": 24,
-      "mediumSolved": 2,
+      "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 30
+    "score": 33
   },
   {
     "name": "Harshal Mahajan",
