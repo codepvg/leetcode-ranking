@@ -25,6 +25,7 @@
             
             <div class="tabs">
                 <button class="tab active" data-tab="overall">Overall</button>
+                <button class="tab" data-tab="monthly">Monthly</button>
                 <button class="tab" data-tab="weekly">Weekly</button>
                 <button class="tab" data-tab="daily">Daily</button>
             </div>
@@ -65,7 +66,7 @@
         const leaderboardData = {};
 
         async function fetchLeaderboardData() {
-            const endpoints = ['overall', 'weekly', 'daily'];
+            const endpoints = ['overall', 'monthly', 'weekly', 'daily'];
             for (const type of endpoints) {
                 const response = await fetch(`/api/${type}`);
                 leaderboardData[type] = await response.json();

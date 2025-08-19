@@ -176,4 +176,48 @@ function getFileName(daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+
+
+  monthlyData = JSON.parse(JSON.stringify(overallData));
+  console.log(" ");
+  console.log("Loading previous month's file...");
+  const previousMonthFilepath = path.join(__dirname, "..", "data", "daily", getFileName(30));
+  previousData = [];
+  try {
+    const rawData = fs.readFileSync(previousMonthFilepath, "utf8");
+    previousData = JSON.parse(rawData);
+    console.log("Previous week's data loaded successfully");
+  } catch (err) {
+    console.error(`Failed to load previous file: `, err.message);
+    process.exit(1);
+  }
+
+  console.log(" ");
+  console.log("Calculating monthly progress...")
+  for (let i = 0; i < monthlyData.length; i++) {
+    const previousIndex = previousData.findIndex(obj => obj.id === monthlyData[i].id);
+    if (previousIndex == -1) {
+      monthlyData.splice(i--, 1);
+      continue;
+    }
+    monthlyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
+    monthlyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
+    monthlyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+    monthlyData[i].score = monthlyData[i].data.easySolved + monthlyData[i].data.mediumSolved * 3 + monthlyData[i].data.hardSolved * 5;
+  }
+  console.log("Calculation done");
+  console.log("");
+
+  console.log("Sorting calculated data...");
+  monthlyData.sort((a, b) => b.score - a.score);
+
+  console.log("Writing sorted monthly data to monthly.json...")
+  const monthlyFilepath = path.join(__dirname, "..", "data", "monthly.json");
+  try {
+    fs.writeFileSync(monthlyFilepath, JSON.stringify(monthlyData, null, 2), "utf8");
+    console.log("Monthly data saved successfully");
+  } catch (err) {
+    console.error(`Failed to write json file: `, err.message);
+    process.exit(1);
+  }
 })();

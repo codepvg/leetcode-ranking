@@ -31,6 +31,10 @@ app.get("/api/overall", (req, res) => {
   res.sendFile(path.join(__dirname, "data", "overall.json"));
 });
 
+app.get("/api/monthly", (req, res) => {
+  res.sendFile(path.join(__dirname, "data", "monthly.json"));
+});
+
 app.get("/api/weekly", (req, res) => {
   res.sendFile(path.join(__dirname, "data", "weekly.json"));
 });
