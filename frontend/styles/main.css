@@ -253,6 +253,7 @@ body {
   justify-content: center;
   margin-bottom: 2rem;
   border-bottom: 1px solid #333;
+  flex-wrap: nowrap;
 }
 
 .tab {
@@ -646,7 +647,7 @@ body {
   
   .tab { 
     padding: 0.75rem 1rem; 
-    font-size: 1rem; 
+    font-size: 0.9rem; 
   }
   
   .page-title { 
