@@ -10,6 +10,16 @@
     "score": 1199
   },
   {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 175,
+      "mediumSolved": 175,
+      "hardSolved": 7
+    },
+    "score": 735
+  },
+  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
@@ -44,10 +54,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 103,
-      "mediumSolved": 95,
+      "mediumSolved": 96,
       "hardSolved": 14
     },
-    "score": 458
+    "score": 461
   },
   {
     "name": "Harshad Bhalsing",
@@ -140,22 +150,22 @@
     "score": 120
   },
   {
+    "name": "Rahul Ravindra Kate",
+    "id": "_rahul-173",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 26,
+      "hardSolved": 2
+    },
+    "score": 97
+  },
+  {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
       "easySolved": 41,
       "mediumSolved": 16,
       "hardSolved": 1
-    },
-    "score": 94
-  },
-  {
-    "name": "Rahul Ravindra Kate",
-    "id": "_rahul-173",
-    "data": {
-      "easySolved": 9,
-      "mediumSolved": 25,
-      "hardSolved": 2
     },
     "score": 94
   },
@@ -190,6 +200,16 @@
     "score": 52
   },
   {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
+    "data": {
+      "easySolved": 28,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 49
+  },
+  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
@@ -198,16 +218,6 @@
       "hardSolved": 0
     },
     "score": 47
-  },
-  {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
-    "data": {
-      "easySolved": 28,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 46
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -290,6 +300,16 @@
     "score": 14
   },
   {
+    "name": "Yash G",
+    "id": "00jXOB4uNf",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 14
+  },
+  {
     "name": "Mahantesh madalgi",
     "id": "mahantesh_00",
     "data": {
@@ -308,16 +328,6 @@
       "hardSolved": 1
     },
     "score": 13
-  },
-  {
-    "name": "Yash G",
-    "id": "00jXOB4uNf",
-    "data": {
-      "easySolved": 7,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 10
   },
   {
     "name": "Aradhana Hingane",
