@@ -3,41 +3,41 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 5,
-      "mediumSolved": 32,
+      "easySolved": 4,
+      "mediumSolved": 26,
       "hardSolved": 8
     },
-    "score": 141
+    "score": 122
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 23,
+      "mediumSolved": 24,
       "hardSolved": 1
     },
-    "score": 92
+    "score": 95
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 11,
-      "mediumSolved": 20,
+      "easySolved": 8,
+      "mediumSolved": 18,
       "hardSolved": 3
     },
-    "score": 86
+    "score": 77
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 15,
+      "mediumSolved": 13,
       "hardSolved": 2
     },
-    "score": 60
+    "score": 54
   },
   {
     "name": "Neevan Redkar",
@@ -73,11 +73,11 @@
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
-      "easySolved": 25,
+      "easySolved": 26,
       "mediumSolved": 7,
       "hardSolved": 0
     },
-    "score": 46
+    "score": 47
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -88,16 +88,6 @@
       "hardSolved": 1
     },
     "score": 28
-  },
-  {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 8,
-      "hardSolved": 0
-    },
-    "score": 25
   },
   {
     "name": "Rahul Ravindra Kate",
@@ -118,6 +108,16 @@
       "hardSolved": 0
     },
     "score": 23
+  },
+  {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 22
   },
   {
     "name": "Jagdish Prajapati",
