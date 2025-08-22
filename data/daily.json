@@ -10,18 +10,8 @@
     "score": 3
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 3
-  },
-  {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
+    "name": "Reshma Babaleshwar",
+    "id": "Reshma_Babaleshwar",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -92,6 +82,16 @@
   {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -210,6 +210,16 @@
     "score": 0
   },
   {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
@@ -312,16 +322,6 @@
   {
     "name": "Mahantesh madalgi",
     "id": "mahantesh_00",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Reshma Babaleshwar",
-    "id": "Reshma_Babaleshwar",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
