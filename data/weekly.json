@@ -4,10 +4,10 @@
     "id": "heapwizard",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 5,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 22
+    "score": 19
   },
   {
     "name": "Saniya Gupte",
@@ -24,10 +24,20 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 0,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 12
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 1,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 9
+    "score": 10
   },
   {
     "name": "Yash G",
@@ -38,16 +48,6 @@
       "hardSolved": 0
     },
     "score": 8
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 6
   },
   {
     "name": "Harshad Bhalsing",
@@ -90,8 +90,28 @@
     "score": 1
   },
   {
+    "name": "Harshal Mahajan",
+    "id": "Harshal2613",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Reshma Babaleshwar",
+    "id": "Reshma_Babaleshwar",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -252,16 +272,6 @@
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Harshal Mahajan",
-    "id": "Harshal2613",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -492,6 +502,16 @@
   {
     "name": "Shrutika Bhosale",
     "id": "Shrutika_20",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Shrawani",
+    "id": "Shrawani312",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
