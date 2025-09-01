@@ -23,11 +23,11 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 112,
+      "easySolved": 113,
       "mediumSolved": 156,
       "hardSolved": 12
     },
-    "score": 640
+    "score": 641
   },
   {
     "name": "Sushant Borde",
@@ -64,10 +64,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 46,
-      "mediumSolved": 93,
+      "mediumSolved": 94,
       "hardSolved": 14
     },
-    "score": 395
+    "score": 398
   },
   {
     "name": "Vedant Banaitkar",
@@ -83,21 +83,21 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 65,
+      "easySolved": 66,
       "mediumSolved": 43,
       "hardSolved": 1
     },
-    "score": 199
+    "score": 200
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 64,
-      "mediumSolved": 28,
-      "hardSolved": 4
+      "easySolved": 66,
+      "mediumSolved": 29,
+      "hardSolved": 5
     },
-    "score": 168
+    "score": 178
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -183,11 +183,11 @@
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
     "data": {
-      "easySolved": 35,
+      "easySolved": 37,
       "mediumSolved": 19,
       "hardSolved": 0
     },
-    "score": 92
+    "score": 94
   },
   {
     "name": "Kaustubh Rananaware",
@@ -213,11 +213,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 11,
+      "easySolved": 13,
       "mediumSolved": 12,
       "hardSolved": 0
     },
-    "score": 47
+    "score": 49
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -300,6 +300,16 @@
     "score": 20
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 20
+  },
+  {
     "name": "Yash G",
     "id": "00jXOB4uNf",
     "data": {
@@ -308,16 +318,6 @@
       "hardSolved": 0
     },
     "score": 16
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 8,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 14
   },
   {
     "name": "Reshma Babaleshwar",
