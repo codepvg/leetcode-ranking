@@ -154,10 +154,10 @@
     "id": "_rahul-173",
     "data": {
       "easySolved": 11,
-      "mediumSolved": 26,
+      "mediumSolved": 27,
       "hardSolved": 2
     },
-    "score": 99
+    "score": 102
   },
   {
     "name": "Shrikant Mhaske",
@@ -170,6 +170,16 @@
     "score": 99
   },
   {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 37,
+      "mediumSolved": 20,
+      "hardSolved": 0
+    },
+    "score": 97
+  },
+  {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
@@ -178,16 +188,6 @@
       "hardSolved": 1
     },
     "score": 95
-  },
-  {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
-    "data": {
-      "easySolved": 37,
-      "mediumSolved": 19,
-      "hardSolved": 0
-    },
-    "score": 94
   },
   {
     "name": "Kaustubh Rananaware",
@@ -290,21 +290,21 @@
     "score": 23
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 23
+  },
+  {
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
       "easySolved": 14,
       "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 20
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 11,
-      "mediumSolved": 3,
       "hardSolved": 0
     },
     "score": 20

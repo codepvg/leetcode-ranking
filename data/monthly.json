@@ -100,8 +100,18 @@
     "score": 17
   },
   {
-    "name": "SHREYA KULKARNI",
-    "id": "shreeya25",
+    "name": "Rahul Ravindra Kate",
+    "id": "_rahul-173",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 3,
+      "hardSolved": 1
+    },
+    "score": 16
+  },
+  {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
     "data": {
       "easySolved": 3,
       "mediumSolved": 4,
@@ -110,14 +120,14 @@
     "score": 15
   },
   {
-    "name": "Rahul Ravindra Kate",
-    "id": "_rahul-173",
+    "name": "SHREYA KULKARNI",
+    "id": "shreeya25",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": 1
+      "easySolved": 3,
+      "mediumSolved": 4,
+      "hardSolved": 0
     },
-    "score": 13
+    "score": 15
   },
   {
     "name": "Neevan Redkar",
@@ -130,14 +140,14 @@
     "score": 12
   },
   {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 3,
-      "mediumSolved": 3,
+      "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 12
+    "score": 9
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -175,16 +185,6 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 6
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 1,
       "hardSolved": 0
     },
     "score": 6
