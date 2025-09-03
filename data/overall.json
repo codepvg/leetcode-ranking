@@ -1,15 +1,5 @@
 [
   {
-    "name": "Samruddhi Kadam",
-    "id": "samruddhi",
-    "data": {
-      "easySolved": 196,
-      "mediumSolved": 256,
-      "hardSolved": 47
-    },
-    "score": 1199
-  },
-  {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
@@ -240,6 +230,16 @@
     "score": 35
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 8,
+      "hardSolved": 0
+    },
+    "score": 35
+  },
+  {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
@@ -268,16 +268,6 @@
       "hardSolved": 0
     },
     "score": 30
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 11,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 29
   },
   {
     "name": "Shrinidhi Upadhye",

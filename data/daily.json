@@ -4,10 +4,10 @@
     "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 2,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 6
+    "score": 12
   },
   {
     "name": "Aryan Botre",
@@ -38,16 +38,6 @@
       "hardSolved": 0
     },
     "score": 1
-  },
-  {
-    "name": "Samruddhi Kadam",
-    "id": "samruddhi",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
   },
   {
     "name": "Anurag",

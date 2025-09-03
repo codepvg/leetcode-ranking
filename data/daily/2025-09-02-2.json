@@ -230,16 +230,6 @@
     "score": 401
   },
   {
-    "name": "Samruddhi Kadam",
-    "id": "samruddhi",
-    "data": {
-      "easySolved": 196,
-      "mediumSolved": 256,
-      "hardSolved": 47
-    },
-    "score": 1199
-  },
-  {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
     "data": {
@@ -394,10 +384,10 @@
     "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 11,
-      "mediumSolved": 6,
+      "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 29
+    "score": 35
   },
   {
     "name": "Mahantesh madalgi",
