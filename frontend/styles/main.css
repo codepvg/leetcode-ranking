@@ -95,7 +95,7 @@ body {
 }
 
 .navbar .nav-links a:hover,
-.navbar .nav-links {
+.navbar .nav-links a.active {
   color: #4ade80;
 }
 
@@ -497,6 +497,7 @@ body {
 .section-title.blue { color: #22d3ee; }
 .section-title.red { color: #ef4444; }
 .section-title.orange { color: #f59e0b; }
+.section-title.purple { color: #8b5cf6; }
 
 .grid-2 {
   display: grid;
@@ -593,6 +594,96 @@ body {
   animation: scroll 2s ease-in-out infinite;
 }
 
+/* Contact Section */
+.contact-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.contact-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: transform 0.3s ease;
+}
+
+.contact-icon.linkedin {
+  background: linear-gradient(135deg, #0077b5, #005885);
+  color: white;
+}
+
+.contact-icon.email {
+  background: linear-gradient(135deg, #ea4335, #d33b2c);
+  color: white;
+}
+
+.contact-icon.whatsapp {
+  background: linear-gradient(135deg, #25d366, #1da851);
+  color: white;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.contact-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  color: white;
+}
+
+.linkedin-btn {
+  background: linear-gradient(135deg, #0077b5, #005885);
+}
+
+.linkedin-btn:hover {
+  background: linear-gradient(135deg, #005885, #004a6b);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4);
+}
+
+.email-btn {
+  background: linear-gradient(135deg, #ea4335, #d33b2c);
+}
+
+.email-btn:hover {
+  background: linear-gradient(135deg, #d33b2c, #b52d20);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
+}
+
+.whatsapp-btn {
+  background: linear-gradient(135deg, #25d366, #1da851);
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #1da851, #128c3c);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+}
+
+.contact-description {
+  color: #aaa;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .hero-title { 
@@ -657,6 +748,20 @@ body {
   .form-card { 
     padding: 2rem; 
   }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -694,6 +799,7 @@ body {
   }
 }
 
+/* Hiding scrollbar */
 html, body {
   scrollbar-width: none;       /* Firefox */
   -ms-overflow-style: none;    /* IE and Edge */
