@@ -3,21 +3,21 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 0,
-      "mediumSolved": 5,
+      "easySolved": 1,
+      "mediumSolved": 7,
       "hardSolved": 3
     },
-    "score": 30
+    "score": 37
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 3,
+      "easySolved": 4,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 21
+    "score": 22
   },
   {
     "name": "Harshad Bhalsing",
@@ -30,14 +30,14 @@
     "score": 20
   },
   {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
     "data": {
-      "easySolved": 0,
-      "mediumSolved": 5,
-      "hardSolved": 0
+      "easySolved": 5,
+      "mediumSolved": 1,
+      "hardSolved": 1
     },
-    "score": 15
+    "score": 13
   },
   {
     "name": "Vaishnavi Borkar",
@@ -50,16 +50,6 @@
     "score": 12
   },
   {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 1,
-      "hardSolved": 1
-    },
-    "score": 10
-  },
-  {
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
@@ -70,21 +60,11 @@
     "score": 10
   },
   {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 1,
-      "hardSolved": 1
-    },
-    "score": 8
-  },
-  {
-    "name": "Rahul Ravindra Kate",
-    "id": "_rahul-173",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 1,
+      "mediumSolved": 2,
       "hardSolved": 0
     },
     "score": 6
@@ -100,11 +80,21 @@
     "score": 5
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
+    "name": "Rahul Ravindra Kate",
+    "id": "_rahul-173",
     "data": {
-      "easySolved": 0,
+      "easySolved": 1,
       "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 4
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 3,
+      "mediumSolved": 0,
       "hardSolved": 0
     },
     "score": 3
@@ -120,14 +110,14 @@
     "score": 2
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
+    "name": "Anurag",
+    "id": "anuragmuley",
     "data": {
-      "easySolved": 2,
+      "easySolved": 1,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 2
+    "score": 1
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -162,6 +152,16 @@
   {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
