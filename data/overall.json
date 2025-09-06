@@ -54,10 +54,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 105,
-      "mediumSolved": 107,
+      "mediumSolved": 109,
       "hardSolved": 17
     },
-    "score": 511
+    "score": 517
   },
   {
     "name": "Harshad Bhalsing",
@@ -84,10 +84,10 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 67,
-      "mediumSolved": 43,
+      "mediumSolved": 45,
       "hardSolved": 1
     },
-    "score": 201
+    "score": 207
   },
   {
     "name": "Rayyan Shaikh",
@@ -150,6 +150,16 @@
     "score": 128
   },
   {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 37,
+      "mediumSolved": 24,
+      "hardSolved": 0
+    },
+    "score": 109
+  },
+  {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
@@ -166,16 +176,6 @@
       "easySolved": 12,
       "mediumSolved": 27,
       "hardSolved": 2
-    },
-    "score": 103
-  },
-  {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
-    "data": {
-      "easySolved": 37,
-      "mediumSolved": 22,
-      "hardSolved": 0
     },
     "score": 103
   },
