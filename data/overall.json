@@ -1,5 +1,15 @@
 [
   {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 245,
+      "mediumSolved": 159,
+      "hardSolved": 5
+    },
+    "score": 747
+  },
+  {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
@@ -10,24 +20,14 @@
     "score": 746
   },
   {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 243,
-      "mediumSolved": 157,
-      "hardSolved": 5
-    },
-    "score": 739
-  },
-  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 113,
-      "mediumSolved": 156,
+      "mediumSolved": 157,
       "hardSolved": 12
     },
-    "score": 641
+    "score": 644
   },
   {
     "name": "Sushant Borde",
@@ -70,6 +70,16 @@
     "score": 401
   },
   {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 67,
+      "mediumSolved": 46,
+      "hardSolved": 1
+    },
+    "score": 210
+  },
+  {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
     "data": {
@@ -78,16 +88,6 @@
       "hardSolved": 2
     },
     "score": 210
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 67,
-      "mediumSolved": 45,
-      "hardSolved": 1
-    },
-    "score": 207
   },
   {
     "name": "Rayyan Shaikh",
@@ -134,10 +134,10 @@
     "id": "Samruddhi_garge",
     "data": {
       "easySolved": 49,
-      "mediumSolved": 27,
+      "mediumSolved": 28,
       "hardSolved": 0
     },
-    "score": 130
+    "score": 133
   },
   {
     "name": "Yash Jawale",
@@ -200,21 +200,21 @@
     "score": 67
   },
   {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 13,
+      "mediumSolved": 15,
+      "hardSolved": 0
+    },
+    "score": 58
+  },
+  {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
       "easySolved": 16,
       "mediumSolved": 12,
-      "hardSolved": 0
-    },
-    "score": 52
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 13,
-      "mediumSolved": 13,
       "hardSolved": 0
     },
     "score": 52
@@ -235,9 +235,9 @@
     "data": {
       "easySolved": 12,
       "mediumSolved": 8,
-      "hardSolved": 0
+      "hardSolved": 1
     },
-    "score": 36
+    "score": 41
   },
   {
     "name": "Jagdish Prajapati",
