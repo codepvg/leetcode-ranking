@@ -13,11 +13,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 8,
-      "mediumSolved": 16,
+      "easySolved": 10,
+      "mediumSolved": 14,
       "hardSolved": 1
     },
-    "score": 61
+    "score": 57
   },
   {
     "name": "Harshad Bhalsing",
@@ -33,21 +33,21 @@
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
-      "easySolved": 18,
+      "easySolved": 16,
       "mediumSolved": 9,
       "hardSolved": 0
     },
-    "score": 45
+    "score": 43
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 2,
-      "mediumSolved": 5,
+      "mediumSolved": 4,
       "hardSolved": 4
     },
-    "score": 37
+    "score": 34
   },
   {
     "name": "Saniya Gupte",
@@ -83,11 +83,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 8,
+      "easySolved": 9,
       "mediumSolved": 2,
       "hardSolved": 1
     },
-    "score": 19
+    "score": 20
   },
   {
     "name": "Vaishnavi Borkar",
@@ -104,10 +104,10 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 6,
+      "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 18
+    "score": 15
   },
   {
     "name": "Yash G",
@@ -120,14 +120,14 @@
     "score": 15
   },
   {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 4,
+      "easySolved": 6,
+      "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 14
+    "score": 12
   },
   {
     "name": "Rahul Ravindra Kate",
@@ -140,11 +140,11 @@
     "score": 12
   },
   {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 5,
-      "mediumSolved": 2,
+      "easySolved": 2,
+      "mediumSolved": 3,
       "hardSolved": 0
     },
     "score": 11

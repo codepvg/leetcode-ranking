@@ -3,31 +3,31 @@
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
-      "easySolved": 245,
+      "easySolved": 246,
       "mediumSolved": 159,
       "hardSolved": 5
     },
-    "score": 747
+    "score": 748
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
-      "easySolved": 177,
+      "easySolved": 178,
       "mediumSolved": 178,
       "hardSolved": 7
     },
-    "score": 746
+    "score": 747
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 113,
-      "mediumSolved": 157,
+      "mediumSolved": 158,
       "hardSolved": 12
     },
-    "score": 644
+    "score": 647
   },
   {
     "name": "Sushant Borde",
@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 67,
+      "easySolved": 69,
       "mediumSolved": 46,
       "hardSolved": 1
     },
-    "score": 210
+    "score": 212
   },
   {
     "name": "Vedant Banaitkar",
@@ -93,11 +93,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 69,
+      "easySolved": 70,
       "mediumSolved": 29,
       "hardSolved": 5
     },
-    "score": 181
+    "score": 182
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -110,6 +110,16 @@
     "score": 142
   },
   {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 64,
+      "mediumSolved": 23,
+      "hardSolved": 1
+    },
+    "score": 138
+  },
+  {
     "name": "Kabeer Ahmed Merchant",
     "id": "Kabeer2004",
     "data": {
@@ -118,16 +128,6 @@
       "hardSolved": 1
     },
     "score": 138
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 63,
-      "mediumSolved": 23,
-      "hardSolved": 1
-    },
-    "score": 137
   },
   {
     "name": "Samruddhi Garge",
