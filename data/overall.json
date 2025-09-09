@@ -53,31 +53,31 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 105,
+      "easySolved": 107,
       "mediumSolved": 109,
       "hardSolved": 17
     },
-    "score": 517
+    "score": 519
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 46,
-      "mediumSolved": 95,
+      "mediumSolved": 97,
       "hardSolved": 14
     },
-    "score": 401
+    "score": 407
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 69,
-      "mediumSolved": 46,
+      "easySolved": 70,
+      "mediumSolved": 47,
       "hardSolved": 1
     },
-    "score": 212
+    "score": 216
   },
   {
     "name": "Vedant Banaitkar",
@@ -93,11 +93,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 70,
+      "easySolved": 71,
       "mediumSolved": 29,
       "hardSolved": 5
     },
-    "score": 182
+    "score": 183
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -180,6 +180,16 @@
     "score": 103
   },
   {
+    "name": "Dhanshree Magar",
+    "id": "dhan04shree",
+    "data": {
+      "easySolved": 41,
+      "mediumSolved": 17,
+      "hardSolved": 1
+    },
+    "score": 97
+  },
+  {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
@@ -240,6 +250,16 @@
     "score": 41
   },
   {
+    "name": "Harshal Mahajan",
+    "id": "Harshal2613",
+    "data": {
+      "easySolved": 13,
+      "mediumSolved": 6,
+      "hardSolved": 1
+    },
+    "score": 36
+  },
+  {
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
     "data": {
@@ -268,16 +288,6 @@
       "hardSolved": 1
     },
     "score": 34
-  },
-  {
-    "name": "Harshal Mahajan",
-    "id": "Harshal2613",
-    "data": {
-      "easySolved": 12,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 30
   },
   {
     "name": "Shrinidhi Upadhye",
@@ -532,6 +542,16 @@
   {
     "name": "Shrawani",
     "id": "Shrawani312",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Vedang",
+    "id": "VSS108",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
