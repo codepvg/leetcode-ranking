@@ -3,11 +3,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 5,
+      "easySolved": 4,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 23
+    "score": 22
   },
   {
     "name": "Harshal Mahajan",
@@ -20,24 +20,34 @@
     "score": 20
   },
   {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 16
+  },
+  {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 3,
-      "mediumSolved": 5,
+      "easySolved": 2,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 18
+    "score": 14
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 2,
+      "mediumSolved": 3,
       "hardSolved": 1
     },
-    "score": 11
+    "score": 14
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -50,8 +60,18 @@
     "score": 11
   },
   {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 10
+  },
+  {
+    "name": "Anurag",
+    "id": "anuragmuley",
     "data": {
       "easySolved": 1,
       "mediumSolved": 2,
@@ -60,8 +80,8 @@
     "score": 7
   },
   {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
     "data": {
       "easySolved": 1,
       "mediumSolved": 2,
@@ -83,19 +103,9 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 1,
+      "easySolved": 0,
       "mediumSolved": 0,
       "hardSolved": 1
-    },
-    "score": 6
-  },
-  {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 0,
-      "hardSolved": 0
     },
     "score": 5
   },
@@ -110,8 +120,8 @@
     "score": 3
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
     "data": {
       "easySolved": 2,
       "mediumSolved": 0,

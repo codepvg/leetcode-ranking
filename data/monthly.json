@@ -1,23 +1,23 @@
 [
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 11,
-      "mediumSolved": 17,
-      "hardSolved": 1
-    },
-    "score": 67
-  },
-  {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 15,
+      "mediumSolved": 16,
       "hardSolved": 3
     },
-    "score": 65
+    "score": 68
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 16,
+      "hardSolved": 1
+    },
+    "score": 64
   },
   {
     "name": "Harshad Bhalsing",
@@ -34,20 +34,10 @@
     "id": "heapwizard",
     "data": {
       "easySolved": 13,
-      "mediumSolved": 9,
+      "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 40
-  },
-  {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 3,
-      "hardSolved": 4
-    },
-    "score": 31
+    "score": 37
   },
   {
     "name": "Saniya Gupte",
@@ -90,6 +80,16 @@
     "score": 21
   },
   {
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 1,
+      "hardSolved": 3
+    },
+    "score": 20
+  },
+  {
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
     "data": {
@@ -103,11 +103,11 @@
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
-      "easySolved": 2,
+      "easySolved": 1,
       "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 17
+    "score": 16
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -140,6 +140,16 @@
     "score": 13
   },
   {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 10
+  },
+  {
     "name": "Rahul Ravindra Kate",
     "id": "_rahul-173",
     "data": {
@@ -166,16 +176,6 @@
       "easySolved": 2,
       "mediumSolved": 0,
       "hardSolved": 1
-    },
-    "score": 7
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 2,
-      "hardSolved": 0
     },
     "score": 7
   },
