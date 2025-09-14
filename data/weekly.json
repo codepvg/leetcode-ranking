@@ -3,21 +3,11 @@
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 4,
+      "easySolved": 3,
+      "mediumSolved": 5,
       "hardSolved": 2
     },
-    "score": 24
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 4,
-      "mediumSolved": 5,
-      "hardSolved": 0
-    },
-    "score": 19
+    "score": 28
   },
   {
     "name": "Harshad Bhalsing",
@@ -30,18 +20,18 @@
     "score": 19
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
+    "name": "Aryan Botre",
+    "id": "aryanbotre18",
     "data": {
-      "easySolved": 4,
+      "easySolved": 3,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 16
+    "score": 15
   },
   {
-    "name": "Aryan Botre",
-    "id": "aryanbotre18",
+    "name": "Anurag",
+    "id": "anuragmuley",
     "data": {
       "easySolved": 2,
       "mediumSolved": 4,
@@ -50,8 +40,18 @@
     "score": 14
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 13
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
     "data": {
       "easySolved": 1,
       "mediumSolved": 4,
@@ -60,48 +60,28 @@
     "score": 13
   },
   {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 3,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 12
+  },
+  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
       "easySolved": 2,
-      "mediumSolved": 3,
+      "mediumSolved": 1,
       "hardSolved": 0
-    },
-    "score": 11
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 3,
-      "hardSolved": 0
-    },
-    "score": 10
-  },
-  {
-    "name": "Saniya Gupte",
-    "id": "SaniyaGupte",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 6
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 1
     },
     "score": 5
   },
   {
-    "name": "Samruddhi Garge",
-    "id": "Samruddhi_garge",
+    "name": "Saniya Gupte",
+    "id": "SaniyaGupte",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
@@ -113,11 +93,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 2,
+      "easySolved": 3,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 2
+    "score": 3
   },
   {
     "name": "Avinash Ganore",
@@ -142,6 +122,16 @@
   {
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -210,6 +200,16 @@
     "score": 0
   },
   {
+    "name": "Samruddhi Garge",
+    "id": "Samruddhi_garge",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Yash Jawale",
     "id": "Cross440",
     "data": {
@@ -250,16 +250,6 @@
     "score": 0
   },
   {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
@@ -272,6 +262,16 @@
   {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
