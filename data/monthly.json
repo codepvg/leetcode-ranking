@@ -3,21 +3,21 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 6,
-      "mediumSolved": 26,
+      "easySolved": 8,
+      "mediumSolved": 27,
       "hardSolved": 3
     },
-    "score": 99
+    "score": 104
   },
   {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
       "easySolved": 13,
-      "mediumSolved": 9,
+      "mediumSolved": 13,
       "hardSolved": 3
     },
-    "score": 55
+    "score": 67
   },
   {
     "name": "Harshad Bhalsing",
@@ -34,30 +34,40 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 15,
-      "mediumSolved": 11,
+      "mediumSolved": 10,
       "hardSolved": 0
     },
-    "score": 48
+    "score": 45
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 3,
-      "mediumSolved": 10,
+      "mediumSolved": 12,
       "hardSolved": 1
     },
-    "score": 38
+    "score": 44
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 6,
-      "mediumSolved": 10,
+      "easySolved": 8,
+      "mediumSolved": 11,
       "hardSolved": 0
     },
-    "score": 36
+    "score": 41
+  },
+  {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 5,
+      "mediumSolved": 8,
+      "hardSolved": 0
+    },
+    "score": 29
   },
   {
     "name": "Ajinkya Ashish Moharir",
@@ -70,24 +80,14 @@
     "score": 27
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 7,
-      "hardSolved": 0
-    },
-    "score": 26
-  },
-  {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 11,
+      "easySolved": 12,
       "mediumSolved": 3,
       "hardSolved": 1
     },
-    "score": 25
+    "score": 26
   },
   {
     "name": "Vaishnavi Borkar",
@@ -100,22 +100,22 @@
     "score": 19
   },
   {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
-    "data": {
-      "easySolved": 10,
-      "mediumSolved": 3,
-      "hardSolved": 0
-    },
-    "score": 19
-  },
-  {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
       "hardSolved": 3
+    },
+    "score": 18
+  },
+  {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 3,
+      "hardSolved": 0
     },
     "score": 18
   },
