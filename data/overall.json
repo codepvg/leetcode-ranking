@@ -14,10 +14,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 251,
-      "mediumSolved": 168,
+      "mediumSolved": 169,
       "hardSolved": 5
     },
-    "score": 780
+    "score": 783
   },
   {
     "name": "Anurag",
@@ -83,11 +83,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 78,
+      "easySolved": 80,
       "mediumSolved": 49,
       "hardSolved": 1
     },
-    "score": 230
+    "score": 232
   },
   {
     "name": "Vedant Banaitkar",
@@ -104,10 +104,10 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 74,
-      "mediumSolved": 30,
-      "hardSolved": 5
+      "mediumSolved": 31,
+      "hardSolved": 7
     },
-    "score": 189
+    "score": 202
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -190,6 +190,16 @@
     "score": 103
   },
   {
+    "name": "Harshal Mahajan",
+    "id": "Harshal2613",
+    "data": {
+      "easySolved": 23,
+      "mediumSolved": 21,
+      "hardSolved": 3
+    },
+    "score": 101
+  },
+  {
     "name": "Dhanshree Magar",
     "id": "dhan04shree",
     "data": {
@@ -210,34 +220,24 @@
     "score": 95
   },
   {
-    "name": "Harshal Mahajan",
-    "id": "Harshal2613",
-    "data": {
-      "easySolved": 22,
-      "mediumSolved": 19,
-      "hardSolved": 3
-    },
-    "score": 94
-  },
-  {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 14,
-      "mediumSolved": 18,
+      "mediumSolved": 19,
       "hardSolved": 2
     },
-    "score": 78
+    "score": 81
   },
   {
     "name": "Aditya sarse",
     "id": "cxV1JzH5C2",
     "data": {
-      "easySolved": 24,
+      "easySolved": 25,
       "mediumSolved": 13,
       "hardSolved": 3
     },
-    "score": 78
+    "score": 79
   },
   {
     "name": "Kaustubh Rananaware",
@@ -273,11 +273,21 @@
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
     "data": {
-      "easySolved": 9,
+      "easySolved": 11,
       "mediumSolved": 8,
       "hardSolved": 2
     },
-    "score": 43
+    "score": 45
+  },
+  {
+    "name": "Samarth Deshpande",
+    "id": "SamarthhD",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 10,
+      "hardSolved": 0
+    },
+    "score": 44
   },
   {
     "name": "Ajinkya Ashish Moharir",
