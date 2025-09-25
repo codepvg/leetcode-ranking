@@ -44,10 +44,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 114,
-      "mediumSolved": 127,
+      "mediumSolved": 130,
       "hardSolved": 20
     },
-    "score": 595
+    "score": 604
   },
   {
     "name": "Sushant Borde",
@@ -104,10 +104,10 @@
     "id": "vedantbanaitkar",
     "data": {
       "easySolved": 110,
-      "mediumSolved": 30,
+      "mediumSolved": 31,
       "hardSolved": 2
     },
-    "score": 210
+    "score": 213
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -164,20 +164,20 @@
     "id": "borkarvaishnavi45",
     "data": {
       "easySolved": 38,
-      "mediumSolved": 24,
+      "mediumSolved": 25,
       "hardSolved": 0
     },
-    "score": 110
+    "score": 113
   },
   {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
-      "easySolved": 27,
+      "easySolved": 28,
       "mediumSolved": 21,
       "hardSolved": 4
     },
-    "score": 110
+    "score": 111
   },
   {
     "name": "Shrikant Mhaske",
@@ -193,11 +193,11 @@
     "name": "Rahul Ravindra Kate",
     "id": "_rahul-173",
     "data": {
-      "easySolved": 12,
+      "easySolved": 13,
       "mediumSolved": 27,
       "hardSolved": 2
     },
-    "score": 103
+    "score": 104
   },
   {
     "name": "Dhanshree Magar",
@@ -223,21 +223,21 @@
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 15,
+      "easySolved": 16,
       "mediumSolved": 21,
       "hardSolved": 3
     },
-    "score": 93
+    "score": 94
   },
   {
     "name": "Aditya sarse",
     "id": "cxV1JzH5C2",
     "data": {
       "easySolved": 26,
-      "mediumSolved": 15,
+      "mediumSolved": 16,
       "hardSolved": 4
     },
-    "score": 91
+    "score": 94
   },
   {
     "name": "Kaustubh Rananaware",
@@ -253,11 +253,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 15,
+      "easySolved": 16,
       "mediumSolved": 16,
       "hardSolved": 0
     },
-    "score": 63
+    "score": 64
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -602,6 +602,16 @@
   {
     "name": "Vedang",
     "id": "VSS108",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Tanishq Patil",
+    "id": "Tanishq4008",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
