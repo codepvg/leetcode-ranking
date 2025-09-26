@@ -3,49 +3,49 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 11,
-      "mediumSolved": 30,
+      "easySolved": 10,
+      "mediumSolved": 32,
       "hardSolved": 6
     },
-    "score": 131
+    "score": 136
   },
   {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 15,
+      "mediumSolved": 16,
       "hardSolved": 4
     },
-    "score": 83
+    "score": 86
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 15,
+      "mediumSolved": 16,
       "hardSolved": 2
     },
-    "score": 60
+    "score": 63
+  },
+  {
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 10,
+      "hardSolved": 3
+    },
+    "score": 59
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 9,
-      "hardSolved": 2
-    },
-    "score": 55
-  },
-  {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
-    "data": {
-      "easySolved": 13,
       "mediumSolved": 8,
-      "hardSolved": 3
+      "hardSolved": 2
     },
     "score": 52
   },
@@ -54,20 +54,20 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 10,
+      "mediumSolved": 8,
       "hardSolved": 3
     },
-    "score": 45
+    "score": 39
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 9,
+      "easySolved": 8,
       "mediumSolved": 9,
       "hardSolved": 0
     },
-    "score": 36
+    "score": 35
   },
   {
     "name": "Ajinkya Ashish Moharir",
@@ -83,11 +83,11 @@
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
-      "easySolved": 5,
+      "easySolved": 4,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 23
+    "score": 22
   },
   {
     "name": "Vaishnavi Borkar",
@@ -118,6 +118,16 @@
       "hardSolved": 0
     },
     "score": 17
+  },
+  {
+    "name": "Vedant Banaitkar",
+    "id": "vedantbanaitkar",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 2,
+      "hardSolved": 1
+    },
+    "score": 15
   },
   {
     "name": "Shrikant Mhaske",
@@ -170,26 +180,6 @@
     "score": 7
   },
   {
-    "name": "Vedant Banaitkar",
-    "id": "vedantbanaitkar",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 6
-  },
-  {
-    "name": "Kaustubh Rananaware",
-    "id": "heapwizard",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 5
-  },
-  {
     "name": "Mansi Wagh",
     "id": "mansi_65478",
     "data": {
@@ -212,6 +202,16 @@
   {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Kaustubh Rananaware",
+    "id": "heapwizard",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,

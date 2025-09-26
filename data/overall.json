@@ -44,10 +44,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 114,
-      "mediumSolved": 130,
+      "mediumSolved": 132,
       "hardSolved": 20
     },
-    "score": 604
+    "score": 610
   },
   {
     "name": "Sushant Borde",
@@ -93,21 +93,21 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 75,
-      "mediumSolved": 35,
+      "easySolved": 76,
+      "mediumSolved": 38,
       "hardSolved": 7
     },
-    "score": 215
+    "score": 225
   },
   {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
     "data": {
-      "easySolved": 110,
-      "mediumSolved": 31,
-      "hardSolved": 2
+      "easySolved": 111,
+      "mediumSolved": 32,
+      "hardSolved": 3
     },
-    "score": 213
+    "score": 222
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -160,6 +160,16 @@
     "score": 128
   },
   {
+    "name": "Harshal Mahajan",
+    "id": "Harshal2613",
+    "data": {
+      "easySolved": 28,
+      "mediumSolved": 22,
+      "hardSolved": 4
+    },
+    "score": 114
+  },
+  {
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
     "data": {
@@ -168,16 +178,6 @@
       "hardSolved": 0
     },
     "score": 113
-  },
-  {
-    "name": "Harshal Mahajan",
-    "id": "Harshal2613",
-    "data": {
-      "easySolved": 28,
-      "mediumSolved": 21,
-      "hardSolved": 4
-    },
-    "score": 111
   },
   {
     "name": "Shrikant Mhaske",
@@ -200,6 +200,26 @@
     "score": 104
   },
   {
+    "name": "Aditya sarse",
+    "id": "cxV1JzH5C2",
+    "data": {
+      "easySolved": 27,
+      "mediumSolved": 17,
+      "hardSolved": 4
+    },
+    "score": 98
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 16,
+      "mediumSolved": 22,
+      "hardSolved": 3
+    },
+    "score": 97
+  },
+  {
     "name": "Dhanshree Magar",
     "id": "dhan04shree",
     "data": {
@@ -218,26 +238,6 @@
       "hardSolved": 1
     },
     "score": 95
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 16,
-      "mediumSolved": 21,
-      "hardSolved": 3
-    },
-    "score": 94
-  },
-  {
-    "name": "Aditya sarse",
-    "id": "cxV1JzH5C2",
-    "data": {
-      "easySolved": 26,
-      "mediumSolved": 16,
-      "hardSolved": 4
-    },
-    "score": 94
   },
   {
     "name": "Kaustubh Rananaware",
