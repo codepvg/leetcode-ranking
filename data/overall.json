@@ -13,11 +13,11 @@
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
-      "easySolved": 251,
+      "easySolved": 252,
       "mediumSolved": 171,
       "hardSolved": 5
     },
-    "score": 789
+    "score": 790
   },
   {
     "name": "Anurag",
@@ -33,21 +33,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 119,
+      "easySolved": 120,
       "mediumSolved": 166,
       "hardSolved": 12
     },
-    "score": 677
+    "score": 678
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 114,
-      "mediumSolved": 133,
-      "hardSolved": 20
+      "easySolved": 115,
+      "mediumSolved": 135,
+      "hardSolved": 21
     },
-    "score": 613
+    "score": 625
   },
   {
     "name": "Sushant Borde",
@@ -83,21 +83,21 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 82,
+      "easySolved": 83,
       "mediumSolved": 51,
       "hardSolved": 3
     },
-    "score": 250
+    "score": 251
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 76,
-      "mediumSolved": 39,
+      "mediumSolved": 40,
       "hardSolved": 7
     },
-    "score": 228
+    "score": 231
   },
   {
     "name": "Vedant Banaitkar",
@@ -163,11 +163,11 @@
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
-      "easySolved": 29,
+      "easySolved": 31,
       "mediumSolved": 23,
       "hardSolved": 4
     },
-    "score": 118
+    "score": 120
   },
   {
     "name": "Vaishnavi Borkar",
@@ -200,6 +200,16 @@
     "score": 104
   },
   {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 18,
+      "mediumSolved": 23,
+      "hardSolved": 3
+    },
+    "score": 102
+  },
+  {
     "name": "Aditya sarse",
     "id": "cxV1JzH5C2",
     "data": {
@@ -208,16 +218,6 @@
       "hardSolved": 4
     },
     "score": 101
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 22,
-      "hardSolved": 3
-    },
-    "score": 98
   },
   {
     "name": "Dhanshree Magar",
