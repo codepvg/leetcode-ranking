@@ -34,20 +34,20 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 121,
-      "mediumSolved": 166,
+      "mediumSolved": 167,
       "hardSolved": 12
     },
-    "score": 679
+    "score": 682
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
       "easySolved": 116,
-      "mediumSolved": 135,
+      "mediumSolved": 139,
       "hardSolved": 21
     },
-    "score": 626
+    "score": 638
   },
   {
     "name": "Sushant Borde",
@@ -180,22 +180,22 @@
     "score": 113
   },
   {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 22,
+      "mediumSolved": 23,
+      "hardSolved": 3
+    },
+    "score": 106
+  },
+  {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 11,
       "mediumSolved": 28,
       "hardSolved": 2
-    },
-    "score": 105
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 21,
-      "mediumSolved": 23,
-      "hardSolved": 3
     },
     "score": 105
   },
@@ -253,11 +253,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 16,
+      "easySolved": 17,
       "mediumSolved": 16,
       "hardSolved": 0
     },
-    "score": 64
+    "score": 65
   },
   {
     "name": "Ruturaj Tushar Pandit",
