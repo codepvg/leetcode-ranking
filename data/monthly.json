@@ -4,30 +4,30 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 13,
-      "mediumSolved": 44,
+      "mediumSolved": 43,
       "hardSolved": 5
     },
-    "score": 170
+    "score": 167
   },
   {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
       "easySolved": 21,
-      "mediumSolved": 21,
+      "mediumSolved": 22,
       "hardSolved": 5
     },
-    "score": 109
+    "score": 112
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 12,
-      "mediumSolved": 23,
+      "mediumSolved": 24,
       "hardSolved": 2
     },
-    "score": 91
+    "score": 94
   },
   {
     "name": "Rayyan Shaikh",
@@ -40,16 +40,6 @@
     "score": 62
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 9,
-      "hardSolved": 3
-    },
-    "score": 59
-  },
-  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -60,14 +50,24 @@
     "score": 55
   },
   {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 18,
+      "mediumSolved": 7,
+      "hardSolved": 3
+    },
+    "score": 54
+  },
+  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 10,
+      "easySolved": 14,
       "mediumSolved": 13,
       "hardSolved": 0
     },
-    "score": 49
+    "score": 53
   },
   {
     "name": "Harshad Bhalsing",
@@ -113,11 +113,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 5,
+      "easySolved": 6,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 17
+    "score": 18
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -140,16 +140,6 @@
     "score": 13
   },
   {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 3,
-      "hardSolved": 0
-    },
-    "score": 10
-  },
-  {
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
@@ -168,6 +158,16 @@
       "hardSolved": 1
     },
     "score": 5
+  },
+  {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 4
   },
   {
     "name": "Shrikant Mhaske",
