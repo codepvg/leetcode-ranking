@@ -44,10 +44,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 128,
-      "mediumSolved": 172,
+      "mediumSolved": 173,
       "hardSolved": 12
     },
-    "score": 704
+    "score": 707
   },
   {
     "name": "Sushant Borde",
@@ -73,11 +73,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 48,
+      "easySolved": 53,
       "mediumSolved": 100,
       "hardSolved": 16
     },
-    "score": 428
+    "score": 433
   },
   {
     "name": "Rajat malapur",
@@ -94,10 +94,10 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 77,
-      "mediumSolved": 44,
+      "mediumSolved": 45,
       "hardSolved": 8
     },
-    "score": 249
+    "score": 252
   },
   {
     "name": "Vedant Banaitkar",
@@ -124,20 +124,20 @@
     "id": "Harshal2613",
     "data": {
       "easySolved": 37,
-      "mediumSolved": 30,
+      "mediumSolved": 31,
       "hardSolved": 5
     },
-    "score": 152
+    "score": 155
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 29,
-      "mediumSolved": 34,
+      "easySolved": 31,
+      "mediumSolved": 35,
       "hardSolved": 3
     },
-    "score": 146
+    "score": 151
   },
   {
     "name": "Samruddhi Garge",
@@ -173,11 +173,11 @@
     "name": "Aditya sarse",
     "id": "cxV1JzH5C2",
     "data": {
-      "easySolved": 30,
+      "easySolved": 31,
       "mediumSolved": 25,
       "hardSolved": 6
     },
-    "score": 135
+    "score": 136
   },
   {
     "name": "Yash Jawale",
@@ -244,10 +244,20 @@
     "id": "abhi_guntuk_",
     "data": {
       "easySolved": 20,
-      "mediumSolved": 20,
+      "mediumSolved": 21,
       "hardSolved": 0
     },
-    "score": 80
+    "score": 83
+  },
+  {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 7,
+      "mediumSolved": 19,
+      "hardSolved": 1
+    },
+    "score": 69
   },
   {
     "name": "Kaustubh Rananaware",
@@ -268,16 +278,6 @@
       "hardSolved": 4
     },
     "score": 57
-  },
-  {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 7,
-      "mediumSolved": 14,
-      "hardSolved": 1
-    },
-    "score": 54
   },
   {
     "name": "SHREYA KULKARNI",
