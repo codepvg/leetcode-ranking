@@ -14,10 +14,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 256,
-      "mediumSolved": 177,
+      "mediumSolved": 178,
       "hardSolved": 5
     },
-    "score": 812
+    "score": 815
   },
   {
     "name": "Anurag",
@@ -34,10 +34,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 122,
-      "mediumSolved": 160,
+      "mediumSolved": 163,
       "hardSolved": 26
     },
-    "score": 732
+    "score": 741
   },
   {
     "name": "Saniya Gupte",
@@ -123,11 +123,11 @@
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
-      "easySolved": 39,
-      "mediumSolved": 31,
+      "easySolved": 40,
+      "mediumSolved": 32,
       "hardSolved": 5
     },
-    "score": 157
+    "score": 161
   },
   {
     "name": "YASH YOGESH BORA",
@@ -290,6 +290,16 @@
     "score": 52
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 15,
+      "mediumSolved": 9,
+      "hardSolved": 1
+    },
+    "score": 47
+  },
+  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
@@ -298,16 +308,6 @@
       "hardSolved": 0
     },
     "score": 44
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 12,
-      "mediumSolved": 8,
-      "hardSolved": 1
-    },
-    "score": 41
   },
   {
     "name": "Jagdish Prajapati",
@@ -340,6 +340,16 @@
     "score": 34
   },
   {
+    "name": "Reshma Babaleshwar",
+    "id": "Reshma_Babaleshwar",
+    "data": {
+      "easySolved": 5,
+      "mediumSolved": 6,
+      "hardSolved": 1
+    },
+    "score": 28
+  },
+  {
     "name": "Shrinidhi Upadhye",
     "id": "shirya205",
     "data": {
@@ -358,16 +368,6 @@
       "hardSolved": 0
     },
     "score": 23
-  },
-  {
-    "name": "Reshma Babaleshwar",
-    "id": "Reshma_Babaleshwar",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 4,
-      "hardSolved": 1
-    },
-    "score": 22
   },
   {
     "name": "Aryan Anoop Parihar",
