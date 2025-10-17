@@ -14,10 +14,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 256,
-      "mediumSolved": 178,
+      "mediumSolved": 179,
       "hardSolved": 5
     },
-    "score": 815
+    "score": 818
   },
   {
     "name": "Anurag",
@@ -34,10 +34,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 122,
-      "mediumSolved": 163,
+      "mediumSolved": 164,
       "hardSolved": 26
     },
-    "score": 741
+    "score": 744
   },
   {
     "name": "Saniya Gupte",
@@ -123,11 +123,11 @@
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
-      "easySolved": 40,
+      "easySolved": 41,
       "mediumSolved": 32,
       "hardSolved": 5
     },
-    "score": 161
+    "score": 162
   },
   {
     "name": "YASH YOGESH BORA",
@@ -140,22 +140,22 @@
     "score": 154
   },
   {
+    "name": "Aditya sarse",
+    "id": "cxV1JzH5C2",
+    "data": {
+      "easySolved": 31,
+      "mediumSolved": 27,
+      "hardSolved": 6
+    },
+    "score": 142
+  },
+  {
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
       "easySolved": 52,
       "mediumSolved": 29,
       "hardSolved": 0
-    },
-    "score": 139
-  },
-  {
-    "name": "Aditya sarse",
-    "id": "cxV1JzH5C2",
-    "data": {
-      "easySolved": 31,
-      "mediumSolved": 26,
-      "hardSolved": 6
     },
     "score": 139
   },
@@ -270,6 +270,16 @@
     "score": 68
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 16,
+      "mediumSolved": 13,
+      "hardSolved": 1
+    },
+    "score": 60
+  },
+  {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
     "data": {
@@ -288,16 +298,6 @@
       "hardSolved": 0
     },
     "score": 52
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 15,
-      "mediumSolved": 9,
-      "hardSolved": 1
-    },
-    "score": 47
   },
   {
     "name": "Samarth Deshpande",
@@ -344,10 +344,10 @@
     "id": "Reshma_Babaleshwar",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 6,
+      "mediumSolved": 7,
       "hardSolved": 1
     },
-    "score": 28
+    "score": 31
   },
   {
     "name": "Shrinidhi Upadhye",
