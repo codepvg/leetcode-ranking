@@ -35,19 +35,19 @@
     "data": {
       "easySolved": 122,
       "mediumSolved": 166,
-      "hardSolved": 26
+      "hardSolved": 27
     },
-    "score": 750
+    "score": 755
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 129,
+      "easySolved": 130,
       "mediumSolved": 177,
       "hardSolved": 12
     },
-    "score": 720
+    "score": 721
   },
   {
     "name": "Sushant Borde",
@@ -74,10 +74,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 53,
-      "mediumSolved": 102,
+      "mediumSolved": 104,
       "hardSolved": 16
     },
-    "score": 439
+    "score": 445
   },
   {
     "name": "Rajat malapur",
@@ -93,11 +93,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 81,
+      "easySolved": 82,
       "mediumSolved": 46,
       "hardSolved": 8
     },
-    "score": 259
+    "score": 260
   },
   {
     "name": "Vedant Banaitkar",
@@ -124,10 +124,10 @@
     "id": "Harshal2613",
     "data": {
       "easySolved": 41,
-      "mediumSolved": 34,
+      "mediumSolved": 35,
       "hardSolved": 5
     },
-    "score": 168
+    "score": 171
   },
   {
     "name": "YASH YOGESH BORA",
@@ -310,6 +310,16 @@
     "score": 44
   },
   {
+    "name": "Shrinidhi Upadhye",
+    "id": "shirya205",
+    "data": {
+      "easySolved": 5,
+      "mediumSolved": 8,
+      "hardSolved": 2
+    },
+    "score": 39
+  },
+  {
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
     "data": {
@@ -348,16 +358,6 @@
       "hardSolved": 1
     },
     "score": 31
-  },
-  {
-    "name": "Shrinidhi Upadhye",
-    "id": "shirya205",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 5,
-      "hardSolved": 1
-    },
-    "score": 25
   },
   {
     "name": "ARCHANA KUMARI",
@@ -622,6 +622,16 @@
   {
     "name": "Vedang",
     "id": "VSS108",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "RITIKA PARADKAR",
+    "id": "RTVAYzNCFF",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
