@@ -3,51 +3,51 @@
     "name": "Neerad Ahire",
     "id": "Neerad_ahire",
     "data": {
-      "easySolved": 192,
-      "mediumSolved": 290,
+      "easySolved": 193,
+      "mediumSolved": 291,
       "hardSolved": 21
     },
-    "score": 1167
+    "score": 1171
   },
   {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 259,
-      "mediumSolved": 181,
+      "mediumSolved": 183,
       "hardSolved": 5
     },
-    "score": 827
+    "score": 833
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 186,
-      "mediumSolved": 185,
+      "mediumSolved": 186,
       "hardSolved": 7
     },
-    "score": 776
+    "score": 779
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
       "easySolved": 125,
-      "mediumSolved": 168,
+      "mediumSolved": 169,
       "hardSolved": 27
     },
-    "score": 764
+    "score": 767
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 133,
-      "mediumSolved": 178,
+      "mediumSolved": 179,
       "hardSolved": 12
     },
-    "score": 727
+    "score": 730
   },
   {
     "name": "Sushant Borde",
@@ -83,21 +83,21 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 92,
+      "easySolved": 93,
       "mediumSolved": 55,
       "hardSolved": 4
     },
-    "score": 277
+    "score": 278
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 85,
-      "mediumSolved": 48,
+      "easySolved": 86,
+      "mediumSolved": 50,
       "hardSolved": 8
     },
-    "score": 269
+    "score": 276
   },
   {
     "name": "Vedant Banaitkar",
@@ -114,10 +114,20 @@
     "id": "Harshal2613",
     "data": {
       "easySolved": 43,
-      "mediumSolved": 39,
+      "mediumSolved": 40,
       "hardSolved": 5
     },
-    "score": 185
+    "score": 188
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 34,
+      "mediumSolved": 42,
+      "hardSolved": 3
+    },
+    "score": 175
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -133,21 +143,11 @@
     "name": "Samruddhi Garge",
     "id": "Samruddhi_garge",
     "data": {
-      "easySolved": 56,
+      "easySolved": 57,
       "mediumSolved": 37,
       "hardSolved": 1
     },
-    "score": 172
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 34,
-      "mediumSolved": 41,
-      "hardSolved": 3
-    },
-    "score": 172
+    "score": 173
   },
   {
     "name": "Aditya sarse",
