@@ -4,10 +4,10 @@
     "id": "Neerad_ahire",
     "data": {
       "easySolved": 193,
-      "mediumSolved": 291,
-      "hardSolved": 21
+      "mediumSolved": 292,
+      "hardSolved": 22
     },
-    "score": 1171
+    "score": 1179
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -24,20 +24,20 @@
     "id": "anuragmuley",
     "data": {
       "easySolved": 186,
-      "mediumSolved": 186,
+      "mediumSolved": 187,
       "hardSolved": 7
     },
-    "score": 779
+    "score": 782
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 125,
-      "mediumSolved": 169,
+      "easySolved": 126,
+      "mediumSolved": 172,
       "hardSolved": 27
     },
-    "score": 767
+    "score": 777
   },
   {
     "name": "Saniya Gupte",
@@ -80,6 +80,16 @@
     "score": 471
   },
   {
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
+    "data": {
+      "easySolved": 86,
+      "mediumSolved": 51,
+      "hardSolved": 8
+    },
+    "score": 279
+  },
+  {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
@@ -88,16 +98,6 @@
       "hardSolved": 4
     },
     "score": 278
-  },
-  {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
-    "data": {
-      "easySolved": 86,
-      "mediumSolved": 50,
-      "hardSolved": 8
-    },
-    "score": 276
   },
   {
     "name": "Vedant Banaitkar",
@@ -120,6 +120,26 @@
     "score": 188
   },
   {
+    "name": "Samruddhi Garge",
+    "id": "Samruddhi_garge",
+    "data": {
+      "easySolved": 57,
+      "mediumSolved": 38,
+      "hardSolved": 1
+    },
+    "score": 176
+  },
+  {
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
+    "data": {
+      "easySolved": 30,
+      "mediumSolved": 35,
+      "hardSolved": 8
+    },
+    "score": 175
+  },
+  {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
@@ -128,26 +148,6 @@
       "hardSolved": 3
     },
     "score": 175
-  },
-  {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
-    "data": {
-      "easySolved": 29,
-      "mediumSolved": 35,
-      "hardSolved": 8
-    },
-    "score": 174
-  },
-  {
-    "name": "Samruddhi Garge",
-    "id": "Samruddhi_garge",
-    "data": {
-      "easySolved": 57,
-      "mediumSolved": 37,
-      "hardSolved": 1
-    },
-    "score": 173
   },
   {
     "name": "Aditya sarse",
