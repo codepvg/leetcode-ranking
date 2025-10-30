@@ -1,33 +1,23 @@
 [
   {
-    "name": "Shrinidhi Upadhye",
-    "id": "shirya205",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 4
-  },
-  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 1,
+      "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 3
+    "score": 9
   },
   {
-    "name": "Samruddhi Garge",
-    "id": "Samruddhi_garge",
+    "name": "Anurag",
+    "id": "anuragmuley",
     "data": {
-      "easySolved": 2,
+      "easySolved": 1,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 2
+    "score": 1
   },
   {
     "name": "Aryan Botre",
@@ -40,8 +30,28 @@
     "score": 1
   },
   {
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Samruddhi Garge",
+    "id": "Samruddhi_garge",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -62,16 +72,6 @@
   {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Anurag",
-    "id": "anuragmuley",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -102,16 +102,6 @@
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -302,6 +292,16 @@
   {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Shrinidhi Upadhye",
+    "id": "shirya205",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
