@@ -3,21 +3,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 3,
-      "mediumSolved": 6,
+      "easySolved": 2,
+      "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 21
+    "score": 26
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 3,
-      "mediumSolved": 4,
+      "easySolved": 2,
+      "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 15
+    "score": 11
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -43,11 +43,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 1,
+      "easySolved": 0,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 7
+    "score": 6
   },
   {
     "name": "Anurag",
@@ -60,28 +60,18 @@
     "score": 4
   },
   {
-    "name": "Pranav Sunilkumar Ijantkar",
-    "id": "RagePool",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 3
-  },
-  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
-      "easySolved": 0,
+      "easySolved": 1,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 3
+    "score": 4
   },
   {
-    "name": "Yash Gaiwkad",
-    "id": "yash_gaikwad_08",
+    "name": "Pranav Sunilkumar Ijantkar",
+    "id": "RagePool",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
@@ -420,6 +410,16 @@
     "score": 0
   },
   {
+    "name": "Yash Gaiwkad",
+    "id": "yash_gaikwad_08",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Nexus05",
     "id": "Rudra05",
     "data": {
@@ -540,6 +540,16 @@
     "score": 0
   },
   {
+    "name": "Samruddhi Garge",
+    "id": "Samruddhi_garge",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Sarthak Joshi",
     "id": "16cris16",
     "data": {
@@ -638,15 +648,5 @@
       "hardSolved": 0
     },
     "score": 0
-  },
-  {
-    "name": "Samruddhi Garge",
-    "id": "Samruddhi_garge",
-    "data": {
-      "easySolved": -60,
-      "mediumSolved": -50,
-      "hardSolved": -1
-    },
-    "score": -215
   }
 ]
