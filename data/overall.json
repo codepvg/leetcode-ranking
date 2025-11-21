@@ -44,20 +44,20 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 140,
-      "mediumSolved": 195,
+      "mediumSolved": 196,
       "hardSolved": 12
     },
-    "score": 785
+    "score": 788
   },
   {
     "name": "Mansi Wagh",
     "id": "mansi_65478",
     "data": {
-      "easySolved": 115,
+      "easySolved": 117,
       "mediumSolved": 127,
       "hardSolved": 16
     },
-    "score": 576
+    "score": 578
   },
   {
     "name": "Sushant Borde",
@@ -75,9 +75,9 @@
     "data": {
       "easySolved": 61,
       "mediumSolved": 116,
-      "hardSolved": 17
+      "hardSolved": 18
     },
-    "score": 494
+    "score": 499
   },
   {
     "name": "Rajat malapur",
@@ -110,6 +110,16 @@
     "score": 228
   },
   {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 40,
+      "mediumSolved": 47,
+      "hardSolved": 3
+    },
+    "score": 196
+  },
+  {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
@@ -118,16 +128,6 @@
       "hardSolved": 5
     },
     "score": 190
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 39,
-      "mediumSolved": 45,
-      "hardSolved": 3
-    },
-    "score": 189
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -203,11 +203,11 @@
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
     "data": {
-      "easySolved": 40,
-      "mediumSolved": 25,
+      "easySolved": 42,
+      "mediumSolved": 26,
       "hardSolved": 0
     },
-    "score": 115
+    "score": 120
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -290,6 +290,16 @@
     "score": 52
   },
   {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 13,
+      "mediumSolved": 11,
+      "hardSolved": 1
+    },
+    "score": 51
+  },
+  {
     "name": "Shrinidhi Upadhye",
     "id": "shirya205",
     "data": {
@@ -308,16 +318,6 @@
       "hardSolved": 0
     },
     "score": 51
-  },
-  {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 12,
-      "mediumSolved": 10,
-      "hardSolved": 1
-    },
-    "score": 47
   },
   {
     "name": "Reshma Babaleshwar",
