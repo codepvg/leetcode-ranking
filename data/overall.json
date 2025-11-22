@@ -14,10 +14,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 264,
-      "mediumSolved": 193,
+      "mediumSolved": 194,
       "hardSolved": 6
     },
-    "score": 873
+    "score": 876
   },
   {
     "name": "Aryan Botre",
@@ -43,11 +43,11 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 140,
+      "easySolved": 141,
       "mediumSolved": 196,
       "hardSolved": 12
     },
-    "score": 788
+    "score": 789
   },
   {
     "name": "Mansi Wagh",
@@ -74,10 +74,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 61,
-      "mediumSolved": 116,
+      "mediumSolved": 117,
       "hardSolved": 18
     },
-    "score": 499
+    "score": 502
   },
   {
     "name": "Rajat malapur",
@@ -114,10 +114,10 @@
     "id": "yashbora",
     "data": {
       "easySolved": 40,
-      "mediumSolved": 47,
+      "mediumSolved": 49,
       "hardSolved": 3
     },
-    "score": 196
+    "score": 202
   },
   {
     "name": "Harshal Mahajan",
@@ -280,6 +280,26 @@
     "score": 59
   },
   {
+    "name": "Samarth Deshpande",
+    "id": "SamarthhD",
+    "data": {
+      "easySolved": 16,
+      "mediumSolved": 13,
+      "hardSolved": 0
+    },
+    "score": 55
+  },
+  {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 15,
+      "mediumSolved": 11,
+      "hardSolved": 1
+    },
+    "score": 53
+  },
+  {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
@@ -290,32 +310,12 @@
     "score": 52
   },
   {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 13,
-      "mediumSolved": 11,
-      "hardSolved": 1
-    },
-    "score": 51
-  },
-  {
     "name": "Shrinidhi Upadhye",
     "id": "shirya205",
     "data": {
       "easySolved": 8,
       "mediumSolved": 11,
       "hardSolved": 2
-    },
-    "score": 51
-  },
-  {
-    "name": "Samarth Deshpande",
-    "id": "SamarthhD",
-    "data": {
-      "easySolved": 15,
-      "mediumSolved": 12,
-      "hardSolved": 0
     },
     "score": 51
   },
@@ -373,11 +373,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 14,
+      "easySolved": 17,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 20
+    "score": 23
   },
   {
     "name": "Yash G",
