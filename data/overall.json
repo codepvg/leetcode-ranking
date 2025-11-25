@@ -14,20 +14,20 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 268,
-      "mediumSolved": 194,
+      "mediumSolved": 195,
       "hardSolved": 6
     },
-    "score": 880
+    "score": 883
   },
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 136,
-      "mediumSolved": 183,
+      "easySolved": 137,
+      "mediumSolved": 186,
       "hardSolved": 29
     },
-    "score": 830
+    "score": 840
   },
   {
     "name": "Anurag",
@@ -73,11 +73,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 62,
+      "easySolved": 63,
       "mediumSolved": 119,
       "hardSolved": 18
     },
-    "score": 509
+    "score": 510
   },
   {
     "name": "Rajat malapur",
@@ -114,10 +114,10 @@
     "id": "yashbora",
     "data": {
       "easySolved": 41,
-      "mediumSolved": 49,
+      "mediumSolved": 50,
       "hardSolved": 3
     },
-    "score": 203
+    "score": 206
   },
   {
     "name": "Harshal Mahajan",
@@ -180,14 +180,24 @@
     "score": 134
   },
   {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 42,
+      "mediumSolved": 29,
+      "hardSolved": 0
+    },
+    "score": 129
+  },
+  {
     "name": "Rahul Ravindra Kate",
     "id": "_rahul-173",
     "data": {
-      "easySolved": 18,
+      "easySolved": 19,
       "mediumSolved": 31,
       "hardSolved": 3
     },
-    "score": 126
+    "score": 127
   },
   {
     "name": "Shrikant Mhaske",
@@ -200,14 +210,14 @@
     "score": 124
   },
   {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
+    "name": "Dhanshree Magar",
+    "id": "dhan04shree",
     "data": {
       "easySolved": 42,
-      "mediumSolved": 26,
-      "hardSolved": 0
+      "mediumSolved": 22,
+      "hardSolved": 1
     },
-    "score": 120
+    "score": 113
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -218,16 +228,6 @@
       "hardSolved": 3
     },
     "score": 108
-  },
-  {
-    "name": "Dhanshree Magar",
-    "id": "dhan04shree",
-    "data": {
-      "easySolved": 42,
-      "mediumSolved": 20,
-      "hardSolved": 1
-    },
-    "score": 107
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -294,10 +294,10 @@
     "id": "archana60",
     "data": {
       "easySolved": 15,
-      "mediumSolved": 11,
+      "mediumSolved": 12,
       "hardSolved": 1
     },
-    "score": 53
+    "score": 56
   },
   {
     "name": "SHREYA KULKARNI",
