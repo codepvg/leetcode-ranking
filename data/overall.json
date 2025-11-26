@@ -24,10 +24,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 137,
-      "mediumSolved": 186,
-      "hardSolved": 29
+      "mediumSolved": 189,
+      "hardSolved": 30
     },
-    "score": 840
+    "score": 854
   },
   {
     "name": "Anurag",
@@ -44,10 +44,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 141,
-      "mediumSolved": 197,
+      "mediumSolved": 198,
       "hardSolved": 12
     },
-    "score": 792
+    "score": 795
   },
   {
     "name": "Mansi Wagh",
@@ -74,10 +74,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 63,
-      "mediumSolved": 119,
+      "mediumSolved": 120,
       "hardSolved": 18
     },
-    "score": 510
+    "score": 513
   },
   {
     "name": "Rajat malapur",
@@ -114,10 +114,10 @@
     "id": "yashbora",
     "data": {
       "easySolved": 41,
-      "mediumSolved": 50,
+      "mediumSolved": 51,
       "hardSolved": 3
     },
-    "score": 206
+    "score": 209
   },
   {
     "name": "Harshal Mahajan",
@@ -260,6 +260,16 @@
     "score": 72
   },
   {
+    "name": "Samarth Deshpande",
+    "id": "SamarthhD",
+    "data": {
+      "easySolved": 18,
+      "mediumSolved": 17,
+      "hardSolved": 0
+    },
+    "score": 69
+  },
+  {
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
@@ -268,16 +278,6 @@
       "hardSolved": 0
     },
     "score": 68
-  },
-  {
-    "name": "Samarth Deshpande",
-    "id": "SamarthhD",
-    "data": {
-      "easySolved": 18,
-      "mediumSolved": 15,
-      "hardSolved": 0
-    },
-    "score": 63
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -293,11 +293,11 @@
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 15,
+      "easySolved": 16,
       "mediumSolved": 12,
       "hardSolved": 1
     },
-    "score": 56
+    "score": 57
   },
   {
     "name": "SHREYA KULKARNI",
@@ -363,11 +363,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 18,
+      "easySolved": 19,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 24
+    "score": 25
   },
   {
     "name": "KRUSHNA",
