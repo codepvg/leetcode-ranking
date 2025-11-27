@@ -24,10 +24,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 137,
-      "mediumSolved": 189,
-      "hardSolved": 30
+      "mediumSolved": 191,
+      "hardSolved": 31
     },
-    "score": 854
+    "score": 865
   },
   {
     "name": "Anurag",
@@ -75,9 +75,9 @@
     "data": {
       "easySolved": 63,
       "mediumSolved": 120,
-      "hardSolved": 18
+      "hardSolved": 19
     },
-    "score": 513
+    "score": 518
   },
   {
     "name": "Rajat malapur",
@@ -213,21 +213,21 @@
     "name": "Dhanshree Magar",
     "id": "dhan04shree",
     "data": {
-      "easySolved": 42,
+      "easySolved": 46,
       "mediumSolved": 22,
       "hardSolved": 1
     },
-    "score": 113
+    "score": 117
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
-      "easySolved": 42,
+      "easySolved": 43,
       "mediumSolved": 17,
       "hardSolved": 3
     },
-    "score": 108
+    "score": 109
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -250,6 +250,16 @@
     "score": 80
   },
   {
+    "name": "Samarth Deshpande",
+    "id": "SamarthhD",
+    "data": {
+      "easySolved": 18,
+      "mediumSolved": 18,
+      "hardSolved": 0
+    },
+    "score": 72
+  },
+  {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
@@ -258,16 +268,6 @@
       "hardSolved": 1
     },
     "score": 72
-  },
-  {
-    "name": "Samarth Deshpande",
-    "id": "SamarthhD",
-    "data": {
-      "easySolved": 18,
-      "mediumSolved": 17,
-      "hardSolved": 0
-    },
-    "score": 69
   },
   {
     "name": "Kaustubh Rananaware",
@@ -363,11 +363,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 19,
+      "easySolved": 20,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 25
+    "score": 26
   },
   {
     "name": "KRUSHNA",
@@ -414,10 +414,10 @@
     "id": "yash_gaikwad_08",
     "data": {
       "easySolved": 6,
-      "mediumSolved": 1,
+      "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 9
+    "score": 12
   },
   {
     "name": "Nexus05",
