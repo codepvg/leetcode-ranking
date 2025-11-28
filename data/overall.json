@@ -10,6 +10,16 @@
     "score": 1185
   },
   {
+    "name": "Aryan Botre",
+    "id": "aryanbotre18",
+    "data": {
+      "easySolved": 141,
+      "mediumSolved": 194,
+      "hardSolved": 32
+    },
+    "score": 883
+  },
+  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -18,16 +28,6 @@
       "hardSolved": 6
     },
     "score": 883
-  },
-  {
-    "name": "Aryan Botre",
-    "id": "aryanbotre18",
-    "data": {
-      "easySolved": 137,
-      "mediumSolved": 191,
-      "hardSolved": 31
-    },
-    "score": 865
   },
   {
     "name": "Anurag",
@@ -53,11 +53,11 @@
     "name": "Mansi Wagh",
     "id": "mansi_65478",
     "data": {
-      "easySolved": 117,
+      "easySolved": 124,
       "mediumSolved": 127,
       "hardSolved": 16
     },
-    "score": 578
+    "score": 585
   },
   {
     "name": "Sushant Borde",
@@ -74,10 +74,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 63,
-      "mediumSolved": 120,
+      "mediumSolved": 121,
       "hardSolved": 19
     },
-    "score": 518
+    "score": 521
   },
   {
     "name": "Rajat malapur",
@@ -180,6 +180,16 @@
     "score": 134
   },
   {
+    "name": "Rahul Ravindra Kate",
+    "id": "_rahul-173",
+    "data": {
+      "easySolved": 19,
+      "mediumSolved": 33,
+      "hardSolved": 3
+    },
+    "score": 133
+  },
+  {
     "name": "Vaishnavi Borkar",
     "id": "borkarvaishnavi45",
     "data": {
@@ -188,16 +198,6 @@
       "hardSolved": 0
     },
     "score": 129
-  },
-  {
-    "name": "Rahul Ravindra Kate",
-    "id": "_rahul-173",
-    "data": {
-      "easySolved": 19,
-      "mediumSolved": 31,
-      "hardSolved": 3
-    },
-    "score": 127
   },
   {
     "name": "Shrikant Mhaske",
@@ -213,11 +213,11 @@
     "name": "Dhanshree Magar",
     "id": "dhan04shree",
     "data": {
-      "easySolved": 46,
+      "easySolved": 47,
       "mediumSolved": 22,
       "hardSolved": 1
     },
-    "score": 117
+    "score": 118
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -254,10 +254,10 @@
     "id": "SamarthhD",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 18,
+      "mediumSolved": 20,
       "hardSolved": 0
     },
-    "score": 72
+    "score": 78
   },
   {
     "name": "Atharv Kirulkar",
@@ -363,11 +363,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 20,
+      "easySolved": 21,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 26
+    "score": 27
   },
   {
     "name": "KRUSHNA",
