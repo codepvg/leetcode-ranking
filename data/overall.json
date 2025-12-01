@@ -14,10 +14,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 142,
-      "mediumSolved": 199,
+      "mediumSolved": 203,
       "hardSolved": 32
     },
-    "score": 899
+    "score": 911
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -60,6 +60,16 @@
     "score": 587
   },
   {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 64,
+      "mediumSolved": 126,
+      "hardSolved": 20
+    },
+    "score": 542
+  },
+  {
     "name": "Sushant Borde",
     "id": "Sbking_391",
     "data": {
@@ -70,24 +80,14 @@
     "score": 541
   },
   {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 64,
-      "mediumSolved": 123,
-      "hardSolved": 20
-    },
-    "score": 533
-  },
-  {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
       "easySolved": 104,
-      "mediumSolved": 66,
+      "mediumSolved": 67,
       "hardSolved": 4
     },
-    "score": 322
+    "score": 325
   },
   {
     "name": "Rayyan Shaikh",
@@ -114,10 +114,10 @@
     "id": "yashbora",
     "data": {
       "easySolved": 41,
-      "mediumSolved": 51,
+      "mediumSolved": 52,
       "hardSolved": 3
     },
-    "score": 209
+    "score": 212
   },
   {
     "name": "Harshal Mahajan",
@@ -363,11 +363,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 23,
+      "easySolved": 24,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 29
+    "score": 30
   },
   {
     "name": "KRUSHNA",
