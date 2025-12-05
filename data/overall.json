@@ -14,40 +14,40 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 142,
-      "mediumSolved": 206,
+      "mediumSolved": 207,
       "hardSolved": 32
     },
-    "score": 920
+    "score": 923
   },
   {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 270,
-      "mediumSolved": 197,
+      "mediumSolved": 198,
       "hardSolved": 6
     },
-    "score": 891
+    "score": 894
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 199,
-      "mediumSolved": 201,
+      "mediumSolved": 203,
       "hardSolved": 8
     },
-    "score": 842
+    "score": 848
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 144,
-      "mediumSolved": 198,
+      "mediumSolved": 199,
       "hardSolved": 12
     },
-    "score": 798
+    "score": 801
   },
   {
     "name": "Mansi Wagh",
@@ -64,10 +64,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 64,
-      "mediumSolved": 127,
+      "mediumSolved": 128,
       "hardSolved": 21
     },
-    "score": 550
+    "score": 553
   },
   {
     "name": "Sushant Borde",
@@ -363,11 +363,11 @@
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
-      "easySolved": 26,
+      "easySolved": 27,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 32
+    "score": 33
   },
   {
     "name": "KRUSHNA",
@@ -380,6 +380,16 @@
     "score": 24
   },
   {
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 18
+  },
+  {
     "name": "Yash G",
     "id": "00jXOB4uNf",
     "data": {
@@ -388,16 +398,6 @@
       "hardSolved": 0
     },
     "score": 17
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
-    "data": {
-      "easySolved": 7,
-      "mediumSolved": 3,
-      "hardSolved": 0
-    },
-    "score": 16
   },
   {
     "name": "Yash Gaiwkad",
