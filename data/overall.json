@@ -13,11 +13,11 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 142,
+      "easySolved": 143,
       "mediumSolved": 207,
       "hardSolved": 32
     },
-    "score": 923
+    "score": 924
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -340,6 +340,16 @@
     "score": 35
   },
   {
+    "name": "Aryan Anoop Parihar",
+    "id": "AryanParihar07",
+    "data": {
+      "easySolved": 28,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 34
+  },
+  {
     "name": "Triveni Waghole",
     "id": "Triveni_24",
     "data": {
@@ -358,16 +368,6 @@
       "hardSolved": 0
     },
     "score": 34
-  },
-  {
-    "name": "Aryan Anoop Parihar",
-    "id": "AryanParihar07",
-    "data": {
-      "easySolved": 27,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 33
   },
   {
     "name": "KRUSHNA",
