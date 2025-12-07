@@ -1,7 +1,7 @@
 [
   {
-    "name": "Aryan Botre",
-    "id": "aryanbotre18",
+    "name": "Saniya Gupte",
+    "id": "SaniyaGupte",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -30,6 +30,16 @@
     "score": 0
   },
   {
+    "name": "Aryan Botre",
+    "id": "aryanbotre18",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -42,16 +52,6 @@
   {
     "name": "Anurag",
     "id": "anuragmuley",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Saniya Gupte",
-    "id": "SaniyaGupte",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
