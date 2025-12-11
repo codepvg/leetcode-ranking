@@ -4,10 +4,10 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 14,
-      "mediumSolved": 29,
+      "mediumSolved": 30,
       "hardSolved": 3
     },
-    "score": 116
+    "score": 119
   },
   {
     "name": "Harshad Bhalsing",
@@ -200,6 +200,16 @@
     "score": 4
   },
   {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 3
+  },
+  {
     "name": "ramkrushanarokde2424@gmail.com",
     "id": "GANESH-06",
     "data": {
@@ -262,16 +272,6 @@
   {
     "name": "Aditya sarse",
     "id": "cxV1JzH5C2",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
