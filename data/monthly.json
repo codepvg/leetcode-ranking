@@ -24,10 +24,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 13,
-      "mediumSolved": 14,
+      "mediumSolved": 13,
       "hardSolved": 1
     },
-    "score": 60
+    "score": 57
   },
   {
     "name": "Anurag",
@@ -44,10 +44,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 8,
-      "mediumSolved": 15,
+      "mediumSolved": 14,
       "hardSolved": 0
     },
-    "score": 53
+    "score": 50
   },
   {
     "name": "YASH YOGESH BORA",
@@ -60,22 +60,22 @@
     "score": 40
   },
   {
-    "name": "Samarth Deshpande",
-    "id": "SamarthhD",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 10,
-      "hardSolved": 0
-    },
-    "score": 35
-  },
-  {
     "name": "Mansi Wagh",
     "id": "mansi_65478",
     "data": {
       "easySolved": 12,
       "mediumSolved": 5,
       "hardSolved": 1
+    },
+    "score": 32
+  },
+  {
+    "name": "Samarth Deshpande",
+    "id": "SamarthhD",
+    "data": {
+      "easySolved": 5,
+      "mediumSolved": 9,
+      "hardSolved": 0
     },
     "score": 32
   },
@@ -113,11 +113,11 @@
     "name": "Rahul Ravindra Kate",
     "id": "_rahul-173",
     "data": {
-      "easySolved": 4,
+      "easySolved": 3,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 16
+    "score": 15
   },
   {
     "name": "Reshma Babaleshwar",
