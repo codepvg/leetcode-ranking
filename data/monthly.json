@@ -20,6 +20,16 @@
     "score": 75
   },
   {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 10,
+      "mediumSolved": 16,
+      "hardSolved": 0
+    },
+    "score": 58
+  },
+  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -30,24 +40,14 @@
     "score": 57
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
-    "data": {
-      "easySolved": 10,
-      "mediumSolved": 15,
-      "hardSolved": 0
-    },
-    "score": 55
-  },
-  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 8,
+      "easySolved": 9,
       "mediumSolved": 14,
       "hardSolved": 0
     },
-    "score": 50
+    "score": 51
   },
   {
     "name": "YASH YOGESH BORA",
