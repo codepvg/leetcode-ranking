@@ -1,17 +1,7 @@
 [
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 3
-  },
-  {
-    "name": "Saniya Gupte",
-    "id": "SaniyaGupte",
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -40,8 +30,18 @@
     "score": 0
   },
   {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Saniya Gupte",
+    "id": "SaniyaGupte",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,

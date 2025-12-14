@@ -4,50 +4,40 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": 14,
-      "mediumSolved": 30,
+      "mediumSolved": 29,
       "hardSolved": 3
     },
-    "score": 119
+    "score": 116
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 16,
+      "mediumSolved": 14,
       "hardSolved": 4
     },
-    "score": 75
+    "score": 69
+  },
+  {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 12,
+      "hardSolved": 1
+    },
+    "score": 55
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 10,
-      "mediumSolved": 16,
+      "mediumSolved": 15,
       "hardSolved": 0
     },
-    "score": 58
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 13,
-      "mediumSolved": 13,
-      "hardSolved": 1
-    },
-    "score": 57
-  },
-  {
-    "name": "Saniya Gupte",
-    "id": "SaniyaGupte",
-    "data": {
-      "easySolved": 9,
-      "mediumSolved": 14,
-      "hardSolved": 0
-    },
-    "score": 51
+    "score": 55
   },
   {
     "name": "YASH YOGESH BORA",
@@ -58,6 +48,16 @@
       "hardSolved": 0
     },
     "score": 40
+  },
+  {
+    "name": "Saniya Gupte",
+    "id": "SaniyaGupte",
+    "data": {
+      "easySolved": 8,
+      "mediumSolved": 9,
+      "hardSolved": 0
+    },
+    "score": 35
   },
   {
     "name": "Mansi Wagh",
@@ -94,10 +94,10 @@
     "id": "rajatmalapur",
     "data": {
       "easySolved": 10,
-      "mediumSolved": 5,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 25
+    "score": 22
   },
   {
     "name": "Dhanshree Magar",
@@ -190,16 +190,6 @@
     "score": 4
   },
   {
-    "name": "Pranav Sunilkumar Ijantkar",
-    "id": "RagePool",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 4
-  },
-  {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
@@ -208,6 +198,16 @@
       "hardSolved": 0
     },
     "score": 3
+  },
+  {
+    "name": "Pranav Sunilkumar Ijantkar",
+    "id": "RagePool",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
   },
   {
     "name": "ramkrushanarokde2424@gmail.com",

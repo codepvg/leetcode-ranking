@@ -13,21 +13,21 @@
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
-      "easySolved": 3,
+      "easySolved": 4,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 6
+    "score": 7
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 3,
+      "easySolved": 2,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 6
+    "score": 5
   },
   {
     "name": "Yash Gaiwkad",
@@ -82,16 +82,6 @@
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 1
-  },
-  {
-    "name": "Aryan Anoop Parihar",
-    "id": "AryanParihar07",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -352,6 +342,16 @@
   {
     "name": "Jagdish Prajapati",
     "id": "jagdish15",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Aryan Anoop Parihar",
+    "id": "AryanParihar07",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
