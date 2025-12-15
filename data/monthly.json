@@ -3,31 +3,21 @@
     "name": "Aryan Botre",
     "id": "aryanbotre18",
     "data": {
-      "easySolved": 14,
+      "easySolved": 15,
       "mediumSolved": 29,
-      "hardSolved": 3
+      "hardSolved": 4
     },
-    "score": 116
+    "score": 122
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 14,
+      "mediumSolved": 13,
       "hardSolved": 4
     },
-    "score": 69
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 14,
-      "mediumSolved": 12,
-      "hardSolved": 1
-    },
-    "score": 55
+    "score": 66
   },
   {
     "name": "Anurag",
@@ -38,6 +28,16 @@
       "hardSolved": 0
     },
     "score": 55
+  },
+  {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 11,
+      "hardSolved": 1
+    },
+    "score": 52
   },
   {
     "name": "YASH YOGESH BORA",
@@ -53,11 +53,11 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 8,
+      "easySolved": 9,
       "mediumSolved": 9,
       "hardSolved": 0
     },
-    "score": 35
+    "score": 36
   },
   {
     "name": "Mansi Wagh",
@@ -93,11 +93,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 10,
+      "easySolved": 11,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 22
+    "score": 23
   },
   {
     "name": "Dhanshree Magar",

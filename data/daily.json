@@ -1,7 +1,27 @@
 [
   {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
+    "name": "Aryan Botre",
+    "id": "aryanbotre18",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 1
+    },
+    "score": 6
+  },
+  {
+    "name": "Saniya Gupte",
+    "id": "SaniyaGupte",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -20,8 +40,8 @@
     "score": 0
   },
   {
-    "name": "Aryan Botre",
-    "id": "aryanbotre18",
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -32,16 +52,6 @@
   {
     "name": "Anurag",
     "id": "anuragmuley",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Saniya Gupte",
-    "id": "SaniyaGupte",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -72,16 +82,6 @@
   {
     "name": "Sushant Borde",
     "id": "Sbking_391",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
