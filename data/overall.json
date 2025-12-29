@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 109,
+      "easySolved": 110,
       "mediumSolved": 74,
       "hardSolved": 4
     },
-    "score": 351
+    "score": 352
   },
   {
     "name": "Rayyan Shaikh",
@@ -103,11 +103,11 @@
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 41,
+      "easySolved": 46,
       "mediumSolved": 54,
       "hardSolved": 3
     },
-    "score": 218
+    "score": 223
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -225,19 +225,19 @@
     "data": {
       "easySolved": 31,
       "mediumSolved": 26,
-      "hardSolved": 0
+      "hardSolved": 1
     },
-    "score": 109
+    "score": 114
   },
   {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
-      "easySolved": 32,
-      "mediumSolved": 21,
+      "easySolved": 33,
+      "mediumSolved": 22,
       "hardSolved": 0
     },
-    "score": 95
+    "score": 99
   },
   {
     "name": "Ajinkya Ashish Moharir",
