@@ -14,10 +14,10 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 276,
-      "mediumSolved": 201,
+      "mediumSolved": 202,
       "hardSolved": 6
     },
-    "score": 909
+    "score": 912
   },
   {
     "name": "Anurag",
@@ -33,21 +33,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 157,
+      "easySolved": 158,
       "mediumSolved": 202,
       "hardSolved": 12
     },
-    "score": 823
+    "score": 824
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 69,
-      "mediumSolved": 144,
-      "hardSolved": 23
+      "mediumSolved": 145,
+      "hardSolved": 24
     },
-    "score": 616
+    "score": 624
   },
   {
     "name": "Mansi Wagh",
@@ -90,6 +90,16 @@
     "score": 285
   },
   {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 54,
+      "mediumSolved": 55,
+      "hardSolved": 3
+    },
+    "score": 234
+  },
+  {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
     "data": {
@@ -98,16 +108,6 @@
       "hardSolved": 3
     },
     "score": 228
-  },
-  {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 46,
-      "mediumSolved": 54,
-      "hardSolved": 3
-    },
-    "score": 223
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -150,6 +150,16 @@
     "score": 141
   },
   {
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
+    "data": {
+      "easySolved": 15,
+      "mediumSolved": 38,
+      "hardSolved": 2
+    },
+    "score": 139
+  },
+  {
     "name": "Kabeer Ahmed Merchant",
     "id": "Kabeer2004",
     "data": {
@@ -176,16 +186,6 @@
       "easySolved": 19,
       "mediumSolved": 33,
       "hardSolved": 3
-    },
-    "score": 133
-  },
-  {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
-    "data": {
-      "easySolved": 15,
-      "mediumSolved": 36,
-      "hardSolved": 2
     },
     "score": 133
   },
@@ -223,11 +223,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 32,
+      "easySolved": 33,
       "mediumSolved": 26,
       "hardSolved": 1
     },
-    "score": 115
+    "score": 116
   },
   {
     "name": "Samarth Deshpande",
