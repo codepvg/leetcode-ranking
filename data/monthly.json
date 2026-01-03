@@ -23,51 +23,51 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 7,
+      "easySolved": 9,
       "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 31
-  },
-  {
-    "name": "Anurag",
-    "id": "anuragmuley",
-    "data": {
-      "easySolved": 4,
-      "mediumSolved": 8,
-      "hardSolved": 0
-    },
-    "score": 28
+    "score": 33
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 16,
+      "easySolved": 15,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 28
+    "score": 27
   },
   {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 8,
+      "easySolved": 9,
       "mediumSolved": 4,
       "hardSolved": 1
     },
-    "score": 25
+    "score": 26
   },
   {
     "name": "Avinash Ganore",
     "id": "Xzy-Vron",
     "data": {
       "easySolved": 8,
-      "mediumSolved": 5,
+      "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 23
+    "score": 26
+  },
+  {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 6,
+      "hardSolved": 0
+    },
+    "score": 22
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -103,11 +103,11 @@
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
-      "easySolved": 0,
+      "easySolved": 1,
       "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 15
+    "score": 16
   },
   {
     "name": "Pranav Sunilkumar Ijantkar",
@@ -644,9 +644,9 @@
     "id": "aryanbotre18",
     "data": {
       "easySolved": -142,
-      "mediumSolved": -203,
+      "mediumSolved": -206,
       "hardSolved": -32
     },
-    "score": -911
+    "score": -920
   }
 ]
