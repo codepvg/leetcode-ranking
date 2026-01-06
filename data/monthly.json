@@ -4,10 +4,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 18,
+      "mediumSolved": 19,
       "hardSolved": 4
     },
-    "score": 81
+    "score": 84
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -15,9 +15,19 @@
     "data": {
       "easySolved": 6,
       "mediumSolved": 6,
-      "hardSolved": 3
+      "hardSolved": 4
     },
-    "score": 39
+    "score": 44
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 22,
+      "mediumSolved": 6,
+      "hardSolved": 0
+    },
+    "score": 40
   },
   {
     "name": "Rajat malapur",
@@ -30,44 +40,44 @@
     "score": 35
   },
   {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
-    "data": {
-      "easySolved": 20,
-      "mediumSolved": 5,
-      "hardSolved": 0
-    },
-    "score": 35
-  },
-  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 10,
-      "mediumSolved": 5,
+      "easySolved": 11,
+      "mediumSolved": 6,
       "hardSolved": 1
     },
-    "score": 30
+    "score": 34
   },
   {
     "name": "Avinash Ganore",
     "id": "Xzy-Vron",
     "data": {
-      "easySolved": 6,
+      "easySolved": 7,
+      "mediumSolved": 9,
+      "hardSolved": 0
+    },
+    "score": 34
+  },
+  {
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
+    "data": {
+      "easySolved": 2,
       "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 30
+    "score": 26
   },
   {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 15,
+      "easySolved": 14,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 24
+    "score": 23
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -78,16 +88,6 @@
       "hardSolved": 0
     },
     "score": 22
-  },
-  {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 20
   },
   {
     "name": "Samarth Deshpande",
@@ -104,10 +104,10 @@
     "id": "anuragmuley",
     "data": {
       "easySolved": 4,
-      "mediumSolved": 4,
+      "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 16
+    "score": 19
   },
   {
     "name": "Triveni Waghole",
