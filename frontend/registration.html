@@ -81,8 +81,10 @@
         function showSuccess(name) {
             document.getElementById('registration-form').classList.add('hidden');
             document.getElementById('success-message').classList.remove('hidden');
-            document.getElementById('welcome-message').textContent = 
-                `Welcome to the CodePVG LeetCode Leaderboard, ${name}!<br>Your name will appear on the leaderboard after the next auto-sync.<br>(See the About section for details)`;
+            document.getElementById('welcome-message').innerHTML = 
+                `Welcome to the CodePVG LeetCode Leaderboard, ${name}!<br>
+                 Your name will appear on the leaderboard after the next auto-sync.<br>
+                 <small>(See the About section for details)</small>`;
         }
 
         function resetForm() {
