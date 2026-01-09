@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 116,
+      "easySolved": 117,
       "mediumSolved": 77,
       "hardSolved": 4
     },
-    "score": 367
+    "score": 368
   },
   {
     "name": "Rayyan Shaikh",
@@ -93,21 +93,21 @@
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 64,
-      "mediumSolved": 62,
+      "easySolved": 65,
+      "mediumSolved": 64,
       "hardSolved": 3
     },
-    "score": 265
+    "score": 272
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 41,
-      "mediumSolved": 43,
+      "easySolved": 42,
+      "mediumSolved": 45,
       "hardSolved": 12
     },
-    "score": 230
+    "score": 237
   },
   {
     "name": "Vedant Banaitkar",
@@ -134,10 +134,10 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 17,
-      "mediumSolved": 46,
-      "hardSolved": 3
+      "mediumSolved": 47,
+      "hardSolved": 4
     },
-    "score": 170
+    "score": 178
   },
   {
     "name": "Aditya sarse",
@@ -160,6 +160,16 @@
     "score": 141
   },
   {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 39,
+      "mediumSolved": 32,
+      "hardSolved": 1
+    },
+    "score": 140
+  },
+  {
     "name": "Kabeer Ahmed Merchant",
     "id": "Kabeer2004",
     "data": {
@@ -176,16 +186,6 @@
       "easySolved": 23,
       "mediumSolved": 32,
       "hardSolved": 3
-    },
-    "score": 134
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 39,
-      "mediumSolved": 30,
-      "hardSolved": 1
     },
     "score": 134
   },
@@ -243,11 +243,11 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 23,
-      "mediumSolved": 19,
+      "easySolved": 25,
+      "mediumSolved": 20,
       "hardSolved": 1
     },
-    "score": 85
+    "score": 90
   },
   {
     "name": "Atharv Kirulkar",
@@ -333,11 +333,11 @@
     "name": "Triveni Waghole",
     "id": "Triveni_24",
     "data": {
-      "easySolved": 22,
+      "easySolved": 23,
       "mediumSolved": 6,
       "hardSolved": 1
     },
-    "score": 45
+    "score": 46
   },
   {
     "name": "Aryan Anoop Parihar",
