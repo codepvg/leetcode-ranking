@@ -93,21 +93,21 @@
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 65,
-      "mediumSolved": 64,
+      "easySolved": 66,
+      "mediumSolved": 66,
       "hardSolved": 3
     },
-    "score": 272
+    "score": 279
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 42,
-      "mediumSolved": 45,
+      "mediumSolved": 46,
       "hardSolved": 12
     },
-    "score": 237
+    "score": 240
   },
   {
     "name": "Vedant Banaitkar",
@@ -134,10 +134,20 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 17,
-      "mediumSolved": 47,
+      "mediumSolved": 50,
       "hardSolved": 4
     },
-    "score": 178
+    "score": 187
+  },
+  {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 39,
+      "mediumSolved": 33,
+      "hardSolved": 1
+    },
+    "score": 143
   },
   {
     "name": "Aditya sarse",
@@ -158,16 +168,6 @@
       "hardSolved": 1
     },
     "score": 141
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 39,
-      "mediumSolved": 32,
-      "hardSolved": 1
-    },
-    "score": 140
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -270,22 +270,22 @@
     "score": 68
   },
   {
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
+    "data": {
+      "easySolved": 17,
+      "mediumSolved": 15,
+      "hardSolved": 1
+    },
+    "score": 67
+  },
+  {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
     "data": {
       "easySolved": 15,
       "mediumSolved": 8,
       "hardSolved": 4
-    },
-    "score": 59
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 14,
-      "hardSolved": 0
     },
     "score": 59
   },
@@ -320,21 +320,21 @@
     "score": 54
   },
   {
+    "name": "Triveni Waghole",
+    "id": "Triveni_24",
+    "data": {
+      "easySolved": 23,
+      "mediumSolved": 7,
+      "hardSolved": 1
+    },
+    "score": 49
+  },
+  {
     "name": "Reshma Babaleshwar",
     "id": "Reshma_Babaleshwar",
     "data": {
       "easySolved": 8,
       "mediumSolved": 11,
-      "hardSolved": 1
-    },
-    "score": 46
-  },
-  {
-    "name": "Triveni Waghole",
-    "id": "Triveni_24",
-    "data": {
-      "easySolved": 23,
-      "mediumSolved": 6,
       "hardSolved": 1
     },
     "score": 46

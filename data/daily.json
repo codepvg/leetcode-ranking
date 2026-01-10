@@ -4,6 +4,16 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 0,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 9
+  },
+  {
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
+    "data": {
+      "easySolved": 0,
       "mediumSolved": 1,
       "hardSolved": 1
     },
@@ -23,51 +33,31 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 1,
-      "mediumSolved": 2,
+      "easySolved": 0,
+      "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 7
+    "score": 3
   },
   {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 6
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 2,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 5
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 1
+    "score": 3
   },
   {
     "name": "Triveni Waghole",
     "id": "Triveni_24",
     "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
+      "easySolved": 0,
+      "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 1
+    "score": 3
   },
   {
     "name": "Neerad Ahire",
@@ -132,6 +122,16 @@
   {
     "name": "Sushant Borde",
     "id": "Sbking_391",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -260,6 +260,16 @@
     "score": 0
   },
   {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
@@ -282,16 +292,6 @@
   {
     "name": "Ruturaj Tushar Pandit",
     "id": "RJDEVELOPER",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
