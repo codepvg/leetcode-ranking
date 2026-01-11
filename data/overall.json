@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 117,
+      "easySolved": 118,
       "mediumSolved": 77,
       "hardSolved": 4
     },
-    "score": 368
+    "score": 369
   },
   {
     "name": "Rayyan Shaikh",
@@ -103,11 +103,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 42,
+      "easySolved": 43,
       "mediumSolved": 46,
       "hardSolved": 12
     },
-    "score": 240
+    "score": 241
   },
   {
     "name": "Vedant Banaitkar",
@@ -120,6 +120,16 @@
     "score": 228
   },
   {
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
+    "data": {
+      "easySolved": 17,
+      "mediumSolved": 50,
+      "hardSolved": 5
+    },
+    "score": 192
+  },
+  {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
@@ -130,24 +140,14 @@
     "score": 190
   },
   {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 50,
-      "hardSolved": 4
-    },
-    "score": 187
-  },
-  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
       "easySolved": 39,
-      "mediumSolved": 33,
+      "mediumSolved": 34,
       "hardSolved": 1
     },
-    "score": 143
+    "score": 146
   },
   {
     "name": "Aditya sarse",
@@ -243,11 +243,21 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 25,
+      "easySolved": 26,
       "mediumSolved": 20,
       "hardSolved": 1
     },
-    "score": 90
+    "score": 91
+  },
+  {
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
+    "data": {
+      "easySolved": 17,
+      "mediumSolved": 17,
+      "hardSolved": 1
+    },
+    "score": 73
   },
   {
     "name": "Atharv Kirulkar",
@@ -268,16 +278,6 @@
       "hardSolved": 0
     },
     "score": 68
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 15,
-      "hardSolved": 1
-    },
-    "score": 67
   },
   {
     "name": "Ruturaj Tushar Pandit",
