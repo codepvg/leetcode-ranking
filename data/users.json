@@ -278,5 +278,9 @@
   {
     "name": "Avinash Ganore",
     "id": "https://leetcode.com/u/vishwajit15-git/"
+  },
+  {
+    "name": "Avinash Ganore",
+    "id": "https://leetcode-api-faisalshohag.vercel.app/${id.trim()}"
   }
 ]
