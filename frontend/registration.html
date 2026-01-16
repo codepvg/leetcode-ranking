@@ -93,8 +93,30 @@
             document.getElementById('registrationForm').reset();
         }
 
+        function extractUsername(input) {
+
+            let value = input.trim();
+            
+            if (value.includes('leetcode.com/') || value.includes('://')) {
+                const patterns = [
+                    /leetcode\.com\/u\/([A-Za-z0-9_-]+)/i,
+                    /leetcode\.com\/([A-Za-z0-9_-]+)/i
+                ];
+                
+                for (const pattern of patterns) {
+                    const match = value.match(pattern);
+                    if (match && match[1]) {
+                        return match[1];
+                    }
+                }
+            }
+
+            value = value.replace(/[^A-Za-z0-9_-]/g, '');
+            return value;
+        }
+
         function isValidId(id) {
-            return fetch(`https://leetcode-api-faisalshohag.vercel.app/${id.trim()}`, {
+            return fetch(`https://leetcode-api-dun.vercel.app/${id.trim()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -113,6 +135,25 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('registrationForm');
+            const leetcodeInput = document.getElementById('leetcodeId');
+            
+            leetcodeInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                const username = extractUsername(pastedText);
+                leetcodeInput.value = username;
+            });
+
+            leetcodeInput.addEventListener('input', (e) => {
+                const cursorPosition = e.target.selectionStart;
+                const originalLength = e.target.value.length;
+                
+                e.target.value = extractUsername(e.target.value);
+                
+                const newLength = e.target.value.length;
+                const diff = originalLength - newLength;
+                e.target.setSelectionRange(cursorPosition - diff, cursorPosition - diff);
+            });
             
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -120,12 +161,12 @@
                 const formData = new FormData(form);
                 const name = formData.get('name');
                 const leetcodeId = formData.get('leetcodeId');
-                
+
                 if (name && leetcodeId) {
                     const isValid = await isValidId(leetcodeId);
 
                     if (!isValid) {
-                        alert("Please enter a valid LeetCode Username!");
+                        alert("Please enter a correct LeetCode Username!");
                         return;
                     }
 
@@ -154,7 +195,6 @@
                         console.error(error);
                     });
                 }
-
             });
         });
     </script>
