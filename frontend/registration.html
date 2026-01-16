@@ -47,7 +47,6 @@
                             type="text" 
                             id="leetcodeId" 
                             name="leetcodeId" 
-                            pattern="[A-Za-z0-9_-]+"
                             class="form-input" 
                             placeholder="Enter your LeetCode username" 
                             required
@@ -117,7 +116,7 @@
         }
 
         function isValidId(id) {
-            return fetch(`https://leetcode-api-faisalshohag.vercel.app/${id.trim()}`, {
+            return fetch(`https://leetcode-api-dun.vercel.app/${id.trim()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -161,15 +160,8 @@
                 
                 const formData = new FormData(form);
                 const name = formData.get('name');
-                let leetcodeId = formData.get('leetcodeId');
-                
-                leetcodeId = extractUsername(leetcodeId);
-                
-                if (!leetcodeId || !/^[A-Za-z0-9_-]+$/.test(leetcodeId)) {
-                    alert("Please enter a valid LeetCode username (letters, numbers, underscores and hyphens only)!");
-                    return;
-                }
-                
+                const leetcodeId = formData.get('leetcodeId');
+
                 if (name && leetcodeId) {
                     const isValid = await isValidId(leetcodeId);
 
