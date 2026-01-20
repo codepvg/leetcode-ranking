@@ -1,25 +1,5 @@
 [
   {
-    "name": "Gotta catch 'em all",
-    "id": "cpcs",
-    "data": {
-      "easySolved": 922,
-      "mediumSolved": 1992,
-      "hardSolved": 902
-    },
-    "score": 11408
-  },
-  {
-    "name": "Yawn Sean",
-    "id": "Yawn_Sean",
-    "data": {
-      "easySolved": 241,
-      "mediumSolved": 599,
-      "hardSolved": 242
-    },
-    "score": 3248
-  },
-  {
     "name": "Neerad Ahire",
     "id": "Neerad_ahire",
     "data": {
@@ -53,21 +33,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 163,
+      "easySolved": 164,
       "mediumSolved": 203,
       "hardSolved": 12
     },
-    "score": 832
+    "score": 833
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 75,
-      "mediumSolved": 157,
+      "mediumSolved": 159,
       "hardSolved": 25
     },
-    "score": 671
+    "score": 677
   },
   {
     "name": "Mansi Wagh",
@@ -93,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 119,
+      "easySolved": 120,
       "mediumSolved": 77,
       "hardSolved": 5
     },
-    "score": 375
+    "score": 376
   },
   {
     "name": "Rayyan Shaikh",
@@ -124,10 +104,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 51,
-      "mediumSolved": 49,
+      "mediumSolved": 51,
       "hardSolved": 13
     },
-    "score": 263
+    "score": 269
   },
   {
     "name": "Vedant Banaitkar",
@@ -165,9 +145,9 @@
     "data": {
       "easySolved": 41,
       "mediumSolved": 37,
-      "hardSolved": 2
+      "hardSolved": 3
     },
-    "score": 162
+    "score": 167
   },
   {
     "name": "Neevan Redkar",
