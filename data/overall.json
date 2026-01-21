@@ -33,21 +33,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 164,
+      "easySolved": 165,
       "mediumSolved": 203,
       "hardSolved": 12
     },
-    "score": 833
+    "score": 834
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 75,
-      "mediumSolved": 159,
+      "easySolved": 76,
+      "mediumSolved": 160,
       "hardSolved": 25
     },
-    "score": 677
+    "score": 681
   },
   {
     "name": "Mansi Wagh",
@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 120,
+      "easySolved": 121,
       "mediumSolved": 77,
       "hardSolved": 5
     },
-    "score": 376
+    "score": 377
   },
   {
     "name": "Rayyan Shaikh",
@@ -103,11 +103,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 51,
-      "mediumSolved": 51,
+      "easySolved": 52,
+      "mediumSolved": 52,
       "hardSolved": 13
     },
-    "score": 269
+    "score": 273
   },
   {
     "name": "Vedant Banaitkar",
@@ -143,21 +143,21 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 41,
+      "easySolved": 42,
       "mediumSolved": 37,
       "hardSolved": 3
     },
-    "score": 167
+    "score": 168
   },
   {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 65,
+      "easySolved": 66,
       "mediumSolved": 24,
       "hardSolved": 1
     },
-    "score": 142
+    "score": 143
   },
   {
     "name": "Aditya sarse",
@@ -230,6 +230,16 @@
     "score": 117
   },
   {
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
+    "data": {
+      "easySolved": 22,
+      "mediumSolved": 24,
+      "hardSolved": 1
+    },
+    "score": 99
+  },
+  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
@@ -238,16 +248,6 @@
       "hardSolved": 0
     },
     "score": 99
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
-    "data": {
-      "easySolved": 22,
-      "mediumSolved": 23,
-      "hardSolved": 1
-    },
-    "score": 96
   },
   {
     "name": "Ajinkya Ashish Moharir",
