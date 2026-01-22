@@ -33,21 +33,21 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 165,
+      "easySolved": 166,
       "mediumSolved": 203,
       "hardSolved": 12
     },
-    "score": 834
+    "score": 835
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 76,
-      "mediumSolved": 160,
-      "hardSolved": 25
+      "mediumSolved": 161,
+      "hardSolved": 26
     },
-    "score": 681
+    "score": 689
   },
   {
     "name": "Mansi Wagh",
@@ -104,10 +104,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 52,
-      "mediumSolved": 52,
+      "mediumSolved": 53,
       "hardSolved": 13
     },
-    "score": 273
+    "score": 276
   },
   {
     "name": "Vedant Banaitkar",
@@ -233,11 +233,11 @@
     "name": "Avinash Ganore",
     "id": "Xzy-Vron",
     "data": {
-      "easySolved": 22,
+      "easySolved": 23,
       "mediumSolved": 24,
       "hardSolved": 1
     },
-    "score": 99
+    "score": 100
   },
   {
     "name": "Samarth Deshpande",
@@ -390,6 +390,16 @@
     "score": 24
   },
   {
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
+    "data": {
+      "easySolved": 7,
+      "mediumSolved": 5,
+      "hardSolved": 0
+    },
+    "score": 22
+  },
+  {
     "name": "Yash Gaiwkad",
     "id": "yash_gaikwad_08",
     "data": {
@@ -422,16 +432,6 @@
   {
     "name": "Mahantesh madalgi",
     "id": "mahantesh_00",
-    "data": {
-      "easySolved": 7,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 13
-  },
-  {
-    "name": "Vishwajit Hodgar",
-    "id": "vishwajit15-git",
     "data": {
       "easySolved": 7,
       "mediumSolved": 2,

@@ -1,27 +1,27 @@
 [
   {
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 9
+  },
+  {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 1,
+      "easySolved": 0,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 1
     },
-    "score": 4
+    "score": 8
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 4
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "Xzy-Vron",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
@@ -40,28 +40,8 @@
     "score": 1
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 1
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 1
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
+    "name": "Avinash Ganore",
+    "id": "Xzy-Vron",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -120,6 +100,16 @@
     "score": 0
   },
   {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
@@ -162,6 +152,26 @@
   {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -422,16 +432,6 @@
   {
     "name": "Mahantesh madalgi",
     "id": "mahantesh_00",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Vishwajit Hodgar",
-    "id": "vishwajit15-git",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
