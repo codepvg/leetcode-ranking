@@ -34,10 +34,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 167,
-      "mediumSolved": 207,
+      "mediumSolved": 208,
       "hardSolved": 12
     },
-    "score": 848
+    "score": 851
   },
   {
     "name": "Harshad Bhalsing",
@@ -84,20 +84,20 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 62,
-      "mediumSolved": 61,
+      "mediumSolved": 62,
       "hardSolved": 14
     },
-    "score": 315
+    "score": 318
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 93,
-      "mediumSolved": 57,
+      "easySolved": 94,
+      "mediumSolved": 60,
       "hardSolved": 8
     },
-    "score": 304
+    "score": 314
   },
   {
     "name": "YASH YOGESH BORA",
@@ -113,11 +113,11 @@
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
-      "easySolved": 28,
+      "easySolved": 31,
       "mediumSolved": 59,
       "hardSolved": 7
     },
-    "score": 240
+    "score": 243
   },
   {
     "name": "Vedant Banaitkar",
@@ -154,10 +154,10 @@
     "id": "neevs1",
     "data": {
       "easySolved": 74,
-      "mediumSolved": 27,
+      "mediumSolved": 28,
       "hardSolved": 1
     },
-    "score": 160
+    "score": 163
   },
   {
     "name": "Yash Jawale",
@@ -265,9 +265,9 @@
     "data": {
       "easySolved": 8,
       "mediumSolved": 23,
-      "hardSolved": 1
+      "hardSolved": 2
     },
-    "score": 82
+    "score": 87
   },
   {
     "name": "ARCHANA KUMARI",
@@ -510,6 +510,16 @@
     "score": 1
   },
   {
+    "name": "Vanshika Khanna",
+    "id": "Vanshikakhanna",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
     "name": "Mehak Zutshi",
     "id": "mehakzutshi",
     "data": {
@@ -592,16 +602,6 @@
   {
     "name": "Aryan Botre",
     "id": "aryanbotre18",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Vanshika Khanna",
-    "id": "Vanshikakhanna",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
