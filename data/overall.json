@@ -45,9 +45,9 @@
     "data": {
       "easySolved": 78,
       "mediumSolved": 167,
-      "hardSolved": 29
+      "hardSolved": 30
     },
-    "score": 724
+    "score": 729
   },
   {
     "name": "Mansi Wagh",
@@ -83,11 +83,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 63,
+      "easySolved": 64,
       "mediumSolved": 62,
       "hardSolved": 14
     },
-    "score": 319
+    "score": 320
   },
   {
     "name": "Rayyan Shaikh",
@@ -140,6 +140,16 @@
     "score": 190
   },
   {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 76,
+      "mediumSolved": 29,
+      "hardSolved": 1
+    },
+    "score": 168
+  },
+  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
@@ -148,16 +158,6 @@
       "hardSolved": 3
     },
     "score": 168
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 76,
-      "mediumSolved": 28,
-      "hardSolved": 1
-    },
-    "score": 165
   },
   {
     "name": "Yash Jawale",
@@ -265,19 +265,19 @@
     "data": {
       "easySolved": 8,
       "mediumSolved": 23,
-      "hardSolved": 2
+      "hardSolved": 3
     },
-    "score": 87
+    "score": 92
   },
   {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
       "easySolved": 20,
-      "mediumSolved": 15,
+      "mediumSolved": 16,
       "hardSolved": 2
     },
-    "score": 75
+    "score": 78
   },
   {
     "name": "Kaustubh Rananaware",
@@ -380,22 +380,22 @@
     "score": 34
   },
   {
+    "name": "Sanskruti Thakur",
+    "id": "Sanskruti_2008",
+    "data": {
+      "easySolved": 29,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 29
+  },
+  {
     "name": "KRUSHNA",
     "id": "Bhishma",
     "data": {
       "easySolved": 1,
       "mediumSolved": 1,
       "hardSolved": 4
-    },
-    "score": 24
-  },
-  {
-    "name": "Sanskruti Thakur",
-    "id": "Sanskruti_2008",
-    "data": {
-      "easySolved": 24,
-      "mediumSolved": 0,
-      "hardSolved": 0
     },
     "score": 24
   },
