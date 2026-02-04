@@ -44,10 +44,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 78,
-      "mediumSolved": 167,
-      "hardSolved": 30
+      "mediumSolved": 170,
+      "hardSolved": 31
     },
-    "score": 729
+    "score": 743
   },
   {
     "name": "Mansi Wagh",
@@ -84,20 +84,20 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 64,
-      "mediumSolved": 62,
+      "mediumSolved": 63,
       "hardSolved": 14
     },
-    "score": 320
+    "score": 323
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 96,
+      "easySolved": 98,
       "mediumSolved": 60,
       "hardSolved": 8
     },
-    "score": 316
+    "score": 318
   },
   {
     "name": "YASH YOGESH BORA",
@@ -114,10 +114,10 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 32,
-      "mediumSolved": 59,
+      "mediumSolved": 60,
       "hardSolved": 7
     },
-    "score": 244
+    "score": 247
   },
   {
     "name": "Vedant Banaitkar",
@@ -143,11 +143,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 76,
+      "easySolved": 77,
       "mediumSolved": 29,
       "hardSolved": 1
     },
-    "score": 168
+    "score": 169
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -250,6 +250,16 @@
     "score": 109
   },
   {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 26,
+      "hardSolved": 3
+    },
+    "score": 102
+  },
+  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
@@ -260,24 +270,14 @@
     "score": 99
   },
   {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 8,
-      "mediumSolved": 23,
-      "hardSolved": 3
-    },
-    "score": 92
-  },
-  {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 20,
+      "easySolved": 22,
       "mediumSolved": 16,
       "hardSolved": 2
     },
-    "score": 78
+    "score": 80
   },
   {
     "name": "Kaustubh Rananaware",
