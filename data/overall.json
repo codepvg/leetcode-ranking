@@ -44,10 +44,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 78,
-      "mediumSolved": 170,
+      "mediumSolved": 173,
       "hardSolved": 31
     },
-    "score": 743
+    "score": 752
   },
   {
     "name": "Mansi Wagh",
@@ -73,11 +73,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 125,
-      "mediumSolved": 78,
+      "easySolved": 127,
+      "mediumSolved": 79,
       "hardSolved": 5
     },
-    "score": 384
+    "score": 389
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -144,10 +144,10 @@
     "id": "neevs1",
     "data": {
       "easySolved": 77,
-      "mediumSolved": 29,
+      "mediumSolved": 30,
       "hardSolved": 1
     },
-    "score": 169
+    "score": 172
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -158,6 +158,16 @@
       "hardSolved": 3
     },
     "score": 168
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 39,
+      "mediumSolved": 34,
+      "hardSolved": 1
+    },
+    "score": 146
   },
   {
     "name": "Yash Jawale",
@@ -185,16 +195,6 @@
     "data": {
       "easySolved": 67,
       "mediumSolved": 22,
-      "hardSolved": 1
-    },
-    "score": 138
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 37,
-      "mediumSolved": 32,
       "hardSolved": 1
     },
     "score": 138
