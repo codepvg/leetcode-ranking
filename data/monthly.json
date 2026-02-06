@@ -4,50 +4,60 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 26,
-      "hardSolved": 6
+      "mediumSolved": 25,
+      "hardSolved": 8
     },
-    "score": 115
+    "score": 122
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 28,
-      "mediumSolved": 22,
+      "easySolved": 26,
+      "mediumSolved": 21,
       "hardSolved": 2
     },
-    "score": 104
+    "score": 99
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 15,
-      "mediumSolved": 17,
+      "mediumSolved": 14,
       "hardSolved": 5
     },
-    "score": 91
+    "score": 82
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 21,
+      "easySolved": 26,
       "mediumSolved": 15,
       "hardSolved": 0
     },
-    "score": 66
+    "score": 71
+  },
+  {
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
+    "data": {
+      "easySolved": 7,
+      "mediumSolved": 12,
+      "hardSolved": 0
+    },
+    "score": 43
   },
   {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 5,
+      "easySolved": 4,
       "mediumSolved": 8,
       "hardSolved": 2
     },
-    "score": 39
+    "score": 38
   },
   {
     "name": "Rayyan Shaikh",
@@ -63,11 +73,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 13,
+      "easySolved": 14,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 31
+    "score": 32
   },
   {
     "name": "Atharv Kirulkar",
@@ -80,16 +90,6 @@
     "score": 30
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 12,
-      "mediumSolved": 4,
-      "hardSolved": 1
-    },
-    "score": 29
-  },
-  {
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
@@ -100,14 +100,14 @@
     "score": 26
   },
   {
-    "name": "YASH YOGESH BORA",
-    "id": "yashbora",
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
-      "easySolved": 3,
-      "mediumSolved": 7,
-      "hardSolved": 0
+      "easySolved": 12,
+      "mediumSolved": 3,
+      "hardSolved": 1
     },
-    "score": 24
+    "score": 26
   },
   {
     "name": "ARCHANA KUMARI",
@@ -118,6 +118,16 @@
       "hardSolved": 1
     },
     "score": 23
+  },
+  {
+    "name": "YASH YOGESH BORA",
+    "id": "yashbora",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 6,
+      "hardSolved": 0
+    },
+    "score": 20
   },
   {
     "name": "Anurag",
@@ -143,21 +153,11 @@
     "name": "Triveni Waghole",
     "id": "Triveni_24",
     "data": {
-      "easySolved": 4,
+      "easySolved": 3,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 7
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 5
+    "score": 6
   },
   {
     "name": "Sanskruti Thakur",
@@ -180,14 +180,14 @@
     "score": 3
   },
   {
-    "name": "Mansi Wagh",
-    "id": "mansi_65478",
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 1
+    "score": 2
   },
   {
     "name": "Vanshika Khanna",
@@ -202,6 +202,16 @@
   {
     "name": "Neerad Ahire",
     "id": "Neerad_ahire",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Mansi Wagh",
+    "id": "mansi_65478",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -653,10 +663,10 @@
     "name": "Avinash Ganore",
     "id": "Xzy-Vron",
     "data": {
-      "easySolved": -16,
-      "mediumSolved": -12,
+      "easySolved": -17,
+      "mediumSolved": -13,
       "hardSolved": 0
     },
-    "score": -52
+    "score": -56
   }
 ]

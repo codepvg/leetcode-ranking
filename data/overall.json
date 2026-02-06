@@ -45,9 +45,9 @@
     "data": {
       "easySolved": 78,
       "mediumSolved": 173,
-      "hardSolved": 31
+      "hardSolved": 33
     },
-    "score": 752
+    "score": 762
   },
   {
     "name": "Mansi Wagh",
@@ -143,11 +143,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 77,
+      "easySolved": 78,
       "mediumSolved": 30,
       "hardSolved": 1
     },
-    "score": 172
+    "score": 173
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -163,11 +163,11 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 39,
+      "easySolved": 44,
       "mediumSolved": 34,
       "hardSolved": 1
     },
-    "score": 146
+    "score": 151
   },
   {
     "name": "Yash Jawale",

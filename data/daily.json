@@ -4,27 +4,17 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 3,
-      "hardSolved": 0
+      "mediumSolved": 0,
+      "hardSolved": 2
     },
-    "score": 9
+    "score": 10
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 8
-  },
-  {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 1,
+      "easySolved": 5,
+      "mediumSolved": 0,
       "hardSolved": 0
     },
     "score": 5
@@ -33,11 +23,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 0,
-      "mediumSolved": 1,
+      "easySolved": 1,
+      "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 3
+    "score": 1
   },
   {
     "name": "Neerad Ahire",
@@ -92,6 +82,16 @@
   {
     "name": "Sushant Borde",
     "id": "Sbking_391",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
