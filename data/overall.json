@@ -113,11 +113,11 @@
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
-      "easySolved": 32,
-      "mediumSolved": 61,
+      "easySolved": 33,
+      "mediumSolved": 62,
       "hardSolved": 7
     },
-    "score": 250
+    "score": 254
   },
   {
     "name": "Vedant Banaitkar",
@@ -163,11 +163,11 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 44,
-      "mediumSolved": 34,
+      "easySolved": 45,
+      "mediumSolved": 35,
       "hardSolved": 1
     },
-    "score": 151
+    "score": 155
   },
   {
     "name": "Yash Jawale",
@@ -512,6 +512,16 @@
   {
     "name": "Vanshika Khanna",
     "id": "Vanshikakhanna",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "SAMIR RAMESH MYANAWAR",
+    "id": "samir5243d",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
