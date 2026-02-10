@@ -14,30 +14,30 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 25,
-      "mediumSolved": 17,
+      "mediumSolved": 19,
       "hardSolved": 2
     },
-    "score": 86
+    "score": 92
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 16,
-      "mediumSolved": 12,
-      "hardSolved": 3
+      "mediumSolved": 14,
+      "hardSolved": 2
     },
-    "score": 67
+    "score": 68
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 20,
+      "easySolved": 19,
       "mediumSolved": 15,
       "hardSolved": 0
     },
-    "score": 65
+    "score": 64
   },
   {
     "name": "Vishwajit Hodgar",
@@ -70,6 +70,16 @@
     "score": 33
   },
   {
+    "name": "Sanskruti Thakur",
+    "id": "Sanskruti_2008",
+    "data": {
+      "easySolved": 24,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 33
+  },
+  {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
@@ -83,28 +93,18 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 8,
+      "easySolved": 9,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 26
+    "score": 27
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 10,
+      "easySolved": 9,
       "mediumSolved": 2,
-      "hardSolved": 2
-    },
-    "score": 26
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 4,
       "hardSolved": 2
     },
     "score": 25
@@ -120,14 +120,14 @@
     "score": 23
   },
   {
-    "name": "Sanskruti Thakur",
-    "id": "Sanskruti_2008",
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 14,
-      "mediumSolved": 2,
-      "hardSolved": 0
+      "easySolved": 3,
+      "mediumSolved": 3,
+      "hardSolved": 2
     },
-    "score": 20
+    "score": 22
   },
   {
     "name": "Anurag",
@@ -664,9 +664,9 @@
     "id": "Xzy-Vron",
     "data": {
       "easySolved": -17,
-      "mediumSolved": -15,
+      "mediumSolved": -17,
       "hardSolved": -1
     },
-    "score": -67
+    "score": -73
   }
 ]
