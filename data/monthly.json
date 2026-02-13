@@ -4,40 +4,40 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 26,
+      "mediumSolved": 27,
       "hardSolved": 10
     },
-    "score": 135
+    "score": 138
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 26,
-      "mediumSolved": 18,
+      "mediumSolved": 20,
       "hardSolved": 2
     },
-    "score": 90
+    "score": 96
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 15,
-      "mediumSolved": 16,
+      "mediumSolved": 17,
       "hardSolved": 2
     },
-    "score": 73
+    "score": 76
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 19,
-      "mediumSolved": 15,
+      "easySolved": 24,
+      "mediumSolved": 16,
       "hardSolved": 0
     },
-    "score": 64
+    "score": 72
   },
   {
     "name": "Vishwajit Hodgar",
@@ -63,11 +63,11 @@
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 28,
+      "easySolved": 29,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 37
+    "score": 38
   },
   {
     "name": "Rayyan Shaikh",
@@ -134,10 +134,10 @@
     "id": "anuragmuley",
     "data": {
       "easySolved": 3,
-      "mediumSolved": 4,
+      "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 15
+    "score": 18
   },
   {
     "name": "Yash Jawale",
@@ -148,6 +148,16 @@
       "hardSolved": 1
     },
     "score": 8
+  },
+  {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 5
   },
   {
     "name": "Triveni Waghole",
@@ -168,16 +178,6 @@
       "hardSolved": 0
     },
     "score": 3
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 2
   },
   {
     "name": "Vanshika Khanna",

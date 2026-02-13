@@ -14,20 +14,20 @@
     "id": "Arya_Lingayat",
     "data": {
       "easySolved": 279,
-      "mediumSolved": 204,
+      "mediumSolved": 205,
       "hardSolved": 6
     },
-    "score": 921
+    "score": 924
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 206,
-      "mediumSolved": 212,
+      "mediumSolved": 213,
       "hardSolved": 8
     },
-    "score": 882
+    "score": 885
   },
   {
     "name": "Saniya Gupte",
@@ -44,10 +44,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 79,
-      "mediumSolved": 176,
+      "mediumSolved": 177,
       "hardSolved": 35
     },
-    "score": 782
+    "score": 785
   },
   {
     "name": "Mansi Wagh",
@@ -84,10 +84,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 69,
-      "mediumSolved": 65,
+      "mediumSolved": 67,
       "hardSolved": 14
     },
-    "score": 334
+    "score": 340
   },
   {
     "name": "Rayyan Shaikh",
@@ -114,10 +114,10 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 33,
-      "mediumSolved": 66,
+      "mediumSolved": 67,
       "hardSolved": 7
     },
-    "score": 266
+    "score": 269
   },
   {
     "name": "Vedant Banaitkar",
@@ -163,11 +163,11 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 45,
-      "mediumSolved": 35,
+      "easySolved": 50,
+      "mediumSolved": 36,
       "hardSolved": 1
     },
-    "score": 155
+    "score": 163
   },
   {
     "name": "Yash Jawale",
@@ -230,6 +230,16 @@
     "score": 119
   },
   {
+    "name": "Avinash Ganore",
+    "id": "IAvii",
+    "data": {
+      "easySolved": 27,
+      "mediumSolved": 29,
+      "hardSolved": 1
+    },
+    "score": 119
+  },
+  {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
@@ -238,16 +248,6 @@
       "hardSolved": 3
     },
     "score": 117
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "IAvii",
-    "data": {
-      "easySolved": 27,
-      "mediumSolved": 28,
-      "hardSolved": 1
-    },
-    "score": 116
   },
   {
     "name": "Atharv Kirulkar",
@@ -293,11 +293,11 @@
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 52,
+      "easySolved": 53,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 61
+    "score": 62
   },
   {
     "name": "Ruturaj Tushar Pandit",

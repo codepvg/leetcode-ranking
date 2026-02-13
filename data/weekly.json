@@ -3,71 +3,81 @@
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 23,
+      "easySolved": 24,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 32
+    "score": 33
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 1,
-      "mediumSolved": 3,
-      "hardSolved": 4
+      "mediumSolved": 4,
+      "hardSolved": 2
     },
-    "score": 30
+    "score": 23
   },
   {
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
       "easySolved": 1,
-      "mediumSolved": 6,
+      "mediumSolved": 7,
       "hardSolved": 0
     },
-    "score": 19
+    "score": 22
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 2,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 11
+    "score": 17
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 6,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 9
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 2,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 8
+    "score": 12
   },
   {
     "name": "Avinash Ganore",
     "id": "IAvii",
     "data": {
       "easySolved": 1,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 10
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 1,
       "mediumSolved": 2,
       "hardSolved": 0
     },
     "score": 7
+  },
+  {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 6
   },
   {
     "name": "Rajat malapur",
@@ -80,8 +90,8 @@
     "score": 5
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
@@ -122,16 +132,6 @@
   {
     "name": "Neerad Ahire",
     "id": "Neerad_ahire",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
