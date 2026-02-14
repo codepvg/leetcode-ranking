@@ -1,53 +1,53 @@
 [
   {
+    "name": "Shrikant Mhaske",
+    "id": "shrikant7345",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 8,
+      "hardSolved": 1
+    },
+    "score": 30
+  },
+  {
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 24,
+      "easySolved": 22,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 25
+  },
+  {
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 6,
+      "hardSolved": 0
+    },
+    "score": 22
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 10,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 33
+    "score": 19
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 1,
-      "mediumSolved": 4,
-      "hardSolved": 2
+      "mediumSolved": 3,
+      "hardSolved": 1
     },
-    "score": 23
-  },
-  {
-    "name": "Shrikant Mhaske",
-    "id": "shrikant7345",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 7,
-      "hardSolved": 0
-    },
-    "score": 22
-  },
-  {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
-    "data": {
-      "easySolved": 5,
-      "mediumSolved": 4,
-      "hardSolved": 0
-    },
-    "score": 17
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 6,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 12
+    "score": 15
   },
   {
     "name": "Avinash Ganore",
@@ -58,16 +58,6 @@
       "hardSolved": 0
     },
     "score": 10
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 7
   },
   {
     "name": "Anurag",
@@ -92,6 +82,16 @@
   {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 3
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
