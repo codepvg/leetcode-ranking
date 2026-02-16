@@ -3,21 +3,21 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 9,
-      "mediumSolved": 29,
+      "easySolved": 12,
+      "mediumSolved": 30,
       "hardSolved": 10
     },
-    "score": 146
+    "score": 152
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 21,
-      "mediumSolved": 23,
+      "easySolved": 19,
+      "mediumSolved": 22,
       "hardSolved": 1
     },
-    "score": 95
+    "score": 90
   },
   {
     "name": "Ajinkya Ashish Moharir",
@@ -34,10 +34,10 @@
     "id": "shrikant7345",
     "data": {
       "easySolved": 15,
-      "mediumSolved": 15,
+      "mediumSolved": 14,
       "hardSolved": 2
     },
-    "score": 70
+    "score": 67
   },
   {
     "name": "Sanskruti Thakur",
@@ -93,31 +93,31 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 7,
+      "easySolved": 8,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 25
+    "score": 26
   },
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 9,
-      "mediumSolved": 2,
+      "easySolved": 10,
+      "mediumSolved": 3,
       "hardSolved": 1
     },
-    "score": 20
+    "score": 24
   },
   {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
       "easySolved": 6,
-      "mediumSolved": 3,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 15
+    "score": 18
   },
   {
     "name": "Anurag",
@@ -133,25 +133,25 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 2,
+      "easySolved": 1,
       "mediumSolved": 1,
       "hardSolved": 1
     },
-    "score": 10
-  },
-  {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 5
+    "score": 9
   },
   {
     "name": "Vanshika Khanna",
     "id": "Vanshikakhanna",
+    "data": {
+      "easySolved": 3,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 6
+  },
+  {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
     "data": {
       "easySolved": 2,
       "mediumSolved": 1,
@@ -673,10 +673,10 @@
     "name": "Avinash Ganore",
     "id": "Xzy-Vron",
     "data": {
-      "easySolved": -20,
-      "mediumSolved": -21,
+      "easySolved": -21,
+      "mediumSolved": -22,
       "hardSolved": -1
     },
-    "score": -88
+    "score": -92
   }
 ]
