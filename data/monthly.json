@@ -3,41 +3,51 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 12,
-      "mediumSolved": 25,
+      "easySolved": 13,
+      "mediumSolved": 23,
       "hardSolved": 10
     },
-    "score": 137
+    "score": 132
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 37,
+      "easySolved": 42,
       "mediumSolved": 21,
       "hardSolved": 1
     },
-    "score": 105
+    "score": 110
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 22,
-      "mediumSolved": 25,
+      "mediumSolved": 24,
       "hardSolved": 1
     },
-    "score": 102
+    "score": 99
   },
   {
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 36,
+      "easySolved": 38,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 45
+    "score": 47
+  },
+  {
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 11,
+      "hardSolved": 1
+    },
+    "score": 39
   },
   {
     "name": "Neevan Redkar",
@@ -50,24 +60,24 @@
     "score": 38
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
-    "data": {
-      "easySolved": 10,
-      "mediumSolved": 6,
-      "hardSolved": 1
-    },
-    "score": 33
-  },
-  {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 9,
-      "mediumSolved": 8,
+      "easySolved": 10,
+      "mediumSolved": 9,
       "hardSolved": 0
     },
-    "score": 33
+    "score": 37
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 6,
+      "hardSolved": 1
+    },
+    "score": 32
   },
   {
     "name": "Atharv Kirulkar",
@@ -76,16 +86,6 @@
       "easySolved": 2,
       "mediumSolved": 6,
       "hardSolved": 2
-    },
-    "score": 30
-  },
-  {
-    "name": "Vishwajit Hodgar",
-    "id": "vishwajit15-git",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 10,
-      "hardSolved": 0
     },
     "score": 30
   },
@@ -120,16 +120,6 @@
     "score": 11
   },
   {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 2
-    },
-    "score": 11
-  },
-  {
     "name": "Vanshika Khanna",
     "id": "Vanshikakhanna",
     "data": {
@@ -146,6 +136,16 @@
       "easySolved": 3,
       "mediumSolved": 1,
       "hardSolved": 0
+    },
+    "score": 6
+  },
+  {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 1
     },
     "score": 6
   },
