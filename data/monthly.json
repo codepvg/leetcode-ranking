@@ -3,31 +3,31 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 14,
-      "mediumSolved": 21,
-      "hardSolved": 9
+      "easySolved": 15,
+      "mediumSolved": 20,
+      "hardSolved": 6
     },
-    "score": 122
+    "score": 105
   },
   {
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 39,
-      "mediumSolved": 22,
+      "easySolved": 36,
+      "mediumSolved": 18,
       "hardSolved": 1
     },
-    "score": 110
+    "score": 95
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 21,
-      "mediumSolved": 22,
+      "mediumSolved": 20,
       "hardSolved": 1
     },
-    "score": 92
+    "score": 86
   },
   {
     "name": "Sanskruti Thakur",
@@ -44,10 +44,10 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 11,
-      "mediumSolved": 10,
+      "mediumSolved": 11,
       "hardSolved": 0
     },
-    "score": 41
+    "score": 44
   },
   {
     "name": "Neevan Redkar",
@@ -94,10 +94,10 @@
     "id": "SaniyaGupte",
     "data": {
       "easySolved": 7,
-      "mediumSolved": 7,
+      "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 28
+    "score": 25
   },
   {
     "name": "ARCHANA KUMARI",
@@ -140,16 +140,6 @@
     "score": 8
   },
   {
-    "name": "Lingayat Arya Kamlesh",
-    "id": "Arya_Lingayat",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 1,
-      "hardSolved": 0
-    },
-    "score": 6
-  },
-  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
@@ -178,6 +168,16 @@
       "hardSolved": 0
     },
     "score": 6
+  },
+  {
+    "name": "Lingayat Arya Kamlesh",
+    "id": "Arya_Lingayat",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 4
   },
   {
     "name": "Triveni Waghole",
@@ -673,10 +673,10 @@
     "name": "Shrikant Mhaske",
     "id": "shrikant7345",
     "data": {
-      "easySolved": -18,
+      "easySolved": -19,
       "mediumSolved": -56,
       "hardSolved": -6
     },
-    "score": -216
+    "score": -217
   }
 ]
