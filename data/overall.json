@@ -240,6 +240,16 @@
     "score": 117
   },
   {
+    "name": "Sanskruti Thakur",
+    "id": "Sanskruti_2008",
+    "data": {
+      "easySolved": 78,
+      "mediumSolved": 7,
+      "hardSolved": 1
+    },
+    "score": 104
+  },
+  {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
@@ -258,16 +268,6 @@
       "hardSolved": 0
     },
     "score": 99
-  },
-  {
-    "name": "Sanskruti Thakur",
-    "id": "Sanskruti_2008",
-    "data": {
-      "easySolved": 68,
-      "mediumSolved": 7,
-      "hardSolved": 1
-    },
-    "score": 94
   },
   {
     "name": "ARCHANA KUMARI",
@@ -293,11 +293,11 @@
     "name": "Vishwajit Hodgar",
     "id": "vishwajit15-git",
     "data": {
-      "easySolved": 10,
+      "easySolved": 11,
       "mediumSolved": 15,
       "hardSolved": 1
     },
-    "score": 60
+    "score": 61
   },
   {
     "name": "Ruturaj Tushar Pandit",
