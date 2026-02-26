@@ -3,31 +3,31 @@
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
-      "easySolved": 31,
+      "easySolved": 29,
       "mediumSolved": 5,
       "hardSolved": 1
     },
-    "score": 51
+    "score": 49
   },
   {
-    "name": "Vishwajit Hodgar",
-    "id": "vishwajit15-git",
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 6,
+      "hardSolved": 0
+    },
+    "score": 18
+  },
+  {
+    "name": "Siddhant Chavan",
+    "id": "ohJYjmBzFo",
     "data": {
       "easySolved": 5,
       "mediumSolved": 4,
-      "hardSolved": 1
-    },
-    "score": 22
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 7,
-      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 19
+    "score": 17
   },
   {
     "name": "Harshad Bhalsing",
@@ -40,11 +40,21 @@
     "score": 16
   },
   {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
     "data": {
-      "easySolved": 0,
-      "mediumSolved": 5,
+      "easySolved": 4,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 16
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 3,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
     "score": 15
@@ -53,31 +63,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 4,
-      "hardSolved": 0
-    },
-    "score": 14
-  },
-  {
-    "name": "Siddhant Chavan",
-    "id": "ohJYjmBzFo",
-    "data": {
-      "easySolved": 5,
+      "easySolved": 1,
       "mediumSolved": 3,
       "hardSolved": 0
     },
-    "score": 14
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "IAvii",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 3,
-      "hardSolved": 0
-    },
-    "score": 9
+    "score": 10
   },
   {
     "name": "Atharva",
@@ -98,6 +88,16 @@
       "hardSolved": 0
     },
     "score": 9
+  },
+  {
+    "name": "Avinash Ganore",
+    "id": "IAvii",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 6
   },
   {
     "name": "Anurag",
