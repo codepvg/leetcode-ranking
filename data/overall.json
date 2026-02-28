@@ -123,11 +123,11 @@
     "name": "Ajinkya Ashish Moharir",
     "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 72,
+      "easySolved": 73,
       "mediumSolved": 46,
       "hardSolved": 2
     },
-    "score": 220
+    "score": 221
   },
   {
     "name": "Harshal Mahajan",
@@ -180,6 +180,16 @@
     "score": 142
   },
   {
+    "name": "Avinash Ganore",
+    "id": "IAvii",
+    "data": {
+      "easySolved": 30,
+      "mediumSolved": 35,
+      "hardSolved": 1
+    },
+    "score": 140
+  },
+  {
     "name": "Kabeer Ahmed Merchant",
     "id": "Kabeer2004",
     "data": {
@@ -188,16 +198,6 @@
       "hardSolved": 1
     },
     "score": 138
-  },
-  {
-    "name": "Avinash Ganore",
-    "id": "IAvii",
-    "data": {
-      "easySolved": 30,
-      "mediumSolved": 34,
-      "hardSolved": 1
-    },
-    "score": 137
   },
   {
     "name": "Vaishnavi Borkar",
@@ -253,11 +253,11 @@
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
-      "easySolved": 9,
+      "easySolved": 10,
       "mediumSolved": 27,
       "hardSolved": 3
     },
-    "score": 105
+    "score": 106
   },
   {
     "name": "Samarth Deshpande",
@@ -280,22 +280,22 @@
     "score": 86
   },
   {
+    "name": "Vishwajit Hodgar",
+    "id": "vishwajit15-git",
+    "data": {
+      "easySolved": 15,
+      "mediumSolved": 17,
+      "hardSolved": 1
+    },
+    "score": 71
+  },
+  {
     "name": "Kaustubh Rananaware",
     "id": "heapwizard",
     "data": {
       "easySolved": 38,
       "mediumSolved": 10,
       "hardSolved": 0
-    },
-    "score": 68
-  },
-  {
-    "name": "Vishwajit Hodgar",
-    "id": "vishwajit15-git",
-    "data": {
-      "easySolved": 12,
-      "mediumSolved": 17,
-      "hardSolved": 1
     },
     "score": 68
   },
@@ -353,11 +353,11 @@
     "name": "Sakshi Arun Kapase",
     "id": "Sakshi_Kapase",
     "data": {
-      "easySolved": 25,
+      "easySolved": 26,
       "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 43
+    "score": 44
   },
   {
     "name": "Aryan Anoop Parihar",

@@ -10,16 +10,6 @@
     "score": 111
   },
   {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 37,
-      "mediumSolved": 21,
-      "hardSolved": 1
-    },
-    "score": 105
-  },
-  {
     "name": "Sanskruti Thakur",
     "id": "Sanskruti_2008",
     "data": {
@@ -34,30 +24,40 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 18,
-      "mediumSolved": 24,
+      "mediumSolved": 23,
       "hardSolved": 0
     },
-    "score": 90
+    "score": 87
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
+    "data": {
+      "easySolved": 36,
+      "mediumSolved": 15,
+      "hardSolved": 1
+    },
+    "score": 86
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 9,
-      "mediumSolved": 11,
+      "mediumSolved": 10,
       "hardSolved": 0
     },
-    "score": 42
+    "score": 39
   },
   {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
+    "name": "Avinash Ganore",
+    "id": "IAvii",
     "data": {
-      "easySolved": 10,
-      "mediumSolved": 7,
+      "easySolved": 4,
+      "mediumSolved": 10,
       "hardSolved": 0
     },
-    "score": 31
+    "score": 34
   },
   {
     "name": "Rajat malapur",
@@ -70,24 +70,34 @@
     "score": 30
   },
   {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 8,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 29
+  },
+  {
     "name": "Vishwajit Hodgar",
     "id": "vishwajit15-git",
     "data": {
-      "easySolved": 5,
+      "easySolved": 8,
       "mediumSolved": 5,
       "hardSolved": 1
     },
-    "score": 25
+    "score": 28
   },
   {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 4,
       "hardSolved": 2
     },
-    "score": 23
+    "score": 24
   },
   {
     "name": "Siddhant Chavan",
