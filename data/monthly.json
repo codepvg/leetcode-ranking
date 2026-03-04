@@ -3,11 +3,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 18,
-      "mediumSolved": 25,
+      "easySolved": 17,
+      "mediumSolved": 24,
       "hardSolved": 7
     },
-    "score": 128
+    "score": 124
   },
   {
     "name": "Sanskruti Thakur",
@@ -33,11 +33,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 11,
+      "easySolved": 10,
       "mediumSolved": 22,
       "hardSolved": 0
     },
-    "score": 77
+    "score": 76
   },
   {
     "name": "Vishwajit Hodgar",
@@ -63,21 +63,31 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 8,
+      "easySolved": 6,
       "mediumSolved": 5,
       "hardSolved": 1
     },
-    "score": 28
+    "score": 26
+  },
+  {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 6,
+      "mediumSolved": 5,
+      "hardSolved": 1
+    },
+    "score": 26
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 7,
+      "easySolved": 5,
       "mediumSolved": 5,
       "hardSolved": 0
     },
-    "score": 22
+    "score": 20
   },
   {
     "name": "Siddhant Chavan",
@@ -90,24 +100,14 @@
     "score": 20
   },
   {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 4,
-      "hardSolved": 1
-    },
-    "score": 19
-  },
-  {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 5,
+      "easySolved": 3,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 17
+    "score": 15
   },
   {
     "name": "Vanshika Khanna",
@@ -170,16 +170,6 @@
     "score": 10
   },
   {
-    "name": "Vaishnavi Borkar",
-    "id": "borkarvaishnavi45",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 8
-  },
-  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -198,6 +188,16 @@
       "hardSolved": 0
     },
     "score": 6
+  },
+  {
+    "name": "Vaishnavi Borkar",
+    "id": "borkarvaishnavi45",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 5
   },
   {
     "name": "Shrutika Bhosale",
