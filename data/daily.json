@@ -1,7 +1,27 @@
 [
   {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 2,
+      "hardSolved": 0
+    },
+    "score": 8
+  },
+  {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 4
+  },
+  {
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
@@ -10,18 +30,28 @@
     "score": 3
   },
   {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 0,
+      "easySolved": 0,
+      "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 2
+    "score": 3
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 1
+  },
+  {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
     "data": {
       "easySolved": 1,
       "mediumSolved": 0,
@@ -90,16 +120,6 @@
     "score": 0
   },
   {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
@@ -112,16 +132,6 @@
   {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 0
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
@@ -698,15 +708,5 @@
       "hardSolved": 0
     },
     "score": 0
-  },
-  {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": -1,
-      "hardSolved": 0
-    },
-    "score": -2
   }
 ]
