@@ -3,21 +3,21 @@
     "name": "Atharva",
     "id": "Atharva_110586",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 10,
+      "easySolved": 3,
+      "mediumSolved": 13,
       "hardSolved": 2
     },
-    "score": 42
+    "score": 52
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 2,
-      "mediumSolved": 4,
-      "hardSolved": 1
+      "easySolved": 3,
+      "mediumSolved": 6,
+      "hardSolved": 2
     },
-    "score": 19
+    "score": 31
   },
   {
     "name": "Rayyan Shaikh",
@@ -30,14 +30,14 @@
     "score": 9
   },
   {
-    "name": "Yash Jawale",
-    "id": "Cross440",
+    "name": "Aryan Shashikant Patil",
+    "id": "aryanpatil123",
     "data": {
-      "easySolved": 0,
+      "easySolved": 2,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 6
+    "score": 8
   },
   {
     "name": "Saniya Gupte",
@@ -50,14 +50,14 @@
     "score": 4
   },
   {
-    "name": "Aryan Shashikant Patil",
-    "id": "aryanpatil123",
+    "name": "Yash Jawale",
+    "id": "Cross440",
     "data": {
-      "easySolved": 1,
+      "easySolved": 0,
       "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 4
+    "score": 3
   },
   {
     "name": "Atharv Kirulkar",
