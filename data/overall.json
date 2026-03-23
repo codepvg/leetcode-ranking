@@ -23,11 +23,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 103,
-      "mediumSolved": 203,
+      "easySolved": 105,
+      "mediumSolved": 205,
       "hardSolved": 39
     },
-    "score": 907
+    "score": 915
   },
   {
     "name": "Anurag",
@@ -143,11 +143,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 79,
-      "mediumSolved": 32,
+      "easySolved": 80,
+      "mediumSolved": 33,
       "hardSolved": 1
     },
-    "score": 180
+    "score": 184
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -160,6 +160,16 @@
     "score": 179
   },
   {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 24,
+      "mediumSolved": 40,
+      "hardSolved": 3
+    },
+    "score": 159
+  },
+  {
     "name": "Yash Jawale",
     "id": "Cross440",
     "data": {
@@ -168,16 +178,6 @@
       "hardSolved": 4
     },
     "score": 157
-  },
-  {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 23,
-      "mediumSolved": 39,
-      "hardSolved": 3
-    },
-    "score": 155
   },
   {
     "name": "Aditya sarse",
