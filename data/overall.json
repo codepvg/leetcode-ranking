@@ -10,6 +10,16 @@
     "score": 1185
   },
   {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 105,
+      "mediumSolved": 208,
+      "hardSolved": 40
+    },
+    "score": 929
+  },
+  {
     "name": "Lingayat Arya Kamlesh",
     "id": "Arya_Lingayat",
     "data": {
@@ -18,16 +28,6 @@
       "hardSolved": 6
     },
     "score": 928
-  },
-  {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 105,
-      "mediumSolved": 208,
-      "hardSolved": 39
-    },
-    "score": 924
   },
   {
     "name": "Anurag",
@@ -73,11 +73,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 82,
-      "mediumSolved": 97,
+      "easySolved": 83,
+      "mediumSolved": 98,
       "hardSolved": 14
     },
-    "score": 443
+    "score": 447
   },
   {
     "name": "Rajat malapur",
@@ -94,20 +94,20 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 105,
-      "mediumSolved": 76,
+      "mediumSolved": 77,
       "hardSolved": 9
     },
-    "score": 378
+    "score": 381
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 72,
-      "mediumSolved": 71,
+      "mediumSolved": 73,
       "hardSolved": 3
     },
-    "score": 300
+    "score": 306
   },
   {
     "name": "Vedant Banaitkar",
@@ -150,6 +150,16 @@
     "score": 184
   },
   {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 26,
+      "mediumSolved": 45,
+      "hardSolved": 4
+    },
+    "score": 181
+  },
+  {
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
@@ -158,16 +168,6 @@
       "hardSolved": 4
     },
     "score": 179
-  },
-  {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 26,
-      "mediumSolved": 43,
-      "hardSolved": 4
-    },
-    "score": 175
   },
   {
     "name": "Yash Jawale",
@@ -283,11 +283,11 @@
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 26,
+      "easySolved": 29,
       "mediumSolved": 17,
       "hardSolved": 2
     },
-    "score": 87
+    "score": 90
   },
   {
     "name": "Vishwajit Hodgar",
