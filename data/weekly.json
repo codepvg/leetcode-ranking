@@ -4,40 +4,40 @@
     "id": "atharvkirulkar",
     "data": {
       "easySolved": 4,
-      "mediumSolved": 8,
+      "mediumSolved": 9,
       "hardSolved": 1
     },
-    "score": 33
+    "score": 36
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 6,
-      "mediumSolved": 7,
+      "easySolved": 7,
+      "mediumSolved": 8,
       "hardSolved": 0
     },
-    "score": 27
+    "score": 31
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 3,
+      "easySolved": 4,
       "mediumSolved": 6,
       "hardSolved": 1
     },
-    "score": 26
+    "score": 27
   },
   {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 4,
-      "mediumSolved": 6,
+      "easySolved": 3,
+      "mediumSolved": 7,
       "hardSolved": 0
     },
-    "score": 22
+    "score": 24
   },
   {
     "name": "Rayyan Shaikh",
@@ -48,16 +48,6 @@
       "hardSolved": 1
     },
     "score": 18
-  },
-  {
-    "name": "Atharva",
-    "id": "Atharva_110586",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 6
   },
   {
     "name": "Neevan Redkar",
@@ -88,16 +78,6 @@
       "hardSolved": 0
     },
     "score": 3
-  },
-  {
-    "name": "Meet Kasat ",
-    "id": "MK_2006",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 1
   },
   {
     "name": "Neerad Ahire",
@@ -300,6 +280,16 @@
     "score": 0
   },
   {
+    "name": "Atharva",
+    "id": "Atharva_110586",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
@@ -472,6 +462,16 @@
   {
     "name": "Prathit Joshi",
     "id": "prathitjoshi",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Meet Kasat ",
+    "id": "MK_2006",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
