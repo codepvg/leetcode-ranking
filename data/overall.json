@@ -13,11 +13,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 106,
-      "mediumSolved": 209,
+      "easySolved": 107,
+      "mediumSolved": 211,
       "hardSolved": 40
     },
-    "score": 933
+    "score": 940
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -73,11 +73,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 83,
+      "easySolved": 84,
       "mediumSolved": 100,
       "hardSolved": 14
     },
-    "score": 453
+    "score": 454
   },
   {
     "name": "Rajat malapur",
@@ -130,6 +130,16 @@
     "score": 226
   },
   {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 26,
+      "mediumSolved": 47,
+      "hardSolved": 5
+    },
+    "score": 192
+  },
+  {
     "name": "Harshal Mahajan",
     "id": "Harshal2613",
     "data": {
@@ -138,16 +148,6 @@
       "hardSolved": 5
     },
     "score": 190
-  },
-  {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 26,
-      "mediumSolved": 47,
-      "hardSolved": 4
-    },
-    "score": 187
   },
   {
     "name": "Neevan Redkar",
@@ -400,6 +400,16 @@
     "score": 35
   },
   {
+    "name": "Yash Gaiwkad",
+    "id": "yash_gaikwad_08",
+    "data": {
+      "easySolved": 14,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 35
+  },
+  {
     "name": "Aryan Sirsavkar",
     "id": "aryansirsavkarc700",
     "data": {
@@ -408,16 +418,6 @@
       "hardSolved": 0
     },
     "score": 34
-  },
-  {
-    "name": "Yash Gaiwkad",
-    "id": "yash_gaikwad_08",
-    "data": {
-      "easySolved": 14,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 32
   },
   {
     "name": "KRUSHNA",
