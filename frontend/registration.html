@@ -57,7 +57,7 @@
                     </div>
 
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" style="margin: 0 auto;">
+                        <button id="registerBtn" type="submit" class="btn btn-primary" style="margin: 0 auto;">
                             Register Now
                         </button>
                     </div>
@@ -136,6 +136,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('registrationForm');
             const leetcodeInput = document.getElementById('leetcodeId');
+            const registerBtn = document.getElementById('registerBtn');
             
             leetcodeInput.addEventListener('paste', (e) => {
                 e.preventDefault();
@@ -155,48 +156,55 @@
                 e.target.setSelectionRange(cursorPosition - diff, cursorPosition - diff);
             });
             
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                const leetcodeId = formData.get('leetcodeId');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
+            registerBtn.disabled = true;
+            registerBtn.innerText = "Registering...";
+
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const leetcodeId = formData.get('leetcodeId');
+
+            try {
                 if (name && leetcodeId) {
-                    const isValid = await isValidId(leetcodeId);
+                   const isValid = await isValidId(leetcodeId);
 
-                    if (!isValid) {
-                        alert("Please enter a correct LeetCode Username!");
-                        return;
-                    }
+                   if (!isValid) {
+                       alert("Please enter a correct LeetCode Username!");
+                       registerBtn.disabled = false;
+                       registerBtn.innerText = "Register Now";
+                       return;
+                   }
 
-                    fetch("https://lc-backend-lyq2.onrender.com/user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name: name.trim(),
-                            id: leetcodeId.trim()
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Failed to register user");
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("User registered successfully:", data);
-                        showSuccess(name);
-                    })
-                    .catch(error => {
-                        alert("An error occurred during registration. Please try again.");
-                        console.error(error);
-                    });
-                }
-            });
-        });
-    </script>
+                   const response = await fetch("https://lc-backend-lyq2.onrender.com/user", {
+                      method: "POST",
+                      headers: {
+                         "Content-Type": "application/json"
+                      },
+                      body: JSON.stringify({
+                         name: name.trim(),
+                         id: leetcodeId.trim()
+                      })
+           });
+
+           if (!response.ok) {
+                throw new Error("Failed to register user");
+            }
+
+            const data = await response.json();
+            console.log("User registered successfully:", data);
+            showSuccess(name);
+        }
+    } catch (error) {
+        alert("An error occurred during registration. Please try again.");
+        console.error(error);
+    } finally {
+        registerBtn.disabled = false;
+        registerBtn.innerText = "Register Now";
+    }
+ });
+ });
+ </script>
 </body>
 </html>
