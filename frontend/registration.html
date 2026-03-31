@@ -57,9 +57,9 @@
                     </div>
 
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" style="margin: 0 auto;">
-                            Register Now
-                        </button>
+                    <button id="registerBtn" type="submit" class="btn btn-primary" style="margin: 0 auto;">
+                         Register Now
+                    </button>
                     </div>
                 </form>
             </div>
@@ -77,6 +77,12 @@
         </div>
     </main>
 
+    <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p>Registering...</p>
+    </div>
+    </div>
     <script>
         function showSuccess(name) {
             document.getElementById('registration-form').classList.add('hidden');
@@ -156,47 +162,67 @@
             });
             
             form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                const leetcodeId = formData.get('leetcodeId');
+    e.preventDefault();
 
-                if (name && leetcodeId) {
-                    const isValid = await isValidId(leetcodeId);
+    const registerBtn = document.getElementById('registerBtn');
+    const overlay = document.getElementById('loadingOverlay');
 
-                    if (!isValid) {
-                        alert("Please enter a correct LeetCode Username!");
-                        return;
-                    }
+    // 🟢 START LOADING
+    registerBtn.disabled = true;
+    registerBtn.innerText = "Registering...";
+    overlay.classList.remove('hidden');
 
-                    fetch("https://lc-backend-lyq2.onrender.com/user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name: name.trim(),
-                            id: leetcodeId.trim()
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Failed to register user");
+    const formData = new FormData(form);
+    const name = formData.get('name');
+    const leetcodeId = formData.get('leetcodeId');
+
+    if (name && leetcodeId) {
+        const isValid = await isValidId(leetcodeId);
+
+        if (!isValid) {
+            alert("Please enter a correct LeetCode Username!");
+
+            // 🔴 RESET
+            registerBtn.disabled = false;
+            registerBtn.innerText = "Register Now";
+            overlay.classList.add('hidden');
+            return;
+        }
+
+        fetch("https://lc-backend-lyq2.onrender.com/user", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name.trim(),
+                id: leetcodeId.trim()
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to register user");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("User registered successfully:", data);
+            showSuccess(name);
+        })
+        .catch(error => {
+            alert("An error occurred during registration. Please try again.");
+            console.error(error);
+        })
+        .finally(() => {
+            // 🟡 STOP LOADING
+            registerBtn.disabled = false;
+            registerBtn.innerText = "Register Now";
+            overlay.classList.add('hidden');
+                                  });
                         }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log("User registered successfully:", data);
-                        showSuccess(name);
-                    })
-                    .catch(error => {
-                        alert("An error occurred during registration. Please try again.");
-                        console.error(error);
                     });
-                }
-            });
-        });
+                });
+       
     </script>
 </body>
 </html>
