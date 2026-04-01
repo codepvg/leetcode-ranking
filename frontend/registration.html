@@ -23,7 +23,7 @@
         <div class="form-container">
             <div class="form-card" id="registration-form">
                 <h1 class="page-title">Join the Leaderboard</h1>
-                
+
                 <p class="text-center" style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem;">
                     Register to start tracking your LeetCode progress and compete with your peers!
                 </p>
@@ -31,24 +31,24 @@
                 <form id="registrationForm">
                     <div class="form-group">
                         <label for="name" class="form-label">Full Name</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            class="form-input" 
-                            placeholder="Enter your full name" 
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-input"
+                            placeholder="Enter your full name"
                             required
                         >
                     </div>
 
                     <div class="form-group">
                         <label for="leetcodeId" class="form-label">LeetCode Username</label>
-                        <input 
-                            type="text" 
-                            id="leetcodeId" 
-                            name="leetcodeId" 
-                            class="form-input" 
-                            placeholder="Enter your LeetCode username" 
+                        <input
+                            type="text"
+                            id="leetcodeId"
+                            name="leetcodeId"
+                            class="form-input"
+                            placeholder="Enter your LeetCode username"
                             required
                         >
                         <small class="form-help">
@@ -57,7 +57,7 @@
                     </div>
 
                     <div style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" style="margin: 0 auto;">
+                        <button id="registerBtn" type="submit" class="btn btn-primary" style="margin: 0 auto;">
                             Register Now
                         </button>
                     </div>
@@ -81,7 +81,7 @@
         function showSuccess(name) {
             document.getElementById('registration-form').classList.add('hidden');
             document.getElementById('success-message').classList.remove('hidden');
-            document.getElementById('welcome-message').innerHTML = 
+            document.getElementById('welcome-message').innerHTML =
                 `Welcome to the CodePVG LeetCode Leaderboard, ${name}!<br>
                  Your name will appear on the leaderboard after the next auto-sync.<br>
                  <small>(See the About section for details)</small>`;
@@ -94,15 +94,14 @@
         }
 
         function extractUsername(input) {
-
             let value = input.trim();
-            
+
             if (value.includes('leetcode.com/') || value.includes('://')) {
                 const patterns = [
                     /leetcode\.com\/u\/([A-Za-z0-9_-]+)/i,
                     /leetcode\.com\/([A-Za-z0-9_-]+)/i
                 ];
-                
+
                 for (const pattern of patterns) {
                     const match = value.match(pattern);
                     if (match && match[1]) {
@@ -122,21 +121,22 @@
                     "Content-Type": "application/json"
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                const errors = data.errors;
-                return !(errors && errors.some(err => err.message === "That user does not exist."));
-            })
-            .catch(error => {
-                console.error("Fetch error:", error);
-                return false;
-            });
+                .then(response => response.json())
+                .then(data => {
+                    const errors = data.errors;
+                    return !(errors && errors.some(err => err.message === "That user does not exist."));
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                    return false;
+                });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('registrationForm');
             const leetcodeInput = document.getElementById('leetcodeId');
-            
+            const registerBtn = document.getElementById('registerBtn');
+
             leetcodeInput.addEventListener('paste', (e) => {
                 e.preventDefault();
                 const pastedText = (e.clipboardData || window.clipboardData).getData('text');
@@ -147,53 +147,60 @@
             leetcodeInput.addEventListener('input', (e) => {
                 const cursorPosition = e.target.selectionStart;
                 const originalLength = e.target.value.length;
-                
+
                 e.target.value = extractUsername(e.target.value);
-                
+
                 const newLength = e.target.value.length;
                 const diff = originalLength - newLength;
                 e.target.setSelectionRange(cursorPosition - diff, cursorPosition - diff);
             });
-            
+
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
+
+                registerBtn.disabled = true;
+                registerBtn.innerText = "Registering...";
+
                 const formData = new FormData(form);
                 const name = formData.get('name');
                 const leetcodeId = formData.get('leetcodeId');
 
-                if (name && leetcodeId) {
-                    const isValid = await isValidId(leetcodeId);
+                try {
+                    if (name && leetcodeId) {
+                        const isValid = await isValidId(leetcodeId);
 
-                    if (!isValid) {
-                        alert("Please enter a correct LeetCode Username!");
-                        return;
-                    }
+                        if (!isValid) {
+                            alert("Please enter a correct LeetCode Username!");
+                            registerBtn.disabled = false;
+                            registerBtn.innerText = "Register Now";
+                            return;
+                        }
 
-                    fetch("https://lc-backend-lyq2.onrender.com/user", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            name: name.trim(),
-                            id: leetcodeId.trim()
-                        })
-                    })
-                    .then(response => {
+                        const response = await fetch("https://lc-backend-lyq2.onrender.com/user", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                name: name.trim(),
+                                id: leetcodeId.trim()
+                            })
+                        });
+
                         if (!response.ok) {
                             throw new Error("Failed to register user");
                         }
-                        return response.json();
-                    })
-                    .then(data => {
+
+                        const data = await response.json();
                         console.log("User registered successfully:", data);
                         showSuccess(name);
-                    })
-                    .catch(error => {
-                        alert("An error occurred during registration. Please try again.");
-                        console.error(error);
-                    });
+                    }
+                } catch (error) {
+                    alert("An error occurred during registration. Please try again.");
+                    console.error(error);
+                } finally {
+                    registerBtn.disabled = false;
+                    registerBtn.innerText = "Register Now";
                 }
             });
         });
