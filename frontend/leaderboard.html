@@ -143,19 +143,14 @@
                     tab.classList.add('active');
                 }
             });
-            
+
+            if (!leaderboardData[activeTab]) {
+                return;
+            }
+
             renderLeaderboard(leaderboardData[activeTab]);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    setActiveTab(tab.dataset.tab);
-                });
-            });
-            
-            setActiveTab('overall');
-        });
     </script>
 </body>
 </html>
