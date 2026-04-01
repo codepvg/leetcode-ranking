@@ -10,13 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
   footer.innerHTML = `
     <div class="footer-container">
 
-      <!-- Brand -->
-      <div class="footer-section">
-        <h2>CodePVG</h2>
-        <p>Track • Compete • Improve 🚀</p>
-      </div>
-
-      <!-- Navigation -->
+    <div class="footer-section brand">
+        <div class="brand-row">
+            <img src="assets/logo.png" alt="CodePVG Logo" class="footer-logo" />
+            <div class="brand-text">
+            <h2>CodePVG</h2>
+            <p class="affiliation">Affiliated with PVG COET</p>
+            </div>
+        </div>
+    </div>
       <div class="footer-section">
         <h3>Navigation</h3>
         <ul>
@@ -26,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </ul>
       </div>
 
-      <!-- Connect -->
       <div class="footer-section">
         <h3>Connect</h3>
         <ul>
@@ -36,19 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </ul>
       </div>
 
-      <!-- College -->
-      <div class="footer-section">
-        <h3>Our College</h3>
-        <ul>
-          <li><a href="https://www.pvgcoet.ac.in/" target="_blank">PVG COET</a></li>
-        </ul>
-      </div>
-
     </div>
 
-    <!-- Bottom -->
     <div class="footer-bottom">
-      <p>© 2026 CodePVG • </p>
+      <p>© 2026 CodePVG </p>
     </div>
   `;
 
