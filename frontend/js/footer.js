@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="footer-section">
         <h3>Navigation</h3>
         <ul>
-          <li><a href="leaderboard.html">Leaderboard</a></li>
-          <li><a href="registration.html">Register</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="/leaderboard">Leaderboard</a></li>
+          <li><a href="/registration">Register</a></li>
+          <li><a href="/about">About</a></li>
         </ul>
       </div>
 
