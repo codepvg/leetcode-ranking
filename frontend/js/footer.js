@@ -10,15 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
   footer.innerHTML = `
     <div class="footer-container">
 
-    <div class="footer-section brand">
+      <div class="footer-section brand">
         <div class="brand-row">
-            <img src="assets/logo.png" alt="CodePVG Logo" class="footer-logo" />
-            <div class="brand-text">
-            <h2>CodePVG</h2>
-            <p class="affiliation">Affiliated with PVG COET</p>
-            </div>
+          <img src="assets/logo.png" alt="CodePVG Logo" class="footer-logo" />
+          <h2>CodePVG</h2>
         </div>
-    </div>
+
+        <p class="affiliation">
+          Affiliated with 
+          <a href="https://www.pvgcoet.ac.in/" target="_blank">PVG COET</a>
+        </p>
+      </div>
+
       <div class="footer-section">
         <h3>Navigation</h3>
         <ul>
