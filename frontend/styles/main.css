@@ -258,20 +258,25 @@ body {
 
 .tab {
   padding: 1rem 2rem;
-  background: none;
+  background: transparent;
   border: none;
-  color: #fff;
-  font-size: 1.2rem;
-  cursor: pointer;
   border-bottom: 3px solid transparent;
-  transition: all 0.3s ease;
+  color: #94a3b8;
+  border-radius: 10px 10px 0 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
   text-transform: capitalize;
+  transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
 }
-
+.tab:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.03);
+}
 .tab.active {
   color: #4ade80;
-  font-weight: bold;
-  border-bottom-color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  box-shadow: inset 0 -3px 0 #4ade80;
 }
 
 /* Leaderboard */
