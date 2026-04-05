@@ -3,21 +3,21 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 13,
-      "mediumSolved": 25,
+      "easySolved": 12,
+      "mediumSolved": 26,
       "hardSolved": 6
     },
-    "score": 118
+    "score": 120
   },
   {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
-      "easySolved": 10,
-      "mediumSolved": 28,
-      "hardSolved": 2
+      "easySolved": 8,
+      "mediumSolved": 26,
+      "hardSolved": 3
     },
-    "score": 104
+    "score": 101
   },
   {
     "name": "Atharva",
@@ -33,21 +33,21 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 12,
-      "mediumSolved": 21,
+      "easySolved": 11,
+      "mediumSolved": 20,
       "hardSolved": 0
     },
-    "score": 75
+    "score": 71
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 5,
-      "mediumSolved": 15,
+      "mediumSolved": 14,
       "hardSolved": 1
     },
-    "score": 55
+    "score": 52
   },
   {
     "name": "YASH YOGESH BORA",
@@ -90,6 +90,16 @@
     "score": 11
   },
   {
+    "name": "Anurag",
+    "id": "anuragmuley",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 10
+  },
+  {
     "name": "Yash Gaiwkad",
     "id": "yash_gaikwad_08",
     "data": {
@@ -110,16 +120,6 @@
     "score": 9
   },
   {
-    "name": "Anurag",
-    "id": "anuragmuley",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 8
-  },
-  {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
@@ -128,6 +128,16 @@
       "hardSolved": 0
     },
     "score": 8
+  },
+  {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 7
   },
   {
     "name": "SHREYA KULKARNI",
@@ -153,28 +163,8 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 4,
+      "easySolved": 3,
       "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 4
-  },
-  {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 4,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 4
-  },
-  {
-    "name": "Ajinkya Ashish Moharir",
-    "id": "AjinkyaMoharir",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 1,
       "hardSolved": 0
     },
     "score": 3
@@ -203,11 +193,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 1
+    "score": 2
   },
   {
     "name": "Neerad Ahire",
@@ -252,6 +242,16 @@
   {
     "name": "Vedant Banaitkar",
     "id": "vedantbanaitkar",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 0,
+      "hardSolved": 0
+    },
+    "score": 0
+  },
+  {
+    "name": "Ajinkya Ashish Moharir",
+    "id": "AjinkyaMoharir",
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
