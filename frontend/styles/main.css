@@ -824,8 +824,20 @@ body::-webkit-scrollbar {
   max-width: 1200px;
   margin: auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 1fr 1fr;
   gap: 40px;
+}
+
+.footer-section.brand {
+  justify-self: start;
+}
+
+.footer-section:nth-child(2) {
+  justify-self: center;
+}
+
+.footer-section:nth-child(3) {
+  justify-self: end;
 }
 
 .brand-row {
@@ -862,10 +874,6 @@ body::-webkit-scrollbar {
   text-decoration: none;
 }
 
-.affiliation a:hover {
-  text-decoration: underline;
-}
-
 .footer-section h3 {
   color: #e5e7eb;
   margin-bottom: 10px;
@@ -879,13 +887,6 @@ body::-webkit-scrollbar {
 
 .footer-section ul li {
   margin: 7px 0;
-}
-
-.footer-section a {
-  color: #9ca3af;
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.2s;
 }
 
 .footer-section a:hover {
@@ -925,7 +926,7 @@ body::-webkit-scrollbar {
 }
 
 .footer-section a:hover {
-  color: #38bdf8;
+  color: #ffffff;
 }
 
 .footer-section a::after {
