@@ -4,20 +4,20 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 12,
-      "mediumSolved": 28,
+      "mediumSolved": 29,
       "hardSolved": 6
     },
-    "score": 126
+    "score": 129
   },
   {
     "name": "Atharv Kirulkar",
     "id": "atharvkirulkar",
     "data": {
       "easySolved": 8,
-      "mediumSolved": 26,
+      "mediumSolved": 25,
       "hardSolved": 3
     },
-    "score": 101
+    "score": 98
   },
   {
     "name": "Atharva",
@@ -34,20 +34,20 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 10,
-      "mediumSolved": 20,
+      "mediumSolved": 21,
       "hardSolved": 0
     },
-    "score": 70
+    "score": 73
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 8,
-      "mediumSolved": 13,
+      "mediumSolved": 14,
       "hardSolved": 0
     },
-    "score": 47
+    "score": 50
   },
   {
     "name": "Rayyan Shaikh",
@@ -70,16 +70,6 @@
     "score": 25
   },
   {
-    "name": "Yash Jawale",
-    "id": "Cross440",
-    "data": {
-      "easySolved": 0,
-      "mediumSolved": 5,
-      "hardSolved": 0
-    },
-    "score": 15
-  },
-  {
     "name": "Vanshika Khanna",
     "id": "Vanshikakhanna",
     "data": {
@@ -88,6 +78,16 @@
       "hardSolved": 1
     },
     "score": 13
+  },
+  {
+    "name": "Yash Jawale",
+    "id": "Cross440",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 12
   },
   {
     "name": "Anurag",
@@ -123,11 +123,11 @@
     "name": "Saniya Gupte",
     "id": "SaniyaGupte",
     "data": {
-      "easySolved": 3,
+      "easySolved": 2,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 9
+    "score": 8
   },
   {
     "name": "Neevan Redkar",
@@ -148,6 +148,16 @@
       "hardSolved": 0
     },
     "score": 6
+  },
+  {
+    "name": "Abhishek Laxman Guntuk",
+    "id": "abhi_guntuk_",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 5
   },
   {
     "name": "Mahantesh madalgi",
@@ -182,16 +192,6 @@
   {
     "name": "Rajat malapur",
     "id": "rajatmalapur",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 0,
-      "hardSolved": 0
-    },
-    "score": 2
-  },
-  {
-    "name": "Abhishek Laxman Guntuk",
-    "id": "abhi_guntuk_",
     "data": {
       "easySolved": 2,
       "mediumSolved": 0,
