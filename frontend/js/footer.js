@@ -55,11 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom" style="display: flex; flex-direction: column; gap: 8px;">
       <p>
-        © 2026 CodePVG | 
-        <a href="https://github.com/codepvg/leetcode-ranking" target="_blank" class="footer-link">Open Source Project</a> 
-        by <a href="https://github.com/jagdish-15" target="_blank" class="footer-link">Jagdish</a> & Contributors
+        © 2026 CodePVG Programming Club
+      </p>
+      <p>
+        Project Developed & Maintained by <a href="https://github.com/jagdish-15" target="_blank" class="footer-link">Jagdish</a>
       </p>
     </div>
   `;
