@@ -809,3 +809,64 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;               /* Chrome, Safari, Opera */
 }
+
+.score-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tooltip-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tooltip-box {
+  visibility: hidden;
+  opacity: 0;
+  width: 180px;
+  background-color: #222;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  border-radius: 6px;
+
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  transition: opacity 0.3s;
+  font-size: 12px;
+}
+
+.tooltip-icon:hover .tooltip-box {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-box a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+
+.tooltip-box a:hover {
+  text-decoration: underline;
+}
+
+.tooltip-box {
+  max-width: 220px;
+  white-space: normal;
+}
+
+.tooltip-icon {
+  position: relative;
+}
+
+/* Keep tooltip inside screen */
+.tooltip-icon:hover .tooltip-box {
+  left: 50%;
+  transform: translateX(-50%);
+}
