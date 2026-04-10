@@ -94,13 +94,14 @@
             data.forEach((user, index) => {
                 const rank = index + 1;
                 const icon = getRankIcon(rank);
+                const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
                 const row = document.createElement('div');
                 row.className = 'leaderboard-row';
                 row.innerHTML = `
                     <div class="rank">${icon} ${rank}</div>
                     <div>${user.name}</div>
-                    <div class="username">${user.id}</div>
+                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
