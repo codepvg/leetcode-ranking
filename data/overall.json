@@ -13,11 +13,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 111,
-      "mediumSolved": 224,
-      "hardSolved": 42
+      "easySolved": 112,
+      "mediumSolved": 226,
+      "hardSolved": 43
     },
-    "score": 993
+    "score": 1005
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -93,21 +93,31 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 107,
-      "mediumSolved": 80,
+      "easySolved": 108,
+      "mediumSolved": 81,
       "hardSolved": 9
     },
-    "score": 392
+    "score": 396
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
       "easySolved": 74,
-      "mediumSolved": 83,
-      "hardSolved": 4
+      "mediumSolved": 84,
+      "hardSolved": 5
     },
-    "score": 343
+    "score": 351
+  },
+  {
+    "name": "Atharv Kirulkar",
+    "id": "atharvkirulkar",
+    "data": {
+      "easySolved": 26,
+      "mediumSolved": 57,
+      "hardSolved": 7
+    },
+    "score": 232
   },
   {
     "name": "Vedant Banaitkar",
@@ -118,16 +128,6 @@
       "hardSolved": 3
     },
     "score": 228
-  },
-  {
-    "name": "Atharv Kirulkar",
-    "id": "atharvkirulkar",
-    "data": {
-      "easySolved": 26,
-      "mediumSolved": 57,
-      "hardSolved": 6
-    },
-    "score": 227
   },
   {
     "name": "Ajinkya Ashish Moharir",
@@ -204,10 +204,10 @@
     "id": "IAvii",
     "data": {
       "easySolved": 31,
-      "mediumSolved": 36,
+      "mediumSolved": 37,
       "hardSolved": 1
     },
-    "score": 144
+    "score": 147
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -273,11 +273,11 @@
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 29,
-      "mediumSolved": 20,
+      "easySolved": 30,
+      "mediumSolved": 21,
       "hardSolved": 2
     },
-    "score": 99
+    "score": 103
   },
   {
     "name": "Samarth Deshpande",
@@ -453,11 +453,11 @@
     "name": "Mahantesh madalgi",
     "id": "mahantesh_00",
     "data": {
-      "easySolved": 13,
+      "easySolved": 14,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 19
+    "score": 20
   },
   {
     "name": "Yash G",
