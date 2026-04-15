@@ -16,13 +16,13 @@ The goal of this project is to:
 
 ---
 
-## Tech Stack
+This project relies on external services for fetching and processing LeetCode data. 
+Instead of duplicating details here, refer to the following repositories:
 
-| Layer     | Technology              |
-|----------|------------------------|
-| Frontend | HTML, CSS, JavaScript  |
-| Backend  | Node.js                |
-| API      | LeetCode API           |
+- [leetcode-api](https://github.com/codepvg/leetcode-api) – API used to fetch user data from LeetCode
+- [lc-backend](https://github.com/codepvg/lc-backend) – Backend service for storing and managing leaderboard data
+
+These repositories handle the core data processing and integration logic for the leaderboard.
 
 ---
 
