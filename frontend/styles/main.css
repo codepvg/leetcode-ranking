@@ -331,6 +331,30 @@ body {
   font-size: 0.9rem;
 }
 
+.user-link {
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px dashed rgba(0, 188, 212, 0.4);
+    transition: all 0.2s ease;
+    padding: 1px 4px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.user-link:hover {
+    border-bottom: 1px solid currentColor;
+    background-color: rgba(0, 188, 212, 0.1);
+    border-radius: 4px;
+}
+
+.user-link:hover::after {
+    content: "↗"; 
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
 .easy { color: #4ade80; }
 .medium { color: #f59e0b; }
 .hard { color: #ef4444; }
