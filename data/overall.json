@@ -13,11 +13,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 116,
-      "mediumSolved": 229,
-      "hardSolved": 44
+      "easySolved": 117,
+      "mediumSolved": 232,
+      "hardSolved": 45
     },
-    "score": 1023
+    "score": 1038
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -34,10 +34,10 @@
     "id": "anuragmuley",
     "data": {
       "easySolved": 215,
-      "mediumSolved": 220,
+      "mediumSolved": 221,
       "hardSolved": 8
     },
-    "score": 915
+    "score": 918
   },
   {
     "name": "Saniya Gupte",
@@ -83,21 +83,21 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 136,
+      "easySolved": 137,
       "mediumSolved": 83,
       "hardSolved": 6
     },
-    "score": 415
+    "score": 416
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 109,
+      "easySolved": 110,
       "mediumSolved": 81,
       "hardSolved": 9
     },
-    "score": 397
+    "score": 398
   },
   {
     "name": "YASH YOGESH BORA",
@@ -145,9 +145,9 @@
     "data": {
       "easySolved": 48,
       "mediumSolved": 42,
-      "hardSolved": 6
+      "hardSolved": 7
     },
-    "score": 204
+    "score": 209
   },
   {
     "name": "Harshal Mahajan",
@@ -313,11 +313,11 @@
     "name": "Vishwajit Hodgar",
     "id": "vishwajit15-git",
     "data": {
-      "easySolved": 17,
+      "easySolved": 18,
       "mediumSolved": 19,
       "hardSolved": 1
     },
-    "score": 79
+    "score": 80
   },
   {
     "name": "Jeet Sudhish Pachpande",
@@ -410,6 +410,16 @@
     "score": 39
   },
   {
+    "name": "Vanshika Khanna",
+    "id": "Vanshikakhanna",
+    "data": {
+      "easySolved": 9,
+      "mediumSolved": 8,
+      "hardSolved": 1
+    },
+    "score": 38
+  },
+  {
     "name": "Aryan Anoop Parihar",
     "id": "AryanParihar07",
     "data": {
@@ -438,16 +448,6 @@
       "hardSolved": 0
     },
     "score": 34
-  },
-  {
-    "name": "Vanshika Khanna",
-    "id": "Vanshikakhanna",
-    "data": {
-      "easySolved": 9,
-      "mediumSolved": 6,
-      "hardSolved": 1
-    },
-    "score": 32
   },
   {
     "name": "Prathit Joshi",
