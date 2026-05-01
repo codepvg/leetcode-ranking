@@ -18,15 +18,10 @@ The goal of this project is to:
 
 ## Related Repositories
 
-This project relies on external services for fetching and processing LeetCode data.
-Instead of duplicating details here, refer to the following repositories:
-
 - [leetcode-api](https://github.com/codepvg/leetcode-api) – API used to fetch user data from LeetCode
 - [lc-backend](https://github.com/codepvg/lc-backend) – Backend service for storing and managing leaderboard data
 - [frontend-uptime-monitor](https://github.com/codepvg/frontend-uptime-monitor) – Pinger service to monitor frontend server uptime
 - [backend-uptime-monitor](https://github.com/codepvg/backend-uptime-monitor) – Pinger service to monitor backend server uptime
-
-These repositories handle the core data processing and integration logic for the leaderboard.
 
 ---
 
