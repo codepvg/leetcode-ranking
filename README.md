@@ -45,8 +45,9 @@ leetcode-ranking/
 
 ## How to Run Locally
 
-### 1. Clone the repository
+### 1. Fork and clone the repository
 
+First, fork the repository to your GitHub account. Then clone it locally:
 ```bash
 git clone https://github.com/YOUR-USERNAME/leetcode-ranking.git
 cd leetcode-ranking
