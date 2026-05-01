@@ -71,8 +71,7 @@ node server.js
 1. Open the registration page  
 2. Enter your name and LeetCode username  
 3. Submit the form  
-4. View your ranking on the leaderboard after 
-   the next sync
+4. View your ranking on the leaderboard after the next sync
 
 ---
 
