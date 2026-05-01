@@ -56,8 +56,6 @@ cd leetcode-ranking
 ### 2. Install dependencies
 
 `npm install`
- cd frontend
-`npm install`
 
 ### 3. Run the project
 
