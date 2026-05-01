@@ -59,12 +59,9 @@ cd leetcode-ranking
 
 ### 3. Run the project
 
-
 `npm run dev`
-
 or
-
-node server.js
+`node start`
 
 ## Usage
 
