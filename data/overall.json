@@ -14,10 +14,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 120,
-      "mediumSolved": 240,
+      "mediumSolved": 241,
       "hardSolved": 47
     },
-    "score": 1075
+    "score": 1078
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -83,11 +83,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 86,
+      "easySolved": 88,
       "mediumSolved": 126,
       "hardSolved": 14
     },
-    "score": 534
+    "score": 536
   },
   {
     "name": "Rajat malapur",
@@ -183,11 +183,11 @@
     "name": "Avinash Ganore",
     "id": "IAvii",
     "data": {
-      "easySolved": 35,
+      "easySolved": 36,
       "mediumSolved": 40,
       "hardSolved": 2
     },
-    "score": 165
+    "score": 166
   },
   {
     "name": "Yash Jawale",
@@ -294,10 +294,10 @@
     "id": "kartikbodke",
     "data": {
       "easySolved": 22,
-      "mediumSolved": 22,
+      "mediumSolved": 23,
       "hardSolved": 3
     },
-    "score": 103
+    "score": 106
   },
   {
     "name": "Samarth Deshpande",
@@ -350,6 +350,16 @@
     "score": 68
   },
   {
+    "name": "Atharv Arvind Deshmukh",
+    "id": "Code_Atharv07",
+    "data": {
+      "easySolved": 15,
+      "mediumSolved": 11,
+      "hardSolved": 3
+    },
+    "score": 63
+  },
+  {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
@@ -378,16 +388,6 @@
       "hardSolved": 1
     },
     "score": 56
-  },
-  {
-    "name": "Atharv Arvind Deshmukh",
-    "id": "Code_Atharv07",
-    "data": {
-      "easySolved": 14,
-      "mediumSolved": 8,
-      "hardSolved": 3
-    },
-    "score": 53
   },
   {
     "name": "Vanshika Khanna",
@@ -420,6 +420,16 @@
     "score": 46
   },
   {
+    "name": "Jagdish Prajapati",
+    "id": "jagdish15",
+    "data": {
+      "easySolved": 19,
+      "mediumSolved": 6,
+      "hardSolved": 1
+    },
+    "score": 42
+  },
+  {
     "name": "Yash Gaiwkad",
     "id": "yash_gaikwad_08",
     "data": {
@@ -428,16 +438,6 @@
       "hardSolved": 0
     },
     "score": 41
-  },
-  {
-    "name": "Jagdish Prajapati",
-    "id": "jagdish15",
-    "data": {
-      "easySolved": 19,
-      "mediumSolved": 5,
-      "hardSolved": 1
-    },
-    "score": 39
   },
   {
     "name": "Aryan Anoop Parihar",
