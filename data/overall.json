@@ -14,10 +14,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 120,
-      "mediumSolved": 241,
+      "mediumSolved": 242,
       "hardSolved": 47
     },
-    "score": 1078
+    "score": 1081
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -83,11 +83,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 88,
-      "mediumSolved": 126,
+      "easySolved": 89,
+      "mediumSolved": 127,
       "hardSolved": 14
     },
-    "score": 536
+    "score": 540
   },
   {
     "name": "Rajat malapur",
@@ -104,20 +104,20 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 113,
-      "mediumSolved": 82,
+      "mediumSolved": 83,
       "hardSolved": 9
     },
-    "score": 404
+    "score": 407
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 78,
+      "easySolved": 82,
       "mediumSolved": 88,
       "hardSolved": 8
     },
-    "score": 382
+    "score": 386
   },
   {
     "name": "Atharv Kirulkar",
@@ -274,10 +274,20 @@
     "id": "archana60",
     "data": {
       "easySolved": 32,
-      "mediumSolved": 23,
+      "mediumSolved": 24,
       "hardSolved": 2
     },
-    "score": 111
+    "score": 114
+  },
+  {
+    "name": "Kartik Bodke",
+    "id": "kartikbodke",
+    "data": {
+      "easySolved": 22,
+      "mediumSolved": 24,
+      "hardSolved": 3
+    },
+    "score": 109
   },
   {
     "name": "Atharva",
@@ -290,16 +300,6 @@
     "score": 108
   },
   {
-    "name": "Kartik Bodke",
-    "id": "kartikbodke",
-    "data": {
-      "easySolved": 22,
-      "mediumSolved": 23,
-      "hardSolved": 3
-    },
-    "score": 106
-  },
-  {
     "name": "Samarth Deshpande",
     "id": "SamarthhD",
     "data": {
@@ -308,6 +308,16 @@
       "hardSolved": 0
     },
     "score": 99
+  },
+  {
+    "name": "Jeet Sudhish Pachpande",
+    "id": "jeet_pachpande",
+    "data": {
+      "easySolved": 18,
+      "mediumSolved": 22,
+      "hardSolved": 1
+    },
+    "score": 89
   },
   {
     "name": "Shrinidhi Upadhye",
@@ -328,16 +338,6 @@
       "hardSolved": 1
     },
     "score": 83
-  },
-  {
-    "name": "Jeet Sudhish Pachpande",
-    "id": "jeet_pachpande",
-    "data": {
-      "easySolved": 17,
-      "mediumSolved": 20,
-      "hardSolved": 1
-    },
-    "score": 82
   },
   {
     "name": "Kaustubh Rananaware",
