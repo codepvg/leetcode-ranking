@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard - CodePVG</title>
+    <title>leaderboard — CodePVG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
+    <script src="js/navbar.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/" class="logo">CodePVG Leaderboard</a>
-            <ul class="nav-links">
-                <li><a href="/leaderboard">Leaderboard</a></li>
-                <li><a href="/registration">Registration</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <canvas id="matrix-canvas"></canvas>
+    
     <main class="page">
         <div class="container">
             <h1 class="page-title">Leaderboard</h1>
@@ -49,6 +44,15 @@
             <div class="mobile-cards" id="mobile-cards">
 
             </div>
+
+            <div id="pagination-controls" style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button id="load-more-btn" class="btn btn-secondary" onclick="loadMoreNodes()" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+                    ./fetch_more_nodes
+                </button>
+                <button id="scroll-top-btn" class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+                    ^ scroll_to_top
+                </button>
+            </div>
         </div>
     </main>
 
@@ -64,6 +68,29 @@
         });
 
         const leaderboardData = {};
+        let currentDisplayLimit = 0;
+        let activeDatasetType = 'overall';
+        let fetchMoreClicks = 0;
+
+        function getInitialLimit() {
+            return window.innerWidth <= 768 ? 12 : 25;
+        }
+
+        function loadMoreNodes() {
+            const data = leaderboardData[activeDatasetType];
+            const isMobile = window.innerWidth <= 768;
+            const maxClicks = isMobile ? 3 : 2;
+            
+            fetchMoreClicks++;
+
+            if (fetchMoreClicks >= maxClicks) {
+                currentDisplayLimit = data.length;
+            } else {
+                currentDisplayLimit += getInitialLimit();
+            }
+
+            renderLeaderboard(data);
+        }
 
         async function fetchLeaderboardData() {
             const endpoints = ['overall', 'monthly', 'weekly', 'daily'];
@@ -75,11 +102,11 @@
             setActiveTab('overall');
         }
 
-        function getRankIcon(rank) {
+        function getRankTag(rank) {
             switch (rank) {
-                case 1: return '👑';
-                case 2: return '🥈';
-                case 3: return '🥉';
+                case 1: return '<span class="privilege-tag root-tag">[ROOT]</span>';
+                case 2: return '<span class="privilege-tag sudo-tag">[SUDO]</span>';
+                case 3: return '<span class="privilege-tag exec-tag">[EXEC]</span>';
                 default: return '';
             }
         }
@@ -91,16 +118,18 @@
             body.innerHTML = '';
             mobileCards.innerHTML = '';
             
-            data.forEach((user, index) => {
+            const displayData = data.slice(0, currentDisplayLimit);
+
+            displayData.forEach((user, index) => {
                 const rank = index + 1;
-                const icon = getRankIcon(rank);
+                const tag = getRankTag(rank);
                 const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
                 const row = document.createElement('div');
                 row.className = 'leaderboard-row';
                 row.innerHTML = `
-                    <div class="rank">${icon} ${rank}</div>
-                    <div>${user.name}</div>
+                    <div class="rank">${rank}</div>
+                    <div class="name-cell">${tag}${user.name}</div>
                     <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
@@ -113,11 +142,11 @@
                 card.className = 'mobile-card';
                 card.innerHTML = `
                     <div class="mobile-card-header">
-                        <div class="mobile-rank">${icon} #${rank}</div>
+                        <div class="mobile-rank">#${rank}</div>
                         <div class="mobile-score">${user.score}</div>
                     </div>
-                    <div class="mobile-name">${user.name}</div>
-                    <div class="mobile-username">${user.id}</div>
+                    <div class="mobile-name">${tag}${user.name}</div>
+                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
                     <div class="mobile-stats">
                         <div class="mobile-stat">
                             <div class="mobile-stat-number easy">${user.data.easySolved}</div>
@@ -135,6 +164,23 @@
                 `;
                 mobileCards.appendChild(card);
             });
+
+            if (data.length > currentDisplayLimit) {
+                document.getElementById('load-more-btn').style.display = 'inline-block';
+                document.getElementById('scroll-top-btn').style.display = 'none';
+
+                const isMobile = window.innerWidth <= 768;
+                const textTransitionClick = isMobile ? 2 : 1;
+
+                if (fetchMoreClicks >= textTransitionClick) {
+                    document.getElementById('load-more-btn').innerHTML = './fetch_all_nodes';
+                } else {
+                    document.getElementById('load-more-btn').innerHTML = './fetch_more_nodes';
+                }
+            } else {
+                document.getElementById('load-more-btn').style.display = 'none';
+                document.getElementById('scroll-top-btn').style.display = 'inline-block';
+            }
         }
 
         function setActiveTab(activeTab) {
@@ -149,10 +195,15 @@
                 return;
             }
 
+            activeDatasetType = activeTab;
+            currentDisplayLimit = getInitialLimit();
+            fetchMoreClicks = 0;
             renderLeaderboard(leaderboardData[activeTab]);
         }
 
     </script>
     <script src="js/footer.js"></script>
+    <script src="js/matrix.js"></script>
+    <script src="js/terminal_ui.js"></script>
 </body>
 </html>

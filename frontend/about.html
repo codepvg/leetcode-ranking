@@ -3,84 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - CodePVG</title>
+    <title>about — CodePVG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
+    <script src="js/navbar.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/" class="logo">CodePVG Leaderboard</a>
-            <ul class="nav-links">
-                <li><a href="/leaderboard">Leaderboard</a></li>
-                <li><a href="/registration">Registration</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-        </div>
-    </nav>
+    <canvas id="matrix-canvas"></canvas>
 
     <main class="page">
         <div class="container">
-            <h1 class="page-title">About CodePVG Leaderboard</h1>
+            <h1 class="page-title">cat README.md</h1>
 
-            <div class="content-section">
-                <h2 class="section-title green">Welcome to the PVG LeetCode Community! 🚀</h2>
+            <div class="content-section" style="margin-top: 2rem;">
+                <h2 class="section-title green" style="text-transform: uppercase;">[#] INTRODUCTION</h2>
                 
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; color: #ddd;">
-                    The CodePVG LeetCode Leaderboard is designed to foster a competitive yet collaborative 
-                    environment among PVG students. Our platform tracks your daily progress, celebrates 
-                    your achievements, and motivates you to consistently improve your problem-solving skills.
+                <p style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--text-dim); padding-left: 1.5rem;">
+                    <strong>CodePVG Leaderboard</strong> is a collaborative LeetCode tracking platform built specifically for PVG students.
                 </p>
 
-                <h3 class="section-title blue">🎯 Our Mission</h3>
+                <h2 class="section-title blue" style="text-transform: uppercase;">[?] HOW_IT_WORKS</h2>
                 
-                <p style="font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; color: #ccc;">
-                    To create a supportive community where PVG students can track their coding journey, 
-                    learn from each other, and prepare together for technical interviews and competitive programming.
+                <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; color: var(--text-muted); padding-left: 1.5rem;">
+                    We automatically track your daily algorithmic progress and celebrate your problem-solving streaks. 
+                    Whether you're grinding for technical interviews or just cracking logic puzzles for fun, every problem 
+                    you solve automatically syncs and pushes you higher up the global ranks.
                 </p>
             </div>
 
-            <div class="feature-grid">
+            <div class="feature-grid" style="margin-bottom: 2.5rem;">
                 <div class="feature-card">
-                    <h3 class="feature-title green">📊 Tracking System</h3>
-                    <ul class="feature-list" style="padding-left: 1.2rem;">
-                        <li>Leaderboard data auto-syncs daily at 12:05 AM UTC</li>
-                        <li>Calculates daily, weekly, and overall rankings</li>
-                        <li>Stay up to date with fresh stats every morning</li>
+                    <h3 class="feature-title green">[~] Daily Auto-Sync</h3>
+                    <ul class="feature-list" style="padding-left: 1.5rem; color: var(--text-dim); font-size: 0.85rem; list-style-type: none;">
+                        <li style="margin-bottom: 0.5rem">> Leaderboard refreshes daily at 12:05 AM UTC</li>
+                        <li style="margin-bottom: 0.5rem">> Tracks your daily, weekly, monthly, and overall stats</li>
+                        <li style="margin-bottom: 0.5rem">> Log on every morning to see updated rankings</li>
                     </ul>
                 </div>                
 
                 <div class="feature-card">
-                    <h3 class="feature-title orange">🏆 Scoring System</h3>
-                    <ul class="feature-list" style="padding-left: 1.2rem;">
-                        <li>Easy Problems: 1 point</li>
-                        <li>Medium Problems: 3 points</li>
-                        <li>Hard Problems: 5 points</li>
+                    <h3 class="feature-title orange">[+] Score Multipliers</h3>
+                    <ul class="feature-list" style="padding-left: 1.5rem; color: var(--text-dim); font-size: 0.85rem; list-style-type: none;">
+                        <li style="margin-bottom: 0.5rem">> Easy   = 1 point</li>
+                        <li style="margin-bottom: 0.5rem">> Medium = 3 points</li>
+                        <li style="margin-bottom: 0.5rem">> Hard   = 5 points</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="content-section text-center">
-                <h3 class="section-title blue">Ready to Join? 🎮</h3>
+            <div class="content-section">
+                <h2 class="section-title purple" style="text-transform: uppercase;">[>] JOINING_THE_GRID</h2>
                 
-                <p style="font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; color: #ccc;">
-                    Start your journey today! Register with your LeetCode username and begin tracking 
-                    your progress. Every problem solved is a step towards becoming a better programmer.
+                <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; color: var(--text-muted); padding-left: 1.5rem;">
+                    Simply hit the Register button and link your exact LeetCode Username. Once verified, 
+                    the system will fetch your stats and inject you into the main database!
                 </p>
 
-                <div class="badges">
-                    <div class="badge green">🎯 Compete Daily</div>
-                    <div class="badge orange">📈 Track Progress</div>
-                    <div class="badge purple">🏆 Climb Ranks</div>
+                <div class="badges" style="justify-content: center; margin-top: 1.5rem;">
+                    <div class="badge green">./compete_daily</div>
+                    <div class="badge orange">./track_metrics</div>
+                    <div class="badge purple">./elevate_privileges</div>
                 </div>
             </div>
 
-            <div class="content-section text-center">
-                <h2 class="section-title purple">📞 Contact Us</h2>
+            <div class="content-section">
+                <h2 class="section-title cyan" style="text-transform: uppercase; margin-top: 2rem;">[@] CONTACT_US</h2>
                 
-                <p style="font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; color: #ccc;">
-                    Have questions, suggestions, or want to contribute to our community? We'd love to hear from you! 
-                    Reach out through any of these channels and we'll get back to you as soon as possible.
+                <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; color: var(--text-muted); padding-left: 1.5rem;">
+                    If you stumble upon a bug, have an awesome feature idea, or want to contribute to the project, 
+                    feel free to ping us directly through any of the channels below:
                 </p>
 
                 <div class="feature-grid">
@@ -91,9 +85,9 @@
                             </svg>
                         </div>
                         <h3 class="feature-title">LinkedIn</h3>
-                        <p class="contact-description">Connect with us professionally</p>
-                        <a href="https://www.linkedin.com/company/86346857" target="_blank" rel="noopener noreferrer" class="contact-btn linkedin-btn">
-                            Visit Our Page
+                        <p class="contact-description" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Connect with us professionally.</p>
+                        <a href="https://www.linkedin.com/company/86346857" target="_blank" rel="noopener noreferrer" class="contact-btn linkedin-btn" style="text-decoration:none; padding: 6px 12px; font-weight: bold; border: 1px solid currentColor; border-radius: 4px; display: inline-block;">
+                            Connect
                         </a>
                     </div>
 
@@ -104,8 +98,8 @@
                             </svg>
                         </div>
                         <h3 class="feature-title">Email</h3>
-                        <p class="contact-description">Send us a detailed message</p>
-                        <a href="mailto:jagadishdrp@gmail.com" class="contact-btn email-btn">
+                        <p class="contact-description" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Send us a detailed message.</p>
+                        <a href="mailto:jagadishdrp@gmail.com" class="contact-btn email-btn" style="text-decoration:none; padding: 6px 12px; font-weight: bold; border: 1px solid currentColor; border-radius: 4px; display: inline-block;">
                             Send Email
                         </a>
                     </div>
@@ -117,23 +111,25 @@
                             </svg>
                         </div>
                         <h3 class="feature-title">WhatsApp</h3>
-                        <p class="contact-description">Quick chat and instant support</p>
-                        <a href="https://wa.me/+919284205842" target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp-btn">
+                        <p class="contact-description" style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Quick chat and instant support.</p>
+                        <a href="https://wa.me/+919284205842" target="_blank" rel="noopener noreferrer" class="contact-btn whatsapp-btn" style="text-decoration:none; padding: 6px 12px; font-weight: bold; border: 1px solid currentColor; border-radius: 4px; display: inline-block;">
                             Start Chat
                         </a>
                     </div>
                 </div>
 
-                <div class="content-section text-center" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #444;">
-                    <p class="contact-description" style="line-height: 1.6;">
-                        💡 <strong>Pro Tip:</strong> Found a bug or have a feature idea? We're always looking to improve! 
-                        Don't hesitate to reach out - your feedback helps make CodePVG better for everyone.
+                <div class="content-section text-center" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-bright);">
+                    <p class="contact-description" style="line-height: 1.6; color: var(--text-dim); font-size: 0.85rem;">
+                        <span style="color: var(--amber)">[TIP]</span> Your feedback makes CodePVG better! Whether you find a glitch 
+                        or just want to say hi, we're always listening.
                     </p>
                 </div>
             </div>
         </div>
     </main>
     <script src="js/footer.js"></script>
+    <script src="js/matrix.js"></script>
 
+    <script src="js/terminal_ui.js"></script>
 </body>
 </html>
