@@ -4,41 +4,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ctx = canvas.getContext("2d");
 
+    let lastWidth = window.innerWidth;
+
     // Full screen size
     function resizeCanvas() {
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Use screen height to ensure canvas is always tall enough, preventing 
+        // gaps when mobile browser URL bars hide/show on scroll.
+        canvas.height = Math.max(window.innerHeight, window.screen ? window.screen.height : 0);
     }
 
-    // Initial resize and add listener
+    // Initial resize
     resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
 
     // Matrix characters - mixing katakana, digits, and some leetcode symbols
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,.<>/?~ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ";
     const charArray = chars.split("");
 
     const fontSize = 14;
-    let columns = canvas.width / fontSize;
+    let columns = Math.ceil(canvas.width / fontSize);
     
     // Array to store the vertical position of each column
-    // 1 = 1 drop initially
     const drops = [];
     for (let i = 0; i < columns; i++) {
-        // Randomize initial positions so they don't all fall in a straight line at once
         drops[i] = Math.random() * -100;
     }
 
-    // Refresh columns on resize
     window.addEventListener("resize", () => {
-        columns = canvas.width / fontSize;
-        const oldDropsLen = drops.length;
-        
-        if (columns > oldDropsLen) {
-            for (let i = oldDropsLen; i < columns; i++) {
-                // Add new drops if screen gets wider, start them off screen randomly
-                drops[i] = Math.random() * -100;
+        // Only trigger matrix buffer reset if the width changes (e.g., orientation change / desktop resize)
+        // This stops mobile overscroll/URL bar behaviors from constantly wiping the matrix clean
+        if (window.innerWidth !== lastWidth) {
+            resizeCanvas();
+            columns = Math.ceil(canvas.width / fontSize);
+            const oldDropsLen = drops.length;
+            
+            if (columns > oldDropsLen) {
+                for (let i = oldDropsLen; i < columns; i++) {
+                    drops[i] = Math.random() * -100;
+                }
             }
+            lastWidth = window.innerWidth;
         }
     });
 
