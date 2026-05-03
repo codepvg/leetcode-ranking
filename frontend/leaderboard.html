@@ -44,6 +44,15 @@
             <div class="mobile-cards" id="mobile-cards">
 
             </div>
+
+            <div id="pagination-controls" style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button id="load-more-btn" class="btn btn-secondary" onclick="loadMoreNodes()" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+                    ./fetch_more_nodes
+                </button>
+                <button id="scroll-top-btn" class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+                    ^ scroll_to_top
+                </button>
+            </div>
         </div>
     </main>
 
@@ -59,6 +68,29 @@
         });
 
         const leaderboardData = {};
+        let currentDisplayLimit = 0;
+        let activeDatasetType = 'overall';
+        let fetchMoreClicks = 0;
+
+        function getInitialLimit() {
+            return window.innerWidth <= 768 ? 12 : 25;
+        }
+
+        function loadMoreNodes() {
+            const data = leaderboardData[activeDatasetType];
+            const isMobile = window.innerWidth <= 768;
+            const maxClicks = isMobile ? 3 : 2;
+            
+            fetchMoreClicks++;
+
+            if (fetchMoreClicks >= maxClicks) {
+                currentDisplayLimit = data.length;
+            } else {
+                currentDisplayLimit += getInitialLimit();
+            }
+
+            renderLeaderboard(data);
+        }
 
         async function fetchLeaderboardData() {
             const endpoints = ['overall', 'monthly', 'weekly', 'daily'];
@@ -86,7 +118,9 @@
             body.innerHTML = '';
             mobileCards.innerHTML = '';
             
-            data.forEach((user, index) => {
+            const displayData = data.slice(0, currentDisplayLimit);
+
+            displayData.forEach((user, index) => {
                 const rank = index + 1;
                 const tag = getRankTag(rank);
                 const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
@@ -130,6 +164,23 @@
                 `;
                 mobileCards.appendChild(card);
             });
+
+            if (data.length > currentDisplayLimit) {
+                document.getElementById('load-more-btn').style.display = 'inline-block';
+                document.getElementById('scroll-top-btn').style.display = 'none';
+
+                const isMobile = window.innerWidth <= 768;
+                const textTransitionClick = isMobile ? 2 : 1;
+
+                if (fetchMoreClicks >= textTransitionClick) {
+                    document.getElementById('load-more-btn').innerHTML = './fetch_all_nodes';
+                } else {
+                    document.getElementById('load-more-btn').innerHTML = './fetch_more_nodes';
+                }
+            } else {
+                document.getElementById('load-more-btn').style.display = 'none';
+                document.getElementById('scroll-top-btn').style.display = 'inline-block';
+            }
         }
 
         function setActiveTab(activeTab) {
@@ -144,6 +195,9 @@
                 return;
             }
 
+            activeDatasetType = activeTab;
+            currentDisplayLimit = getInitialLimit();
+            fetchMoreClicks = 0;
             renderLeaderboard(leaderboardData[activeTab]);
         }
 

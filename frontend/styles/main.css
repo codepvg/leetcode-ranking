@@ -742,6 +742,7 @@ body::after {
   font-weight: 700;
   display: inline-block;
   padding: 2px 6px;
+  margin-right: 8px;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid;
   border-radius: 3px;
@@ -1792,4 +1793,42 @@ body::-webkit-scrollbar-thumb {
     text-shadow: none; 
     transform: translate(0, 0) skewX(0deg); 
   }
+}
+
+/* ==========================================================================
+   Finishing Polish (Scrollbars & Text Selection)
+   ========================================================================== */
+
+::selection {
+  background: var(--cyan);
+  color: #000;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--cyan);
+  color: #000;
+  text-shadow: none;
+}
+
+/* Custom Blocky Terminal Scrollbars */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  background: #000;
+  border-left: 1px solid rgba(0, 255, 65, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--green-muted);
+  border: 1px solid var(--green);
+  border-radius: 0; /* Keep it blocky! */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green);
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
 }
