@@ -23,11 +23,11 @@
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 8,
-      "mediumSolved": 9,
+      "easySolved": 9,
+      "mediumSolved": 10,
       "hardSolved": 5
     },
-    "score": 60
+    "score": 64
   },
   {
     "name": "Shrinidhi Upadhye",
@@ -50,6 +50,16 @@
     "score": 29
   },
   {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 6,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 27
+  },
+  {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
@@ -68,16 +78,6 @@
       "hardSolved": 1
     },
     "score": 26
-  },
-  {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 4,
-      "mediumSolved": 7,
-      "hardSolved": 0
-    },
-    "score": 25
   },
   {
     "name": "Rayyan Shaikh",
