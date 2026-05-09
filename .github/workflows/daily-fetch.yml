@@ -2,7 +2,7 @@ name: Fetch Daily Data
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -35,6 +37,21 @@ jobs:
       - name: Commit and push changes
         run: |
           git add .
-          git commit -m "Update daily LeetCode stats"
-          git push
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          TODAY=$(date -u +'%Y-%m-%d')
+          COMMIT_MSG="Update daily LeetCode stats for $TODAY"
+          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+          
+          if [[ "$LAST_COMMIT_MSG" == "$COMMIT_MSG"* ]]; then
+            git commit --amend -m "$COMMIT_MSG"
+            git push --force
+          else
+            git commit -m "$COMMIT_MSG"
+            git push
+          fi
         continue-on-error: true
