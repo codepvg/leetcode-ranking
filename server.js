@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const fs = require("fs");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -41,6 +42,19 @@ app.get("/api/weekly", (req, res) => {
 
 app.get("/api/daily", (req, res) => {
   res.sendFile(path.join(__dirname, "data", "daily.json"));
+});
+
+app.get("/api/last-updated", (req, res) => {
+  const filePath = path.join(__dirname, "data", "overall.json");
+  fs.stat(filePath, (err, stats) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        return res.status(404).json({ error: "Data file not found" });
+      }
+      return res.status(500).json({ error: "Could not retrieve last updated time" });
+    }
+    res.json({ lastUpdated: stats.mtime.toISOString() });
+  });
 });
 
 app.use((req, res) => {
