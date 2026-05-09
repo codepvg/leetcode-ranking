@@ -18,7 +18,7 @@ async function fetchData(url) {
 
 function getFileName(daysAgo) {
   const now = new Date();
-  now.setDate(now.getDate() - 1 - daysAgo);
+  now.setDate(now.getDate() - daysAgo);
 
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
