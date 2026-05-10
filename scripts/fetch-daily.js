@@ -220,4 +220,13 @@ function getFileName(daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+
+  console.log("Writing sync timestamp...");
+  const syncFilepath = path.join(__dirname, "..", "data", "last-sync.json");
+  try {
+    fs.writeFileSync(syncFilepath, JSON.stringify({ lastSync: new Date().toISOString() }, null, 2), "utf8");
+    console.log("Sync timestamp saved successfully");
+  } catch (err) {
+    console.error(`Failed to write sync file: `, err.message);
+  }
 })();

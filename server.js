@@ -45,15 +45,20 @@ app.get("/api/daily", (req, res) => {
 });
 
 app.get("/api/last-updated", (req, res) => {
-  const filePath = path.join(__dirname, "data", "overall.json");
-  fs.stat(filePath, (err, stats) => {
+  const filePath = path.join(__dirname, "data", "last-sync.json");
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        return res.status(404).json({ error: "Data file not found" });
+        return res.status(404).json({ error: "Sync data not found" });
       }
       return res.status(500).json({ error: "Could not retrieve last updated time" });
     }
-    res.json({ lastUpdated: stats.mtime.toISOString() });
+    try {
+      const parsed = JSON.parse(data);
+      res.json({ lastUpdated: parsed.lastSync });
+    } catch (e) {
+      return res.status(500).json({ error: "Invalid sync data format" });
+    }
   });
 });
 
