@@ -13,11 +13,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 121,
-      "mediumSolved": 248,
+      "easySolved": 122,
+      "mediumSolved": 250,
       "hardSolved": 47
     },
-    "score": 1100
+    "score": 1107
   },
   {
     "name": "Anurag",
@@ -53,11 +53,11 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 197,
+      "easySolved": 198,
       "mediumSolved": 159,
       "hardSolved": 19
     },
-    "score": 769
+    "score": 770
   },
   {
     "name": "Mansi Wagh",
@@ -93,11 +93,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 143,
+      "easySolved": 144,
       "mediumSolved": 87,
       "hardSolved": 6
     },
-    "score": 434
+    "score": 435
   },
   {
     "name": "Rayyan Shaikh",
@@ -320,6 +320,16 @@
     "score": 99
   },
   {
+    "name": "Atharv Arvind Deshmukh",
+    "id": "Code_Atharv07",
+    "data": {
+      "easySolved": 19,
+      "mediumSolved": 18,
+      "hardSolved": 3
+    },
+    "score": 88
+  },
+  {
     "name": "Shrinidhi Upadhye",
     "id": "shirya205",
     "data": {
@@ -328,16 +338,6 @@
       "hardSolved": 3
     },
     "score": 86
-  },
-  {
-    "name": "Atharv Arvind Deshmukh",
-    "id": "Code_Atharv07",
-    "data": {
-      "easySolved": 18,
-      "mediumSolved": 17,
-      "hardSolved": 3
-    },
-    "score": 84
   },
   {
     "name": "Vishwajit Hodgar",
