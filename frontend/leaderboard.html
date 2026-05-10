@@ -17,6 +17,9 @@
     <main class="page">
         <div class="container">
             <h1 class="page-title">Leaderboard</h1>
+            <div id="last-synced-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 1.5rem;">
+                <span style="color: var(--text-muted);">[SYS_STATUS]:</span> LAST SYNC <span id="sync-time" style="color: var(--cyan); text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);">__AWAITING_UPLINK__</span>
+            </div>
             
             <div class="tabs">
                 <button class="tab active" data-tab="overall">Overall</button>
@@ -97,6 +100,27 @@
             for (const type of endpoints) {
                 const response = await fetch(`/api/${type}`);
                 leaderboardData[type] = await response.json();
+            }
+
+            try {
+                const syncRes = await fetch('/api/last-updated');
+                if (syncRes.ok) {
+                    const syncData = await syncRes.json();
+                    const date = new Date(syncData.lastUpdated);
+                    const options = { 
+                        month: 'short', day: '2-digit', 
+                        hour: '2-digit', minute: '2-digit', timeZoneName: 'short' 
+                    };
+                    const formatted = date.toLocaleString('en-US', options).toUpperCase();
+                    document.getElementById('sync-time').innerText = formatted;
+                } else {
+                    document.getElementById('sync-time').innerText = "SYNC_FAILED";
+                    document.getElementById('sync-time').style.color = "var(--red)";
+                }
+            } catch (e) {
+                console.error("Failed to fetch sync time", e);
+                document.getElementById('sync-time').innerText = "OFFLINE";
+                document.getElementById('sync-time').style.color = "var(--red)";
             }
 
             setActiveTab('overall');
