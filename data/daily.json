@@ -1,23 +1,23 @@
 [
   {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 2,
-      "hardSolved": 0
-    },
-    "score": 7
-  },
-  {
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
       "easySolved": 1,
-      "mediumSolved": 1,
+      "mediumSolved": 6,
       "hardSolved": 0
     },
-    "score": 4
+    "score": 19
+  },
+  {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 3,
+      "hardSolved": 0
+    },
+    "score": 10
   },
   {
     "name": "Atharv Arvind Deshmukh",

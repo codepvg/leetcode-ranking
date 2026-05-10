@@ -1,5 +1,15 @@
 [
   {
+    "name": "rohanonleetcode :P",
+    "id": "Rohan-Mali",
+    "data": {
+      "easySolved": 2,
+      "mediumSolved": 10,
+      "hardSolved": 0
+    },
+    "score": 32
+  },
+  {
     "name": "Jeet Sudhish Pachpande",
     "id": "jeet_pachpande",
     "data": {
@@ -10,6 +20,16 @@
     "score": 25
   },
   {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 7,
+      "hardSolved": 0
+    },
+    "score": 22
+  },
+  {
     "name": "Atharv Arvind Deshmukh",
     "id": "Code_Atharv07",
     "data": {
@@ -18,26 +38,6 @@
       "hardSolved": 0
     },
     "score": 20
-  },
-  {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 1,
-      "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 19
-  },
-  {
-    "name": "rohanonleetcode :P",
-    "id": "Rohan-Mali",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 5,
-      "hardSolved": 0
-    },
-    "score": 17
   },
   {
     "name": "ARCHANA KUMARI",
