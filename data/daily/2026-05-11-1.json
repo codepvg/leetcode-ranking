@@ -43,11 +43,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 84,
+      "easySolved": 85,
       "mediumSolved": 35,
       "hardSolved": 1
     },
-    "score": 194
+    "score": 195
   },
   {
     "name": "nikita sharma",
@@ -203,11 +203,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 122,
+      "easySolved": 123,
       "mediumSolved": 251,
       "hardSolved": 47
     },
-    "score": 1110
+    "score": 1111
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -788,5 +788,15 @@
       "hardSolved": 0
     },
     "score": 0
+  },
+  {
+    "name": "neem ka patta kadwa hai sarthak joshi bhadwa hai",
+    "id": "16Cris",
+    "data": {
+      "easySolved": 117,
+      "mediumSolved": 110,
+      "hardSolved": 8
+    },
+    "score": 487
   }
 ]
