@@ -55,7 +55,7 @@ app.get("/api/last-updated", (req, res) => {
     }
     try {
       const parsed = JSON.parse(data);
-      res.json({ lastUpdated: parsed.lastSync });
+      res.json({ lastUpdated: parsed.lastSync, nextSync: parsed.nextSync });
     } catch (e) {
       return res.status(500).json({ error: "Invalid sync data format" });
     }
