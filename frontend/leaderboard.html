@@ -17,8 +17,11 @@
     <main class="page">
         <div class="container">
             <h1 class="page-title">Leaderboard</h1>
-            <div id="last-synced-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 1.5rem;">
+            <div id="last-synced-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 0.3rem;">
                 <span style="color: var(--text-muted);">[SYS_STATUS]:</span> LAST SYNC <span id="sync-time" style="color: var(--cyan); text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);">__AWAITING_UPLINK__</span>
+            </div>
+            <div id="next-sync-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 1.5rem;">
+                <span style="color: var(--text-muted);">[NEXT_SYNC]:</span> <span id="next-sync-time" style="color: var(--green); text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);">__PENDING__</span>
             </div>
             
             <div class="tabs">
@@ -106,21 +109,39 @@
                 const syncRes = await fetch('/api/last-updated');
                 if (syncRes.ok) {
                     const syncData = await syncRes.json();
-                    const date = new Date(syncData.lastUpdated);
                     const options = { 
                         month: 'short', day: '2-digit', 
                         hour: '2-digit', minute: '2-digit', timeZoneName: 'short' 
                     };
+
+                    const date = new Date(syncData.lastUpdated);
                     const formatted = date.toLocaleString('en-US', options).toUpperCase();
                     document.getElementById('sync-time').innerText = formatted;
+
+                    if (syncData.nextSync) {
+                        const nextDate = new Date(syncData.nextSync);
+                        const now = new Date();
+                        if (nextDate > now) {
+                            const diffMs = nextDate - now;
+                            const diffMin = Math.ceil(diffMs / 60000);
+                            document.getElementById('next-sync-time').innerText = `~${diffMin} MIN`;
+                        } else {
+                            document.getElementById('next-sync-time').innerText = 'IMMINENT';
+                        }
+                    } else {
+                        document.getElementById('next-sync-time').innerText = '~5 MIN';
+                    }
                 } else {
                     document.getElementById('sync-time').innerText = "SYNC_FAILED";
                     document.getElementById('sync-time').style.color = "var(--red)";
+                    document.getElementById('next-sync-time').innerText = "UNKNOWN";
                 }
             } catch (e) {
                 console.error("Failed to fetch sync time", e);
                 document.getElementById('sync-time').innerText = "OFFLINE";
                 document.getElementById('sync-time').style.color = "var(--red)";
+                document.getElementById('next-sync-time').innerText = "OFFLINE";
+                document.getElementById('next-sync-time').style.color = "var(--red)";
             }
 
             setActiveTab('overall');

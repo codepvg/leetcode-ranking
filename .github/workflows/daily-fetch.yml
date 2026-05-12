@@ -3,7 +3,12 @@ name: Fetch Daily Data
 on:
   schedule:
     - cron: '14 * * * *'
+    - cron: '44 * * * *'
   workflow_dispatch:
+
+concurrency:
+  group: daily-fetch
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -26,32 +31,49 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run fetch-daily.js
-        run: node scripts/fetch-daily.js
-
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit and push changes
+      - name: Run fetch loop
         run: |
-          git add .
-          
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          
-          TODAY=$(date -u +'%Y-%m-%d')
-          COMMIT_MSG="Update daily LeetCode stats for $TODAY"
-          LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
-          
-          if [[ "$LAST_COMMIT_MSG" == "$COMMIT_MSG"* ]]; then
-            git commit --amend -m "$COMMIT_MSG"
-            git push --force
-          else
-            git commit -m "$COMMIT_MSG"
-            git push
-          fi
+          MAX_ITERATIONS=24
+          INTERVAL=300
+
+          for i in $(seq 1 $MAX_ITERATIONS); do
+            echo ""
+            echo "============================================"
+            echo "=== Sync iteration $i/$MAX_ITERATIONS ==="
+            echo "============================================"
+
+            # Pull latest changes to avoid conflicts with other runners
+            git pull --rebase || true
+
+            node scripts/fetch-daily.js
+
+            git add .
+
+            if ! git diff --staged --quiet; then
+              TODAY=$(date -u +'%Y-%m-%d')
+              COMMIT_MSG="Update daily LeetCode stats for $TODAY"
+              LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+
+              if [[ "$LAST_COMMIT_MSG" == "$COMMIT_MSG"* ]]; then
+                git commit --amend -m "$COMMIT_MSG"
+                git push --force
+              else
+                git commit -m "$COMMIT_MSG"
+                git push
+              fi
+            else
+              echo "No changes to commit"
+            fi
+
+            # Don't sleep after the last iteration
+            if [ $i -lt $MAX_ITERATIONS ]; then
+              echo "Sleeping ${INTERVAL}s until next sync..."
+              sleep $INTERVAL
+            fi
+          done
         continue-on-error: true
