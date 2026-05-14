@@ -3,71 +3,61 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 14,
+      "easySolved": 15,
       "mediumSolved": 12,
       "hardSolved": 1
     },
-    "score": 55
-  },
-  {
-    "name": "Harshad Bhalsing",
-    "id": "harsh-0_2",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 6,
-      "hardSolved": 1
-    },
-    "score": 25
+    "score": 56
   },
   {
     "name": "Atharv Arvind Deshmukh",
     "id": "Code_Atharv07",
     "data": {
-      "easySolved": 5,
+      "easySolved": 7,
+      "mediumSolved": 4,
+      "hardSolved": 1
+    },
+    "score": 24
+  },
+  {
+    "name": "Harshad Bhalsing",
+    "id": "harsh-0_2",
+    "data": {
+      "easySolved": 3,
       "mediumSolved": 5,
       "hardSolved": 1
     },
-    "score": 25
+    "score": 23
   },
   {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 13
-  },
-  {
-    "name": "Jeet Sudhish Pachpande",
-    "id": "jeet_pachpande",
-    "data": {
-      "easySolved": 3,
-      "mediumSolved": 1,
-      "hardSolved": 1
-    },
-    "score": 11
+    "score": 14
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 1,
       "hardSolved": 1
     },
-    "score": 9
+    "score": 10
   },
   {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
+    "name": "Jeet Sudhish Pachpande",
+    "id": "jeet_pachpande",
     "data": {
-      "easySolved": 0,
-      "mediumSolved": 2,
+      "easySolved": 1,
+      "mediumSolved": 1,
       "hardSolved": 0
     },
-    "score": 6
+    "score": 4
   },
   {
     "name": "Rajat malapur",
@@ -80,8 +70,18 @@
     "score": 3
   },
   {
-    "name": "Jagdish Prajapati",
-    "id": "jagdish15",
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
+    "data": {
+      "easySolved": 0,
+      "mediumSolved": 1,
+      "hardSolved": 0
+    },
+    "score": 3
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
       "easySolved": 2,
       "mediumSolved": 0,
@@ -90,14 +90,14 @@
     "score": 2
   },
   {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
+    "name": "Jagdish Prajapati",
+    "id": "jagdish15",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 0,
       "hardSolved": 0
     },
-    "score": 1
+    "score": 2
   },
   {
     "name": "Neerad Ahire",
