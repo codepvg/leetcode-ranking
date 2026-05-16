@@ -28,39 +28,6 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-app.get("/api/overall", (req, res) => {
-  res.sendFile(path.join(__dirname, "data", "overall.json"));
-});
-
-app.get("/api/monthly", (req, res) => {
-  res.sendFile(path.join(__dirname, "data", "monthly.json"));
-});
-
-app.get("/api/weekly", (req, res) => {
-  res.sendFile(path.join(__dirname, "data", "weekly.json"));
-});
-
-app.get("/api/daily", (req, res) => {
-  res.sendFile(path.join(__dirname, "data", "daily.json"));
-});
-
-app.get("/api/last-updated", (req, res) => {
-  const filePath = path.join(__dirname, "data", "last-sync.json");
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        return res.status(404).json({ error: "Sync data not found" });
-      }
-      return res.status(500).json({ error: "Could not retrieve last updated time" });
-    }
-    try {
-      const parsed = JSON.parse(data);
-      res.json({ lastUpdated: parsed.lastSync, nextSync: parsed.nextSync });
-    } catch (e) {
-      return res.status(500).json({ error: "Invalid sync data format" });
-    }
-  });
-});
 
 app.use((req, res) => {
   res.status(404).send("Page not found");

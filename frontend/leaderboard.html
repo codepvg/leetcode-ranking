@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>leaderboard — CodePVG</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
     <script src="js/navbar.js"></script>
 </head>
+
 <body>
     <canvas id="matrix-canvas"></canvas>
-    
+
     <main class="page">
         <div class="container">
             <h1 class="page-title">Leaderboard</h1>
-            <div id="last-synced-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 0.3rem;">
-                <span style="color: var(--text-muted);">[SYS_STATUS]:</span> LAST SYNC <span id="sync-time" style="color: var(--cyan); text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);">__AWAITING_UPLINK__</span>
+            <div id="last-synced-indicator"
+                style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 0.3rem;">
+                <span style="color: var(--text-muted);">[SYS_STATUS]:</span> LAST SYNC <span id="sync-time"
+                    style="color: var(--cyan); text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);">__AWAITING_UPLINK__</span>
             </div>
-            <div id="next-sync-indicator" style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 1.5rem;">
-                <span style="color: var(--text-muted);">[NEXT_SYNC]:</span> <span id="next-sync-time" style="color: var(--green); text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);">__PENDING__</span>
+            <div id="next-sync-indicator"
+                style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 1.5rem;">
+                <span style="color: var(--text-muted);">[NEXT_SYNC]:</span> <span id="next-sync-time"
+                    style="color: var(--green); text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);">__PENDING__</span>
             </div>
-            
+
             <div class="tabs">
                 <button class="tab active" data-tab="overall">Overall</button>
                 <button class="tab" data-tab="monthly">Monthly</button>
                 <button class="tab" data-tab="weekly">Weekly</button>
                 <button class="tab" data-tab="daily">Daily</button>
             </div>
-            
+
             <div class="leaderboard">
                 <div class="leaderboard-header">
                     <div>Rank</div>
@@ -41,21 +49,25 @@
                     <div class="hard">Hard</div>
                     <div>Score</div>
                 </div>
-                
+
                 <div id="leaderboard-body">
-                    
+
                 </div>
             </div>
-            
+
             <div class="mobile-cards" id="mobile-cards">
 
             </div>
 
-            <div id="pagination-controls" style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button id="load-more-btn" class="btn btn-secondary" onclick="loadMoreNodes()" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+            <div id="pagination-controls"
+                style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button id="load-more-btn" class="btn btn-secondary" onclick="loadMoreNodes()"
+                    style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
                     ./fetch_more_nodes
                 </button>
-                <button id="scroll-top-btn" class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
+                <button id="scroll-top-btn" class="btn btn-primary"
+                    onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                    style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
                     ^ scroll_to_top
                 </button>
             </div>
@@ -86,7 +98,7 @@
             const data = leaderboardData[activeDatasetType];
             const isMobile = window.innerWidth <= 768;
             const maxClicks = isMobile ? 3 : 2;
-            
+
             fetchMoreClicks++;
 
             if (fetchMoreClicks >= maxClicks) {
@@ -100,21 +112,30 @@
 
         async function fetchLeaderboardData() {
             const endpoints = ['overall', 'monthly', 'weekly', 'daily'];
+            const cacheBuster = Date.now();
             for (const type of endpoints) {
-                const response = await fetch(`/api/${type}`);
-                leaderboardData[type] = await response.json();
+                // Fetch directly from github to avoid needing a server redeploy for new data
+                try {
+                    const response = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking/main/data/${type}.json?t=${cacheBuster}`);
+                    if (response.ok) {
+                        leaderboardData[type] = await response.json();
+                    }
+                } catch (e) {
+                    console.error("Failed to fetch", type);
+                }
             }
 
             try {
-                const syncRes = await fetch('/api/last-updated');
+                // Fetch directly from github to avoid needing a server redeploy for new data
+                const syncRes = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking/main/data/last-sync.json?t=${cacheBuster}`);
                 if (syncRes.ok) {
                     const syncData = await syncRes.json();
-                    const options = { 
-                        month: 'short', day: '2-digit', 
-                        hour: '2-digit', minute: '2-digit', timeZoneName: 'short' 
+                    const options = {
+                        month: 'short', day: '2-digit',
+                        hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
                     };
 
-                    const date = new Date(syncData.lastUpdated);
+                    const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
                     const formatted = date.toLocaleString('en-US', options).toUpperCase();
                     document.getElementById('sync-time').innerText = formatted;
 
@@ -162,7 +183,7 @@
 
             body.innerHTML = '';
             mobileCards.innerHTML = '';
-            
+
             const displayData = data.slice(0, currentDisplayLimit);
 
             displayData.forEach((user, index) => {
@@ -251,4 +272,5 @@
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
 </body>
+
 </html>
