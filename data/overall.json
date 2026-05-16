@@ -15,9 +15,9 @@
     "data": {
       "easySolved": 125,
       "mediumSolved": 252,
-      "hardSolved": 48
+      "hardSolved": 49
     },
-    "score": 1121
+    "score": 1126
   },
   {
     "name": "Anurag",
@@ -25,9 +25,9 @@
     "data": {
       "easySolved": 221,
       "mediumSolved": 225,
-      "hardSolved": 9
+      "hardSolved": 10
     },
-    "score": 941
+    "score": 946
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -53,11 +53,11 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 211,
-      "mediumSolved": 170,
-      "hardSolved": 20
+      "easySolved": 214,
+      "mediumSolved": 174,
+      "hardSolved": 21
     },
-    "score": 821
+    "score": 841
   },
   {
     "name": "Mansi Wagh",
@@ -105,19 +105,19 @@
     "data": {
       "easySolved": 145,
       "mediumSolved": 87,
-      "hardSolved": 6
+      "hardSolved": 7
     },
-    "score": 436
+    "score": 441
   },
   {
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 115,
-      "mediumSolved": 86,
+      "easySolved": 116,
+      "mediumSolved": 87,
       "hardSolved": 9
     },
-    "score": 418
+    "score": 422
   },
   {
     "name": "YASH YOGESH BORA",
@@ -175,9 +175,9 @@
     "data": {
       "easySolved": 86,
       "mediumSolved": 35,
-      "hardSolved": 1
+      "hardSolved": 2
     },
-    "score": 196
+    "score": 201
   },
   {
     "name": "Harshal Mahajan",
@@ -230,6 +230,16 @@
     "score": 151
   },
   {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 41,
+      "mediumSolved": 29,
+      "hardSolved": 2
+    },
+    "score": 138
+  },
+  {
     "name": "Kabeer Ahmed Merchant",
     "id": "Kabeer2004",
     "data": {
@@ -238,16 +248,6 @@
       "hardSolved": 1
     },
     "score": 138
-  },
-  {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 39,
-      "mediumSolved": 29,
-      "hardSolved": 2
-    },
-    "score": 136
   },
   {
     "name": "Rahul Ravindra Kate",
@@ -310,6 +310,16 @@
     "score": 113
   },
   {
+    "name": "Atharv Arvind Deshmukh",
+    "id": "Code_Atharv07",
+    "data": {
+      "easySolved": 25,
+      "mediumSolved": 20,
+      "hardSolved": 5
+    },
+    "score": 110
+  },
+  {
     "name": "Atharva",
     "id": "Atharva_110586",
     "data": {
@@ -318,16 +328,6 @@
       "hardSolved": 4
     },
     "score": 108
-  },
-  {
-    "name": "Atharv Arvind Deshmukh",
-    "id": "Code_Atharv07",
-    "data": {
-      "easySolved": 25,
-      "mediumSolved": 20,
-      "hardSolved": 4
-    },
-    "score": 105
   },
   {
     "name": "Samarth Deshpande",
