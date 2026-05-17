@@ -93,11 +93,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 145,
+      "easySolved": 146,
       "mediumSolved": 87,
       "hardSolved": 7
     },
-    "score": 441
+    "score": 442
   },
   {
     "name": "Meet Kasat ",
@@ -164,10 +164,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 91,
-      "mediumSolved": 128,
+      "mediumSolved": 129,
       "hardSolved": 14
     },
-    "score": 545
+    "score": 548
   },
   {
     "name": "Nexus05",
@@ -203,11 +203,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 125,
-      "mediumSolved": 252,
+      "easySolved": 126,
+      "mediumSolved": 253,
       "hardSolved": 49
     },
-    "score": 1126
+    "score": 1130
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -333,11 +333,11 @@
     "name": "Rayyan Shaikh",
     "id": "RayyanShaikh",
     "data": {
-      "easySolved": 116,
-      "mediumSolved": 87,
+      "easySolved": 118,
+      "mediumSolved": 88,
       "hardSolved": 9
     },
-    "score": 422
+    "score": 427
   },
   {
     "name": "Yash Gaiwkad",
@@ -433,11 +433,11 @@
     "name": "Abhishek Laxman Guntuk",
     "id": "abhi_guntuk_",
     "data": {
-      "easySolved": 48,
+      "easySolved": 49,
       "mediumSolved": 42,
       "hardSolved": 7
     },
-    "score": 209
+    "score": 210
   },
   {
     "name": "Vedant Banaitkar",
@@ -744,10 +744,10 @@
     "id": "Code_Atharv07",
     "data": {
       "easySolved": 25,
-      "mediumSolved": 20,
+      "mediumSolved": 21,
       "hardSolved": 5
     },
-    "score": 110
+    "score": 113
   },
   {
     "name": "Kartik Bodke",
@@ -763,11 +763,11 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 215,
-      "mediumSolved": 174,
+      "easySolved": 216,
+      "mediumSolved": 175,
       "hardSolved": 21
     },
-    "score": 842
+    "score": 846
   },
   {
     "name": "Prajwal Barsagade",
@@ -798,5 +798,15 @@
       "hardSolved": 8
     },
     "score": 487
+  },
+  {
+    "name": "Nikhil",
+    "id": "Nick_kaushik",
+    "data": {
+      "easySolved": 351,
+      "mediumSolved": 732,
+      "hardSolved": 157
+    },
+    "score": 3332
   }
 ]
