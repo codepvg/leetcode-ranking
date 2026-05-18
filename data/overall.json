@@ -5,9 +5,9 @@
     "data": {
       "easySolved": 351,
       "mediumSolved": 732,
-      "hardSolved": 157
+      "hardSolved": 158
     },
-    "score": 3332
+    "score": 3337
   },
   {
     "name": "Neerad Ahire",
@@ -25,19 +25,19 @@
     "data": {
       "easySolved": 126,
       "mediumSolved": 253,
-      "hardSolved": 49
+      "hardSolved": 50
     },
-    "score": 1130
+    "score": 1135
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 221,
-      "mediumSolved": 225,
+      "mediumSolved": 226,
       "hardSolved": 10
     },
-    "score": 946
+    "score": 949
   },
   {
     "name": "Lingayat Arya Kamlesh",
@@ -64,10 +64,10 @@
     "id": "Rohan-Mali",
     "data": {
       "easySolved": 216,
-      "mediumSolved": 175,
+      "mediumSolved": 177,
       "hardSolved": 21
     },
-    "score": 846
+    "score": 852
   },
   {
     "name": "Mansi Wagh",
@@ -84,10 +84,10 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 91,
-      "mediumSolved": 129,
+      "mediumSolved": 130,
       "hardSolved": 14
     },
-    "score": 548
+    "score": 551
   },
   {
     "name": "Sushant Borde",
@@ -244,10 +244,10 @@
     "id": "archana60",
     "data": {
       "easySolved": 41,
-      "mediumSolved": 29,
+      "mediumSolved": 31,
       "hardSolved": 2
     },
-    "score": 138
+    "score": 144
   },
   {
     "name": "Kabeer Ahmed Merchant",
@@ -290,6 +290,16 @@
     "score": 119
   },
   {
+    "name": "Atharv Arvind Deshmukh",
+    "id": "Code_Atharv07",
+    "data": {
+      "easySolved": 25,
+      "mediumSolved": 21,
+      "hardSolved": 6
+    },
+    "score": 118
+  },
+  {
     "name": "Pranav Sunilkumar Ijantkar",
     "id": "RagePool",
     "data": {
@@ -308,16 +318,6 @@
       "hardSolved": 3
     },
     "score": 117
-  },
-  {
-    "name": "Atharv Arvind Deshmukh",
-    "id": "Code_Atharv07",
-    "data": {
-      "easySolved": 25,
-      "mediumSolved": 21,
-      "hardSolved": 5
-    },
-    "score": 113
   },
   {
     "name": "Kartik Bodke",
@@ -380,6 +380,16 @@
     "score": 68
   },
   {
+    "name": "Vanshika Khanna",
+    "id": "Vanshikakhanna",
+    "data": {
+      "easySolved": 10,
+      "mediumSolved": 17,
+      "hardSolved": 1
+    },
+    "score": 66
+  },
+  {
     "name": "SHREYA KULKARNI",
     "id": "shreeya25",
     "data": {
@@ -388,16 +398,6 @@
       "hardSolved": 0
     },
     "score": 61
-  },
-  {
-    "name": "Vanshika Khanna",
-    "id": "Vanshikakhanna",
-    "data": {
-      "easySolved": 10,
-      "mediumSolved": 15,
-      "hardSolved": 1
-    },
-    "score": 60
   },
   {
     "name": "Ruturaj Tushar Pandit",
