@@ -3,51 +3,51 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 9,
+      "easySolved": 8,
       "mediumSolved": 10,
       "hardSolved": 3
     },
-    "score": 54
+    "score": 53
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
-      "easySolved": 1,
+      "easySolved": 0,
       "mediumSolved": 7,
       "hardSolved": 2
     },
-    "score": 32
+    "score": 31
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 4,
+      "easySolved": 3,
       "mediumSolved": 3,
       "hardSolved": 2
     },
-    "score": 23
+    "score": 22
   },
   {
     "name": "Atharv Arvind Deshmukh",
     "id": "Code_Atharv07",
     "data": {
-      "easySolved": 4,
+      "easySolved": 1,
       "mediumSolved": 3,
       "hardSolved": 2
     },
-    "score": 23
+    "score": 20
   },
   {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 9,
+      "easySolved": 8,
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 15
+    "score": 14
   },
   {
     "name": "Rayyan Shaikh",
@@ -60,22 +60,22 @@
     "score": 13
   },
   {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 2,
-      "mediumSolved": 1,
-      "hardSolved": 1
-    },
-    "score": 10
-  },
-  {
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
       "easySolved": 0,
       "mediumSolved": 3,
       "hardSolved": 0
+    },
+    "score": 9
+  },
+  {
+    "name": "Neevan Redkar",
+    "id": "neevs1",
+    "data": {
+      "easySolved": 1,
+      "mediumSolved": 1,
+      "hardSolved": 1
     },
     "score": 9
   },
