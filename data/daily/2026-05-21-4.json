@@ -14,10 +14,10 @@
     "id": "archana60",
     "data": {
       "easySolved": 45,
-      "mediumSolved": 31,
+      "mediumSolved": 33,
       "hardSolved": 2
     },
-    "score": 148
+    "score": 154
   },
   {
     "name": "Mehak Zutshi",
@@ -204,10 +204,10 @@
     "id": "harsh-0_2",
     "data": {
       "easySolved": 127,
-      "mediumSolved": 254,
+      "mediumSolved": 255,
       "hardSolved": 50
     },
-    "score": 1139
+    "score": 1142
   },
   {
     "name": "Ruturaj Tushar Pandit",
@@ -374,10 +374,10 @@
     "id": "mahantesh_00",
     "data": {
       "easySolved": 16,
-      "mediumSolved": 3,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 25
+    "score": 28
   },
   {
     "name": "Shrinidhi Upadhye",
@@ -764,10 +764,10 @@
     "id": "Rohan-Mali",
     "data": {
       "easySolved": 219,
-      "mediumSolved": 180,
+      "mediumSolved": 181,
       "hardSolved": 23
     },
-    "score": 874
+    "score": 877
   },
   {
     "name": "Prajwal Barsagade",
@@ -808,5 +808,15 @@
       "hardSolved": 158
     },
     "score": 3337
+  },
+  {
+    "name": "Vishal raut",
+    "id": "vishalraut21066",
+    "data": {
+      "easySolved": 49,
+      "mediumSolved": 59,
+      "hardSolved": 18
+    },
+    "score": 316
   }
 ]
