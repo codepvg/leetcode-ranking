@@ -23,21 +23,11 @@
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
-      "easySolved": 3,
+      "easySolved": 2,
       "mediumSolved": 4,
       "hardSolved": 2
     },
-    "score": 25
-  },
-  {
-    "name": "ARCHANA KUMARI",
-    "id": "archana60",
-    "data": {
-      "easySolved": 8,
-      "mediumSolved": 4,
-      "hardSolved": 0
-    },
-    "score": 20
+    "score": 24
   },
   {
     "name": "Atharv Arvind Deshmukh",
@@ -48,6 +38,16 @@
       "hardSolved": 2
     },
     "score": 20
+  },
+  {
+    "name": "ARCHANA KUMARI",
+    "id": "archana60",
+    "data": {
+      "easySolved": 6,
+      "mediumSolved": 4,
+      "hardSolved": 0
+    },
+    "score": 18
   },
   {
     "name": "Rayyan Shaikh",
@@ -64,20 +64,20 @@
     "id": "aryanpatil123",
     "data": {
       "easySolved": 0,
-      "mediumSolved": 3,
+      "mediumSolved": 4,
       "hardSolved": 0
     },
-    "score": 9
+    "score": 12
   },
   {
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
       "easySolved": 1,
-      "mediumSolved": 1,
+      "mediumSolved": 2,
       "hardSolved": 1
     },
-    "score": 9
+    "score": 12
   },
   {
     "name": "Rajat malapur",
