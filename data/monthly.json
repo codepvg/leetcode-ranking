@@ -3,41 +3,41 @@
     "name": "Atharv Arvind Deshmukh",
     "id": "Code_Atharv07",
     "data": {
-      "easySolved": 24,
+      "easySolved": 22,
       "mediumSolved": 22,
       "hardSolved": 6
     },
-    "score": 120
+    "score": 118
   },
   {
     "name": "Harshad Bhalsing",
     "id": "harsh-0_2",
     "data": {
       "easySolved": 9,
-      "mediumSolved": 21,
-      "hardSolved": 5
+      "mediumSolved": 23,
+      "hardSolved": 6
     },
-    "score": 97
+    "score": 108
   },
   {
     "name": "Anurag",
     "id": "anuragmuley",
     "data": {
       "easySolved": 6,
-      "mediumSolved": 10,
+      "mediumSolved": 11,
       "hardSolved": 3
     },
-    "score": 51
+    "score": 54
   },
   {
     "name": "ARCHANA KUMARI",
     "id": "archana60",
     "data": {
-      "easySolved": 16,
-      "mediumSolved": 11,
+      "easySolved": 15,
+      "mediumSolved": 12,
       "hardSolved": 0
     },
-    "score": 49
+    "score": 51
   },
   {
     "name": "Jeet Sudhish Pachpande",
@@ -54,10 +54,20 @@
     "id": "RayyanShaikh",
     "data": {
       "easySolved": 10,
-      "mediumSolved": 8,
+      "mediumSolved": 10,
       "hardSolved": 0
     },
-    "score": 34
+    "score": 40
+  },
+  {
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
+    "data": {
+      "easySolved": 11,
+      "mediumSolved": 5,
+      "hardSolved": 1
+    },
+    "score": 31
   },
   {
     "name": "Aryan Shashikant Patil",
@@ -70,34 +80,24 @@
     "score": 27
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
-      "easySolved": 10,
+      "easySolved": 6,
       "mediumSolved": 4,
       "hardSolved": 1
     },
-    "score": 27
+    "score": 23
   },
   {
     "name": "YASH YOGESH BORA",
     "id": "yashbora",
     "data": {
-      "easySolved": 9,
+      "easySolved": 8,
       "mediumSolved": 1,
       "hardSolved": 2
     },
-    "score": 22
-  },
-  {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
-    "data": {
-      "easySolved": 6,
-      "mediumSolved": 3,
-      "hardSolved": 1
-    },
-    "score": 20
+    "score": 21
   },
   {
     "name": "Vanshika Khanna",
