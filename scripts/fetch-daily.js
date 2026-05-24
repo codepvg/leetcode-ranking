@@ -51,6 +51,7 @@ function getFileName(daysAgo) {
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
+    data.totalSolved = data.easySolved + data.mediumSolved + data.hardSolved;
     console.log(`${user.name}:`, data);
     overallData.push(
       {
@@ -116,6 +117,7 @@ function getFileName(daysAgo) {
     dailyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
     dailyData[i].score = dailyData[i].data.easySolved + dailyData[i].data.mediumSolved * 3 + dailyData[i].data.hardSolved * 5;
+    dailyData[i].data.totalSolved = dailyData[i].data.easySolved + dailyData[i].data.mediumSolved + dailyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
@@ -160,6 +162,7 @@ function getFileName(daysAgo) {
     weeklyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
     weeklyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
     weeklyData[i].score = weeklyData[i].data.easySolved + weeklyData[i].data.mediumSolved * 3 + weeklyData[i].data.hardSolved * 5;
+    weeklyData[i].data.totalSolved = weeklyData[i].data.easySolved + weeklyData[i].data.mediumSolved + weeklyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
@@ -204,6 +207,7 @@ function getFileName(daysAgo) {
     monthlyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
     monthlyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
     monthlyData[i].score = monthlyData[i].data.easySolved + monthlyData[i].data.mediumSolved * 3 + monthlyData[i].data.hardSolved * 5;
+    monthlyData[i].data.totalSolved = monthlyData[i].data.easySolved + monthlyData[i].data.mediumSolved + monthlyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
