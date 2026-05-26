@@ -53,11 +53,11 @@
     "name": "rohanonleetcode :P",
     "id": "Rohan-Mali",
     "data": {
-      "easySolved": 225,
+      "easySolved": 226,
       "mediumSolved": 185,
       "hardSolved": 23
     },
-    "score": 895
+    "score": 896
   },
   {
     "name": "Saniya Gupte",
@@ -83,11 +83,11 @@
     "name": "Aryan Shashikant Patil",
     "id": "aryanpatil123",
     "data": {
-      "easySolved": 91,
+      "easySolved": 92,
       "mediumSolved": 133,
       "hardSolved": 14
     },
-    "score": 560
+    "score": 561
   },
   {
     "name": "Sushant Borde",
@@ -113,11 +113,11 @@
     "name": "Rajat malapur",
     "id": "rajatmalapur",
     "data": {
-      "easySolved": 149,
+      "easySolved": 150,
       "mediumSolved": 88,
       "hardSolved": 7
     },
-    "score": 448
+    "score": 449
   },
   {
     "name": "Rayyan Shaikh",
@@ -143,11 +143,11 @@
     "name": "Vishal raut",
     "id": "vishalraut21066",
     "data": {
-      "easySolved": 51,
+      "easySolved": 52,
       "mediumSolved": 63,
       "hardSolved": 19
     },
-    "score": 335
+    "score": 336
   },
   {
     "name": "Atharv Kirulkar",
@@ -183,11 +183,11 @@
     "name": "Neevan Redkar",
     "id": "neevs1",
     "data": {
-      "easySolved": 88,
+      "easySolved": 89,
       "mediumSolved": 38,
       "hardSolved": 2
     },
-    "score": 212
+    "score": 213
   },
   {
     "name": "Abhishek Laxman Guntuk",
@@ -440,6 +440,16 @@
     "score": 54
   },
   {
+    "name": "Prathit Joshi",
+    "id": "prathitjoshi",
+    "data": {
+      "easySolved": 12,
+      "mediumSolved": 13,
+      "hardSolved": 0
+    },
+    "score": 51
+  },
+  {
     "name": "Reshma Babaleshwar",
     "id": "Reshma_Babaleshwar",
     "data": {
@@ -455,16 +465,6 @@
     "data": {
       "easySolved": 28,
       "mediumSolved": 6,
-      "hardSolved": 0
-    },
-    "score": 46
-  },
-  {
-    "name": "Prathit Joshi",
-    "id": "prathitjoshi",
-    "data": {
-      "easySolved": 10,
-      "mediumSolved": 12,
       "hardSolved": 0
     },
     "score": 46
