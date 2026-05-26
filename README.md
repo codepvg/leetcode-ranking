@@ -18,6 +18,7 @@ The goal of this project is to:
 
 ## Related Repositories
 
+- [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) – The database repository where raw JSON data and historical stats are stored
 - [leetcode-api](https://github.com/codepvg/leetcode-api) – API used to fetch user data from LeetCode
 - [lc-backend](https://github.com/codepvg/lc-backend) – Backend service for storing and managing leaderboard data
 - [frontend-uptime-monitor](https://github.com/codepvg/frontend-uptime-monitor) – Pinger service to monitor frontend server uptime
@@ -29,12 +30,14 @@ The goal of this project is to:
 
 ```
 leetcode-ranking/
-│── frontend/        # UI (HTML, CSS, JS)
-│── data/            # Stored user data
-│── scripts/         # Automation scripts
+│── frontend/        # UI (HTML, CSS, JS) - Fetches data from leetcode-ranking-data
+│── scripts/         # Automation scripts (sync-leaderboard.js)
 │── server.js        # Express server
 │── package.json
 ```
+
+> [!NOTE]
+> All leaderboard data is now decoupled and stored in the [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) repository to prevent commit history bloat in this repo.
 
 ---
 

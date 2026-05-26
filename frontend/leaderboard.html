@@ -116,7 +116,7 @@
             for (const type of endpoints) {
                 // Fetch directly from github to avoid needing a server redeploy for new data
                 try {
-                    const response = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking/main/data/${type}.json?t=${cacheBuster}`);
+                    const response = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`);
                     if (response.ok) {
                         leaderboardData[type] = await response.json();
                     }
@@ -127,7 +127,7 @@
 
             try {
                 // Fetch directly from github to avoid needing a server redeploy for new data
-                const syncRes = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking/main/data/last-sync.json?t=${cacheBuster}`);
+                const syncRes = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`);
                 if (syncRes.ok) {
                     const syncData = await syncRes.json();
                     const options = {

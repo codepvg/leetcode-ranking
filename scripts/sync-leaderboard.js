@@ -30,8 +30,11 @@ function getFileName(daysAgo) {
 }
 
 (async () => {
+  const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
+  console.log(`Using data directory: ${DATA_DIR}`);
+
   console.log("Loading users...")
-  const userFilePath = path.join(__dirname, "..", "data", "users.json");
+  const userFilePath = path.join(DATA_DIR, "users.json");
   let users = [];
   try {
     const rawData = fs.readFileSync(userFilePath, "utf8");
@@ -69,7 +72,7 @@ function getFileName(daysAgo) {
   console.log(" ");
 
   console.log("Writing daily data to file...")
-  const filepath = path.join(__dirname, "..", "data", "daily", getFileName(0));
+  const filepath = path.join(DATA_DIR, "daily", getFileName(0));
   try {
     fs.writeFileSync(filepath, JSON.stringify(overallData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -84,7 +87,7 @@ function getFileName(daysAgo) {
   console.log("Sorting collected data...");
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...")
-  const overallFilepath = path.join(__dirname, "..", "data", "overall.json");
+  const overallFilepath = path.join(DATA_DIR, "overall.json");
   try {
     fs.writeFileSync(overallFilepath, JSON.stringify(overallData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -97,7 +100,7 @@ function getFileName(daysAgo) {
   dailyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous day's file...");
-  const previousDayFilepath = path.join(__dirname, "..", "data", "daily", getFileName(1));
+  const previousDayFilepath = path.join(DATA_DIR, "daily", getFileName(1));
   previousData = [];
   try {
     const rawData = fs.readFileSync(previousDayFilepath, "utf8");
@@ -129,7 +132,7 @@ function getFileName(daysAgo) {
   dailyData.sort((a, b) => b.score - a.score);
 
   console.log("Writing sorted daily data to daily.json...")
-  const dailyFilepath = path.join(__dirname, "..", "data", "daily.json");
+  const dailyFilepath = path.join(DATA_DIR, "daily.json");
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -142,7 +145,7 @@ function getFileName(daysAgo) {
   weeklyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous week's file...");
-  const previousWeekFilepath = path.join(__dirname, "..", "data", "daily", getFileName(7));
+  const previousWeekFilepath = path.join(DATA_DIR, "daily", getFileName(7));
   previousData = [];
   try {
     const rawData = fs.readFileSync(previousWeekFilepath, "utf8");
@@ -174,7 +177,7 @@ function getFileName(daysAgo) {
   weeklyData.sort((a, b) => b.score - a.score);
 
   console.log("Writing sorted weekly data to weekly.json...")
-  const weeklyFilepath = path.join(__dirname, "..", "data", "weekly.json");
+  const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
   try {
     fs.writeFileSync(weeklyFilepath, JSON.stringify(weeklyData, null, 2), "utf8");
     console.log("Weekly data saved successfully");
@@ -187,7 +190,7 @@ function getFileName(daysAgo) {
   monthlyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous month's file...");
-  const previousMonthFilepath = path.join(__dirname, "..", "data", "daily", getFileName(30));
+  const previousMonthFilepath = path.join(DATA_DIR, "daily", getFileName(30));
   previousData = [];
   try {
     const rawData = fs.readFileSync(previousMonthFilepath, "utf8");
@@ -219,7 +222,7 @@ function getFileName(daysAgo) {
   monthlyData.sort((a, b) => b.score - a.score);
 
   console.log("Writing sorted monthly data to monthly.json...")
-  const monthlyFilepath = path.join(__dirname, "..", "data", "monthly.json");
+  const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
   try {
     fs.writeFileSync(monthlyFilepath, JSON.stringify(monthlyData, null, 2), "utf8");
     console.log("Monthly data saved successfully");
@@ -229,7 +232,7 @@ function getFileName(daysAgo) {
   }
 
   console.log("Writing sync timestamp...");
-  const syncFilepath = path.join(__dirname, "..", "data", "last-sync.json");
+  const syncFilepath = path.join(DATA_DIR, "last-sync.json");
   try {
     const now = new Date();
     const nextSync = new Date(now.getTime() + 5 * 60 * 1000);
