@@ -35,7 +35,7 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 3,
-      "hardSolved": 1
+      "hardSolved": 0
     },
     "score": 15
   },
@@ -50,8 +50,8 @@
     "score": 15
   },
   {
-    "name": "Rayyan Shaikh",
-    "id": "RayyanShaikh",
+    "name": "Nikhil",
+    "id": "Nick_kaushik",
     "data": {
       "easySolved": 2,
       "mediumSolved": 3,
@@ -60,8 +60,8 @@
     "score": 11
   },
   {
-    "name": "Neevan Redkar",
-    "id": "neevs1",
+    "name": "Rajat malapur",
+    "id": "rajatmalapur",
     "data": {
       "easySolved": 2,
       "mediumSolved": 3,
@@ -77,7 +77,7 @@
       "mediumSolved": 2,
       "hardSolved": 0
     },
-    "score": 7
+    "score": 6
   },
   {
     "name": "Atharv Arvind Deshmukh",
