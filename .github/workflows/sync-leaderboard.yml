@@ -1,4 +1,4 @@
-name: Fetch Daily Data
+name: Sync Leaderboard Data
 
 on:
   schedule:
@@ -18,10 +18,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout logic repo
+        uses: actions/checkout@v3
+
+      - name: Checkout data repo
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          repository: codepvg/leetcode-ranking-data
+          token: ${{ secrets.DATA_REPO_TOKEN }}
+          path: db-repo
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,10 +38,10 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Run fetch loop
+      - name: Run sync loop
         run: |
           MAX_ITERATIONS=24
           INTERVAL=300
@@ -47,11 +52,16 @@ jobs:
             echo "=== Sync iteration $i/$MAX_ITERATIONS ==="
             echo "============================================"
 
-            # Pull latest changes to avoid conflicts with other runners
+            # Update data repo
+            cd db-repo
             git pull --rebase || true
+            cd ..
 
-            node scripts/fetch-daily.js
+            # Run sync with data dir pointing to the cloned data repo
+            export DATA_DIR=db-repo
+            node scripts/sync-leaderboard.js
 
+            cd db-repo
             git add .
 
             if ! git diff --staged --quiet; then
@@ -69,6 +79,8 @@ jobs:
             else
               echo "No changes to commit"
             fi
+            
+            cd ..
 
             # Don't sleep after the last iteration
             if [ $i -lt $MAX_ITERATIONS ]; then
