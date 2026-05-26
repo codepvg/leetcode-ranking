@@ -70,9 +70,13 @@ jobs:
             # 4. Commit and push normally if there are changes
             if ! git diff --staged --quiet; then
               SYNC_TIME=$(date -u +'%Y-%m-%d %H:%M')
-              git commit -m "Sync: $SYNC_TIME"
-              git push
-              echo "✅ Stats updated and pushed."
+              git commit -q -m "Sync: $SYNC_TIME"
+              
+              # Rebase again right before pushing in case a user registered during the script run
+              git pull --rebase origin main -q || true
+              
+              git push -q
+              echo "Stats updated and pushed."
             else
               echo "No new changes detected in the data directory."
             fi
