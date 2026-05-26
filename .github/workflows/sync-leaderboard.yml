@@ -2,8 +2,7 @@ name: Sync Leaderboard Data
 
 on:
   schedule:
-    - cron: '14 * * * *'
-    - cron: '44 * * * *'
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
 concurrency:
@@ -43,7 +42,7 @@ jobs:
 
       - name: Run sync loop
         run: |
-          MAX_ITERATIONS=24
+          MAX_ITERATIONS=72
           INTERVAL=300
 
           for i in $(seq 1 $MAX_ITERATIONS); do
