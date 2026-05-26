@@ -51,14 +51,13 @@ function getFileName(daysAgo) {
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
-    data.totalSolved = data.easySolved + data.mediumSolved + data.hardSolved;
     console.log(`${user.name}:`, data);
     overallData.push(
       {
         name: user.name,
         id: user.id,
         data,
-        score 
+        score
       }
     );
 
@@ -78,6 +77,10 @@ function getFileName(daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+
+  overallData.forEach(user => {
+    user.data.totalSolved = user.data.easySolved + user.data.mediumSolved + user.data.hardSolved;
+  });
   console.log("Sorting collected data...");
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...")
