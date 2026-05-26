@@ -61,11 +61,16 @@ jobs:
             node scripts/sync-leaderboard.js
 
             cd db-repo
-            git add .
+            # Explicitly stage only the generated data files to avoid overwriting users.json
+            git add overall.json daily.json weekly.json monthly.json last-sync.json daily/
 
             if ! git diff --staged --quiet; then
               TODAY=$(date -u +'%Y-%m-%d')
               COMMIT_MSG="Update daily LeetCode stats for $TODAY"
+              
+              # Final pull/rebase to ensure we don't conflict with recent registrations
+              git pull --rebase || true
+              
               LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
 
               if [[ "$LAST_COMMIT_MSG" == "$COMMIT_MSG"* ]]; then
