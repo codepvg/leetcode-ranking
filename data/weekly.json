@@ -5,9 +5,21 @@
     "data": {
       "easySolved": 8,
       "mediumSolved": 7,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 15
     },
     "score": 29
+  },
+  {
+    "name": "Prathit Joshi",
+    "id": "prathitjoshi",
+    "data": {
+      "easySolved": 4,
+      "mediumSolved": 7,
+      "hardSolved": 0,
+      "totalSolved": 11
+    },
+    "score": 25
   },
   {
     "name": "Harshad Bhalsing",
@@ -15,19 +27,10 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 6,
-      "hardSolved": 1
+      "hardSolved": 1,
+      "totalSolved": 8
     },
     "score": 24
-  },
-  {
-    "name": "Prathit Joshi",
-    "id": "prathitjoshi",
-    "data": {
-      "easySolved": 4,
-      "mediumSolved": 5,
-      "hardSolved": 0
-    },
-    "score": 19
   },
   {
     "name": "Anurag",
@@ -35,7 +38,8 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 3,
-      "hardSolved": 0
+      "hardSolved": 1,
+      "totalSolved": 5
     },
     "score": 15
   },
@@ -45,27 +49,30 @@
     "data": {
       "easySolved": 3,
       "mediumSolved": 4,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 7
     },
     "score": 15
   },
   {
-    "name": "Nikhil",
-    "id": "Nick_kaushik",
+    "name": "Rayyan Shaikh",
+    "id": "RayyanShaikh",
     "data": {
       "easySolved": 2,
       "mediumSolved": 3,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 5
     },
     "score": 11
   },
   {
-    "name": "Rajat malapur",
-    "id": "rajatmalapur",
+    "name": "Neevan Redkar",
+    "id": "neevs1",
     "data": {
       "easySolved": 2,
       "mediumSolved": 3,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 5
     },
     "score": 11
   },
@@ -75,9 +82,10 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 2,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 3
     },
-    "score": 6
+    "score": 7
   },
   {
     "name": "Atharv Arvind Deshmukh",
@@ -85,7 +93,8 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 2,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 3
     },
     "score": 7
   },
@@ -95,7 +104,8 @@
     "data": {
       "easySolved": 3,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 4
     },
     "score": 6
   },
@@ -103,11 +113,12 @@
     "name": "Nikhil",
     "id": "Nick_kaushik",
     "data": {
-      "easySolved": 1,
+      "easySolved": 2,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 3
     },
-    "score": 4
+    "score": 5
   },
   {
     "name": "Sarthak Joshi",
@@ -115,7 +126,8 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 2
     },
     "score": 4
   },
@@ -125,7 +137,8 @@
     "data": {
       "easySolved": 1,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 2
     },
     "score": 4
   },
@@ -135,7 +148,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 1,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 1
     },
     "score": 3
   },
@@ -145,7 +159,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -155,7 +170,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -165,7 +181,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -175,7 +192,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -185,7 +203,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -195,7 +214,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -205,7 +225,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -215,7 +236,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -225,7 +247,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -235,7 +258,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -245,7 +269,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -255,7 +280,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -265,7 +291,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -275,7 +302,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -285,7 +313,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -295,7 +324,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -305,7 +335,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -315,7 +346,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -325,7 +357,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -335,7 +368,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -345,7 +379,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -355,7 +390,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -365,7 +401,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -375,7 +412,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -385,7 +423,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -395,7 +434,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -405,7 +445,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -415,7 +456,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -425,7 +467,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -435,7 +478,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -445,7 +489,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -455,7 +500,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -465,7 +511,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -475,7 +522,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -485,7 +533,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -495,7 +544,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -505,7 +555,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -515,7 +566,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -525,7 +577,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -535,7 +588,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -545,7 +599,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -555,7 +610,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -565,7 +621,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -575,7 +632,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -585,7 +643,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -595,7 +654,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -605,7 +665,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -615,7 +676,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -625,7 +687,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -635,7 +698,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -645,7 +709,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -655,7 +720,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -665,7 +731,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -675,7 +742,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -685,7 +753,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -695,7 +764,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -705,7 +775,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -715,7 +786,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -725,7 +797,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -735,7 +808,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -745,7 +819,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -755,7 +830,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -765,7 +841,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -775,7 +852,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -785,7 +863,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -795,7 +874,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   },
@@ -805,7 +885,8 @@
     "data": {
       "easySolved": 0,
       "mediumSolved": 0,
-      "hardSolved": 0
+      "hardSolved": 0,
+      "totalSolved": 0
     },
     "score": 0
   }
