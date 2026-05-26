@@ -57,18 +57,24 @@ jobs:
             export DATA_DIR=db-repo
             node scripts/sync-leaderboard.js
 
-            # 3. Stage only generated data files
+            # 3. Stage changes (everything except users.json)
             cd db-repo
-            git add -q overall.json daily.json weekly.json monthly.json last-sync.json daily/ 2>/dev/null || true
+            git add .
+            git reset -q users.json
+            
+            # Debug: show exactly what is staged
+            echo "--- Git Status ---"
+            git status
+            echo "------------------"
 
             # 4. Commit and push normally if there are changes
             if ! git diff --staged --quiet; then
               SYNC_TIME=$(date -u +'%Y-%m-%d %H:%M')
-              git commit -q -m "Sync: $SYNC_TIME"
-              git push -q
+              git commit -m "Sync: $SYNC_TIME"
+              git push
               echo "✅ Stats updated and pushed."
             else
-              echo "No new changes detected."
+              echo "No new changes detected in the data directory."
             fi
             
             cd ..
