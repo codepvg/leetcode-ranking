@@ -46,49 +46,34 @@ jobs:
           INTERVAL=300
 
           for i in $(seq 1 $MAX_ITERATIONS); do
-            echo ""
-            echo "============================================"
-            echo "=== Sync iteration $i/$MAX_ITERATIONS ==="
-            echo "============================================"
+            echo "--- Iteration $i/$MAX_ITERATIONS ---"
 
-            # Update data repo
+            # 1. Pull latest changes (especially users.json) before starting
             cd db-repo
-            git pull --rebase || true
+            git pull --rebase -q || true
             cd ..
 
-            # Run sync with data dir pointing to the cloned data repo
+            # 2. Run sync
             export DATA_DIR=db-repo
             node scripts/sync-leaderboard.js
 
+            # 3. Stage only generated data files
             cd db-repo
-            # Explicitly stage only the generated data files to avoid overwriting users.json
-            git add overall.json daily.json weekly.json monthly.json last-sync.json daily/
+            git add -q overall.json daily.json weekly.json monthly.json last-sync.json daily/ 2>/dev/null || true
 
+            # 4. Commit and push normally if there are changes
             if ! git diff --staged --quiet; then
-              TODAY=$(date -u +'%Y-%m-%d')
-              COMMIT_MSG="Update daily LeetCode stats for $TODAY"
-              
-              # Final pull/rebase to ensure we don't conflict with recent registrations
-              git pull --rebase || true
-              
-              LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
-
-              if [[ "$LAST_COMMIT_MSG" == "$COMMIT_MSG"* ]]; then
-                git commit --amend -m "$COMMIT_MSG"
-                git push --force
-              else
-                git commit -m "$COMMIT_MSG"
-                git push
-              fi
+              SYNC_TIME=$(date -u +'%Y-%m-%d %H:%M')
+              git commit -q -m "Sync: $SYNC_TIME"
+              git push -q
+              echo "✅ Stats updated and pushed."
             else
-              echo "No changes to commit"
+              echo "No new changes detected."
             fi
             
             cd ..
 
-            # Don't sleep after the last iteration
             if [ $i -lt $MAX_ITERATIONS ]; then
-              echo "Sleeping ${INTERVAL}s until next sync..."
               sleep $INTERVAL
             fi
           done
