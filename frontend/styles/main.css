@@ -1832,3 +1832,81 @@ body::-webkit-scrollbar-thumb {
 ::-webkit-scrollbar-corner {
   background: #000;
 }
+
+/* ── Tooltip ── */
+.score-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--text-dim);
+  color: var(--text-dim);
+  font-size: 0.65rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.tooltip-container:hover .tooltip-icon {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 5px rgba(0, 229, 255, 0.4);
+}
+
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: var(--bg-surface);
+  color: var(--text);
+  text-align: left;
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  padding: 0.75rem;
+  position: absolute;
+  z-index: 100;
+  top: 150%;
+  right: 0;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+  transition: opacity 0.2s, visibility 0.2s;
+  font-size: 0.75rem;
+  font-family: 'Fira Code', monospace;
+  text-transform: none;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-content strong {
+  color: var(--green);
+}
+
+.tooltip-content a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.tooltip-content a:hover {
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
