@@ -32,7 +32,6 @@
 }
 
 html, body {
-  overflow-x: hidden;
   width: 100%;
   max-width: 100vw;
 }
@@ -463,6 +462,7 @@ body::after {
   color: var(--text);
   padding: 2rem 1rem;
   animation: fadeIn 0.4s ease-out;
+  overflow-x: clip;
 }
 
 .page-title {
@@ -678,12 +678,12 @@ body::after {
   color: var(--bg);
 }
 
-/* ── Leaderboard ── */
+/* --- Leaderboard --- */
 .leaderboard {
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.03);
 }
 
@@ -698,6 +698,9 @@ body::after {
   letter-spacing: 1px;
   color: var(--green-dim);
   border-bottom: 1px solid var(--border-bright);
+  position: sticky;
+  top: 52px;
+  z-index: 99;
 }
 
 .leaderboard-row {
