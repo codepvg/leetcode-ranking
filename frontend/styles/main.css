@@ -1431,17 +1431,18 @@ body::after {
     padding: 0 0.75rem;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .score-tooltip {
-    right: auto;
-    left: 50%;
-    transform: translateX(-60%);
+    left: auto;
+    right:0;
+    /* left: 50%; */
+    transform: translateX(0%);
+    white-space:normal;
+    /* width: max-content; */
+    max-width: 85vw;
 
-    width: max-content;
-    max-width: 78vw;
-
-    font-size: 0.72rem;
-    padding: 8px 10px;
+    /* font-size: 0.72rem; */
+    /* padding: 8px 10px; */
   }
 }
 
@@ -1926,15 +1927,18 @@ body::-webkit-scrollbar-thumb {
 .tooltip-score {
     position: relative;
     cursor: pointer;
+    display: inline-flex;   /* key fix */
+    width: fit-content;   
+    
 }
 .score-tooltip {
     position: absolute;
     top: calc(100% + 12px);
     right: 0;
     background: rgba(10, 10, 10, 0.97);
-    color: white;
+    color:var(--text);
     padding: 10px 14px;
-    border-radius: 10px;
+    border-radius: 4px;
     width: max-content;
     max-width: min(260px, 82vw);
     font-size: 0.8rem;
