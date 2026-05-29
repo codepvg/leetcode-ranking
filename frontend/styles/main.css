@@ -1910,3 +1910,49 @@ body::-webkit-scrollbar-thumb {
 .tooltip-content a:hover {
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
 }
+
+
+
+
+
+
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.9rem 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--cyan);
+    color: var(--text);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.08);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+    font-family: 'Fira Code', monospace;
+}
+
+.search-input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.2);
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-family: 'Fira Code', monospace;
+    border: 1px dashed rgba(0, 229, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    margin-top: 1rem;
+}
