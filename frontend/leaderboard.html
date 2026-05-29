@@ -39,6 +39,18 @@
                 <button class="tab" data-tab="daily">Daily</button>
             </div>
 
+
+
+           <div class="search-container">
+                <input
+                type="text"
+                id="leaderboard-search"
+                class="search-input"
+                placeholder="./search_by_name_or_leetcode_id"
+                autocomplete="off"
+                >
+            </div>
+
             <div class="leaderboard">
                 <div class="leaderboard-header">
                     <div>Rank</div>
@@ -94,6 +106,13 @@
                 });
             });
 
+            const searchInput = document.getElementById('leaderboard-search');
+
+            searchInput.addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value.toLowerCase().trim();
+                applyFiltersAndRender();
+            });
+
             fetchLeaderboardData();
         });
 
@@ -101,6 +120,7 @@
         let currentDisplayLimit = 0;
         let activeDatasetType = 'overall';
         let fetchMoreClicks = 0;
+        let currentSearchTerm = '';
 
         function getInitialLimit() {
             return window.innerWidth <= 768 ? 12 : 25;
@@ -177,7 +197,30 @@
                 document.getElementById('next-sync-time').style.color = "var(--red)";
             }
 
-            setActiveTab('overall');
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            if (currentDisplayLimit === 0) {
+                currentDisplayLimit = getInitialLimit();
+            }
+            if (!leaderboardData[activeDatasetType]) return;
+
+            const originalData = leaderboardData[activeDatasetType];
+
+            const rankedData = originalData.map((user, index) => ({
+                ...user,
+                originalRank: index + 1
+            }));
+
+            const filteredData = rankedData.filter(user => {
+                return (
+                    user.name.toLowerCase().includes(currentSearchTerm) ||
+                    user.id.toLowerCase().includes(currentSearchTerm)
+                );
+            });
+
+            renderLeaderboard(filteredData);
         }
 
         function getRankTag(rank) {
@@ -196,10 +239,33 @@
             body.innerHTML = '';
             mobileCards.innerHTML = '';
 
-            const displayData = data.slice(0, currentDisplayLimit);
+            const isSearching = currentSearchTerm.length > 0;
+
+            const displayData = isSearching
+                ? data
+                : data.slice(0, currentDisplayLimit);
+
+                if (displayData.length === 0) {
+                    body.innerHTML = `
+                        <div class="no-results">
+                            [SYS]: NO_MATCHING_USERS_FOUND
+                        </div>
+                    `;
+
+                    mobileCards.innerHTML = `
+                        <div class="no-results">
+                            [SYS]: NO_MATCHING_USERS_FOUND
+                        </div>
+                    `;
+
+                    document.getElementById('load-more-btn').style.display = 'none';
+                    document.getElementById('scroll-top-btn').style.display = 'none';
+
+                    return;
+                }
 
             displayData.forEach((user, index) => {
-                const rank = index + 1;
+                const rank = user.originalRank || index + 1;
                 const tag = getRankTag(rank);
                 const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
@@ -276,7 +342,7 @@
             activeDatasetType = activeTab;
             currentDisplayLimit = getInitialLimit();
             fetchMoreClicks = 0;
-            renderLeaderboard(leaderboardData[activeTab]);
+            applyFiltersAndRender();
         }
 
     </script>
