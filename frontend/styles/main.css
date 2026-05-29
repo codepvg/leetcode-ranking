@@ -683,7 +683,7 @@ body::after {
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
   border-radius: 6px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.03);
 }
 
@@ -1431,6 +1431,19 @@ body::after {
     padding: 0 0.75rem;
   }
 }
+@media (max-width: 480px) {
+  .score-tooltip {
+    right: auto;
+    left: 50%;
+    transform: translateX(-60%);
+
+    width: max-content;
+    max-width: 78vw;
+
+    font-size: 0.72rem;
+    padding: 8px 10px;
+  }
+}
 
 /* ── Scrollbar ── */
 html, body {
@@ -1909,4 +1922,40 @@ body::-webkit-scrollbar-thumb {
 
 .tooltip-content a:hover {
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+.tooltip-score {
+    position: relative;
+    cursor: pointer;
+}
+.score-tooltip {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: rgba(10, 10, 10, 0.97);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    width: max-content;
+    max-width: min(260px, 82vw);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    border: 1px solid rgba(0,255,255,0.2);
+    box-shadow: 0 0 15px rgba(0,255,255,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 9999;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.tooltip-score:hover .score-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.score-tooltip hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin: 6px 0;
 }
