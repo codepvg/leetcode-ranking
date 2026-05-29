@@ -32,7 +32,7 @@
 }
 
 html, body {
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   width: 100%;
   max-width: 100vw;
 }
@@ -64,7 +64,7 @@ body::before {
 /* ── CRT Scanline Overlay ── */
 body::after {
   content: '';
-  position: fixed;
+  /* position: fixed; */
   inset: 0;
   pointer-events: none;
   z-index: 9999;
@@ -184,9 +184,11 @@ body::after {
   background: var(--bg);
   padding: 0;
   border-bottom: 1px solid var(--border-bright);
-  position: sticky;
+   position: fixed;
   top: 0;
   z-index: 1000;
+  left: 0;
+  width: 100%;
 }
 
 .navbar .container {
@@ -463,6 +465,7 @@ body::after {
   color: var(--text);
   padding: 2rem 1rem;
   animation: fadeIn 0.4s ease-out;
+  padding-top: 5rem; /* To account for fixed navbar */
 }
 
 .page-title {
@@ -683,7 +686,7 @@ body::after {
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
   border-radius: 6px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.03);
 }
 
@@ -698,6 +701,10 @@ body::after {
   letter-spacing: 1px;
   color: var(--green-dim);
   border-bottom: 1px solid var(--border-bright);
+  position:sticky;
+  top:53px;
+  z-index: 1000;
+  
 }
 
 .leaderboard-row {
