@@ -1832,3 +1832,10 @@ body::-webkit-scrollbar-thumb {
 ::-webkit-scrollbar-corner {
   background: #000;
 }
+.error-msg {
+    color: #ff4444;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 5px;
+}
