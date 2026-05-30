@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>
 
       <ul class="nav-links">
-        <li><a href="/" class="${currentPath === '/' || currentPath.includes('index.html') ? 'active' : ''}">home</a></li>
-        <li><a href="/leaderboard" class="${currentPath.includes('leaderboard') ? 'active' : ''}">leaderboard</a></li>
-        <li><a href="/registration" class="${currentPath.includes('registration') ? 'active' : ''}">register</a></li>
-        <li><a href="/about" class="${currentPath.includes('about') ? 'active' : ''}">about</a></li>
+        <li><a href="/" class="${currentPath === "/" || currentPath.includes("index.html") ? "active" : ""}">home</a></li>
+        <li><a href="/leaderboard" class="${currentPath.includes("leaderboard") ? "active" : ""}">leaderboard</a></li>
+        <li><a href="/registration" class="${currentPath.includes("registration") ? "active" : ""}">register</a></li>
+        <li><a href="/about" class="${currentPath.includes("about") ? "active" : ""}">about</a></li>
         <li><a href="https://github.com/codepvg/" target="_blank" class="github-link">github</a></li>
       </ul>
     </div>
@@ -31,14 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.prepend(nav);
 
   // Mobile menu toggle
-  const mobileBtn = nav.querySelector('.mobile-menu-btn');
-  const navLinks = nav.querySelector('.nav-links');
-  const menuIcon = nav.querySelector('.menu-icon');
-  const closeIcon = nav.querySelector('.close-icon');
+  const mobileBtn = nav.querySelector(".mobile-menu-btn");
+  const navLinks = nav.querySelector(".nav-links");
+  const menuIcon = nav.querySelector(".menu-icon");
+  const closeIcon = nav.querySelector(".close-icon");
 
-  mobileBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuIcon.classList.toggle('hidden');
-    closeIcon.classList.toggle('hidden');
+  mobileBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    menuIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
   });
 });
