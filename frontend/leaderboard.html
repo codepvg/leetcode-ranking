@@ -39,6 +39,24 @@
                 <button class="tab" data-tab="daily">Daily</button>
             </div>
 
+
+
+           <div class="search-container">
+                <div class="search-bar">
+                    <span class="search-prefix">$ grep -i</span>
+                    <input
+                        type="text"
+                        id="leaderboard-search"
+                        class="search-input"
+                        placeholder="pattern"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <span class="search-result-count" id="search-result-count"></span>
+                    <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+                </div>
+            </div>
+
             <div class="leaderboard">
                 <div class="leaderboard-header">
                     <div>Rank</div>
@@ -47,7 +65,19 @@
                     <div class="easy">Easy</div>
                     <div class="medium">Medium</div>
                     <div class="hard">Hard</div>
-                    <div>Score</div>
+                    <div class="score-header">
+                        Score
+                        <div class="tooltip-container">
+                            <span class="tooltip-icon">?</span>
+                            <div class="tooltip-content">
+                                <strong>Score Calculation:</strong><br>
+                                Easy = 1 point<br>
+                                Medium = 3 points<br>
+                                Hard = 5 points<br>
+                                <a href="about.html">More details</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="leaderboard-body">
@@ -82,6 +112,38 @@
                 });
             });
 
+            const searchInput = document.getElementById('leaderboard-search');
+            const shortcutBadge = document.getElementById('search-shortcut');
+
+            searchInput.addEventListener('input', (e) => {
+                currentSearchTerm = e.target.value.toLowerCase().trim();
+                applyFiltersAndRender();
+            });
+
+            searchInput.addEventListener('focus', () => {
+                shortcutBadge.style.opacity = '0';
+            });
+
+            searchInput.addEventListener('blur', () => {
+                if (!searchInput.value) {
+                    shortcutBadge.style.opacity = '1';
+                }
+            });
+
+            // Ctrl+K / Cmd+K keyboard shortcut
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.value = '';
+                    currentSearchTerm = '';
+                    searchInput.blur();
+                    applyFiltersAndRender();
+                }
+            });
+
             fetchLeaderboardData();
         });
 
@@ -89,6 +151,7 @@
         let currentDisplayLimit = 0;
         let activeDatasetType = 'overall';
         let fetchMoreClicks = 0;
+        let currentSearchTerm = '';
 
         function getInitialLimit() {
             return window.innerWidth <= 768 ? 12 : 25;
@@ -165,7 +228,43 @@
                 document.getElementById('next-sync-time').style.color = "var(--red)";
             }
 
-            setActiveTab('overall');
+            applyFiltersAndRender();
+        }
+
+        function applyFiltersAndRender() {
+            if (currentDisplayLimit === 0) {
+                currentDisplayLimit = getInitialLimit();
+            }
+            if (!leaderboardData[activeDatasetType]) return;
+
+            const originalData = leaderboardData[activeDatasetType];
+
+            const rankedData = originalData.map((user, index) => ({
+                ...user,
+                originalRank: index + 1
+            }));
+
+            const filteredData = rankedData.filter(user => {
+                if (!currentSearchTerm) return true;
+                return (
+                    user.name.toLowerCase().includes(currentSearchTerm) ||
+                    user.id.toLowerCase().includes(currentSearchTerm)
+                );
+            });
+
+            // Update result count
+            const countEl = document.getElementById('search-result-count');
+            if (currentSearchTerm) {
+                const total = originalData.length;
+                const matched = filteredData.length;
+                countEl.textContent = `${matched}/${total}`;
+                countEl.style.opacity = '1';
+            } else {
+                countEl.textContent = '';
+                countEl.style.opacity = '0';
+            }
+
+            renderLeaderboard(filteredData);
         }
 
         function getRankTag(rank) {
@@ -184,10 +283,33 @@
             body.innerHTML = '';
             mobileCards.innerHTML = '';
 
-            const displayData = data.slice(0, currentDisplayLimit);
+            const isSearching = currentSearchTerm.length > 0;
+
+            const displayData = isSearching
+                ? data
+                : data.slice(0, currentDisplayLimit);
+
+                if (displayData.length === 0) {
+                    body.innerHTML = `
+                        <div class="no-results">
+                            [SYS]: NO_MATCHING_USERS_FOUND
+                        </div>
+                    `;
+
+                    mobileCards.innerHTML = `
+                        <div class="no-results">
+                            [SYS]: NO_MATCHING_USERS_FOUND
+                        </div>
+                    `;
+
+                    document.getElementById('load-more-btn').style.display = 'none';
+                    document.getElementById('scroll-top-btn').style.display = 'none';
+
+                    return;
+                }
 
             displayData.forEach((user, index) => {
-                const rank = index + 1;
+                const rank = user.originalRank || index + 1;
                 const tag = getRankTag(rank);
                 const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
@@ -231,7 +353,7 @@
                 mobileCards.appendChild(card);
             });
 
-            if (data.length > currentDisplayLimit) {
+            if (!isSearching && data.length > currentDisplayLimit) {
                 document.getElementById('load-more-btn').style.display = 'inline-block';
                 document.getElementById('scroll-top-btn').style.display = 'none';
 
@@ -245,7 +367,7 @@
                 }
             } else {
                 document.getElementById('load-more-btn').style.display = 'none';
-                document.getElementById('scroll-top-btn').style.display = 'inline-block';
+                document.getElementById('scroll-top-btn').style.display = isSearching ? 'none' : 'inline-block';
             }
         }
 
@@ -264,7 +386,7 @@
             activeDatasetType = activeTab;
             currentDisplayLimit = getInitialLimit();
             fetchMoreClicks = 0;
-            renderLeaderboard(leaderboardData[activeTab]);
+            applyFiltersAndRender();
         }
 
     </script>
