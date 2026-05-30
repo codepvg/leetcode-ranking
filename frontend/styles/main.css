@@ -1955,6 +1955,7 @@ body::-webkit-scrollbar-thumb {
     z-index: 9999;
     word-wrap: break-word;
     overflow-wrap: break-word;
+      pointer-events: none;
 }
 
 .tooltip-score:hover .score-tooltip {
