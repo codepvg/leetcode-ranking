@@ -126,7 +126,7 @@
             <a href="/leaderboard" class="btn btn-secondary"
               >view_leaderboard</a
             >
-            <button class="btn btn-primary" onclick="fullResetForm()">
+            <button class="btn btn-primary" id="register-another-btn">
               register_another
             </button>
           </div>
@@ -175,7 +175,7 @@
             "
           ></div>
           <div style="display: flex; justify-content: center">
-            <button class="btn btn-error" onclick="dismissError()">
+            <button class="btn btn-error" id="dismiss-error-btn">
               retry_input
             </button>
           </div>
@@ -183,7 +183,7 @@
       </div>
     </main>
 
-    <script>
+    <script nonce="__NONCE__">
       function showSuccess(name) {
         document.getElementById("registration-form").classList.add("hidden");
         document.getElementById("success-message").classList.remove("hidden");
@@ -520,6 +520,14 @@
             registerBtn.style.display = "inline-block";
           }
         });
+
+        // Bind buttons (replaces inline onclick handlers)
+        document
+          .getElementById("register-another-btn")
+          .addEventListener("click", fullResetForm);
+        document
+          .getElementById("dismiss-error-btn")
+          .addEventListener("click", dismissError);
       });
     </script>
     <script src="js/footer.js"></script>
