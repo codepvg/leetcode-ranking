@@ -56,7 +56,17 @@ When submitting a PR:
 - Ensure there are no console errors.
 - Keep your changes focused on the issue being addressed.
 - Avoid making unrelated modifications to files outside the scope of your contribution.
-- Do not worry about minor formatting differences; code formatting is handled automatically by the repository tooling.
+- Run the Prettier code formatter locally before pushing to pass the automated formatting checks.
+
+### Code Formatting
+
+We use Prettier to enforce consistent code style across the project. Our automated GitHub Action check will fail if unformatted code is pushed to a PR.
+
+Before submitting your Pull Request, please run the following command in the root of the repository to automatically format all your changes:
+
+```bash
+npx prettier --write "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
+```
 
 ### Frontend Changes
 

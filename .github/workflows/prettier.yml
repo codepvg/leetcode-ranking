@@ -24,11 +24,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run Prettier
-        run: npx prettier --write "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
-
-      - name: Auto-commit formatted code
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "style: auto-format code with Prettier [skip ci]"
-          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+      - name: Run Prettier Requirements Check
+        run: npx prettier --check "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"

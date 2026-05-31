@@ -31,6 +31,7 @@ Fixes # (issue number)
 ## Checklist
 
 - [ ] My code follows the project's coding style
+- [ ] I have formatted my code locally using Prettier
 - [ ] I have performed a self-review of my code
 - [ ] My changes generate no new warnings or errors
 - [ ] I have updated documentation if required

@@ -23,4 +23,4 @@ jobs:
           pr-message: |
             Hello! Thank you for your first Pull Request!
             We are excited to review your contribution to the CodePVG LeetCode Leaderboard. 
-            Our automated Prettier workflow might push some formatting fixes to your branch if needed. A maintainer will review your code soon. Thanks for helping out!
+            Please make sure you have run Prettier on your code locally, as our GitHub Actions will fail if the code is unformatted. A maintainer will review your code soon. Thanks for helping out!
