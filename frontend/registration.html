@@ -14,54 +14,35 @@
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
   </head>
+
   <body>
     <canvas id="matrix-canvas"></canvas>
 
     <main class="page">
-        <div class="form-container">
-            <div class="form-card" id="registration-form">
-                <h1 class="page-title">Join the Leaderboard</h1>
+      <div class="form-container">
+        <div class="form-card" id="registration-form">
+          <h1 class="page-title">Join the Leaderboard</h1>
 
-                <p class="text-center" style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem;">
-                    Register to start tracking your LeetCode progress and compete with your peers!
-                </p>
+          <p
+            class="text-center"
+            style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem"
+          >
+            Register to start tracking your LeetCode progress and compete with
+            your peers!
+          </p>
 
-                <form id="registrationForm" novalidate>
-                    <div class="form-group">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            class="form-input"
-                            placeholder="Enter your full name"
-                            required
-                        >
-                        <span class="error-msg" id="name-error"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="leetcodeId" class="form-label">LeetCode Username</label>
-                        <input
-                            type="text"
-                            id="leetcodeId"
-                            name="leetcodeId"
-                            class="form-input"
-                            placeholder="Enter your LeetCode username"
-                            required
-                        >
-                        <small class="form-help">
-                            This should match your username on leetcode.com/u/username
-                        </small>
-                        <span class="error-msg" id="username-error"></span>
-                    </div>
-
-                    <div style="text-align: center;">
-                        <button id="registerBtn" type="submit" class="btn btn-primary" style="margin: 0 auto;">
-                            Register Now
-                        </button>
-                    </div>
-                </form>
+          <form id="registrationForm" novalidate>
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Enter your full name"
+                required
+              />
+              <span class="error-msg" id="name-error"></span>
             </div>
 
             <div class="form-group">
@@ -79,6 +60,7 @@
               <small class="form-help">
                 This should match your username on leetcode.com/u/username
               </small>
+              <span class="error-msg" id="username-error"></span>
             </div>
 
             <div style="text-align: center">
@@ -376,145 +358,72 @@
           );
         });
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const nameVal = document.getElementById('name').value.trim();
-                const leetcodeVal = document.getElementById('leetcodeId').value.trim();
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const nameVal = document.getElementById("name").value.trim();
+          const leetcodeVal = document
+            .getElementById("leetcodeId")
+            .value.trim();
 
-                // First, clear any previous error states
-                const nameInput = document.getElementById('name');
-                const leetcodeInput = document.getElementById('leetcodeId');
+          // First, clear any previous error states
+          const nameInput = document.getElementById("name");
+          const leetcodeInput = document.getElementById("leetcodeId");
 
-                const nameTarget = nameInput.closest('.form-input-bash-wrapper') || nameInput;
-                const leetcodeTarget = leetcodeInput.closest('.form-input-bash-wrapper') || leetcodeInput;
+          const nameTarget =
+            nameInput.closest(".form-input-bash-wrapper") || nameInput;
+          const leetcodeTarget =
+            leetcodeInput.closest(".form-input-bash-wrapper") || leetcodeInput;
 
-                const nameError = document.getElementById('name-error');
-                const leetcodeError = document.getElementById('username-error');
+          const nameError = document.getElementById("name-error");
+          const leetcodeError = document.getElementById("username-error");
 
-                nameTarget.classList.remove('input-error');
-                leetcodeTarget.classList.remove('input-error');
-                nameError.textContent = '';
-                leetcodeError.textContent = '';
+          nameTarget.classList.remove("input-error");
+          leetcodeTarget.classList.remove("input-error");
+          nameError.textContent = "";
+          leetcodeError.textContent = "";
 
-                // Force DOM reflow to restart shake animation
-                void nameTarget.offsetWidth;
-                void leetcodeTarget.offsetWidth;
+          // Force DOM reflow to restart shake animation
+          void nameTarget.offsetWidth;
+          void leetcodeTarget.offsetWidth;
 
-                if (!nameVal) {
-                    nameError.textContent = '$ Error: Full name is required_';
-                    nameTarget.classList.add('input-error');
-                }
-                if (!leetcodeVal) {
-                    leetcodeError.textContent = '$ Error: LeetCode username is required_';
-                    leetcodeTarget.classList.add('input-error');
-                }
+          if (!nameVal) {
+            nameError.textContent = "$ Error: Full name is required_";
+            nameTarget.classList.add("input-error");
+          }
+          if (!leetcodeVal) {
+            leetcodeError.textContent =
+              "$ Error: LeetCode username is required_";
+            leetcodeTarget.classList.add("input-error");
+          }
 
-                if (!nameVal || !leetcodeVal) return;
+          if (!nameVal || !leetcodeVal) return;
 
-                // Hide form fields and show execution log
-                const fieldsets = form.querySelectorAll('.form-group');
-                fieldsets.forEach(f => f.style.display = 'none');
-                registerBtn.style.display = 'none';
-                
-                let execLog = document.getElementById('exec-log-box');
-                if(!execLog) {
-                    execLog = document.createElement('div');
-                    execLog.id = 'exec-log-box';
-                    execLog.className = 'execution-log-container';
-                    form.insertBefore(execLog, form.firstChild);
-                }
-                execLog.style.display = 'block';
-                execLog.innerHTML = '';
-                
-                // Async log sequencer
-                const addLog = (msg, cls='wait', delay=400) => {
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                            const line = document.createElement('div');
-                            line.className = `exec-log-line ${cls}`;
-                            line.innerText = `> ${msg}`;
-                            execLog.appendChild(line);
-                            execLog.scrollTop = execLog.scrollHeight;
-                            resolve();
-                        }, delay);
-                    });
-                };
-                
-                await addLog('init_registration_sequence_v2()', 'wait', 200);
+          // Hide form fields and show execution log
+          const fieldsets = form.querySelectorAll(".form-group");
+          fieldsets.forEach((f) => (f.style.display = "none"));
+          registerBtn.style.display = "none";
 
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                const leetcodeId = formData.get('leetcodeId');
+          let execLog = document.getElementById("exec-log-box");
+          if (!execLog) {
+            execLog = document.createElement("div");
+            execLog.id = "exec-log-box";
+            execLog.className = "execution-log-container";
+            form.insertBefore(execLog, form.firstChild);
+          }
+          execLog.style.display = "block";
+          execLog.innerHTML = "";
 
-                try {
-                    if (name && leetcodeId) {
-                        await addLog(`querying_leetcode_uid("${leetcodeId.trim()}")`, 'wait', 600);
-                        await addLog('resolving graphql endpoint...', 'wait', 700);
-
-                        const isValid = await isValidId(leetcodeId);
-
-                        if (!isValid) {
-                            await addLog(`[ERR] LeetCode UID not found: "${leetcodeId}"`, 'error', 300);
-                            await addLog('exit(1)', 'error', 500);
-                            
-                            setTimeout(() => {
-                                showError([
-                                    { text: `> Fatal Error: LeetCode profile could not be verified.`, color: 'var(--red)' },
-                                    { text: `> Target UID: "${leetcodeId}"`, color: 'var(--amber)' },
-                                    { text: ``, color: '' },
-                                    { text: `// Please ensure your username exactly matches your profile URL.`, color: 'var(--text-muted)' },
-                                    { text: `// e.g. leetcode.com/u/your_username`, color: 'var(--text-muted)' }
-                                ], "UID_RESOLUTION_ERROR");
-                            }, 1000);
-                            return;
-                        }
-                        
-                        await addLog(`[OK] Valid profile verified for UID: ${leetcodeId}`, 'success', 200);
-                        await addLog('allocating_user_record...', 'wait', 400);
-                        
-                        const responsePromise = fetch("https://lc-backend-lyq2.onrender.com/user", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ name: name.trim(), id: leetcodeId.trim() })
-                        });
-
-                        await addLog('syncing_with_CodePVG_backend() -> [POST]', 'wait', 300);
-                        const response = await responsePromise;
-
-                        if (!response.ok) throw new Error("Failed to register user");
-
-                        const data = await response.json();
-                        
-                        await addLog('[SUCCESS] Database transaction verified.', 'success', 600);
-                        await addLog('exit(0)', 'success', 400);
-
-                        setTimeout(() => {
-                            execLog.style.display = 'none';
-                            showSuccess(name);
-                        }, 1500);
-                    }
-                } catch (error) {
-                    await addLog('[FATAL] Network/API exception detected.', 'error', 200);
-                    await addLog(error.message, 'error', 150);
-                    await addLog('exit(1)', 'error', 800);
-                    
-                    setTimeout(() => {
-                        console.error(error);
-                        showError([
-                            { text: `> Network/API Exception Detected.`, color: 'var(--red)' },
-                            { text: `> Detail: ${error.message}`, color: 'var(--amber)' },
-                            { text: ``, color: '' },
-                            { text: `// The backend sync server might be asleep or unreachable.`, color: 'var(--text-muted)' },
-                            { text: `// Please try again in a few moments.`, color: 'var(--text-muted)' }
-                        ], "SYSTEM_SYNC_ERROR");
-                    }, 800);
-                }
-
-                function resetFormFields() {
-                    execLog.style.display = 'none';
-                    fieldsets.forEach(f => f.style.display = 'block');
-                    registerBtn.style.display = 'inline-block';
-                }
+          // Async log sequencer
+          const addLog = (msg, cls = "wait", delay = 400) => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                const line = document.createElement("div");
+                line.className = `exec-log-line ${cls}`;
+                line.innerText = `> ${msg}`;
+                execLog.appendChild(line);
+                execLog.scrollTop = execLog.scrollHeight;
+                resolve();
+              }, delay);
             });
           };
 
@@ -654,7 +563,7 @@
       });
     </script>
     <script src="js/footer.js"></script>
-    <script src="js/matrix.js"></script> 
+    <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
   </body>
 </html>
