@@ -12,7 +12,7 @@ async function fetchData(url) {
     };
   } catch (err) {
     console.error("API failed to respond: ", err.message);
-    process.exit(1);
+    return null;
   }
 }
 
@@ -53,6 +53,10 @@ function getFileName(daysAgo) {
   console.log("Starting daily fetch...");
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
+    if (!data) {
+      console.log(`${user.name}: skipped (API error)`);
+      continue;
+    }
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
     console.log(`${user.name}:`, data);
     overallData.push({
