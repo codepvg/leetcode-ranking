@@ -378,7 +378,13 @@
           const rank = user.originalRank || index + 1;
           const tag = getRankTag(rank);
           const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
+          const easyPoints = 1;
+          const mediumPoints = 3;
+          const hardPoints = 5;
 
+          const easyScore = user.data.easySolved * easyPoints;
+          const mediumScore = user.data.mediumSolved * mediumPoints;
+          const hardScore = user.data.hardSolved * hardPoints;
           const row = document.createElement("div");
           row.className = "leaderboard-row";
           row.innerHTML = `
@@ -396,7 +402,25 @@
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
-                    <div class="score">${user.score}</div>
+                    <div class="mobile-score tooltip-score">
+                            <span>${user.score}</span>
+                             <span class="score-caret"></span>
+                        <div class="score-tooltip">
+                            <div>
+                                Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
+                            </div>
+                            <div>
+                                Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
+                            </div>
+                            <div>
+                                Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                            </div>
+                            <hr>
+                            <div>
+                                <strong>Total: ${user.score}</strong>
+                            </div>
+                        </div>
+                    </div>
                 `;
           body.appendChild(row);
 
@@ -405,8 +429,28 @@
           card.innerHTML = `
                     <div class="mobile-card-header">
                         <div class="mobile-rank">#${rank}</div>
-                        <div class="mobile-score">${user.score}</div>
+                        <div class="mobile-score tooltip-score">
+                           <span> ${user.score}</span>
+                               <span class="score-caret"></span>
+                            <div class="score-tooltip">
+                                <div>
+                                    Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
+                                </div>
+                                <div>
+                                    Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
+                                </div>
+                                <div>
+                                    Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                                </div>
+                                <hr>
+                                <div>
+                                    <strong>Total: ${user.score}</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    
                     <div class="mobile-name">${tag}${user.name}</div>
                     <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
                         <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
