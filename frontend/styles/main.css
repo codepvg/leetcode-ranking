@@ -2182,7 +2182,7 @@ body::-webkit-scrollbar-thumb {
 #pagination-controls button:hover,
 #pagination-controls select:hover {
   border-color: var(--green);
-  box-shadow: 0 0 8px rgba(0,255,65,0.3);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
 }
 
 #page-numbers {

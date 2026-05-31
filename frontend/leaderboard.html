@@ -86,9 +86,9 @@
           </div>
         </div>
 
-      <div id="leaderboard-stats"></div>
-        
-      <div class="leaderboard">
+        <div id="leaderboard-stats"></div>
+
+        <div class="leaderboard">
           <div class="leaderboard-header">
             <div>Rank</div>
             <div>Name</div>
@@ -128,20 +128,16 @@
           "
         >
           <select id="items-per-page">
-          <option value="10">10 rows</option>
-          <option value="25" selected>25 rows</option>
-          <option value="50">50 rows</option>
+            <option value="10">10 rows</option>
+            <option value="25" selected>25 rows</option>
+            <option value="50">50 rows</option>
           </select>
 
-          <button id="prev-page-btn">
-            Previous
-          </button>
+          <button id="prev-page-btn">Previous</button>
 
           <div id="page-numbers"></div>
 
-          <button id="next-page-btn">
-            Next
-          </button>
+          <button id="next-page-btn">Next</button>
         </div>
       </div>
     </main>
@@ -198,8 +194,7 @@
           .getElementById("next-page-btn")
           ?.addEventListener("click", () => {
             const totalPages = Math.ceil(
-              leaderboardData[activeDatasetType].length /
-              itemsPerPage
+              leaderboardData[activeDatasetType].length / itemsPerPage,
             );
 
             if (currentPage < totalPages) {
@@ -223,8 +218,6 @@
       let itemsPerPage = 25;
       let activeDatasetType = "overall";
       let currentSearchTerm = "";
-
-
 
       async function fetchLeaderboardData() {
         const endpoints = ["overall", "monthly", "weekly", "daily"];
@@ -326,26 +319,23 @@
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
-        document.getElementById("prev-page-btn").disabled =
-          currentPage === 1;
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
         document.getElementById("next-page-btn").disabled =
           currentPage === Math.ceil(filteredData.length / itemsPerPage);
-          const statsEl = document.getElementById("leaderboard-stats");
+        const statsEl = document.getElementById("leaderboard-stats");
 
-          const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-          const startRow =
-            filteredData.length === 0
-              ? 0
-              : (currentPage - 1) * itemsPerPage + 1;
+        const startRow =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
 
-          const endRow = Math.min(
-            currentPage * itemsPerPage,
-            filteredData.length
-          );
+        const endRow = Math.min(
+          currentPage * itemsPerPage,
+          filteredData.length,
+        );
 
-          statsEl.innerHTML = `
+        statsEl.innerHTML = `
             <div style="
               text-align:center;
               color:var(--text-dim);
@@ -385,8 +375,8 @@
         const endIndex = startIndex + itemsPerPage;
 
         const displayData = isSearching
-         ? data
-         : data.slice(startIndex, endIndex);
+          ? data
+          : data.slice(startIndex, endIndex);
 
         if (displayData.length === 0) {
           body.innerHTML = `
@@ -450,13 +440,11 @@
         renderPagination(data.length);
       }
       function renderPagination(totalItems) {
-        const pageNumbers =
-          document.getElementById("page-numbers");
+        const pageNumbers = document.getElementById("page-numbers");
 
         if (!pageNumbers) return;
 
-        const totalPages =
-          Math.ceil(totalItems / itemsPerPage);
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
 
         pageNumbers.innerHTML = "";
 
