@@ -377,45 +377,131 @@
         displayData.forEach((user, index) => {
           const rank = user.originalRank || index + 1;
           const tag = getRankTag(rank);
-          const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
           const row = document.createElement("div");
           row.className = "leaderboard-row";
-          row.innerHTML = `
-                    <div class="rank">${rank}</div>
-                    <div class="name-cell">${tag}${user.name}</div>
-                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
-                    <div class="easy">${user.data.easySolved}</div>
-                    <div class="medium">${user.data.mediumSolved}</div>
-                    <div class="hard">${user.data.hardSolved}</div>
-                    <div class="score">${user.score}</div>
-                `;
+
+          // Rank
+          const rankDiv = document.createElement("div");
+          rankDiv.className = "rank";
+          rankDiv.textContent = rank;
+          row.appendChild(rankDiv);
+
+          // Name cell — tag is safe hardcoded HTML, name is user-controlled
+          const nameDiv = document.createElement("div");
+          nameDiv.className = "name-cell";
+          if (tag) {
+            nameDiv.insertAdjacentHTML("beforeend", tag);
+          }
+          nameDiv.appendChild(document.createTextNode(user.name));
+          row.appendChild(nameDiv);
+
+          // Username with link — id is user-controlled
+          const usernameDiv = document.createElement("div");
+          usernameDiv.className = "username";
+          const link = document.createElement("a");
+          link.href = `https://leetcode.com/u/${user.id}`;
+          link.target = "_blank";
+          link.className = "user-link";
+          link.textContent = user.id;
+          usernameDiv.appendChild(link);
+          row.appendChild(usernameDiv);
+
+          // Easy
+          const easyDiv = document.createElement("div");
+          easyDiv.className = "easy";
+          easyDiv.textContent = user.data.easySolved;
+          row.appendChild(easyDiv);
+
+          // Medium
+          const mediumDiv = document.createElement("div");
+          mediumDiv.className = "medium";
+          mediumDiv.textContent = user.data.mediumSolved;
+          row.appendChild(mediumDiv);
+
+          // Hard
+          const hardDiv = document.createElement("div");
+          hardDiv.className = "hard";
+          hardDiv.textContent = user.data.hardSolved;
+          row.appendChild(hardDiv);
+
+          // Score
+          const scoreDiv = document.createElement("div");
+          scoreDiv.className = "score";
+          scoreDiv.textContent = user.score;
+          row.appendChild(scoreDiv);
+
           body.appendChild(row);
 
           const card = document.createElement("div");
           card.className = "mobile-card";
-          card.innerHTML = `
-                    <div class="mobile-card-header">
-                        <div class="mobile-rank">#${rank}</div>
-                        <div class="mobile-score">${user.score}</div>
-                    </div>
-                    <div class="mobile-name">${tag}${user.name}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
-                    <div class="mobile-stats">
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number easy">${user.data.easySolved}</div>
-                            <div class="mobile-stat-label">Easy</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number medium">${user.data.mediumSolved}</div>
-                            <div class="mobile-stat-label">Medium</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
-                            <div class="mobile-stat-label">Hard</div>
-                        </div>
-                    </div>
-                `;
+
+          // Header row
+          const cardHeader = document.createElement("div");
+          cardHeader.className = "mobile-card-header";
+
+          const mobileRank = document.createElement("div");
+          mobileRank.className = "mobile-rank";
+          mobileRank.textContent = `#${rank}`;
+          cardHeader.appendChild(mobileRank);
+
+          const mobileScore = document.createElement("div");
+          mobileScore.className = "mobile-score";
+          mobileScore.textContent = user.score;
+          cardHeader.appendChild(mobileScore);
+
+          card.appendChild(cardHeader);
+
+          // Name — tag is safe hardcoded HTML, name is user-controlled
+          const mobileName = document.createElement("div");
+          mobileName.className = "mobile-name";
+          if (tag) {
+            mobileName.insertAdjacentHTML("beforeend", tag);
+          }
+          mobileName.appendChild(document.createTextNode(user.name));
+          card.appendChild(mobileName);
+
+          // Username — id is user-controlled
+          const mobileUsername = document.createElement("div");
+          mobileUsername.className = "mobile-username";
+          const mobileLink = document.createElement("a");
+          mobileLink.href = `https://leetcode.com/u/${user.id}`;
+          mobileLink.target = "_blank";
+          mobileLink.className = "user-link";
+          mobileLink.textContent = user.id;
+          mobileUsername.appendChild(mobileLink);
+          card.appendChild(mobileUsername);
+
+          // Stats
+          const mobileStats = document.createElement("div");
+          mobileStats.className = "mobile-stats";
+
+          const makeStat = (value, statClass, label) => {
+            const stat = document.createElement("div");
+            stat.className = "mobile-stat";
+            const num = document.createElement("div");
+            num.className = `mobile-stat-number ${statClass}`;
+            num.textContent = value;
+            stat.appendChild(num);
+            const lbl = document.createElement("div");
+            lbl.className = "mobile-stat-label";
+            lbl.textContent = label;
+            stat.appendChild(lbl);
+            return stat;
+          };
+
+          mobileStats.appendChild(
+            makeStat(user.data.easySolved, "easy", "Easy"),
+          );
+          mobileStats.appendChild(
+            makeStat(user.data.mediumSolved, "medium", "Medium"),
+          );
+          mobileStats.appendChild(
+            makeStat(user.data.hardSolved, "hard", "Hard"),
+          );
+
+          card.appendChild(mobileStats);
+
           mobileCards.appendChild(card);
         });
 
