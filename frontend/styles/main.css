@@ -1932,7 +1932,9 @@ body::-webkit-scrollbar-thumb {
     position: relative;
     cursor: pointer;
     display: inline-flex;   /* key fix */
-    width: fit-content;   
+    width: fit-content;  
+    align-items:cetner;
+    gap:4px; 
     
 }
 .score-tooltip {
@@ -2066,4 +2068,13 @@ body::-webkit-scrollbar-thumb {
   color: var(--text-muted);
   font-family: 'Fira Code', monospace;
   font-size: 0.85rem;
+}
+.score-caret {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+.tooltip-score:hover .score-caret {
+    transform: rotate(180deg);
+    color: var(--cyan);
 }

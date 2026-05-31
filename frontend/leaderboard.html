@@ -329,7 +329,8 @@
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
                     <div class="mobile-score tooltip-score">
-                        ${user.score}
+                            <span>${user.score}</span>
+                             <span class="score-caret">▾</span>
                         <div class="score-tooltip">
                             <div>
                                 Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
@@ -355,7 +356,8 @@
                     <div class="mobile-card-header">
                         <div class="mobile-rank">#${rank}</div>
                         <div class="mobile-score tooltip-score">
-                            ${user.score}
+                           <span> ${user.score}</span>
+                               <span class="score-caret">▾</span>
                             <div class="score-tooltip">
                                 <div>
                                     Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
