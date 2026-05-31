@@ -31,14 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.prepend(nav);
 
   // Mobile menu toggle
-  const mobileBtn = nav.querySelector('.mobile-menu-btn');
-  const navLinks = nav.querySelector('.nav-links');
-  const menuIcon = nav.querySelector('.menu-icon');
-  const closeIcon = nav.querySelector('.close-icon');
+  const mobileBtn = nav.querySelector(".mobile-menu-btn");
+  const navLinks = nav.querySelector(".nav-links");
+  const menuIcon = nav.querySelector(".menu-icon");
+  const closeIcon = nav.querySelector(".close-icon");
 
-  mobileBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuIcon.classList.toggle('hidden');
-    closeIcon.classList.toggle('hidden');
+  mobileBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    menuIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
   });
 });

@@ -8,7 +8,7 @@ async function fetchData(url) {
     return {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
-      hardSolved: res.data.hardSolved || 0
+      hardSolved: res.data.hardSolved || 0,
     };
   } catch (err) {
     console.error("API failed to respond: ", err.message);
@@ -33,7 +33,7 @@ function getFileName(daysAgo) {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
   console.log(`Using data directory: ${DATA_DIR}`);
 
-  console.log("Loading users...")
+  console.log("Loading users...");
   const userFilePath = path.join(DATA_DIR, "users.json");
   let users = [];
   try {
@@ -55,23 +55,21 @@ function getFileName(daysAgo) {
     const data = await fetchData(baseUrl + user.id);
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
     console.log(`${user.name}:`, data);
-    overallData.push(
-      {
-        name: user.name,
-        id: user.id,
-        data,
-        score
-      }
-    );
+    overallData.push({
+      name: user.name,
+      id: user.id,
+      data,
+      score,
+    });
 
     if (interval > 0) {
-      await new Promise(resolve => setTimeout(resolve, interval));
+      await new Promise((resolve) => setTimeout(resolve, interval));
     }
   }
   console.log("...");
   console.log(" ");
 
-  console.log("Writing daily data to file...")
+  console.log("Writing daily data to file...");
   const filepath = path.join(DATA_DIR, "daily", getFileName(0));
   try {
     fs.writeFileSync(filepath, JSON.stringify(overallData, null, 2), "utf8");
@@ -81,21 +79,25 @@ function getFileName(daysAgo) {
     process.exit(1);
   }
 
-  overallData.forEach(user => {
-    user.data.totalSolved = user.data.easySolved + user.data.mediumSolved + user.data.hardSolved;
+  overallData.forEach((user) => {
+    user.data.totalSolved =
+      user.data.easySolved + user.data.mediumSolved + user.data.hardSolved;
   });
   console.log("Sorting collected data...");
   overallData.sort((a, b) => b.score - a.score);
-  console.log("Writing sorted daily data to overall file...")
+  console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
   try {
-    fs.writeFileSync(overallFilepath, JSON.stringify(overallData, null, 2), "utf8");
+    fs.writeFileSync(
+      overallFilepath,
+      JSON.stringify(overallData, null, 2),
+      "utf8",
+    );
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
-
 
   dailyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
@@ -112,18 +114,27 @@ function getFileName(daysAgo) {
   }
 
   console.log(" ");
-  console.log("Calculating daily progress...")
+  console.log("Calculating daily progress...");
   for (let i = 0; i < dailyData.length; i++) {
-    const previousIndex = previousData.findIndex(obj => obj.id === dailyData[i].id);
+    const previousIndex = previousData.findIndex(
+      (obj) => obj.id === dailyData[i].id,
+    );
     if (previousIndex == -1) {
       dailyData.splice(i--, 1);
       continue;
     }
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    dailyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
+    dailyData[i].data.mediumSolved -=
+      previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
-    dailyData[i].score = dailyData[i].data.easySolved + dailyData[i].data.mediumSolved * 3 + dailyData[i].data.hardSolved * 5;
-    dailyData[i].data.totalSolved = dailyData[i].data.easySolved + dailyData[i].data.mediumSolved + dailyData[i].data.hardSolved;
+    dailyData[i].score =
+      dailyData[i].data.easySolved +
+      dailyData[i].data.mediumSolved * 3 +
+      dailyData[i].data.hardSolved * 5;
+    dailyData[i].data.totalSolved =
+      dailyData[i].data.easySolved +
+      dailyData[i].data.mediumSolved +
+      dailyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
@@ -131,7 +142,7 @@ function getFileName(daysAgo) {
   console.log("Sorting calculated data...");
   dailyData.sort((a, b) => b.score - a.score);
 
-  console.log("Writing sorted daily data to daily.json...")
+  console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
@@ -140,7 +151,6 @@ function getFileName(daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
-
 
   weeklyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
@@ -157,18 +167,29 @@ function getFileName(daysAgo) {
   }
 
   console.log(" ");
-  console.log("Calculating weekly progress...")
+  console.log("Calculating weekly progress...");
   for (let i = 0; i < weeklyData.length; i++) {
-    const previousIndex = previousData.findIndex(obj => obj.id === weeklyData[i].id);
+    const previousIndex = previousData.findIndex(
+      (obj) => obj.id === weeklyData[i].id,
+    );
     if (previousIndex == -1) {
       weeklyData.splice(i--, 1);
       continue;
     }
-    weeklyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    weeklyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
-    weeklyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
-    weeklyData[i].score = weeklyData[i].data.easySolved + weeklyData[i].data.mediumSolved * 3 + weeklyData[i].data.hardSolved * 5;
-    weeklyData[i].data.totalSolved = weeklyData[i].data.easySolved + weeklyData[i].data.mediumSolved + weeklyData[i].data.hardSolved;
+    weeklyData[i].data.easySolved -=
+      previousData[previousIndex].data.easySolved;
+    weeklyData[i].data.mediumSolved -=
+      previousData[previousIndex].data.mediumSolved;
+    weeklyData[i].data.hardSolved -=
+      previousData[previousIndex].data.hardSolved;
+    weeklyData[i].score =
+      weeklyData[i].data.easySolved +
+      weeklyData[i].data.mediumSolved * 3 +
+      weeklyData[i].data.hardSolved * 5;
+    weeklyData[i].data.totalSolved =
+      weeklyData[i].data.easySolved +
+      weeklyData[i].data.mediumSolved +
+      weeklyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
@@ -176,16 +197,19 @@ function getFileName(daysAgo) {
   console.log("Sorting calculated data...");
   weeklyData.sort((a, b) => b.score - a.score);
 
-  console.log("Writing sorted weekly data to weekly.json...")
+  console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
   try {
-    fs.writeFileSync(weeklyFilepath, JSON.stringify(weeklyData, null, 2), "utf8");
+    fs.writeFileSync(
+      weeklyFilepath,
+      JSON.stringify(weeklyData, null, 2),
+      "utf8",
+    );
     console.log("Weekly data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
-
 
   monthlyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
@@ -202,18 +226,29 @@ function getFileName(daysAgo) {
   }
 
   console.log(" ");
-  console.log("Calculating monthly progress...")
+  console.log("Calculating monthly progress...");
   for (let i = 0; i < monthlyData.length; i++) {
-    const previousIndex = previousData.findIndex(obj => obj.id === monthlyData[i].id);
+    const previousIndex = previousData.findIndex(
+      (obj) => obj.id === monthlyData[i].id,
+    );
     if (previousIndex == -1) {
       monthlyData.splice(i--, 1);
       continue;
     }
-    monthlyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    monthlyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
-    monthlyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
-    monthlyData[i].score = monthlyData[i].data.easySolved + monthlyData[i].data.mediumSolved * 3 + monthlyData[i].data.hardSolved * 5;
-    monthlyData[i].data.totalSolved = monthlyData[i].data.easySolved + monthlyData[i].data.mediumSolved + monthlyData[i].data.hardSolved;
+    monthlyData[i].data.easySolved -=
+      previousData[previousIndex].data.easySolved;
+    monthlyData[i].data.mediumSolved -=
+      previousData[previousIndex].data.mediumSolved;
+    monthlyData[i].data.hardSolved -=
+      previousData[previousIndex].data.hardSolved;
+    monthlyData[i].score =
+      monthlyData[i].data.easySolved +
+      monthlyData[i].data.mediumSolved * 3 +
+      monthlyData[i].data.hardSolved * 5;
+    monthlyData[i].data.totalSolved =
+      monthlyData[i].data.easySolved +
+      monthlyData[i].data.mediumSolved +
+      monthlyData[i].data.hardSolved;
   }
   console.log("Calculation done");
   console.log("");
@@ -221,10 +256,14 @@ function getFileName(daysAgo) {
   console.log("Sorting calculated data...");
   monthlyData.sort((a, b) => b.score - a.score);
 
-  console.log("Writing sorted monthly data to monthly.json...")
+  console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
   try {
-    fs.writeFileSync(monthlyFilepath, JSON.stringify(monthlyData, null, 2), "utf8");
+    fs.writeFileSync(
+      monthlyFilepath,
+      JSON.stringify(monthlyData, null, 2),
+      "utf8",
+    );
     console.log("Monthly data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -236,10 +275,18 @@ function getFileName(daysAgo) {
   try {
     const now = new Date();
     const nextSync = new Date(now.getTime() + 5 * 60 * 1000);
-    fs.writeFileSync(syncFilepath, JSON.stringify({
-      lastSync: now.toISOString(),
-      nextSync: nextSync.toISOString()
-    }, null, 2), "utf8");
+    fs.writeFileSync(
+      syncFilepath,
+      JSON.stringify(
+        {
+          lastSync: now.toISOString(),
+          nextSync: nextSync.toISOString(),
+        },
+        null,
+        2,
+      ),
+      "utf8",
+    );
     console.log("Sync timestamp saved successfully");
   } catch (err) {
     console.error(`Failed to write sync file: `, err.message);
