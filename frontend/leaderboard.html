@@ -42,6 +42,33 @@
             >__AWAITING_UPLINK__</span
           >
         </div>
+
+<!-- Streak Card UI (Ready for Issue #7 Backend Data) -->
+<div class="streak-card">
+  <div class="streak-terminal-header">
+    <div class="terminal-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <span class="terminal-title">streak_status.sh</span>
+  </div>
+
+  <div class="streak-content">
+    <div class="streak-row">
+      <span class="terminal-prompt">$ current_streak:</span>
+      <span class="streak-value" id="user-streak-count">🔥 12 Days</span>
+    </div>
+
+    <div class="streak-row">
+      <span class="terminal-prompt">$ daily_grind:</span>
+      <span class="streak-badge badge-completed" id="user-grind-status">
+        [ STATUS: COMPLETED ]
+      </span>
+    </div>
+  </div>
+</div>
+        
         <div
           id="next-sync-indicator"
           style="

@@ -970,6 +970,76 @@ body::after {
   text-shadow: 0 0 6px rgba(255, 176, 0, 0.3);
 }
 
+/* --- Streak Card Component Styles --- */
+.streak-card {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #22c55e;
+  background-color: #0a0a0a;
+  padding: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+  margin: 1rem auto 2rem auto; /* Centered with bottom margin */
+}
+
+.streak-terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #14532d;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot-red { background-color: #ef4444; }
+.dot-yellow { background-color: #eab308; }
+.dot-green { background-color: #22c55e; }
+
+.terminal-title { color: #16a34a; font-size: 0.8rem; }
+
+.streak-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.terminal-prompt { color: #9ca3af; }
+.streak-value { color: #facc15; font-size: 1.25rem; font-weight: bold; }
+
+.streak-badge {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.badge-completed {
+  background-color: rgba(20, 83, 45, 0.5);
+  color: #4ade80;
+  border: 1px solid #22c55e;
+  animation: pulse 2s infinite;
+}
+
+.badge-pending {
+  background-color: rgba(127, 29, 29, 0.5);
+  color: #f87171;
+  border: 1px solid #ef4444;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
 .mobile-name {
   font-size: 1rem;
   font-weight: 600;
