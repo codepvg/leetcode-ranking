@@ -237,16 +237,35 @@
                 const nameVal = document.getElementById('name').value.trim();
                 const leetcodeVal = document.getElementById('leetcodeId').value.trim();
 
-                document.getElementById('name-error').textContent = '';
-                document.getElementById('username-error').textContent = '';
+                // First, clear any previous error states
+                const nameInput = document.getElementById('name');
+                const leetcodeInput = document.getElementById('leetcodeId');
+
+                const nameTarget = nameInput.closest('.form-input-bash-wrapper') || nameInput;
+                const leetcodeTarget = leetcodeInput.closest('.form-input-bash-wrapper') || leetcodeInput;
+
+                const nameError = document.getElementById('name-error');
+                const leetcodeError = document.getElementById('username-error');
+
+                nameTarget.classList.remove('input-error');
+                leetcodeTarget.classList.remove('input-error');
+                nameError.textContent = '';
+                leetcodeError.textContent = '';
+
+                // Force DOM reflow to restart shake animation
+                void nameTarget.offsetWidth;
+                void leetcodeTarget.offsetWidth;
 
                 if (!nameVal) {
-                  document.getElementById('name-error').textContent = '$ Error: Full name is required_';
-     }
-               if (!leetcodeVal) {
-    document.getElementById('username-error').textContent = '$ Error: LeetCode username is required_';
-}
-               if (!nameVal || !leetcodeVal) return;
+                    nameError.textContent = '$ Error: Full name is required_';
+                    nameTarget.classList.add('input-error');
+                }
+                if (!leetcodeVal) {
+                    leetcodeError.textContent = '$ Error: LeetCode username is required_';
+                    leetcodeTarget.classList.add('input-error');
+                }
+
+                if (!nameVal || !leetcodeVal) return;
 
                 // Hide form fields and show execution log
                 const fieldsets = form.querySelectorAll('.form-group');
