@@ -1,347 +1,569 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>register — CodePVG</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
-</head>
-<body>
+  </head>
+
+  <body>
     <canvas id="matrix-canvas"></canvas>
 
     <main class="page">
-        <div class="form-container">
-            <div class="form-card" id="registration-form">
-                <h1 class="page-title">Join the Leaderboard</h1>
+      <div class="form-container">
+        <div class="form-card" id="registration-form">
+          <h1 class="page-title">Join the Leaderboard</h1>
 
-                <p class="text-center" style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem;">
-                    Register to start tracking your LeetCode progress and compete with your peers!
-                </p>
+          <p
+            class="text-center"
+            style="margin-bottom: 2rem; color: #ccc; font-size: 1.1rem"
+          >
+            Register to start tracking your LeetCode progress and compete with
+            your peers!
+          </p>
 
-                <form id="registrationForm">
-                    <div class="form-group">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            class="form-input"
-                            placeholder="Enter your full name"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="leetcodeId" class="form-label">LeetCode Username</label>
-                        <input
-                            type="text"
-                            id="leetcodeId"
-                            name="leetcodeId"
-                            class="form-input"
-                            placeholder="Enter your LeetCode username"
-                            required
-                        >
-                        <small class="form-help">
-                            This should match your username on leetcode.com/u/username
-                        </small>
-                    </div>
-
-                    <div style="text-align: center;">
-                        <button id="registerBtn" type="submit" class="btn btn-primary" style="margin: 0 auto;">
-                            Register Now
-                        </button>
-                    </div>
-                </form>
+          <form id="registrationForm" novalidate>
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Enter your full name"
+                required
+              />
+              <span class="error-msg" id="name-error"></span>
             </div>
 
-            <div class="form-card success-container hidden" id="success-message" style="text-align: left; padding: 2.5rem; background: #000; border: 1px solid var(--border-bright);">
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center; color: var(--green); font-family: 'Space Mono', monospace;">[OK]</div>
-                <h2 style="color: var(--green); margin-bottom: 1rem; text-align: center; font-family: 'Space Mono', monospace; text-shadow: 0 0 15px rgba(0,255,65,0.3);">REGISTRATION_COMPLETE</h2>
-                <div id="welcome-message" style="color: var(--text-dim); margin-bottom: 2.5rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 2;"></div>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="/leaderboard" class="btn btn-secondary">view_leaderboard</a>
-                    <button class="btn btn-primary" onclick="fullResetForm()">register_another</button>
-                </div>
+            <div class="form-group">
+              <label for="leetcodeId" class="form-label"
+                >LeetCode Username</label
+              >
+              <input
+                type="text"
+                id="leetcodeId"
+                name="leetcodeId"
+                class="form-input"
+                placeholder="Enter your LeetCode username"
+                required
+              />
+              <small class="form-help">
+                This should match your username on leetcode.com/u/username
+              </small>
+              <span class="error-msg" id="username-error"></span>
             </div>
 
-            <div class="form-card error-container hidden" id="error-message" style="text-align: left; padding: 2.5rem; background: #000; border: 1px solid var(--red);">
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center; color: var(--red); font-family: 'Space Mono', monospace;">[FAILED]</div>
-                <h2 style="color: var(--red); margin-bottom: 1rem; text-align: center; font-family: 'Space Mono', monospace; text-shadow: 0 0 15px rgba(255,51,51,0.3);">UID_RESOLUTION_ERROR</h2>
-                <div id="error-details" style="color: var(--text-dim); margin-bottom: 2.5rem; font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 2;"></div>
-                <div style="display: flex; justify-content: center;">
-                    <button class="btn btn-error" onclick="dismissError()">retry_input</button>
-                </div>
+            <div style="text-align: center">
+              <button
+                id="registerBtn"
+                type="submit"
+                class="btn btn-primary"
+                style="margin: 0 auto"
+              >
+                Register Now
+              </button>
             </div>
+          </form>
         </div>
+
+        <div
+          class="form-card success-container hidden"
+          id="success-message"
+          style="
+            text-align: left;
+            padding: 2.5rem;
+            background: #000;
+            border: 1px solid var(--border-bright);
+          "
+        >
+          <div
+            style="
+              font-size: 2.5rem;
+              margin-bottom: 0.5rem;
+              text-align: center;
+              color: var(--green);
+              font-family: &quot;Space Mono&quot;, monospace;
+            "
+          >
+            [OK]
+          </div>
+          <h2
+            style="
+              color: var(--green);
+              margin-bottom: 1rem;
+              text-align: center;
+              font-family: &quot;Space Mono&quot;, monospace;
+              text-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            "
+          >
+            REGISTRATION_COMPLETE
+          </h2>
+          <div
+            id="welcome-message"
+            style="
+              color: var(--text-dim);
+              margin-bottom: 2.5rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              font-size: 0.85rem;
+              line-height: 2;
+            "
+          ></div>
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="/leaderboard" class="btn btn-secondary"
+              >view_leaderboard</a
+            >
+            <button class="btn btn-primary" onclick="fullResetForm()">
+              register_another
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="form-card error-container hidden"
+          id="error-message"
+          style="
+            text-align: left;
+            padding: 2.5rem;
+            background: #000;
+            border: 1px solid var(--red);
+          "
+        >
+          <div
+            style="
+              font-size: 2.5rem;
+              margin-bottom: 0.5rem;
+              text-align: center;
+              color: var(--red);
+              font-family: &quot;Space Mono&quot;, monospace;
+            "
+          >
+            [FAILED]
+          </div>
+          <h2
+            style="
+              color: var(--red);
+              margin-bottom: 1rem;
+              text-align: center;
+              font-family: &quot;Space Mono&quot;, monospace;
+              text-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
+            "
+          >
+            UID_RESOLUTION_ERROR
+          </h2>
+          <div
+            id="error-details"
+            style="
+              color: var(--text-dim);
+              margin-bottom: 2.5rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              font-size: 0.85rem;
+              line-height: 2;
+            "
+          ></div>
+          <div style="display: flex; justify-content: center">
+            <button class="btn btn-error" onclick="dismissError()">
+              retry_input
+            </button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
-        function showSuccess(name) {
-            document.getElementById('registration-form').classList.add('hidden');
-            document.getElementById('success-message').classList.remove('hidden');
-            
-            const target = document.getElementById('welcome-message');
-            const lines = [
-                { text: `> User record authenticated: ${name}`, color: 'var(--green-dim)' },
-                { text: `> Status: RANK_SYNC_PENDING`, color: 'var(--amber)' },
-                { text: ``, color: '' },
-                { text: `// System pulls LeetCode differentials on automated intervals.`, color: 'var(--text-muted)' },
-                { text: `// Rankings update after the next scheduled cron cycle.`, color: 'var(--text-muted)' }
-            ];
-            
-            target.innerHTML = '';
-            let lineIdx = 0;
-            
-            function typeLine() {
-                if (lineIdx >= lines.length) return;
-                const lineData = lines[lineIdx];
-                const div = document.createElement('div');
-                
-                if (lineData.text.includes('authenticated')) {
-                    div.innerHTML = `> User record authenticated: <span style="color: var(--green)">${name}</span>`;
-                } else {
-                    div.innerText = lineData.text;
-                    if (lineData.color) div.style.color = lineData.color;
-                }
-                
-                div.style.animation = 'slideUpFade 0.2s ease-out';
-                target.appendChild(div);
-                lineIdx++;
-                setTimeout(typeLine, 200);
+      function showSuccess(name) {
+        document.getElementById("registration-form").classList.add("hidden");
+        document.getElementById("success-message").classList.remove("hidden");
+
+        const target = document.getElementById("welcome-message");
+        const lines = [
+          {
+            text: `> User record authenticated: ${name}`,
+            color: "var(--green-dim)",
+          },
+          { text: `> Status: RANK_SYNC_PENDING`, color: "var(--amber)" },
+          { text: ``, color: "" },
+          {
+            text: `// System pulls LeetCode differentials on automated intervals.`,
+            color: "var(--text-muted)",
+          },
+          {
+            text: `// Rankings update after the next scheduled cron cycle.`,
+            color: "var(--text-muted)",
+          },
+        ];
+
+        target.innerHTML = "";
+        let lineIdx = 0;
+
+        function typeLine() {
+          if (lineIdx >= lines.length) return;
+          const lineData = lines[lineIdx];
+          const div = document.createElement("div");
+
+          if (lineData.text.includes("authenticated")) {
+            div.innerHTML = `> User record authenticated: <span style="color: var(--green)">${name}</span>`;
+          } else {
+            div.innerText = lineData.text;
+            if (lineData.color) div.style.color = lineData.color;
+          }
+
+          div.style.animation = "slideUpFade 0.2s ease-out";
+          target.appendChild(div);
+          lineIdx++;
+          setTimeout(typeLine, 200);
+        }
+        typeLine();
+      }
+
+      function fullResetForm() {
+        document.getElementById("registration-form").classList.remove("hidden");
+        document.getElementById("success-message").classList.add("hidden");
+        document.getElementById("error-message").classList.add("hidden");
+        document.getElementById("registrationForm").reset();
+        // Re-surface fields that were hidden by the execution log
+        const form = document.getElementById("registrationForm");
+        form
+          .querySelectorAll(".form-group")
+          .forEach((f) => (f.style.display = "block"));
+        document.getElementById("registerBtn").style.display = "inline-block";
+        const execLog = document.getElementById("exec-log-box");
+        if (execLog) execLog.style.display = "none";
+      }
+
+      function showError(messageLines, title) {
+        document.getElementById("registration-form").classList.add("hidden");
+        const execLog = document.getElementById("exec-log-box");
+        if (execLog) execLog.style.display = "none";
+
+        document.getElementById("error-message").classList.remove("hidden");
+        document.querySelector("#error-message h2").innerText =
+          title || "PROCESS_ABORTED";
+
+        const target = document.getElementById("error-details");
+        target.innerHTML = "";
+        let lineIdx = 0;
+
+        function typeLine() {
+          if (lineIdx >= messageLines.length) return;
+          const lineData = messageLines[lineIdx];
+          const div = document.createElement("div");
+          div.innerText = lineData.text;
+          if (lineData.color) div.style.color = lineData.color;
+          div.style.animation = "slideUpFade 0.2s ease-out";
+          target.appendChild(div);
+          lineIdx++;
+          setTimeout(typeLine, 100);
+        }
+        typeLine();
+      }
+
+      function dismissError() {
+        document.getElementById("error-message").classList.add("hidden");
+        document.getElementById("registration-form").classList.remove("hidden");
+
+        // Re-surface fields so the user can easily fix their typo
+        const form = document.getElementById("registrationForm");
+        form
+          .querySelectorAll(".form-group")
+          .forEach((f) => (f.style.display = "block"));
+        document.getElementById("registerBtn").style.display = "inline-block";
+        const execLog = document.getElementById("exec-log-box");
+        if (execLog) execLog.style.display = "none";
+      }
+
+      function extractUsername(input) {
+        let value = input.trim();
+
+        if (value.includes("leetcode.com/") || value.includes("://")) {
+          const patterns = [
+            /leetcode\.com\/u\/([A-Za-z0-9_-]+)/i,
+            /leetcode\.com\/([A-Za-z0-9_-]+)/i,
+          ];
+
+          for (const pattern of patterns) {
+            const match = value.match(pattern);
+            if (match && match[1]) {
+              return match[1];
             }
-            typeLine();
+          }
         }
 
-        function fullResetForm() {
-            document.getElementById('registration-form').classList.remove('hidden');
-            document.getElementById('success-message').classList.add('hidden');
-            document.getElementById('error-message').classList.add('hidden');
-            document.getElementById('registrationForm').reset();
-            // Re-surface fields that were hidden by the execution log
-            const form = document.getElementById('registrationForm');
-            form.querySelectorAll('.form-group').forEach(f => f.style.display = 'block');
-            document.getElementById('registerBtn').style.display = 'inline-block';
-            const execLog = document.getElementById('exec-log-box');
-            if (execLog) execLog.style.display = 'none';
-        }
+        value = value.replace(/[^A-Za-z0-9_-]/g, "");
+        return value;
+      }
 
-        function showError(messageLines, title) {
-            document.getElementById('registration-form').classList.add('hidden');
-            const execLog = document.getElementById('exec-log-box');
-            if (execLog) execLog.style.display = 'none';
-            
-            document.getElementById('error-message').classList.remove('hidden');
-            document.querySelector('#error-message h2').innerText = title || "PROCESS_ABORTED";
-            
-            const target = document.getElementById('error-details');
-            target.innerHTML = '';
-            let lineIdx = 0;
-            
-            function typeLine() {
-                if (lineIdx >= messageLines.length) return;
-                const lineData = messageLines[lineIdx];
-                const div = document.createElement('div');
-                div.innerText = lineData.text;
-                if (lineData.color) div.style.color = lineData.color;
-                div.style.animation = 'slideUpFade 0.2s ease-out';
-                target.appendChild(div);
-                lineIdx++;
-                setTimeout(typeLine, 100);
-            }
-            typeLine();
-        }
+      function isValidId(id) {
+        return fetch(`https://leetcode-api-dun.vercel.app/${id.trim()}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const errors = data.errors;
+            return !(
+              errors &&
+              errors.some((err) => err.message === "That user does not exist.")
+            );
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+            return false;
+          });
+      }
 
-        function dismissError() {
-            document.getElementById('error-message').classList.add('hidden');
-            document.getElementById('registration-form').classList.remove('hidden');
-            
-            // Re-surface fields so the user can easily fix their typo
-            const form = document.getElementById('registrationForm');
-            form.querySelectorAll('.form-group').forEach(f => f.style.display = 'block');
-            document.getElementById('registerBtn').style.display = 'inline-block';
-            const execLog = document.getElementById('exec-log-box');
-            if (execLog) execLog.style.display = 'none';
-        }
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("registrationForm");
+        const leetcodeInput = document.getElementById("leetcodeId");
+        const registerBtn = document.getElementById("registerBtn");
 
-        function extractUsername(input) {
-            let value = input.trim();
-
-            if (value.includes('leetcode.com/') || value.includes('://')) {
-                const patterns = [
-                    /leetcode\.com\/u\/([A-Za-z0-9_-]+)/i,
-                    /leetcode\.com\/([A-Za-z0-9_-]+)/i
-                ];
-
-                for (const pattern of patterns) {
-                    const match = value.match(pattern);
-                    if (match && match[1]) {
-                        return match[1];
-                    }
-                }
-            }
-
-            value = value.replace(/[^A-Za-z0-9_-]/g, '');
-            return value;
-        }
-
-        function isValidId(id) {
-            return fetch(`https://leetcode-api-dun.vercel.app/${id.trim()}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const errors = data.errors;
-                    return !(errors && errors.some(err => err.message === "That user does not exist."));
-                })
-                .catch(error => {
-                    console.error("Fetch error:", error);
-                    return false;
-                });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('registrationForm');
-            const leetcodeInput = document.getElementById('leetcodeId');
-            const registerBtn = document.getElementById('registerBtn');
-
-            leetcodeInput.addEventListener('paste', (e) => {
-                e.preventDefault();
-                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-                const username = extractUsername(pastedText);
-                leetcodeInput.value = username;
-            });
-
-            leetcodeInput.addEventListener('input', (e) => {
-                const cursorPosition = e.target.selectionStart;
-                const originalLength = e.target.value.length;
-
-                e.target.value = extractUsername(e.target.value);
-
-                const newLength = e.target.value.length;
-                const diff = originalLength - newLength;
-                e.target.setSelectionRange(cursorPosition - diff, cursorPosition - diff);
-            });
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                // Hide form fields and show execution log
-                const fieldsets = form.querySelectorAll('.form-group');
-                fieldsets.forEach(f => f.style.display = 'none');
-                registerBtn.style.display = 'none';
-                
-                let execLog = document.getElementById('exec-log-box');
-                if(!execLog) {
-                    execLog = document.createElement('div');
-                    execLog.id = 'exec-log-box';
-                    execLog.className = 'execution-log-container';
-                    form.insertBefore(execLog, form.firstChild);
-                }
-                execLog.style.display = 'block';
-                execLog.innerHTML = '';
-                
-                // Async log sequencer
-                const addLog = (msg, cls='wait', delay=400) => {
-                    return new Promise(resolve => {
-                        setTimeout(() => {
-                            const line = document.createElement('div');
-                            line.className = `exec-log-line ${cls}`;
-                            line.innerText = `> ${msg}`;
-                            execLog.appendChild(line);
-                            execLog.scrollTop = execLog.scrollHeight;
-                            resolve();
-                        }, delay);
-                    });
-                };
-                
-                await addLog('init_registration_sequence_v2()', 'wait', 200);
-
-                const formData = new FormData(form);
-                const name = formData.get('name');
-                const leetcodeId = formData.get('leetcodeId');
-
-                try {
-                    if (name && leetcodeId) {
-                        await addLog(`querying_leetcode_uid("${leetcodeId.trim()}")`, 'wait', 600);
-                        await addLog('resolving graphql endpoint...', 'wait', 700);
-
-                        const isValid = await isValidId(leetcodeId);
-
-                        if (!isValid) {
-                            await addLog(`[ERR] LeetCode UID not found: "${leetcodeId}"`, 'error', 300);
-                            await addLog('exit(1)', 'error', 500);
-                            
-                            setTimeout(() => {
-                                showError([
-                                    { text: `> Fatal Error: LeetCode profile could not be verified.`, color: 'var(--red)' },
-                                    { text: `> Target UID: "${leetcodeId}"`, color: 'var(--amber)' },
-                                    { text: ``, color: '' },
-                                    { text: `// Please ensure your username exactly matches your profile URL.`, color: 'var(--text-muted)' },
-                                    { text: `// e.g. leetcode.com/u/your_username`, color: 'var(--text-muted)' }
-                                ], "UID_RESOLUTION_ERROR");
-                            }, 1000);
-                            return;
-                        }
-                        
-                        await addLog(`[OK] Valid profile verified for UID: ${leetcodeId}`, 'success', 200);
-                        await addLog('allocating_user_record...', 'wait', 400);
-                        
-                        const responsePromise = fetch("https://lc-backend-lyq2.onrender.com/user", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ name: name.trim(), id: leetcodeId.trim() })
-                        });
-
-                        await addLog('syncing_with_CodePVG_backend() -> [POST]', 'wait', 300);
-                        const response = await responsePromise;
-
-                        if (!response.ok) throw new Error("Failed to register user");
-
-                        const data = await response.json();
-                        
-                        await addLog('[SUCCESS] Database transaction verified.', 'success', 600);
-                        await addLog('exit(0)', 'success', 400);
-
-                        setTimeout(() => {
-                            execLog.style.display = 'none';
-                            showSuccess(name);
-                        }, 1500);
-                    }
-                } catch (error) {
-                    await addLog('[FATAL] Network/API exception detected.', 'error', 200);
-                    await addLog(error.message, 'error', 150);
-                    await addLog('exit(1)', 'error', 800);
-                    
-                    setTimeout(() => {
-                        console.error(error);
-                        showError([
-                            { text: `> Network/API Exception Detected.`, color: 'var(--red)' },
-                            { text: `> Detail: ${error.message}`, color: 'var(--amber)' },
-                            { text: ``, color: '' },
-                            { text: `// The backend sync server might be asleep or unreachable.`, color: 'var(--text-muted)' },
-                            { text: `// Please try again in a few moments.`, color: 'var(--text-muted)' }
-                        ], "SYSTEM_SYNC_ERROR");
-                    }, 800);
-                }
-
-                function resetFormFields() {
-                    execLog.style.display = 'none';
-                    fieldsets.forEach(f => f.style.display = 'block');
-                    registerBtn.style.display = 'inline-block';
-                }
-            });
+        leetcodeInput.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const pastedText = (e.clipboardData || window.clipboardData).getData(
+            "text",
+          );
+          const username = extractUsername(pastedText);
+          leetcodeInput.value = username;
         });
+
+        leetcodeInput.addEventListener("input", (e) => {
+          const cursorPosition = e.target.selectionStart;
+          const originalLength = e.target.value.length;
+
+          e.target.value = extractUsername(e.target.value);
+
+          const newLength = e.target.value.length;
+          const diff = originalLength - newLength;
+          e.target.setSelectionRange(
+            cursorPosition - diff,
+            cursorPosition - diff,
+          );
+        });
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const nameVal = document.getElementById("name").value.trim();
+          const leetcodeVal = document
+            .getElementById("leetcodeId")
+            .value.trim();
+
+          // First, clear any previous error states
+          const nameInput = document.getElementById("name");
+          const leetcodeInput = document.getElementById("leetcodeId");
+
+          const nameTarget =
+            nameInput.closest(".form-input-bash-wrapper") || nameInput;
+          const leetcodeTarget =
+            leetcodeInput.closest(".form-input-bash-wrapper") || leetcodeInput;
+
+          const nameError = document.getElementById("name-error");
+          const leetcodeError = document.getElementById("username-error");
+
+          nameTarget.classList.remove("input-error");
+          leetcodeTarget.classList.remove("input-error");
+          nameError.textContent = "";
+          leetcodeError.textContent = "";
+
+          // Force DOM reflow to restart shake animation
+          void nameTarget.offsetWidth;
+          void leetcodeTarget.offsetWidth;
+
+          if (!nameVal) {
+            nameError.textContent = "$ Error: Full name is required_";
+            nameTarget.classList.add("input-error");
+          }
+          if (!leetcodeVal) {
+            leetcodeError.textContent =
+              "$ Error: LeetCode username is required_";
+            leetcodeTarget.classList.add("input-error");
+          }
+
+          if (!nameVal || !leetcodeVal) return;
+
+          // Hide form fields and show execution log
+          const fieldsets = form.querySelectorAll(".form-group");
+          fieldsets.forEach((f) => (f.style.display = "none"));
+          registerBtn.style.display = "none";
+
+          let execLog = document.getElementById("exec-log-box");
+          if (!execLog) {
+            execLog = document.createElement("div");
+            execLog.id = "exec-log-box";
+            execLog.className = "execution-log-container";
+            form.insertBefore(execLog, form.firstChild);
+          }
+          execLog.style.display = "block";
+          execLog.innerHTML = "";
+
+          // Async log sequencer
+          const addLog = (msg, cls = "wait", delay = 400) => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                const line = document.createElement("div");
+                line.className = `exec-log-line ${cls}`;
+                line.innerText = `> ${msg}`;
+                execLog.appendChild(line);
+                execLog.scrollTop = execLog.scrollHeight;
+                resolve();
+              }, delay);
+            });
+          };
+
+          await addLog("init_registration_sequence_v2()", "wait", 200);
+
+          const formData = new FormData(form);
+          const name = formData.get("name");
+          const leetcodeId = formData.get("leetcodeId");
+
+          try {
+            if (name && leetcodeId) {
+              await addLog(
+                `querying_leetcode_uid("${leetcodeId.trim()}")`,
+                "wait",
+                600,
+              );
+              await addLog("resolving graphql endpoint...", "wait", 700);
+
+              const isValid = await isValidId(leetcodeId);
+
+              if (!isValid) {
+                await addLog(
+                  `[ERR] LeetCode UID not found: "${leetcodeId}"`,
+                  "error",
+                  300,
+                );
+                await addLog("exit(1)", "error", 500);
+
+                setTimeout(() => {
+                  showError(
+                    [
+                      {
+                        text: `> Fatal Error: LeetCode profile could not be verified.`,
+                        color: "var(--red)",
+                      },
+                      {
+                        text: `> Target UID: "${leetcodeId}"`,
+                        color: "var(--amber)",
+                      },
+                      { text: ``, color: "" },
+                      {
+                        text: `// Please ensure your username exactly matches your profile URL.`,
+                        color: "var(--text-muted)",
+                      },
+                      {
+                        text: `// e.g. leetcode.com/u/your_username`,
+                        color: "var(--text-muted)",
+                      },
+                    ],
+                    "UID_RESOLUTION_ERROR",
+                  );
+                }, 1000);
+                return;
+              }
+
+              await addLog(
+                `[OK] Valid profile verified for UID: ${leetcodeId}`,
+                "success",
+                200,
+              );
+              await addLog("allocating_user_record...", "wait", 400);
+
+              const responsePromise = fetch(
+                "https://lc-backend-lyq2.onrender.com/user",
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    name: name.trim(),
+                    id: leetcodeId.trim(),
+                  }),
+                },
+              );
+
+              await addLog(
+                "syncing_with_CodePVG_backend() -> [POST]",
+                "wait",
+                300,
+              );
+              const response = await responsePromise;
+
+              if (!response.ok) throw new Error("Failed to register user");
+
+              const data = await response.json();
+
+              await addLog(
+                "[SUCCESS] Database transaction verified.",
+                "success",
+                600,
+              );
+              await addLog("exit(0)", "success", 400);
+
+              setTimeout(() => {
+                execLog.style.display = "none";
+                showSuccess(name);
+              }, 1500);
+            }
+          } catch (error) {
+            await addLog(
+              "[FATAL] Network/API exception detected.",
+              "error",
+              200,
+            );
+            await addLog(error.message, "error", 150);
+            await addLog("exit(1)", "error", 800);
+
+            setTimeout(() => {
+              console.error(error);
+              showError(
+                [
+                  {
+                    text: `> Network/API Exception Detected.`,
+                    color: "var(--red)",
+                  },
+                  { text: `> Detail: ${error.message}`, color: "var(--amber)" },
+                  { text: ``, color: "" },
+                  {
+                    text: `// The backend sync server might be asleep or unreachable.`,
+                    color: "var(--text-muted)",
+                  },
+                  {
+                    text: `// Please try again in a few moments.`,
+                    color: "var(--text-muted)",
+                  },
+                ],
+                "SYSTEM_SYNC_ERROR",
+              );
+            }, 800);
+          }
+
+          function resetFormFields() {
+            execLog.style.display = "none";
+            fieldsets.forEach((f) => (f.style.display = "block"));
+            registerBtn.style.display = "inline-block";
+          }
+        });
+      });
     </script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
-</body>
+  </body>
 </html>
