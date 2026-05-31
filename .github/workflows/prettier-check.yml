@@ -1,4 +1,4 @@
-name: Auto-Format Code
+name: Prettier Check
 
 on:
   pull_request:
