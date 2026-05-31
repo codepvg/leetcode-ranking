@@ -1,321 +1,387 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>leaderboard — CodePVG</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <canvas id="matrix-canvas"></canvas>
 
     <main class="page">
-        <div class="container">
-            <h1 class="page-title">Leaderboard</h1>
-            <div id="last-synced-indicator"
-                style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--text-dim); margin-top: -5px; margin-bottom: 0.3rem;">
-                <span style="color: var(--text-muted);">[SYS_STATUS]:</span> LAST SYNC <span id="sync-time"
-                    style="color: var(--cyan); text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);">__AWAITING_UPLINK__</span>
-            </div>
-            <div id="next-sync-indicator"
-                style="text-align: center; font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--text-dim); margin-bottom: 1.5rem;">
-                <span style="color: var(--text-muted);">[NEXT_SYNC]:</span> <span id="next-sync-time"
-                    style="color: var(--green); text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);">__PENDING__</span>
-            </div>
-
-            <div class="tabs">
-                <button class="tab active" data-tab="overall">Overall</button>
-                <button class="tab" data-tab="monthly">Monthly</button>
-                <button class="tab" data-tab="weekly">Weekly</button>
-                <button class="tab" data-tab="daily">Daily</button>
-            </div>
-
-
-
-           <div class="search-container">
-                <div class="search-bar">
-                    <span class="search-prefix">$ grep -i</span>
-                    <input
-                        type="text"
-                        id="leaderboard-search"
-                        class="search-input"
-                        placeholder="pattern"
-                        autocomplete="off"
-                        spellcheck="false"
-                    >
-                    <span class="search-result-count" id="search-result-count"></span>
-                    <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
-                </div>
-            </div>
-
-            <div class="leaderboard">
-                <div class="leaderboard-header">
-                    <div>Rank</div>
-                    <div>Name</div>
-                    <div>LeetCode ID</div>
-                    <div class="easy">Easy</div>
-                    <div class="medium">Medium</div>
-                    <div class="hard">Hard</div>
-                    <div class="score-header">
-                        Score
-                        <div class="tooltip-container">
-                            <span class="tooltip-icon">?</span>
-                            <div class="tooltip-content">
-                                <strong>Score Calculation:</strong><br>
-                                Easy = 1 point<br>
-                                Medium = 3 points<br>
-                                Hard = 5 points<br>
-                                <a href="about.html">More details</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="leaderboard-body">
-
-                </div>
-            </div>
-
-            <div class="mobile-cards" id="mobile-cards">
-
-            </div>
-
-            <div id="pagination-controls"
-                style="text-align: center; margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <button id="load-more-btn" class="btn btn-secondary" onclick="loadMoreNodes()"
-                    style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
-                    ./fetch_more_nodes
-                </button>
-                <button id="scroll-top-btn" class="btn btn-primary"
-                    onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-                    style="font-family: 'Space Mono', monospace; font-size: 0.9rem; white-space: nowrap; display: none;">
-                    ^ scroll_to_top
-                </button>
-            </div>
+      <div class="container">
+        <h1 class="page-title">Leaderboard</h1>
+        <div
+          id="last-synced-indicator"
+          style="
+            text-align: center;
+            font-family: &quot;Fira Code&quot;, monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: -5px;
+            margin-bottom: 0.3rem;
+          "
+        >
+          <span style="color: var(--text-muted)">[SYS_STATUS]:</span> LAST SYNC
+          <span
+            id="sync-time"
+            style="
+              color: var(--cyan);
+              text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+            "
+            >__AWAITING_UPLINK__</span
+          >
         </div>
+        <div
+          id="next-sync-indicator"
+          style="
+            text-align: center;
+            font-family: &quot;Fira Code&quot;, monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+          "
+        >
+          <span style="color: var(--text-muted)">[NEXT_SYNC]:</span>
+          <span
+            id="next-sync-time"
+            style="
+              color: var(--green);
+              text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);
+            "
+            >__PENDING__</span
+          >
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="overall">Overall</button>
+          <button class="tab" data-tab="monthly">Monthly</button>
+          <button class="tab" data-tab="weekly">Weekly</button>
+          <button class="tab" data-tab="daily">Daily</button>
+        </div>
+
+        <div class="search-container">
+          <div class="search-bar">
+            <span class="search-prefix">$ grep -i</span>
+            <input
+              type="text"
+              id="leaderboard-search"
+              class="search-input"
+              placeholder="pattern"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <span class="search-result-count" id="search-result-count"></span>
+            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+          </div>
+        </div>
+
+        <div class="leaderboard">
+          <div class="leaderboard-header">
+            <div>Rank</div>
+            <div>Name</div>
+            <div>LeetCode ID</div>
+            <div class="easy">Easy</div>
+            <div class="medium">Medium</div>
+            <div class="hard">Hard</div>
+            <div class="score-header">
+              Score
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <div class="tooltip-content">
+                  <strong>Score Calculation:</strong><br />
+                  Easy = 1 point<br />
+                  Medium = 3 points<br />
+                  Hard = 5 points<br />
+                  <a href="about.html">More details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="leaderboard-body"></div>
+        </div>
+
+        <div class="mobile-cards" id="mobile-cards"></div>
+
+        <div
+          id="pagination-controls"
+          style="
+            text-align: center;
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+          "
+        >
+          <button
+            id="load-more-btn"
+            class="btn btn-secondary"
+            onclick="loadMoreNodes()"
+            style="
+              font-family: &quot;Space Mono&quot;, monospace;
+              font-size: 0.9rem;
+              white-space: nowrap;
+              display: none;
+            "
+          >
+            ./fetch_more_nodes
+          </button>
+          <button
+            id="scroll-top-btn"
+            class="btn btn-primary"
+            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            style="
+              font-family: &quot;Space Mono&quot;, monospace;
+              font-size: 0.9rem;
+              white-space: nowrap;
+              display: none;
+            "
+          >
+            ^ scroll_to_top
+          </button>
+        </div>
+      </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    setActiveTab(tab.dataset.tab);
-                });
-            });
-
-            const searchInput = document.getElementById('leaderboard-search');
-            const shortcutBadge = document.getElementById('search-shortcut');
-
-            searchInput.addEventListener('input', (e) => {
-                currentSearchTerm = e.target.value.toLowerCase().trim();
-                applyFiltersAndRender();
-            });
-
-            searchInput.addEventListener('focus', () => {
-                shortcutBadge.style.opacity = '0';
-            });
-
-            searchInput.addEventListener('blur', () => {
-                if (!searchInput.value) {
-                    shortcutBadge.style.opacity = '1';
-                }
-            });
-
-            // Ctrl+K / Cmd+K keyboard shortcut
-            document.addEventListener('keydown', (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                    e.preventDefault();
-                    searchInput.focus();
-                }
-                if (e.key === 'Escape' && document.activeElement === searchInput) {
-                    searchInput.value = '';
-                    currentSearchTerm = '';
-                    searchInput.blur();
-                    applyFiltersAndRender();
-                }
-            });
-
-            fetchLeaderboardData();
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            setActiveTab(tab.dataset.tab);
+          });
         });
 
-        const leaderboardData = {};
-        let currentDisplayLimit = 0;
-        let activeDatasetType = 'overall';
-        let fetchMoreClicks = 0;
-        let currentSearchTerm = '';
+        const searchInput = document.getElementById("leaderboard-search");
+        const shortcutBadge = document.getElementById("search-shortcut");
 
-        function getInitialLimit() {
-            return window.innerWidth <= 768 ? 12 : 25;
-        }
+        searchInput.addEventListener("input", (e) => {
+          currentSearchTerm = e.target.value.toLowerCase().trim();
+          applyFiltersAndRender();
+        });
 
-        function loadMoreNodes() {
-            const data = leaderboardData[activeDatasetType];
-            const isMobile = window.innerWidth <= 768;
-            const maxClicks = isMobile ? 3 : 2;
+        searchInput.addEventListener("focus", () => {
+          shortcutBadge.style.opacity = "0";
+        });
 
-            fetchMoreClicks++;
+        searchInput.addEventListener("blur", () => {
+          if (!searchInput.value) {
+            shortcutBadge.style.opacity = "1";
+          }
+        });
 
-            if (fetchMoreClicks >= maxClicks) {
-                currentDisplayLimit = data.length;
-            } else {
-                currentDisplayLimit += getInitialLimit();
-            }
-
-            renderLeaderboard(data);
-        }
-
-        async function fetchLeaderboardData() {
-            const endpoints = ['overall', 'monthly', 'weekly', 'daily'];
-            const cacheBuster = Date.now();
-            for (const type of endpoints) {
-                // Fetch directly from github to avoid needing a server redeploy for new data
-                try {
-                    const response = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`);
-                    if (response.ok) {
-                        leaderboardData[type] = await response.json();
-                    }
-                } catch (e) {
-                    console.error("Failed to fetch", type);
-                }
-            }
-
-            try {
-                // Fetch directly from github to avoid needing a server redeploy for new data
-                const syncRes = await fetch(`https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`);
-                if (syncRes.ok) {
-                    const syncData = await syncRes.json();
-                    const options = {
-                        month: 'short', day: '2-digit',
-                        hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
-                    };
-
-                    const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
-                    const formatted = date.toLocaleString('en-US', options).toUpperCase();
-                    document.getElementById('sync-time').innerText = formatted;
-
-                    if (syncData.nextSync) {
-                        const nextDate = new Date(syncData.nextSync);
-                        const now = new Date();
-                        if (nextDate > now) {
-                            const diffMs = nextDate - now;
-                            const diffMin = Math.ceil(diffMs / 60000);
-                            document.getElementById('next-sync-time').innerText = `~${diffMin} MIN`;
-                        } else {
-                            document.getElementById('next-sync-time').innerText = 'IMMINENT';
-                        }
-                    } else {
-                        document.getElementById('next-sync-time').innerText = '~5 MIN';
-                    }
-                } else {
-                    document.getElementById('sync-time').innerText = "SYNC_FAILED";
-                    document.getElementById('sync-time').style.color = "var(--red)";
-                    document.getElementById('next-sync-time').innerText = "UNKNOWN";
-                }
-            } catch (e) {
-                console.error("Failed to fetch sync time", e);
-                document.getElementById('sync-time').innerText = "OFFLINE";
-                document.getElementById('sync-time').style.color = "var(--red)";
-                document.getElementById('next-sync-time').innerText = "OFFLINE";
-                document.getElementById('next-sync-time').style.color = "var(--red)";
-            }
-
+        // Ctrl+K / Cmd+K keyboard shortcut
+        document.addEventListener("keydown", (e) => {
+          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+            e.preventDefault();
+            searchInput.focus();
+          }
+          if (e.key === "Escape" && document.activeElement === searchInput) {
+            searchInput.value = "";
+            currentSearchTerm = "";
+            searchInput.blur();
             applyFiltersAndRender();
+          }
+        });
+
+        fetchLeaderboardData();
+      });
+
+      const leaderboardData = {};
+      let currentDisplayLimit = 0;
+      let activeDatasetType = "overall";
+      let fetchMoreClicks = 0;
+      let currentSearchTerm = "";
+
+      function getInitialLimit() {
+        return window.innerWidth <= 768 ? 12 : 25;
+      }
+
+      function loadMoreNodes() {
+        const data = leaderboardData[activeDatasetType];
+        const isMobile = window.innerWidth <= 768;
+        const maxClicks = isMobile ? 3 : 2;
+
+        fetchMoreClicks++;
+
+        if (fetchMoreClicks >= maxClicks) {
+          currentDisplayLimit = data.length;
+        } else {
+          currentDisplayLimit += getInitialLimit();
         }
 
-        function applyFiltersAndRender() {
-            if (currentDisplayLimit === 0) {
-                currentDisplayLimit = getInitialLimit();
+        renderLeaderboard(data);
+      }
+
+      async function fetchLeaderboardData() {
+        const endpoints = ["overall", "monthly", "weekly", "daily"];
+        const cacheBuster = Date.now();
+        for (const type of endpoints) {
+          // Fetch directly from github to avoid needing a server redeploy for new data
+          try {
+            const response = await fetch(
+              `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
+            );
+            if (response.ok) {
+              leaderboardData[type] = await response.json();
             }
-            if (!leaderboardData[activeDatasetType]) return;
+          } catch (e) {
+            console.error("Failed to fetch", type);
+          }
+        }
 
-            const originalData = leaderboardData[activeDatasetType];
+        try {
+          // Fetch directly from github to avoid needing a server redeploy for new data
+          const syncRes = await fetch(
+            `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
+          );
+          if (syncRes.ok) {
+            const syncData = await syncRes.json();
+            const options = {
+              month: "short",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              timeZoneName: "short",
+            };
 
-            const rankedData = originalData.map((user, index) => ({
-                ...user,
-                originalRank: index + 1
-            }));
+            const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
+            const formatted = date
+              .toLocaleString("en-US", options)
+              .toUpperCase();
+            document.getElementById("sync-time").innerText = formatted;
 
-            const filteredData = rankedData.filter(user => {
-                if (!currentSearchTerm) return true;
-                return (
-                    user.name.toLowerCase().includes(currentSearchTerm) ||
-                    user.id.toLowerCase().includes(currentSearchTerm)
-                );
-            });
-
-            // Update result count
-            const countEl = document.getElementById('search-result-count');
-            if (currentSearchTerm) {
-                const total = originalData.length;
-                const matched = filteredData.length;
-                countEl.textContent = `${matched}/${total}`;
-                countEl.style.opacity = '1';
+            if (syncData.nextSync) {
+              const nextDate = new Date(syncData.nextSync);
+              const now = new Date();
+              if (nextDate > now) {
+                const diffMs = nextDate - now;
+                const diffMin = Math.ceil(diffMs / 60000);
+                document.getElementById("next-sync-time").innerText =
+                  `~${diffMin} MIN`;
+              } else {
+                document.getElementById("next-sync-time").innerText =
+                  "IMMINENT";
+              }
             } else {
-                countEl.textContent = '';
-                countEl.style.opacity = '0';
+              document.getElementById("next-sync-time").innerText = "~5 MIN";
             }
-
-            renderLeaderboard(filteredData);
+          } else {
+            document.getElementById("sync-time").innerText = "SYNC_FAILED";
+            document.getElementById("sync-time").style.color = "var(--red)";
+            document.getElementById("next-sync-time").innerText = "UNKNOWN";
+          }
+        } catch (e) {
+          console.error("Failed to fetch sync time", e);
+          document.getElementById("sync-time").innerText = "OFFLINE";
+          document.getElementById("sync-time").style.color = "var(--red)";
+          document.getElementById("next-sync-time").innerText = "OFFLINE";
+          document.getElementById("next-sync-time").style.color = "var(--red)";
         }
 
-        function getRankTag(rank) {
-            switch (rank) {
-                case 1: return '<span class="privilege-tag root-tag">[ROOT]</span>';
-                case 2: return '<span class="privilege-tag sudo-tag">[SUDO]</span>';
-                case 3: return '<span class="privilege-tag exec-tag">[EXEC]</span>';
-                default: return '';
-            }
+        applyFiltersAndRender();
+      }
+
+      function applyFiltersAndRender() {
+        if (currentDisplayLimit === 0) {
+          currentDisplayLimit = getInitialLimit();
+        }
+        if (!leaderboardData[activeDatasetType]) return;
+
+        const originalData = leaderboardData[activeDatasetType];
+
+        const rankedData = originalData.map((user, index) => ({
+          ...user,
+          originalRank: index + 1,
+        }));
+
+        const filteredData = rankedData.filter((user) => {
+          if (!currentSearchTerm) return true;
+          return (
+            user.name.toLowerCase().includes(currentSearchTerm) ||
+            user.id.toLowerCase().includes(currentSearchTerm)
+          );
+        });
+
+        // Update result count
+        const countEl = document.getElementById("search-result-count");
+        if (currentSearchTerm) {
+          const total = originalData.length;
+          const matched = filteredData.length;
+          countEl.textContent = `${matched}/${total}`;
+          countEl.style.opacity = "1";
+        } else {
+          countEl.textContent = "";
+          countEl.style.opacity = "0";
         }
 
-        function renderLeaderboard(data) {
-            const body = document.getElementById('leaderboard-body');
-            const mobileCards = document.getElementById('mobile-cards');
+        renderLeaderboard(filteredData);
+      }
 
-            body.innerHTML = '';
-            mobileCards.innerHTML = '';
+      function getRankTag(rank) {
+        switch (rank) {
+          case 1:
+            return '<span class="privilege-tag root-tag">[ROOT]</span>';
+          case 2:
+            return '<span class="privilege-tag sudo-tag">[SUDO]</span>';
+          case 3:
+            return '<span class="privilege-tag exec-tag">[EXEC]</span>';
+          default:
+            return "";
+        }
+      }
 
-            const isSearching = currentSearchTerm.length > 0;
+      function renderLeaderboard(data) {
+        const body = document.getElementById("leaderboard-body");
+        const mobileCards = document.getElementById("mobile-cards");
 
-            const displayData = isSearching
-                ? data
-                : data.slice(0, currentDisplayLimit);
+        body.innerHTML = "";
+        mobileCards.innerHTML = "";
 
-                if (displayData.length === 0) {
-                    body.innerHTML = `
+        const isSearching = currentSearchTerm.length > 0;
+
+        const displayData = isSearching
+          ? data
+          : data.slice(0, currentDisplayLimit);
+
+        if (displayData.length === 0) {
+          body.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
 
-                    mobileCards.innerHTML = `
+          mobileCards.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
 
-                    document.getElementById('load-more-btn').style.display = 'none';
-                    document.getElementById('scroll-top-btn').style.display = 'none';
+          document.getElementById("load-more-btn").style.display = "none";
+          document.getElementById("scroll-top-btn").style.display = "none";
 
-                    return;
-                }
+          return;
+        }
 
-            displayData.forEach((user, index) => {
-                const rank = user.originalRank || index + 1;
-                const tag = getRankTag(rank);
-                const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
+        displayData.forEach((user, index) => {
+          const rank = user.originalRank || index + 1;
+          const tag = getRankTag(rank);
+          const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
 
-                const row = document.createElement('div');
-                row.className = 'leaderboard-row';
-                row.innerHTML = `
+          const row = document.createElement("div");
+          row.className = "leaderboard-row";
+          row.innerHTML = `
                     <div class="rank">${rank}</div>
                     <div class="name-cell">${tag}${user.name}</div>
                     <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
@@ -324,11 +390,11 @@
                     <div class="hard">${user.data.hardSolved}</div>
                     <div class="score">${user.score}</div>
                 `;
-                body.appendChild(row);
+          body.appendChild(row);
 
-                const card = document.createElement('div');
-                card.className = 'mobile-card';
-                card.innerHTML = `
+          const card = document.createElement("div");
+          card.className = "mobile-card";
+          card.innerHTML = `
                     <div class="mobile-card-header">
                         <div class="mobile-rank">#${rank}</div>
                         <div class="mobile-score">${user.score}</div>
@@ -350,49 +416,52 @@
                         </div>
                     </div>
                 `;
-                mobileCards.appendChild(card);
-            });
+          mobileCards.appendChild(card);
+        });
 
-            if (!isSearching && data.length > currentDisplayLimit) {
-                document.getElementById('load-more-btn').style.display = 'inline-block';
-                document.getElementById('scroll-top-btn').style.display = 'none';
+        if (!isSearching && data.length > currentDisplayLimit) {
+          document.getElementById("load-more-btn").style.display =
+            "inline-block";
+          document.getElementById("scroll-top-btn").style.display = "none";
 
-                const isMobile = window.innerWidth <= 768;
-                const textTransitionClick = isMobile ? 2 : 1;
+          const isMobile = window.innerWidth <= 768;
+          const textTransitionClick = isMobile ? 2 : 1;
 
-                if (fetchMoreClicks >= textTransitionClick) {
-                    document.getElementById('load-more-btn').innerHTML = './fetch_all_nodes';
-                } else {
-                    document.getElementById('load-more-btn').innerHTML = './fetch_more_nodes';
-                }
-            } else {
-                document.getElementById('load-more-btn').style.display = 'none';
-                document.getElementById('scroll-top-btn').style.display = isSearching ? 'none' : 'inline-block';
-            }
+          if (fetchMoreClicks >= textTransitionClick) {
+            document.getElementById("load-more-btn").innerHTML =
+              "./fetch_all_nodes";
+          } else {
+            document.getElementById("load-more-btn").innerHTML =
+              "./fetch_more_nodes";
+          }
+        } else {
+          document.getElementById("load-more-btn").style.display = "none";
+          document.getElementById("scroll-top-btn").style.display = isSearching
+            ? "none"
+            : "inline-block";
+        }
+      }
+
+      function setActiveTab(activeTab) {
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+          if (tab.dataset.tab === activeTab) {
+            tab.classList.add("active");
+          }
+        });
+
+        if (!leaderboardData[activeTab]) {
+          return;
         }
 
-        function setActiveTab(activeTab) {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-                if (tab.dataset.tab === activeTab) {
-                    tab.classList.add('active');
-                }
-            });
-
-            if (!leaderboardData[activeTab]) {
-                return;
-            }
-
-            activeDatasetType = activeTab;
-            currentDisplayLimit = getInitialLimit();
-            fetchMoreClicks = 0;
-            applyFiltersAndRender();
-        }
-
+        activeDatasetType = activeTab;
+        currentDisplayLimit = getInitialLimit();
+        fetchMoreClicks = 0;
+        applyFiltersAndRender();
+      }
     </script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
-</body>
-
+  </body>
 </html>

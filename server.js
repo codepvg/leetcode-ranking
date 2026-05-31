@@ -28,7 +28,6 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-
 app.use((req, res) => {
   res.status(404).send("Page not found");
 });

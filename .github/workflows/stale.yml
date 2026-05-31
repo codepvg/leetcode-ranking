@@ -1,0 +1,22 @@
+name: Mark stale issues and PRs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: 'This issue has been inactive for 14 days and has been marked as stale. To keep this issue open, please leave a comment.'
+          stale-pr-message: 'This PR has been inactive for 14 days and has been marked as stale. If you are still working on it, please leave a comment.'
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          days-before-stale: 14
+          days-before-close: 5
