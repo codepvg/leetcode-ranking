@@ -191,7 +191,7 @@
         const target = document.getElementById("welcome-message");
         const lines = [
           {
-            text: `> User record authenticated: ${name}`,
+            text: "> User record authenticated: ",
             color: "var(--green-dim)",
           },
           { text: `> Status: RANK_SYNC_PENDING`, color: "var(--amber)" },
@@ -215,7 +215,13 @@
           const div = document.createElement("div");
 
           if (lineData.text.includes("authenticated")) {
-            div.innerHTML = `> User record authenticated: <span style="color: var(--green)">${name}</span>`;
+            div.appendChild(
+              document.createTextNode("> User record authenticated: "),
+            );
+            const span = document.createElement("span");
+            span.style.color = "var(--green)";
+            span.textContent = name;
+            div.appendChild(span);
           } else {
             div.innerText = lineData.text;
             if (lineData.color) div.style.color = lineData.color;
