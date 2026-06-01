@@ -10,9 +10,9 @@ It allows users to register with their LeetCode username and automatically fetch
 
 The goal of this project is to:
 
-- Encourage consistent problem-solving among students  
-- Create a competitive yet motivating environment  
-- Provide visibility into individual coding progress  
+- Encourage consistent problem-solving among students
+- Create a competitive yet motivating environment
+- Provide visibility into individual coding progress
 
 ---
 
@@ -46,6 +46,7 @@ leetcode-ranking/
 ### 1. Fork and clone the repository
 
 First, fork the repository to your GitHub account. Then clone it locally:
+
 ```bash
 git clone https://github.com/YOUR-USERNAME/leetcode-ranking.git
 cd leetcode-ranking
@@ -63,9 +64,9 @@ or
 
 ## Usage
 
-1. Open the registration page  
-2. Enter your name and LeetCode username  
-3. Submit the form  
+1. Open the registration page
+2. Enter your name and LeetCode username
+3. Submit the form
 4. View your ranking on the leaderboard after the next sync
 
 ---
@@ -74,7 +75,7 @@ or
 
 Contributions are welcome.
 
-- Fork the repository  
-- Create a new branch  
-- Make your changes  
-- Submit a Pull Request  
+- Fork the repository
+- Create a new branch
+- Make your changes
+- Submit a Pull Request

@@ -37,11 +37,10 @@ app.get("/api/student/:username", async (req, res) => {
 
     // 1. Get list of all daily files from GitHub repo
     const apiURL =
-  "https://api.github.com/repos/codepvg/leetcode-ranking-data/contents/daily?ref=main";
+      "https://api.github.com/repos/codepvg/leetcode-ranking-data/contents/daily?ref=main";
 
     const response = await fetch(apiURL);
     const files = await response.json();
-
 
     if (!Array.isArray(files)) {
       return res.status(500).json({
