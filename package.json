@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./server.js"
+  "start": "node index.js",
+  "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
