@@ -1,0 +1,72 @@
+name: Format Command
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  format:
+    name: 'Format code via comment'
+    runs-on: ubuntu-latest
+    # Only run if it's a PR and the comment contains /format
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/format')
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: React to comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: '+1'
+            })
+
+      - name: Get PR details
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            return pr;
+
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ fromJSON(steps.pr.outputs.result).head.repo.full_name }}
+          ref: ${{ fromJSON(steps.pr.outputs.result).head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Prettier
+        run: npx prettier --write "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: auto-format code with Prettier (/format)"
+          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+
+      - name: Post completion comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'I have successfully run Prettier and pushed the formatting fixes to this PR.\n\n **Note for Contributors:** Because this commit was pushed by a bot, GitHub will not automatically re-run the CI checks. To trigger them to pass, you must either:\n- Push an empty commit locally (`git commit --allow-empty -m "Trigger builds"` and push)\n- Close and immediately reopen this Pull Request.'
+            })

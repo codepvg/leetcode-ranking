@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
   </head>
+
   <body>
     <canvas id="matrix-canvas"></canvas>
 
@@ -30,7 +31,7 @@
             your peers!
           </p>
 
-          <form id="registrationForm">
+          <form id="registrationForm" novalidate>
             <div class="form-group">
               <label for="name" class="form-label">Full Name</label>
               <input
@@ -41,6 +42,7 @@
                 placeholder="Enter your full name"
                 required
               />
+              <span class="error-msg" id="name-error"></span>
             </div>
 
             <div class="form-group">
@@ -58,6 +60,7 @@
               <small class="form-help">
                 This should match your username on leetcode.com/u/username
               </small>
+              <span class="error-msg" id="username-error"></span>
             </div>
 
             <div style="text-align: center">
@@ -191,7 +194,7 @@
         const target = document.getElementById("welcome-message");
         const lines = [
           {
-            text: `> User record authenticated: ${name}`,
+            text: "> User record authenticated: ",
             color: "var(--green-dim)",
           },
           { text: `> Status: RANK_SYNC_PENDING`, color: "var(--amber)" },
@@ -215,7 +218,13 @@
           const div = document.createElement("div");
 
           if (lineData.text.includes("authenticated")) {
-            div.innerHTML = `> User record authenticated: <span style="color: var(--green)">${name}</span>`;
+            div.appendChild(
+              document.createTextNode("> User record authenticated: "),
+            );
+            const span = document.createElement("span");
+            span.style.color = "var(--green)";
+            span.textContent = name;
+            div.appendChild(span);
           } else {
             div.innerText = lineData.text;
             if (lineData.color) div.style.color = lineData.color;
@@ -357,6 +366,43 @@
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+          const nameVal = document.getElementById("name").value.trim();
+          const leetcodeVal = document
+            .getElementById("leetcodeId")
+            .value.trim();
+
+          // First, clear any previous error states
+          const nameInput = document.getElementById("name");
+          const leetcodeInput = document.getElementById("leetcodeId");
+
+          const nameTarget =
+            nameInput.closest(".form-input-bash-wrapper") || nameInput;
+          const leetcodeTarget =
+            leetcodeInput.closest(".form-input-bash-wrapper") || leetcodeInput;
+
+          const nameError = document.getElementById("name-error");
+          const leetcodeError = document.getElementById("username-error");
+
+          nameTarget.classList.remove("input-error");
+          leetcodeTarget.classList.remove("input-error");
+          nameError.textContent = "";
+          leetcodeError.textContent = "";
+
+          // Force DOM reflow to restart shake animation
+          void nameTarget.offsetWidth;
+          void leetcodeTarget.offsetWidth;
+
+          if (!nameVal) {
+            nameError.textContent = "$ Error: Full name is required_";
+            nameTarget.classList.add("input-error");
+          }
+          if (!leetcodeVal) {
+            leetcodeError.textContent =
+              "$ Error: LeetCode username is required_";
+            leetcodeTarget.classList.add("input-error");
+          }
+
+          if (!nameVal || !leetcodeVal) return;
 
           // Hide form fields and show execution log
           const fieldsets = form.querySelectorAll(".form-group");
