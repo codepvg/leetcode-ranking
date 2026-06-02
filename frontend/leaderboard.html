@@ -227,19 +227,25 @@
       async function fetchLeaderboardData() {
         const endpoints = ["overall", "monthly", "weekly", "daily"];
         const cacheBuster = Date.now();
-        for (const type of endpoints) {
-          // Fetch directly from github to avoid needing a server redeploy for new data
-          try {
-            const response = await fetch(
+        // Fetch directly from github to avoid needing a server redeploy for new data
+        const results = await Promise.allSettled(
+          endpoints.map((type) =>
+            fetch(
               `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            );
-            if (response.ok) {
-              leaderboardData[type] = await response.json();
-            }
-          } catch (e) {
-            console.error("Failed to fetch", type);
+            ).then((res) => {
+              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+              return res.json();
+            }),
+          ),
+        );
+
+        results.forEach((result, index) => {
+          if (result.status === "fulfilled") {
+            leaderboardData[endpoints[index]] = result.value;
+          } else {
+            console.error("Failed to fetch", endpoints[index], result.reason);
           }
-        }
+        });
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
