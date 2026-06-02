@@ -127,11 +127,6 @@
             flex-wrap: wrap;
           "
         >
-          <select id="items-per-page">
-            <option value="10">10 rows</option>
-            <option value="25" selected>25 rows</option>
-            <option value="50">50 rows</option>
-          </select>
 
           <button id="prev-page-btn">Previous</button>
 
@@ -203,13 +198,6 @@
             }
           });
 
-        document
-          .getElementById("items-per-page")
-          ?.addEventListener("change", (e) => {
-            itemsPerPage = parseInt(e.target.value);
-            currentPage = 1;
-            applyFiltersAndRender();
-          });
         fetchLeaderboardData();
       });
 
