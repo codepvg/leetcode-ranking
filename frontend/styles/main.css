@@ -2182,6 +2182,9 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   gap: 6px;
+  color: #FFFFFF;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
 
 .score-tooltip {
