@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+# CodePVG Code of Conduct
 
 ## Our Pledge
 
