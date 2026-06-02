@@ -974,6 +974,7 @@ body::after {
 
 .score-header {
   color: #FFFFFF;
+  font-weight: 700;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
 
@@ -2113,8 +2114,8 @@ body::-webkit-scrollbar-thumb {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.65rem;
   font-weight: bold;
   line-height: 1;
