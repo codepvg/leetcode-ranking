@@ -2314,27 +2314,55 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.85rem;
 }
 
-/* Pagination Styling */
+/* ── Terminal Cyberpunk Pagination ── */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+}
+
+.page > .container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
 #pagination-controls {
-  margin-top: 2rem;
+  margin-top: auto !important;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-#pagination-controls button,
-#pagination-controls select {
-  background: var(--bg-surface);
-  color: var(--green);
-  border: 1px solid var(--border-bright);
-  padding: 0.5rem 0.8rem;
+.page-nav-btn {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px dashed transparent;
+  padding: 0.4rem 0.8rem;
   font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-#pagination-controls button:hover,
-#pagination-controls select:hover {
-  border-color: var(--green);
-  box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+.page-nav-btn:hover:not(:disabled) {
+  border-color: var(--cyan);
+  background: rgba(0, 229, 255, 0.05);
+  box-shadow:
+    0 0 10px rgba(0, 229, 255, 0.2),
+    inset 0 0 10px rgba(0, 229, 255, 0.1);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+.page-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  color: var(--text-muted);
 }
 
 #page-numbers {
@@ -2343,25 +2371,62 @@ body::-webkit-scrollbar-thumb {
 }
 
 #page-numbers button {
-  min-width: 32px;
-  height: 32px;
-  background: var(--bg-surface);
-  color: var(--green);
-  border: 1px solid var(--border-bright);
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  padding: 0.3rem 0;
+  min-width: 40px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.85rem;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-#page-numbers button:hover {
-  border-color: var(--green);
+.page-ellipsis {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: "Fira Code", monospace;
+  min-width: 20px;
+  padding-bottom: 0.5rem;
+  letter-spacing: 2px;
+  user-select: none;
+}
+
+#page-numbers button::before {
+  content: "[";
+  margin-right: 4px;
+  opacity: 0.4;
+}
+
+#page-numbers button::after {
+  content: "]";
+  margin-left: 4px;
+  opacity: 0.4;
+}
+
+#page-numbers button:hover:not(.active-page) {
+  color: var(--cyan);
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.4);
+}
+
+#page-numbers button:hover:not(.active-page)::before,
+#page-numbers button:hover:not(.active-page)::after {
+  opacity: 0.8;
+  color: var(--cyan);
 }
 
 .active-page {
-  background: var(--green) !important;
-  color: black !important;
-  font-weight: bold;
+  background: var(--cyan) !important;
+  color: #000 !important;
+  font-weight: 700;
+  border-color: var(--cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+  text-shadow: none !important;
 }
 
-#pagination-controls button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.active-page::before,
+.active-page::after {
+  display: none;
 }
