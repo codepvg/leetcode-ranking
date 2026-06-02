@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <ul class="nav-links">
         <li><a href="/" class="${currentPath === "/" || currentPath.includes("index.html") ? "active" : ""}">home</a></li>
         <li><a href="/leaderboard" class="${currentPath.includes("leaderboard") ? "active" : ""}">leaderboard</a></li>
-        <li><a href="/registration" class="${currentPath.includes("registration") ? "active" : ""}">register</a></li>
         <li><a href="/about" class="${currentPath.includes("about") ? "active" : ""}">about</a></li>
+        <li><a href="/registration" class="${currentPath.includes("registration") ? "active" : ""}">register</a></li>
         <li><a href="https://github.com/codepvg/" target="_blank" class="github-link">github</a></li>
       </ul>
     </div>

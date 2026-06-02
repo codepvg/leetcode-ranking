@@ -392,7 +392,15 @@
           row.innerHTML = `
                     <div class="rank">${rank}</div>
                     <div class="name-cell">${tag}${user.name}</div>
-                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                        </svg></a></div>
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
@@ -446,7 +454,15 @@
 
                     
                     <div class="mobile-name">${tag}${user.name}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                    </svg></a></div>
                     <div class="mobile-stats">
                         <div class="mobile-stat">
                             <div class="mobile-stat-number easy">${user.data.easySolved}</div>
