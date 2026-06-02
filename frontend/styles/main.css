@@ -348,7 +348,7 @@ body::after {
 .navbar .nav-links a:hover {
   color: var(--green);
   background: var(--green-muted);
-  text-shadow: 0 0 8px rgba(0,255,65,.4);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
 }
 
 .navbar .nav-links a.active {
@@ -358,7 +358,7 @@ body::after {
 }
 
 .navbar .nav-links .github-link::before {
-  content: '$ ';
+  content: "$ ";
 }
 
 .mobile-menu-btn {
@@ -961,19 +961,25 @@ body::after {
   opacity: 1;
 }
 
-.easy   { color: #1cbaba; }
-.medium { color: #ffb700; }
-.hard   { color: #f63737; }
+.easy {
+  color: #1cbaba;
+}
+.medium {
+  color: #ffb700;
+}
+.hard {
+  color: #f63737;
+}
 
 .score {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
 
 .score-header {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
@@ -2183,7 +2189,7 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
