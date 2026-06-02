@@ -2313,3 +2313,55 @@ body::-webkit-scrollbar-thumb {
   font-family: "Fira Code", monospace;
   font-size: 0.85rem;
 }
+
+/* Pagination Styling */
+
+#pagination-controls {
+  margin-top: 2rem;
+  align-items: center;
+}
+
+#pagination-controls button,
+#pagination-controls select {
+  background: var(--bg-surface);
+  color: var(--green);
+  border: 1px solid var(--border-bright);
+  padding: 0.5rem 0.8rem;
+  font-family: "Fira Code", monospace;
+  cursor: pointer;
+}
+
+#pagination-controls button:hover,
+#pagination-controls select:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+#page-numbers {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#page-numbers button {
+  min-width: 32px;
+  height: 32px;
+  background: var(--bg-surface);
+  color: var(--green);
+  border: 1px solid var(--border-bright);
+  cursor: pointer;
+}
+
+#page-numbers button:hover {
+  border-color: var(--green);
+}
+
+.active-page {
+  background: var(--green) !important;
+  color: black !important;
+  font-weight: bold;
+}
+
+#pagination-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
