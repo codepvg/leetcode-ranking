@@ -2224,7 +2224,7 @@ body::-webkit-scrollbar-thumb {
 
 .score-caret {
   font-size: 0.75rem;
-  color: var(--text-dim);
+  color: rgba(255, 255, 255, 0.4);
   display: inline-block;
   transition:
     transform 0.25s ease,
