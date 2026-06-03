@@ -28,6 +28,30 @@ function getFileName(daysAgo) {
 
   return `${year}-${month}-${date}-${day}.json`;
 }
+function computeRankChanges(currentSorted, previousSortedFilepath) {
+  let previousRanks = {};
+  try {
+    const raw = fs.readFileSync(previousSortedFilepath, "utf8");
+    const previousSorted = JSON.parse(raw);
+    previousSorted.forEach((user, idx) => {
+      previousRanks[user.id] = idx + 1;
+    });
+  } catch {
+    // File doesn't exist yet (first run) — everyone gets NEW
+  }
+
+  currentSorted.forEach((user, idx) => {
+    const currentRank = idx + 1;
+    if (previousRanks[user.id] === undefined) {
+      user.rankChange = "NEW";
+    } else {
+      const delta = previousRanks[user.id] - currentRank;
+      if (delta > 0) user.rankChange = `+${delta}`;
+      else if (delta < 0) user.rankChange = `${delta}`;
+      else user.rankChange = "=";
+    }
+  });
+}
 
 (async () => {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
@@ -87,6 +111,7 @@ function getFileName(daysAgo) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
+  computeRankChanges(overallData, overallFilepath);
   try {
     fs.writeFileSync(
       overallFilepath,
@@ -144,6 +169,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
+  computeRankChanges(dailyData, dailyFilepath);
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -199,6 +225,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
+  computeRankChanges(weeklyData, weeklyFilepath);
   try {
     fs.writeFileSync(
       weeklyFilepath,
@@ -258,6 +285,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
+  computeRankChanges(monthlyData, monthlyFilepath);
   try {
     fs.writeFileSync(
       monthlyFilepath,
