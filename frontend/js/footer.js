@@ -40,14 +40,33 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <div class="footer-section">
-        <h3>socials</h3>
-        <ul>
-          <li><a href="https://github.com/codepvg/" target="_blank">github</a></li>
-          <li><a href="https://www.linkedin.com/company/codepvg/" target="_blank">linkedin</a></li>
-          <li><a href="https://www.youtube.com/@codepvg529" target="_blank">youtube</a></li>
-          <li><a href="https://chat.whatsapp.com/E5INVk1UJX6KL5oZK0wPAQ?mode=gi_t" target="_blank">whatsapp</a></li>
-        </ul>
-      </div>
+  <h3>socials</h3>
+  <ul>
+    <li>
+      <a href="https://github.com/codepvg/" target="_blank">
+        <i class="fab fa-github"></i> github
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.linkedin.com/company/codepvg/" target="_blank">
+        <i class="fab fa-linkedin"></i> linkedin
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.youtube.com/@codepvg529" target="_blank">
+        <i class="fab fa-youtube"></i> youtube
+      </a>
+    </li>
+
+    <li>
+      <a href="https://chat.whatsapp.com/E5INVk1UJX6KL5oZK0wPAQ?mode=gi_t" target="_blank">
+        <i class="fab fa-whatsapp"></i> whatsapp
+      </a>
+    </li>
+  </ul>
+</div>
 
       <div class="footer-section">
         <h3>contact</h3>
