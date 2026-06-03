@@ -31,9 +31,23 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
+const studentCache = new Map();
+
 app.get("/api/student/:username", async (req, res) => {
+  const username = req.params.username;
+
+  if (studentCache.has(username)) {
+    const cached = studentCache.get(username);
+    if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
+      return res.json(cached.data);
+    }
+  }
+
   try {
-    const data = await fetchStudentHistory(req.params.username);
+    const data = await fetchStudentHistory(username);
+
+    studentCache.set(username, { timestamp: Date.now(), data });
+
     res.json(data);
   } catch (err) {
     res.status(500).json({
