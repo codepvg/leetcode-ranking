@@ -23,5 +23,8 @@
     "axios": "^1.10.0",
     "cors": "^2.8.5",
     "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }

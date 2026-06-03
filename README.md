@@ -16,6 +16,25 @@ The goal of this project is to:
 
 ---
 
+
+
+## Screenshots
+A quick preview of the platform UI. The appearance may evolve as the project develops.
+### Home Page
+
+![Home Page](assets/home-page.png)
+
+### Registration Page
+
+![Registration](assets/registration-page.png)
+
+
+### Leaderboard
+
+![Leaderboard](assets/leaderboard.png)
+
+
+
 ## Related Repositories
 
 - [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) – The database repository where raw JSON data and historical stats are stored
