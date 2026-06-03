@@ -3,8 +3,9 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const path = require("path");
 
-const fetchStudentHistory = require("./scripts/fetch-student-history");
+const fetchStudentHistory = require("./scripts/fetch-student-info");
 
 app.use(cors());
 app.use(express.static("frontend"));
@@ -30,25 +31,24 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-/* ---------------- API: STUDENT HISTORY ---------------- */
+
 app.get("/api/student/:username", async (req, res) => {
   try {
     const data = await fetchStudentHistory(req.params.username);
     res.json(data);
   } catch (err) {
     res.status(500).json({
-      error: "Failed to fetch student history",
+      error: "Failed to fetch student details",
       details: err.message,
     });
   }
 });
 
-/* ---------------- 404 ---------------- */
 app.use((req, res) => {
   res.status(404).send("Page not found");
 });
 
-/* ---------------- START ---------------- */
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
