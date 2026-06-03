@@ -31,7 +31,6 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-
 app.get("/api/student/:username", async (req, res) => {
   try {
     const data = await fetchStudentHistory(req.params.username);
@@ -47,7 +46,6 @@ app.get("/api/student/:username", async (req, res) => {
 app.use((req, res) => {
   res.status(404).send("Page not found");
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

@@ -16,10 +16,10 @@ The goal of this project is to:
 
 ---
 
-
-
 ## Screenshots
+
 A quick preview of the platform UI. The appearance may evolve as the project develops.
+
 ### Home Page
 
 ![Home Page](assets/home-page.png)
@@ -28,12 +28,9 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ![Registration](assets/registration-page.png)
 
-
 ### Leaderboard
 
 ![Leaderboard](assets/leaderboard.png)
-
-
 
 ## Related Repositories
 
