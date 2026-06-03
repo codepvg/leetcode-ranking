@@ -1,3 +1,14 @@
+if (!document.querySelector('link[data-font-awesome]')) {
+  const iconStylesheet = document.createElement("link");
+  iconStylesheet.rel = "stylesheet";
+  iconStylesheet.href =
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css";
+  iconStylesheet.setAttribute("data-font-awesome", "true");
+
+  document.head.appendChild(iconStylesheet);
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   if (
     window.location.pathname.includes("index.html") ||
