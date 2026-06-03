@@ -1,30 +1,30 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const path = require("path");
 
 const fetchStudentHistory = require("./scripts/fetch-student-info");
 
 app.use(cors());
-app.use(express.static("frontend"));
+app.use(express.static(path.join(__dirname, "frontend")));
 
 /* ---------------- HOME ROUTES ---------------- */
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/frontend/index.html");
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 
 app.get("/leaderboard", (req, res) => {
-  res.sendFile(__dirname + "/frontend/leaderboard.html");
+  res.sendFile(path.join(__dirname, "frontend", "leaderboard.html"));
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile(__dirname + "/frontend/about.html");
+  res.sendFile(path.join(__dirname, "frontend", "about.html"));
 });
 
 app.get("/registration", (req, res) => {
-  res.sendFile(__dirname + "/frontend/registration.html");
+  res.sendFile(path.join(__dirname, "frontend", "registration.html"));
 });
 
 app.get("/uptime", (req, res) => {
