@@ -1,4 +1,4 @@
-if (!document.querySelector('link[data-font-awesome]')) {
+if (!document.querySelector("link[data-font-awesome]")) {
   const iconStylesheet = document.createElement("link");
   iconStylesheet.rel = "stylesheet";
   iconStylesheet.href =
@@ -7,7 +7,6 @@ if (!document.querySelector('link[data-font-awesome]')) {
 
   document.head.appendChild(iconStylesheet);
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   if (
