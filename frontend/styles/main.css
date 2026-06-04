@@ -2460,3 +2460,295 @@ body::-webkit-scrollbar-thumb {
 .active-page::after {
   display: none;
 }
+
+/* ==========================================================================
+   Leaderboard Comparison Feature Styles
+   ========================================================================== */
+
+/* Compare columns layout for leaderboard rows */
+.leaderboard.compare-active .leaderboard-header {
+  grid-template-columns: 50px 55px 1fr 170px 65px 65px 65px 85px;
+}
+.leaderboard.compare-active .leaderboard-row {
+  grid-template-columns: 50px 55px 1fr 170px 65px 65px 65px 85px;
+}
+
+.compare-col-header, .compare-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cyberpunk terminal checkboxes */
+.compare-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--green-dim);
+  background: var(--bg);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.compare-checkbox:checked {
+  background: var(--green-muted);
+  border-color: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+.compare-checkbox:checked::after {
+  content: "X";
+  color: var(--green);
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.compare-checkbox:focus {
+  outline: none;
+}
+
+/* Mobile comparison checkbox container */
+.mobile-compare-checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+  margin-right: 12px;
+}
+
+/* --- Floating Compare Action Bar --- */
+.compare-floating-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  width: calc(100% - 40px);
+  max-width: 500px;
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid var(--cyan);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.25), inset 0 0 15px rgba(0, 229, 255, 0.05);
+  border-radius: 4px;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.compare-floating-bar.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+.compare-info {
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: var(--cyan);
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+}
+
+.compare-btn {
+  background: var(--cyan);
+  color: #000;
+  border: 1px solid var(--cyan);
+  border-radius: 3px;
+  padding: 0.4rem 1.2rem;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.compare-btn:hover {
+  background: transparent;
+  color: var(--cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+/* --- Comparison Modal Overlay --- */
+.compare-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.compare-modal-overlay.show {
+  display: flex;
+}
+
+.compare-modal {
+  width: 100%;
+  max-width: 950px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.compare-modal-header {
+  background: var(--bg-raised);
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border-bright);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.compare-modal-title {
+  font-family: "Space Mono", monospace;
+  font-size: 1.1rem;
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.compare-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-family: "Fira Code", monospace;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px 8px;
+  transition: color 0.15s ease;
+}
+
+.compare-modal-close:hover {
+  color: var(--red);
+  text-shadow: 0 0 5px var(--red);
+}
+
+.compare-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Comparison Table style */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: 0.88rem;
+}
+
+.compare-table th, .compare-table td {
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+.compare-table th {
+  background: var(--bg-raised);
+  color: var(--green-dim);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.compare-table td:first-child {
+  font-weight: 700;
+  text-align: left;
+  background: rgba(0, 255, 65, 0.02);
+  color: var(--text-dim);
+}
+
+/* Charts container */
+.compare-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .compare-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.25rem;
+}
+
+.chart-title {
+  font-family: "Space Mono", monospace;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: var(--green-dim);
+  border-left: 3px solid var(--green);
+  padding-left: 8px;
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}
+
+/* Toggle Compare Button */
+.compare-toggle-btn {
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  border-radius: 4px;
+  padding: 0.55rem 1rem;
+  font-family: "Fira Code", monospace;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.compare-toggle-btn:hover {
+  background: var(--amber-muted);
+  box-shadow: 0 0 10px rgba(255, 176, 0, 0.2);
+}
+
+.compare-toggle-btn.active {
+  color: var(--green);
+  border-color: var(--green-dim);
+  background: var(--green-muted);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+/* Controls header container style helper */
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 420px;
+  margin: 0 auto 2rem auto;
+  gap: 12px;
+}
+
+@media (max-width: 580px) {
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+

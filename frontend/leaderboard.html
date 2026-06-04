@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/compare.js"></script>
   </head>
 
   <body>
@@ -71,25 +73,28 @@
         </div>
 
         <div class="search-container">
-          <div class="search-bar">
-            <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
-            <span class="search-result-count" id="search-result-count"></span>
-            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+          <div class="controls-row">
+            <div class="search-bar" style="margin-bottom: 0; width: 100%;">
+              <span class="search-prefix">$ grep -i</span>
+              <input
+                type="text"
+                id="leaderboard-search"
+                class="search-input"
+                placeholder="pattern"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <span class="search-result-count" id="search-result-count"></span>
+              <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+            </div>
+            <button id="compare-mode-toggle" class="compare-toggle-btn">COMPARE_MODE [OFF]</button>
           </div>
         </div>
 
         <div id="leaderboard-stats"></div>
 
         <div class="leaderboard">
-          <div class="leaderboard-header">
+          <div class="leaderboard-header" id="leaderboard-table-header">
             <div>Rank</div>
             <div>Name</div>
             <div>LeetCode ID</div>
@@ -187,6 +192,7 @@
             }
           });
 
+        initCompareMode();
         fetchLeaderboardData();
       });
 
@@ -330,6 +336,56 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
+        // Update header dynamically
+        const header = document.getElementById("leaderboard-table-header");
+        if (header) {
+          if (typeof isCompareMode !== 'undefined' && isCompareMode) {
+            header.innerHTML = `
+              <div class="compare-col-header">Select</div>
+              <div>Rank</div>
+              <div>Name</div>
+              <div>LeetCode ID</div>
+              <div class="easy">Easy</div>
+              <div class="medium">Medium</div>
+              <div class="hard">Hard</div>
+              <div class="score-header">
+                Score
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <div class="tooltip-content">
+                    <strong>Score Calculation:</strong><br />
+                    Easy = 1 point<br />
+                    Medium = 3 points<br />
+                    Hard = 5 points<br />
+                    <a href="about.html">More details</a>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else {
+            header.innerHTML = `
+              <div>Rank</div>
+              <div>Name</div>
+              <div>LeetCode ID</div>
+              <div class="easy">Easy</div>
+              <div class="medium">Medium</div>
+              <div class="hard">Hard</div>
+              <div class="score-header">
+                Score
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <div class="tooltip-content">
+                    <strong>Score Calculation:</strong><br />
+                    Easy = 1 point<br />
+                    Medium = 3 points<br />
+                    Hard = 5 points<br />
+                    <a href="about.html">More details</a>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        }
         renderLeaderboard(filteredData);
       }
       function getRankTag(rank) {
@@ -389,7 +445,14 @@
           const hardScore = user.data.hardSolved * hardPoints;
           const row = document.createElement("div");
           row.className = "leaderboard-row";
+
+          let compareCell = "";
+          if (typeof isCompareMode !== 'undefined' && isCompareMode) {
+            compareCell = `<div class="compare-cell"><input type="checkbox" class="compare-checkbox" data-username="${user.id}" ${selectedStudents.has(user.id) ? 'checked' : ''}></div>`;
+          }
+
           row.innerHTML = `
+                    ${compareCell}
                     <div class="rank">${rank}</div>
                     <div class="name-cell">${tag}${user.name}</div>
                     <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
@@ -427,59 +490,86 @@
           body.appendChild(row);
 
           const card = document.createElement("div");
-          card.className = "mobile-card";
-          card.innerHTML = `
-                    <div class="mobile-card-header">
-                        <div class="mobile-rank">#${rank}</div>
-                        <div class="mobile-score tooltip-score">
-                           <span> ${user.score}</span>
-                               <span class="score-caret"></span>
-                            <div class="score-tooltip">
-                                <div>
-                                    Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
-                                </div>
-                                <div>
-                                    Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
-                                </div>
-                                <div>
-                                    Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
-                                </div>
-                                <hr>
-                                <div>
-                                    <strong>Total: ${user.score}</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          let mobileCompareCell = "";
+          if (typeof isCompareMode !== 'undefined' && isCompareMode) {
+            mobileCompareCell = `<div class="mobile-compare-checkbox-container"><input type="checkbox" class="compare-checkbox" data-username="${user.id}" ${selectedStudents.has(user.id) ? 'checked' : ''}></div>`;
+            card.className = "mobile-card compare-mode-active";
+          } else {
+            card.className = "mobile-card";
+          }
 
-                    
-                    <div class="mobile-name">${tag}${user.name}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
-                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
-                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                    </svg></a></div>
-                    <div class="mobile-stats">
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number easy">${user.data.easySolved}</div>
-                            <div class="mobile-stat-label">Easy</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number medium">${user.data.mediumSolved}</div>
-                            <div class="mobile-stat-label">Medium</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
-                            <div class="mobile-stat-label">Hard</div>
-                        </div>
+          card.innerHTML = `
+                    ${mobileCompareCell}
+                    <div style="flex: 1; min-width: 0;">
+                      <div class="mobile-card-header">
+                          <div class="mobile-rank">#${rank}</div>
+                          <div class="mobile-score tooltip-score">
+                             <span> ${user.score}</span>
+                                 <span class="score-caret"></span>
+                              <div class="score-tooltip">
+                                  <div>
+                                      Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
+                                  </div>
+                                  <div>
+                                      Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
+                                  </div>
+                                  <div>
+                                      Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                                  </div>
+                                  <hr>
+                                  <div>
+                                      <strong>Total: ${user.score}</strong>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="mobile-name">${tag}${user.name}</div>
+                      <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                          <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                          <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                      </svg></a></div>
+                      <div class="mobile-stats">
+                          <div class="mobile-stat">
+                              <div class="mobile-stat-number easy">${user.data.easySolved}</div>
+                              <div class="mobile-stat-label">Easy</div>
+                          </div>
+                          <div class="mobile-stat">
+                              <div class="mobile-stat-number medium">${user.data.mediumSolved}</div>
+                              <div class="mobile-stat-label">Medium</div>
+                          </div>
+                          <div class="mobile-stat">
+                              <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
+                              <div class="mobile-stat-label">Hard</div>
+                          </div>
+                      </div>
                     </div>
                 `;
           mobileCards.appendChild(card);
         });
+
+        // Bind change event to checkboxes
+        if (typeof isCompareMode !== 'undefined' && isCompareMode) {
+          document.querySelectorAll(".compare-checkbox").forEach((cb) => {
+            cb.addEventListener("change", (e) => {
+              const username = cb.dataset.username;
+              const success = handleSelectCheckbox(username, cb.checked);
+              if (!success) {
+                cb.checked = false;
+              }
+              // Sync checkbox checks between desktop row and mobile card
+              document.querySelectorAll(`.compare-checkbox[data-username="${username}"]`).forEach((otherCb) => {
+                if (otherCb !== cb) {
+                  otherCb.checked = cb.checked;
+                }
+              });
+            });
+          });
+        }
         renderPagination(data.length);
       }
       function renderPagination(totalItems) {
