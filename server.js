@@ -4,11 +4,11 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
+const fetchStudentHistory = require("./scripts/fetch-student-info");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS — allow cross-origin requests (used by uptime monitor, etc.)
 app.use(cors());
 
 // ---------------------------------------------------------------------------
@@ -29,6 +29,13 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
+        // Allow fetch/XHR to external APIs used by the frontend
+        connectSrc: [
+          "'self'",
+          "https://raw.githubusercontent.com",
+          "https://leetcode-api-dun.vercel.app",
+          "https://lc-backend-lyq2.onrender.com",
+        ],
         // Inline scripts need a per-request nonce; external scripts from 'self'
         // are allowed automatically.
         scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
@@ -76,6 +83,7 @@ function serveHtml(res, filePath) {
   });
 }
 
+/* ---------------- HOME ROUTES ---------------- */
 app.get("/", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "index.html"));
 });
@@ -105,9 +113,32 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-// ---------------------------------------------------------------------------
-// 6. 404
-// ---------------------------------------------------------------------------
+const studentCache = new Map();
+
+app.get("/api/student/:username", async (req, res) => {
+  const username = req.params.username;
+
+  if (studentCache.has(username)) {
+    const cached = studentCache.get(username);
+    if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
+      return res.json(cached.data);
+    }
+  }
+
+  try {
+    const data = await fetchStudentHistory(username);
+
+    studentCache.set(username, { timestamp: Date.now(), data });
+
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({
+      error: "Failed to fetch student details",
+      details: err.message,
+    });
+  }
+});
+
 app.use((req, res) => {
   res.status(404).send("Page not found");
 });

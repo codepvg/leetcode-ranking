@@ -2,9 +2,9 @@ name: Prettier Check
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   prettier:
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Run Prettier Requirements Check
         run: npx prettier --check "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"

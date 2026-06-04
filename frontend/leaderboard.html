@@ -86,6 +86,8 @@
           </div>
         </div>
 
+        <div id="leaderboard-stats"></div>
+
         <div class="leaderboard">
           <div class="leaderboard-header">
             <div>Rank</div>
@@ -114,41 +116,10 @@
 
         <div class="mobile-cards" id="mobile-cards"></div>
 
-        <div
-          id="pagination-controls"
-          style="
-            text-align: center;
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-          "
-        >
-          <button
-            id="load-more-btn"
-            class="btn btn-secondary"
-            style="
-              font-family: &quot;Space Mono&quot;, monospace;
-              font-size: 0.9rem;
-              white-space: nowrap;
-              display: none;
-            "
-          >
-            ./fetch_more_nodes
-          </button>
-          <button
-            id="scroll-top-btn"
-            class="btn btn-primary"
-            style="
-              font-family: &quot;Space Mono&quot;, monospace;
-              font-size: 0.9rem;
-              white-space: nowrap;
-              display: none;
-            "
-          >
-            ^ scroll_to_top
-          </button>
+        <div id="pagination-controls" class="pagination-controls">
+          <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
+          <div id="page-numbers" class="page-numbers-container"></div>
+          <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
         </div>
       </div>
     </main>
@@ -192,64 +163,61 @@
             applyFiltersAndRender();
           }
         });
-
-        // Bind pagination buttons (replaces inline onclick handlers)
         document
-          .getElementById("load-more-btn")
-          .addEventListener("click", () => {
-            loadMoreNodes();
+          .getElementById("prev-page-btn")
+          ?.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
           });
+
         document
-          .getElementById("scroll-top-btn")
-          .addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+          .getElementById("next-page-btn")
+          ?.addEventListener("click", () => {
+            const totalPages = Math.ceil(
+              leaderboardData[activeDatasetType].length / itemsPerPage,
+            );
+
+            if (currentPage < totalPages) {
+              currentPage++;
+              applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
           });
 
         fetchLeaderboardData();
       });
 
       const leaderboardData = {};
-      let currentDisplayLimit = 0;
+      let currentPage = 1;
+      let itemsPerPage = 25;
       let activeDatasetType = "overall";
-      let fetchMoreClicks = 0;
       let currentSearchTerm = "";
-
-      function getInitialLimit() {
-        return window.innerWidth <= 768 ? 12 : 25;
-      }
-
-      function loadMoreNodes() {
-        const data = leaderboardData[activeDatasetType];
-        const isMobile = window.innerWidth <= 768;
-        const maxClicks = isMobile ? 3 : 2;
-
-        fetchMoreClicks++;
-
-        if (fetchMoreClicks >= maxClicks) {
-          currentDisplayLimit = data.length;
-        } else {
-          currentDisplayLimit += getInitialLimit();
-        }
-
-        renderLeaderboard(data);
-      }
 
       async function fetchLeaderboardData() {
         const endpoints = ["overall", "monthly", "weekly", "daily"];
         const cacheBuster = Date.now();
-        for (const type of endpoints) {
-          // Fetch directly from github to avoid needing a server redeploy for new data
-          try {
-            const response = await fetch(
+        // Fetch directly from github to avoid needing a server redeploy for new data
+        const results = await Promise.allSettled(
+          endpoints.map((type) =>
+            fetch(
               `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            );
-            if (response.ok) {
-              leaderboardData[type] = await response.json();
-            }
-          } catch (e) {
-            console.error("Failed to fetch", type);
+            ).then((res) => {
+              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+              return res.json();
+            }),
+          ),
+        );
+
+        results.forEach((result, index) => {
+          if (result.status === "fulfilled") {
+            leaderboardData[endpoints[index]] = result.value;
+          } else {
+            console.error("Failed to fetch", endpoints[index], result.reason);
           }
-        }
+        });
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
@@ -304,9 +272,6 @@
       }
 
       function applyFiltersAndRender() {
-        if (currentDisplayLimit === 0) {
-          currentDisplayLimit = getInitialLimit();
-        }
         if (!leaderboardData[activeDatasetType]) return;
 
         const originalData = leaderboardData[activeDatasetType];
@@ -318,27 +283,55 @@
 
         const filteredData = rankedData.filter((user) => {
           if (!currentSearchTerm) return true;
+
           return (
             user.name.toLowerCase().includes(currentSearchTerm) ||
             user.id.toLowerCase().includes(currentSearchTerm)
           );
         });
 
-        // Update result count
         const countEl = document.getElementById("search-result-count");
+
         if (currentSearchTerm) {
           const total = originalData.length;
           const matched = filteredData.length;
+
           countEl.textContent = `${matched}/${total}`;
           countEl.style.opacity = "1";
         } else {
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        document.getElementById("next-page-btn").disabled =
+          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+        const statsEl = document.getElementById("leaderboard-stats");
+
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+        const startRow =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+
+        const endRow = Math.min(
+          currentPage * itemsPerPage,
+          filteredData.length,
+        );
+
+        statsEl.innerHTML = `
+            <div style="
+              text-align:center;
+              color:var(--text-dim);
+              margin-bottom:1rem;
+              font-family:'Fira Code', monospace;
+            ">
+              Total Users: ${filteredData.length}
+              | Showing: ${startRow}-${endRow}
+              | Page: ${currentPage}/${totalPages}
+            </div>
+          `;
         renderLeaderboard(filteredData);
       }
-
       function getRankTag(rank) {
         switch (rank) {
           case 1:
@@ -361,9 +354,12 @@
 
         const isSearching = currentSearchTerm.length > 0;
 
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
         const displayData = isSearching
           ? data
-          : data.slice(0, currentDisplayLimit);
+          : data.slice(startIndex, endIndex);
 
         if (displayData.length === 0) {
           body.innerHTML = `
@@ -377,10 +373,6 @@
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
-
-          document.getElementById("load-more-btn").style.display = "none";
-          document.getElementById("scroll-top-btn").style.display = "none";
-
           return;
         }
 
@@ -388,17 +380,49 @@
           const rank = user.originalRank || index + 1;
           const tag = getRankTag(rank);
           const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
+          const easyPoints = 1;
+          const mediumPoints = 3;
+          const hardPoints = 5;
 
+          const easyScore = user.data.easySolved * easyPoints;
+          const mediumScore = user.data.mediumSolved * mediumPoints;
+          const hardScore = user.data.hardSolved * hardPoints;
           const row = document.createElement("div");
           row.className = "leaderboard-row";
           row.innerHTML = `
                     <div class="rank">${rank}</div>
                     <div class="name-cell">${tag}${user.name}</div>
-                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                        </svg></a></div>
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
-                    <div class="score">${user.score}</div>
+                    <div class="mobile-score tooltip-score">
+                            <span>${user.score}</span>
+                             <span class="score-caret"></span>
+                        <div class="score-tooltip">
+                            <div>
+                                Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
+                            </div>
+                            <div>
+                                Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
+                            </div>
+                            <div>
+                                Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                            </div>
+                            <hr>
+                            <div>
+                                <strong>Total: ${user.score}</strong>
+                            </div>
+                        </div>
+                    </div>
                 `;
           body.appendChild(row);
 
@@ -407,10 +431,38 @@
           card.innerHTML = `
                     <div class="mobile-card-header">
                         <div class="mobile-rank">#${rank}</div>
-                        <div class="mobile-score">${user.score}</div>
+                        <div class="mobile-score tooltip-score">
+                           <span> ${user.score}</span>
+                               <span class="score-caret"></span>
+                            <div class="score-tooltip">
+                                <div>
+                                    Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
+                                </div>
+                                <div>
+                                    Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
+                                </div>
+                                <div>
+                                    Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                                </div>
+                                <hr>
+                                <div>
+                                    <strong>Total: ${user.score}</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    
                     <div class="mobile-name">${tag}${user.name}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                    </svg></a></div>
                     <div class="mobile-stats">
                         <div class="mobile-stat">
                             <div class="mobile-stat-number easy">${user.data.easySolved}</div>
@@ -428,30 +480,72 @@
                 `;
           mobileCards.appendChild(card);
         });
-
-        if (!isSearching && data.length > currentDisplayLimit) {
-          document.getElementById("load-more-btn").style.display =
-            "inline-block";
-          document.getElementById("scroll-top-btn").style.display = "none";
-
-          const isMobile = window.innerWidth <= 768;
-          const textTransitionClick = isMobile ? 2 : 1;
-
-          if (fetchMoreClicks >= textTransitionClick) {
-            document.getElementById("load-more-btn").innerHTML =
-              "./fetch_all_nodes";
-          } else {
-            document.getElementById("load-more-btn").innerHTML =
-              "./fetch_more_nodes";
-          }
-        } else {
-          document.getElementById("load-more-btn").style.display = "none";
-          document.getElementById("scroll-top-btn").style.display = isSearching
-            ? "none"
-            : "inline-block";
-        }
+        renderPagination(data.length);
       }
+      function renderPagination(totalItems) {
+        const pageNumbers = document.getElementById("page-numbers");
 
+        if (!pageNumbers) return;
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        pageNumbers.innerHTML = "";
+
+        if (totalPages === 0) return;
+
+        function createPageBtn(i) {
+          const btn = document.createElement("button");
+          btn.classList.add("page-btn");
+          btn.textContent = i;
+
+          if (i === currentPage) {
+            btn.classList.add("active-page");
+          }
+
+          btn.onclick = () => {
+            currentPage = i;
+            applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          };
+
+          return btn;
+        }
+
+        const pagesToRender = [];
+        const range = 1; // Number of pages to show around the current page
+
+        pagesToRender.push(1);
+
+        if (currentPage - range > 2) {
+          pagesToRender.push("..");
+        }
+
+        for (
+          let i = Math.max(2, currentPage - range);
+          i <= Math.min(totalPages - 1, currentPage + range);
+          i++
+        ) {
+          pagesToRender.push(i);
+        }
+
+        if (currentPage + range < totalPages - 1) {
+          pagesToRender.push("..");
+        }
+
+        if (totalPages > 1) {
+          pagesToRender.push(totalPages);
+        }
+
+        pagesToRender.forEach((item) => {
+          if (item === "..") {
+            const ellipsis = document.createElement("span");
+            ellipsis.className = "page-ellipsis";
+            ellipsis.textContent = "..";
+            pageNumbers.appendChild(ellipsis);
+          } else {
+            pageNumbers.appendChild(createPageBtn(item));
+          }
+        });
+      }
       function setActiveTab(activeTab) {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.classList.remove("active");
@@ -465,8 +559,7 @@
         }
 
         activeDatasetType = activeTab;
-        currentDisplayLimit = getInitialLimit();
-        fetchMoreClicks = 0;
+        currentPage = 1;
         applyFiltersAndRender();
       }
     </script>
