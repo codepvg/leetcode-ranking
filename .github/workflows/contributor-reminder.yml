@@ -1,0 +1,39 @@
+name: Contributor Reminder
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  guidance:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Comment on Issue
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thank you for opening an issue.\n\nPlease review our `CONTRIBUTING.md` guidelines before getting started.\n\nA maintainer will review this issue shortly. If you would like to work on the issue yourself, please leave a comment requesting assignment."
+            })
+
+      - name: Comment on Pull Request
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thank you for submitting a pull request.\n\nPlease ensure your changes comply with the project's contribution guidelines and that all workflow checks pass successfully.\n\nA maintainer will review your submission shortly."
+            })

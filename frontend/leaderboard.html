@@ -86,6 +86,8 @@
           </div>
         </div>
 
+        <div id="leaderboard-stats"></div>
+
         <div class="leaderboard">
           <div class="leaderboard-header">
             <div>Rank</div>
@@ -114,43 +116,10 @@
 
         <div class="mobile-cards" id="mobile-cards"></div>
 
-        <div
-          id="pagination-controls"
-          style="
-            text-align: center;
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-          "
-        >
-          <button
-            id="load-more-btn"
-            class="btn btn-secondary"
-            onclick="loadMoreNodes()"
-            style="
-              font-family: &quot;Space Mono&quot;, monospace;
-              font-size: 0.9rem;
-              white-space: nowrap;
-              display: none;
-            "
-          >
-            ./fetch_more_nodes
-          </button>
-          <button
-            id="scroll-top-btn"
-            class="btn btn-primary"
-            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-            style="
-              font-family: &quot;Space Mono&quot;, monospace;
-              font-size: 0.9rem;
-              white-space: nowrap;
-              display: none;
-            "
-          >
-            ^ scroll_to_top
-          </button>
+        <div id="pagination-controls" class="pagination-controls">
+          <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
+          <div id="page-numbers" class="page-numbers-container"></div>
+          <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
         </div>
       </div>
     </main>
@@ -194,52 +163,61 @@
             applyFiltersAndRender();
           }
         });
+        document
+          .getElementById("prev-page-btn")
+          ?.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--;
+              applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+
+        document
+          .getElementById("next-page-btn")
+          ?.addEventListener("click", () => {
+            const totalPages = Math.ceil(
+              leaderboardData[activeDatasetType].length / itemsPerPage,
+            );
+
+            if (currentPage < totalPages) {
+              currentPage++;
+              applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
 
         fetchLeaderboardData();
       });
 
       const leaderboardData = {};
-      let currentDisplayLimit = 0;
+      let currentPage = 1;
+      let itemsPerPage = 25;
       let activeDatasetType = "overall";
-      let fetchMoreClicks = 0;
       let currentSearchTerm = "";
-
-      function getInitialLimit() {
-        return window.innerWidth <= 768 ? 12 : 25;
-      }
-
-      function loadMoreNodes() {
-        const data = leaderboardData[activeDatasetType];
-        const isMobile = window.innerWidth <= 768;
-        const maxClicks = isMobile ? 3 : 2;
-
-        fetchMoreClicks++;
-
-        if (fetchMoreClicks >= maxClicks) {
-          currentDisplayLimit = data.length;
-        } else {
-          currentDisplayLimit += getInitialLimit();
-        }
-
-        renderLeaderboard(data);
-      }
 
       async function fetchLeaderboardData() {
         const endpoints = ["overall", "monthly", "weekly", "daily"];
         const cacheBuster = Date.now();
-        for (const type of endpoints) {
-          // Fetch directly from github to avoid needing a server redeploy for new data
-          try {
-            const response = await fetch(
+        // Fetch directly from github to avoid needing a server redeploy for new data
+        const results = await Promise.allSettled(
+          endpoints.map((type) =>
+            fetch(
               `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            );
-            if (response.ok) {
-              leaderboardData[type] = await response.json();
-            }
-          } catch (e) {
-            console.error("Failed to fetch", type);
+            ).then((res) => {
+              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+              return res.json();
+            }),
+          ),
+        );
+
+        results.forEach((result, index) => {
+          if (result.status === "fulfilled") {
+            leaderboardData[endpoints[index]] = result.value;
+          } else {
+            console.error("Failed to fetch", endpoints[index], result.reason);
           }
-        }
+        });
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
@@ -294,9 +272,6 @@
       }
 
       function applyFiltersAndRender() {
-        if (currentDisplayLimit === 0) {
-          currentDisplayLimit = getInitialLimit();
-        }
         if (!leaderboardData[activeDatasetType]) return;
 
         const originalData = leaderboardData[activeDatasetType];
@@ -308,27 +283,55 @@
 
         const filteredData = rankedData.filter((user) => {
           if (!currentSearchTerm) return true;
+
           return (
             user.name.toLowerCase().includes(currentSearchTerm) ||
             user.id.toLowerCase().includes(currentSearchTerm)
           );
         });
 
-        // Update result count
         const countEl = document.getElementById("search-result-count");
+
         if (currentSearchTerm) {
           const total = originalData.length;
           const matched = filteredData.length;
+
           countEl.textContent = `${matched}/${total}`;
           countEl.style.opacity = "1";
         } else {
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        document.getElementById("next-page-btn").disabled =
+          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+        const statsEl = document.getElementById("leaderboard-stats");
+
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+        const startRow =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+
+        const endRow = Math.min(
+          currentPage * itemsPerPage,
+          filteredData.length,
+        );
+
+        statsEl.innerHTML = `
+            <div style="
+              text-align:center;
+              color:var(--text-dim);
+              margin-bottom:1rem;
+              font-family:'Fira Code', monospace;
+            ">
+              Total Users: ${filteredData.length}
+              | Showing: ${startRow}-${endRow}
+              | Page: ${currentPage}/${totalPages}
+            </div>
+          `;
         renderLeaderboard(filteredData);
       }
-
       function getRankTag(rank) {
         switch (rank) {
           case 1:
@@ -351,9 +354,12 @@
 
         const isSearching = currentSearchTerm.length > 0;
 
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
         const displayData = isSearching
           ? data
-          : data.slice(0, currentDisplayLimit);
+          : data.slice(startIndex, endIndex);
 
         if (displayData.length === 0) {
           body.innerHTML = `
@@ -367,27 +373,76 @@
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
-
-          document.getElementById("load-more-btn").style.display = "none";
-          document.getElementById("scroll-top-btn").style.display = "none";
-
           return;
+        }
+
+        // Helper: create external link SVG icon (hardcoded — safe)
+        function createExternalIcon() {
+          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          svg.setAttribute("width", "12");
+          svg.setAttribute("height", "12");
+          svg.setAttribute("viewBox", "0 0 24 24");
+          svg.classList.add("external-icon");
+          var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
+          path.setAttribute("fill", "none");
+          path.setAttribute("stroke", "currentColor");
+          path.setAttribute("stroke-width", "2");
+          path.setAttribute("stroke-linecap", "round");
+          path.setAttribute("stroke-linejoin", "round");
+          svg.appendChild(path);
+          return svg;
+        }
+
+        // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
+        function buildScoreTooltip(user, easyPts, medPts, hardPts, eScore, mScore, hScore) {
+          var tooltip = document.createElement("div");
+          tooltip.className = "score-tooltip";
+
+          var easyLine = document.createElement("div");
+          easyLine.textContent = "Easy: " + user.data.easySolved + " \u00D7 " + easyPts + " = " + eScore;
+          tooltip.appendChild(easyLine);
+
+          var medLine = document.createElement("div");
+          medLine.textContent = "Medium: " + user.data.mediumSolved + " \u00D7 " + medPts + " = " + mScore;
+          tooltip.appendChild(medLine);
+
+          var hardLine = document.createElement("div");
+          hardLine.textContent = "Hard: " + user.data.hardSolved + " \u00D7 " + hardPts + " = " + hScore;
+          tooltip.appendChild(hardLine);
+
+          var hr = document.createElement("hr");
+          tooltip.appendChild(hr);
+
+          var totalLine = document.createElement("div");
+          var strong = document.createElement("strong");
+          strong.textContent = "Total: " + user.score;
+          totalLine.appendChild(strong);
+          tooltip.appendChild(totalLine);
+
+          return tooltip;
         }
 
         displayData.forEach((user, index) => {
           const rank = user.originalRank || index + 1;
           const tag = getRankTag(rank);
+          const easyPoints = 1;
+          const mediumPoints = 3;
+          const hardPoints = 5;
 
+          const easyScore = user.data.easySolved * easyPoints;
+          const mediumScore = user.data.mediumSolved * mediumPoints;
+          const hardScore = user.data.hardSolved * hardPoints;
           const row = document.createElement("div");
           row.className = "leaderboard-row";
 
-          // Rank
+          // Rank (numeric — safe)
           const rankDiv = document.createElement("div");
           rankDiv.className = "rank";
           rankDiv.textContent = rank;
           row.appendChild(rankDiv);
 
-          // Name cell — tag is safe hardcoded HTML, name is user-controlled
+          // Name cell — tag is safe hardcoded HTML, name is user-controlled (textContent)
           const nameDiv = document.createElement("div");
           nameDiv.className = "name-cell";
           if (tag) {
@@ -396,47 +451,56 @@
           nameDiv.appendChild(document.createTextNode(user.name));
           row.appendChild(nameDiv);
 
-          // Username with link — id is user-controlled
+          // Username with link and external icon — id is user-controlled (textContent)
           const usernameDiv = document.createElement("div");
           usernameDiv.className = "username";
           const link = document.createElement("a");
           link.href = `https://leetcode.com/u/${user.id}`;
           link.target = "_blank";
+          link.rel = "noopener noreferrer";
           link.className = "user-link";
           link.textContent = user.id;
+          link.appendChild(createExternalIcon());
           usernameDiv.appendChild(link);
           row.appendChild(usernameDiv);
 
-          // Easy
+          // Easy (numeric — safe)
           const easyDiv = document.createElement("div");
           easyDiv.className = "easy";
           easyDiv.textContent = user.data.easySolved;
           row.appendChild(easyDiv);
 
-          // Medium
+          // Medium (numeric — safe)
           const mediumDiv = document.createElement("div");
           mediumDiv.className = "medium";
           mediumDiv.textContent = user.data.mediumSolved;
           row.appendChild(mediumDiv);
 
-          // Hard
+          // Hard (numeric — safe)
           const hardDiv = document.createElement("div");
           hardDiv.className = "hard";
           hardDiv.textContent = user.data.hardSolved;
           row.appendChild(hardDiv);
 
-          // Score
+          // Score with tooltip — all content is numeric or hardcoded labels
           const scoreDiv = document.createElement("div");
-          scoreDiv.className = "score";
-          scoreDiv.textContent = user.score;
+          scoreDiv.className = "mobile-score tooltip-score";
+          const scoreSpan = document.createElement("span");
+          scoreSpan.textContent = user.score;
+          scoreDiv.appendChild(scoreSpan);
+          const caretSpan = document.createElement("span");
+          caretSpan.className = "score-caret";
+          scoreDiv.appendChild(caretSpan);
+          scoreDiv.appendChild(buildScoreTooltip(user, easyPoints, mediumPoints, hardPoints, easyScore, mediumScore, hardScore));
           row.appendChild(scoreDiv);
 
           body.appendChild(row);
 
+          // === Mobile card ===
           const card = document.createElement("div");
           card.className = "mobile-card";
 
-          // Header row
+          // Card header
           const cardHeader = document.createElement("div");
           cardHeader.className = "mobile-card-header";
 
@@ -446,13 +510,19 @@
           cardHeader.appendChild(mobileRank);
 
           const mobileScore = document.createElement("div");
-          mobileScore.className = "mobile-score";
-          mobileScore.textContent = user.score;
+          mobileScore.className = "mobile-score tooltip-score";
+          const mobileScoreSpan = document.createElement("span");
+          mobileScoreSpan.textContent = user.score;
+          mobileScore.appendChild(mobileScoreSpan);
+          const mobileCaretSpan = document.createElement("span");
+          mobileCaretSpan.className = "score-caret";
+          mobileScore.appendChild(mobileCaretSpan);
+          mobileScore.appendChild(buildScoreTooltip(user, easyPoints, mediumPoints, hardPoints, easyScore, mediumScore, hardScore));
           cardHeader.appendChild(mobileScore);
 
           card.appendChild(cardHeader);
 
-          // Name — tag is safe hardcoded HTML, name is user-controlled
+          // Name — tag safe hardcoded HTML, name is user-controlled (textContent)
           const mobileName = document.createElement("div");
           mobileName.className = "mobile-name";
           if (tag) {
@@ -461,14 +531,16 @@
           mobileName.appendChild(document.createTextNode(user.name));
           card.appendChild(mobileName);
 
-          // Username — id is user-controlled
+          // Username — id is user-controlled (textContent)
           const mobileUsername = document.createElement("div");
           mobileUsername.className = "mobile-username";
           const mobileLink = document.createElement("a");
           mobileLink.href = `https://leetcode.com/u/${user.id}`;
           mobileLink.target = "_blank";
+          mobileLink.rel = "noopener noreferrer";
           mobileLink.className = "user-link";
           mobileLink.textContent = user.id;
+          mobileLink.appendChild(createExternalIcon());
           mobileUsername.appendChild(mobileLink);
           card.appendChild(mobileUsername);
 
@@ -504,30 +576,72 @@
 
           mobileCards.appendChild(card);
         });
-
-        if (!isSearching && data.length > currentDisplayLimit) {
-          document.getElementById("load-more-btn").style.display =
-            "inline-block";
-          document.getElementById("scroll-top-btn").style.display = "none";
-
-          const isMobile = window.innerWidth <= 768;
-          const textTransitionClick = isMobile ? 2 : 1;
-
-          if (fetchMoreClicks >= textTransitionClick) {
-            document.getElementById("load-more-btn").innerHTML =
-              "./fetch_all_nodes";
-          } else {
-            document.getElementById("load-more-btn").innerHTML =
-              "./fetch_more_nodes";
-          }
-        } else {
-          document.getElementById("load-more-btn").style.display = "none";
-          document.getElementById("scroll-top-btn").style.display = isSearching
-            ? "none"
-            : "inline-block";
-        }
+        renderPagination(data.length);
       }
+      function renderPagination(totalItems) {
+        const pageNumbers = document.getElementById("page-numbers");
 
+        if (!pageNumbers) return;
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        pageNumbers.innerHTML = "";
+
+        if (totalPages === 0) return;
+
+        function createPageBtn(i) {
+          const btn = document.createElement("button");
+          btn.classList.add("page-btn");
+          btn.textContent = i;
+
+          if (i === currentPage) {
+            btn.classList.add("active-page");
+          }
+
+          btn.onclick = () => {
+            currentPage = i;
+            applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          };
+
+          return btn;
+        }
+
+        const pagesToRender = [];
+        const range = 1; // Number of pages to show around the current page
+
+        pagesToRender.push(1);
+
+        if (currentPage - range > 2) {
+          pagesToRender.push("..");
+        }
+
+        for (
+          let i = Math.max(2, currentPage - range);
+          i <= Math.min(totalPages - 1, currentPage + range);
+          i++
+        ) {
+          pagesToRender.push(i);
+        }
+
+        if (currentPage + range < totalPages - 1) {
+          pagesToRender.push("..");
+        }
+
+        if (totalPages > 1) {
+          pagesToRender.push(totalPages);
+        }
+
+        pagesToRender.forEach((item) => {
+          if (item === "..") {
+            const ellipsis = document.createElement("span");
+            ellipsis.className = "page-ellipsis";
+            ellipsis.textContent = "..";
+            pageNumbers.appendChild(ellipsis);
+          } else {
+            pageNumbers.appendChild(createPageBtn(item));
+          }
+        });
+      }
       function setActiveTab(activeTab) {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.classList.remove("active");
@@ -541,8 +655,7 @@
         }
 
         activeDatasetType = activeTab;
-        currentDisplayLimit = getInitialLimit();
-        fetchMoreClicks = 0;
+        currentPage = 1;
         applyFiltersAndRender();
       }
     </script>
