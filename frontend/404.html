@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Not Found | CodePVG</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    :root {
+      --green: #00ff41;
+      --green-dim: #00cc33;
+      --green-dark: #003b00;
+      --green-glow: rgba(0, 255, 65, 0.4);
+      --bg: #0d0d0d;
+      --panel-bg: rgba(0, 10, 0, 0.85);
+      --panel-border: rgba(0, 255, 65, 0.3);
+      --red: #ff4444;
+      --grey: #4a8c4a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--green);
+      font-family: 'Share Tech Mono', 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Matrix rain canvas */
+    #matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.18;
+    }
+
+    /* Main panel */
+    .panel {
+      position: relative;
+      z-index: 1;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 4px;
+      padding: 2.5rem 3rem;
+      max-width: 680px;
+      width: 90%;
+      box-shadow: 0 0 40px rgba(0, 255, 65, 0.08), inset 0 0 60px rgba(0,0,0,0.5);
+    }
+
+    /* Title */
+    .title {
+      font-size: 2.4rem;
+      font-weight: normal;
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green-glow), 0 0 40px var(--green-glow);
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+    }
+
+    .title .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 2.2rem;
+      background: var(--green);
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .subtitle {
+      color: var(--grey);
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Terminal lines */
+    .terminal-block {
+      margin-bottom: 1.4rem;
+    }
+
+    .line {
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .prompt {
+      color: var(--green);
+      text-shadow: 0 0 8px var(--green-glow);
+    }
+
+    .prompt-sym {
+      color: var(--green-dim);
+    }
+
+    .cmd { color: #c9e8c9; }
+
+    .error-line {
+      color: var(--red);
+      text-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+    }
+
+    .comment { color: var(--grey); }
+
+    .highlight {
+      color: var(--green);
+      font-weight: bold;
+      text-shadow: 0 0 10px var(--green-glow);
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--panel-border);
+      margin: 1.4rem 0;
+    }
+
+    /* Buttons */
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .nav-links a {
+      color: var(--green);
+      text-decoration: none;
+      border: 1px solid var(--green);
+      padding: 0.5rem 1.4rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: background 0.15s, box-shadow 0.15s, color 0.15s;
+      text-shadow: 0 0 8px var(--green-glow);
+      box-shadow: 0 0 8px rgba(0,255,65,0.1);
+    }
+
+    .nav-links a:hover {
+      background: var(--green);
+      color: #000;
+      text-shadow: none;
+      box-shadow: 0 0 20px var(--green-glow);
+    }
+
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.05) 2px,
+        rgba(0,0,0,0.05) 4px
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <div class="panel">
+
+    <div class="title">404 — Not Found<span class="cursor"></span></div>
+    <div class="subtitle">&gt; route resolution failed. filesystem integrity nominal.</div>
+
+    <hr class="divider" />
+
+    <div class="terminal-block">
+      <div class="line">
+        <span class="prompt">guest@codepvg</span><span class="prompt-sym">:~$</span>
+        <span class="cmd" id="cd-line"> cd /unknown-path</span>
+      </div>
+      <div class="line error-line">
+        bash: cd: <span id="path-display">/unknown-path</span>: No such file or directory
+      </div>
+    </div>
+
+    <div class="terminal-block">
+      <div class="line comment"># exit code: 404</div>
+      <div class="line comment"># This route doesn't exist. Unlike your rank, which does.</div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="terminal-block">
+      <div class="line">
+        <span class="prompt">guest@codepvg</span><span class="prompt-sym">:~$</span>
+        <span class="cmd"> ls /valid-routes</span>
+      </div>
+      <div class="line" style="padding-left: 1.2rem;">
+        <span class="highlight">leaderboard/</span>
+        &nbsp;&nbsp;
+        <span class="highlight">registration/</span>
+      </div>
+    </div>
+
+    <div class="line">
+      <span class="prompt">guest@codepvg</span><span class="prompt-sym">:~$</span>
+      <span class="cursor" style="width:9px; height:1rem; background:var(--green); display:inline-block; vertical-align:middle; margin-left:6px; animation: blink 1s step-end infinite;"></span>
+    </div>
+
+    <div class="nav-links">
+      <a href="/leaderboard">[ view_leaderboard ]</a>
+      <a href="/registration">[ register_now ]</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Inject actual bad path
+    const p = window.location.pathname;
+    document.getElementById('cd-line').textContent = ' cd ' + p;
+    document.getElementById('path-display').textContent = p;
+
+    // Matrix rain
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+    const fontSize = 14;
+    let cols = Math.floor(canvas.width / fontSize);
+    let drops = Array(cols).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px Share Tech Mono, monospace';
+
+      cols = Math.floor(canvas.width / fontSize);
+      if (drops.length < cols) drops = drops.concat(Array(cols - drops.length).fill(1));
+
+      for (let i = 0; i < cols; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 40);
+  </script>
+
+</body>
+</html>

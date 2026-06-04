@@ -1,6 +1,6 @@
 const express = require("express");
+const path = require('path');
 const cors = require("cors");
-const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +36,7 @@ const studentCache = new Map();
 app.get("/api/student/:username", async (req, res) => {
   const username = req.params.username;
 
+
   if (studentCache.has(username)) {
     const cached = studentCache.get(username);
     if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
@@ -57,8 +58,9 @@ app.get("/api/student/:username", async (req, res) => {
   }
 });
 
+// 404 handler
 app.use((req, res) => {
-  res.status(404).send("Page not found");
+  res.status(404).sendFile(path.join(__dirname, "frontend", "404.html"));
 });
 
 app.listen(PORT, () => {
