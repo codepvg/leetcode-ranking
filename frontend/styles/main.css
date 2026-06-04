@@ -832,7 +832,7 @@ body::after {
   z-index: 99;
 }
 
-.leaderboard-row{
+.leaderboard-row {
   display: grid;
   grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
   padding: 0.6rem 1.25rem;
@@ -1008,7 +1008,7 @@ body::after {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
-  gap:12px;
+  gap: 12px;
 }
 
 .mobile-rank {
@@ -1026,7 +1026,7 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  gap:6px;
+  gap: 6px;
 }
 
 .mobile-name {
@@ -1035,7 +1035,7 @@ body::after {
   margin-bottom: 0.2rem;
   color: var(--text);
   word-break: break-word;
-  overflow-wrap:break-word;
+  overflow-wrap: break-word;
 }
 
 .mobile-username {
