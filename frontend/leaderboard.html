@@ -378,12 +378,18 @@
 
         // Helper: create external link SVG icon (hardcoded — safe)
         function createExternalIcon() {
-          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          var svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
           svg.setAttribute("width", "12");
           svg.setAttribute("height", "12");
           svg.setAttribute("viewBox", "0 0 24 24");
           svg.classList.add("external-icon");
-          var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          var path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path",
+          );
           path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
           path.setAttribute("fill", "none");
           path.setAttribute("stroke", "currentColor");
@@ -395,20 +401,46 @@
         }
 
         // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
-        function buildScoreTooltip(user, easyPts, medPts, hardPts, eScore, mScore, hScore) {
+        function buildScoreTooltip(
+          user,
+          easyPts,
+          medPts,
+          hardPts,
+          eScore,
+          mScore,
+          hScore,
+        ) {
           var tooltip = document.createElement("div");
           tooltip.className = "score-tooltip";
 
           var easyLine = document.createElement("div");
-          easyLine.textContent = "Easy: " + user.data.easySolved + " \u00D7 " + easyPts + " = " + eScore;
+          easyLine.textContent =
+            "Easy: " +
+            user.data.easySolved +
+            " \u00D7 " +
+            easyPts +
+            " = " +
+            eScore;
           tooltip.appendChild(easyLine);
 
           var medLine = document.createElement("div");
-          medLine.textContent = "Medium: " + user.data.mediumSolved + " \u00D7 " + medPts + " = " + mScore;
+          medLine.textContent =
+            "Medium: " +
+            user.data.mediumSolved +
+            " \u00D7 " +
+            medPts +
+            " = " +
+            mScore;
           tooltip.appendChild(medLine);
 
           var hardLine = document.createElement("div");
-          hardLine.textContent = "Hard: " + user.data.hardSolved + " \u00D7 " + hardPts + " = " + hScore;
+          hardLine.textContent =
+            "Hard: " +
+            user.data.hardSolved +
+            " \u00D7 " +
+            hardPts +
+            " = " +
+            hScore;
           tooltip.appendChild(hardLine);
 
           var hr = document.createElement("hr");
@@ -491,7 +523,17 @@
           const caretSpan = document.createElement("span");
           caretSpan.className = "score-caret";
           scoreDiv.appendChild(caretSpan);
-          scoreDiv.appendChild(buildScoreTooltip(user, easyPoints, mediumPoints, hardPoints, easyScore, mediumScore, hardScore));
+          scoreDiv.appendChild(
+            buildScoreTooltip(
+              user,
+              easyPoints,
+              mediumPoints,
+              hardPoints,
+              easyScore,
+              mediumScore,
+              hardScore,
+            ),
+          );
           row.appendChild(scoreDiv);
 
           body.appendChild(row);
@@ -517,7 +559,17 @@
           const mobileCaretSpan = document.createElement("span");
           mobileCaretSpan.className = "score-caret";
           mobileScore.appendChild(mobileCaretSpan);
-          mobileScore.appendChild(buildScoreTooltip(user, easyPoints, mediumPoints, hardPoints, easyScore, mediumScore, hardScore));
+          mobileScore.appendChild(
+            buildScoreTooltip(
+              user,
+              easyPoints,
+              mediumPoints,
+              hardPoints,
+              easyScore,
+              mediumScore,
+              hardScore,
+            ),
+          );
           cardHeader.appendChild(mobileScore);
 
           card.appendChild(cardHeader);
