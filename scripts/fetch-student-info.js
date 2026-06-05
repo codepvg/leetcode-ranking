@@ -15,6 +15,7 @@ async function fetchStudentHistory(username) {
   console.log("Fetching history for:", username);
 
   let history = [];
+  let ranking = null;
   let missingFilesCount = 0;
   const maxDays = 365;
   const chunkSize = 100;
@@ -63,6 +64,9 @@ async function fetchStudentHistory(username) {
       const user = result.data.find((u) => u.id === username);
 
       if (user) {
+        if (ranking === null) {
+          ranking = user.ranking || null;
+        }
         const dateStr = result.fileName.split("-").slice(0, 3).join("-");
 
         history.push({
@@ -82,6 +86,7 @@ async function fetchStudentHistory(username) {
 
   return {
     username,
+    ranking,
     history,
   };
 }

@@ -120,10 +120,12 @@ async function computeRankChanges(currentSorted, filename) {
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
+    const ranking = data.ranking || null;
     console.log(`${user.name}:`, data);
     overallData.push({
       name: user.name,
       id: user.id,
+      ranking,
       data,
       score,
     });
