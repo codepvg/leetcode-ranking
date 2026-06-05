@@ -160,23 +160,7 @@
         searchInput.focus();
         applyFiltersAndRender();
       });
-      searchInput.addEventListener("input", (e) => {
-        currentSearchTerm = e.target.value.toLowerCase().trim();
 
-        clearBtn.style.display =
-          e.target.value.trim() !== "" ? "flex" : "none";
-
-        applyFiltersAndRender();
-      });
-      clearBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        currentSearchTerm = "";
-
-        clearBtn.style.display = "none";
-
-        searchInput.focus();
-        applyFiltersAndRender();
-      });
 
       searchInput.addEventListener("focus", () => {
         shortcutBadge.style.display = "none";
@@ -187,11 +171,7 @@
           shortcutBadge.style.display = "inline-flex";
         }
       });
-      searchInput.addEventListener("blur", () => {
-        if (!searchInput.value) {
-          shortcutBadge.style.display = "inline-flex";
-        }
-      });
+
 
       // Ctrl+K / Cmd+K keyboard shortcut
       document.addEventListener("keydown", (e) => {
@@ -216,29 +196,7 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
-      // Ctrl+K / Cmd+K keyboard shortcut
-      document.addEventListener("keydown", (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-          e.preventDefault();
-          searchInput.focus();
-        }
-        if (e.key === "Escape" && document.activeElement === searchInput) {
-          searchInput.value = "";
-          currentSearchTerm = "";
-          clearBtn.style.display = "none";
-          searchInput.blur();
-          applyFiltersAndRender();
-        }
-      });
-      document
-        .getElementById("prev-page-btn")
-        ?.addEventListener("click", () => {
-          if (currentPage > 1) {
-            currentPage--;
-            applyFiltersAndRender();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }
-        });
+
 
       document
         .getElementById("next-page-btn")
