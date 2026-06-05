@@ -81,7 +81,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            
+
             <span class="search-result-count" id="search-result-count"></span>
             <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
             <button
@@ -159,21 +159,21 @@
 
         searchInput.addEventListener("input", (e) => {
           currentSearchTerm = e.target.value.toLowerCase().trim();
-          
+
           clearBtn.style.display =
-          e.target.value.trim() !== "" ? "flex" : "none";
+            e.target.value.trim() !== "" ? "flex" : "none";
 
           applyFiltersAndRender();
         });
         clearBtn.addEventListener("click", () => {
-  searchInput.value = "";
-  currentSearchTerm = "";
+          searchInput.value = "";
+          currentSearchTerm = "";
 
-  clearBtn.style.display = "none";
+          clearBtn.style.display = "none";
 
-  searchInput.focus();
-  applyFiltersAndRender();
-});
+          searchInput.focus();
+          applyFiltersAndRender();
+        });
 
         searchInput.addEventListener("focus", () => {
           shortcutBadge.style.display = "none";
@@ -220,7 +220,7 @@
               applyFiltersAndRender();
             }
           });
-          clearBtn.style.display = "none";
+        clearBtn.style.display = "none";
         fetchLeaderboardData();
       });
 
