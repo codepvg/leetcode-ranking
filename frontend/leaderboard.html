@@ -105,6 +105,7 @@
             <div class="easy">Easy</div>
             <div class="medium">Medium</div>
             <div class="hard">Hard</div>
+            <div class="total">Total</div>
             <div class="score-header">
               Score
               <div class="tooltip-container">
@@ -428,6 +429,7 @@
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
+                    <div class="total">${user.data.totalSolved}</div>
                     <div class="mobile-score tooltip-score">
                             <span>${user.score}</span>
                              <span class="score-caret"></span>
@@ -440,6 +442,9 @@
                             </div>
                             <div>
                                 Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                            </div>
+                            <div>
+                              Questions Solved: ${user.data.totalSolved}
                             </div>
                             <hr>
                             <div>
@@ -467,6 +472,9 @@
                                 </div>
                                 <div>
                                     Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                                </div>
+                                <div>
+                                  Questions Solved: ${user.data.totalSolved}
                                 </div>
                                 <hr>
                                 <div>
@@ -499,6 +507,10 @@
                         <div class="mobile-stat">
                             <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
                             <div class="mobile-stat-label">Hard</div>
+                        </div>
+                        <div class="mobile-stat">
+                            <div class="mobile-stat-number total">${user.data.totalSolved}</div>
+                            <div class="mobile-stat-label">Total</div>
                         </div>
                     </div>
                 `;
