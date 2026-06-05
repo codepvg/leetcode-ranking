@@ -131,7 +131,7 @@
               class="clear-search-btn"
               aria-label="Clear search"
             >
-              ✕
+              ESC
             </button>
           </div>
         </div>
@@ -146,6 +146,7 @@
             <div class="easy">Easy</div>
             <div class="medium">Medium</div>
             <div class="hard">Hard</div>
+            <div class="total">Total</div>
             <div class="score-header">
               Score
               <div class="tooltip-container">
@@ -166,22 +167,10 @@
 
         <div class="mobile-cards" id="mobile-cards"></div>
 
-        <div
-          id="pagination-controls"
-          style="
-            text-align: center;
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-          "
-        >
-          <button id="prev-page-btn">Previous</button>
-
-          <div id="page-numbers"></div>
-
-          <button id="next-page-btn">Next</button>
+        <div id="pagination-controls" class="pagination-controls">
+          <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
+          <div id="page-numbers" class="page-numbers-container"></div>
+          <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
         </div>
       </div>
     </main>
@@ -208,6 +197,19 @@
           clearBtn.style.display =
           e.target.value.trim() !== "" ? "flex" : "none";
 
+
+          clearBtn.style.display =
+            e.target.value.trim() !== "" ? "flex" : "none";
+
+          applyFiltersAndRender();
+        });
+        clearBtn.addEventListener("click", () => {
+          searchInput.value = "";
+          currentSearchTerm = "";
+
+          clearBtn.style.display = "none";
+
+          searchInput.focus();
           applyFiltersAndRender();
         });
         clearBtn.addEventListener("click", () => {
@@ -221,12 +223,12 @@
 });
 
         searchInput.addEventListener("focus", () => {
-          shortcutBadge.style.opacity = "0";
+          shortcutBadge.style.display = "none";
         });
 
         searchInput.addEventListener("blur", () => {
           if (!searchInput.value) {
-            shortcutBadge.style.opacity = "1";
+            shortcutBadge.style.display = "inline-flex";
           }
         });
 
@@ -239,6 +241,7 @@
           if (e.key === "Escape" && document.activeElement === searchInput) {
             searchInput.value = "";
             currentSearchTerm = "";
+            clearBtn.style.display = "none";
             searchInput.blur();
             applyFiltersAndRender();
           }
@@ -249,6 +252,7 @@
             if (currentPage > 1) {
               currentPage--;
               applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           });
 
@@ -262,6 +266,7 @@
             if (currentPage < totalPages) {
               currentPage++;
               applyFiltersAndRender();
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           });
           clearBtn.style.display = "none";
@@ -283,6 +288,7 @@ scrollTopBtn.addEventListener("click", () => {
   });
 });
 
+        clearBtn.style.display = "none";
         fetchLeaderboardData();
       });
 
@@ -488,10 +494,19 @@ scrollTopBtn.addEventListener("click", () => {
           row.innerHTML = `
                     <div class="rank">${rank}</div>
                     <div class="name-cell">${tag}${user.name}</div>
-                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                        </svg></a></div>
                     <div class="easy">${user.data.easySolved}</div>
                     <div class="medium">${user.data.mediumSolved}</div>
                     <div class="hard">${user.data.hardSolved}</div>
+                    <div class="total">${user.data.totalSolved}</div>
                     <div class="mobile-score tooltip-score">
                             <span>${user.score}</span>
                              <span class="score-caret"></span>
@@ -504,6 +519,9 @@ scrollTopBtn.addEventListener("click", () => {
                             </div>
                             <div>
                                 Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
+                            </div>
+                            <div>
+                              Questions Solved: ${user.data.totalSolved}
                             </div>
                             <hr>
                             <div>
@@ -532,6 +550,9 @@ scrollTopBtn.addEventListener("click", () => {
                                 <div>
                                     Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
                                 </div>
+                                <div>
+                                  Questions Solved: ${user.data.totalSolved}
+                                </div>
                                 <hr>
                                 <div>
                                     <strong>Total: ${user.score}</strong>
@@ -542,7 +563,15 @@ scrollTopBtn.addEventListener("click", () => {
 
                     
                     <div class="mobile-name">${tag}${user.name}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" class="user-link">${user.id}</a></div>
+                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
+                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                    </svg></a></div>
                     <div class="mobile-stats">
                         <div class="mobile-stat">
                             <div class="mobile-stat-number easy">${user.data.easySolved}</div>
@@ -556,6 +585,10 @@ scrollTopBtn.addEventListener("click", () => {
                             <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
                             <div class="mobile-stat-label">Hard</div>
                         </div>
+                        <div class="mobile-stat">
+                            <div class="mobile-stat-number total">${user.data.totalSolved}</div>
+                            <div class="mobile-stat-label">Total</div>
+                        </div>
                     </div>
                 `;
           mobileCards.appendChild(card);
@@ -568,10 +601,11 @@ scrollTopBtn.addEventListener("click", () => {
         if (!pageNumbers) return;
 
         const totalPages = Math.ceil(totalItems / itemsPerPage);
-
         pageNumbers.innerHTML = "";
 
-        for (let i = 1; i <= totalPages; i++) {
+        if (totalPages === 0) return;
+
+        function createPageBtn(i) {
           const btn = document.createElement("button");
           btn.classList.add("page-btn");
           btn.textContent = i;
@@ -583,10 +617,47 @@ scrollTopBtn.addEventListener("click", () => {
           btn.onclick = () => {
             currentPage = i;
             applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
           };
 
-          pageNumbers.appendChild(btn);
+          return btn;
         }
+
+        const pagesToRender = [];
+        const range = 1; // Number of pages to show around the current page
+
+        pagesToRender.push(1);
+
+        if (currentPage - range > 2) {
+          pagesToRender.push("..");
+        }
+
+        for (
+          let i = Math.max(2, currentPage - range);
+          i <= Math.min(totalPages - 1, currentPage + range);
+          i++
+        ) {
+          pagesToRender.push(i);
+        }
+
+        if (currentPage + range < totalPages - 1) {
+          pagesToRender.push("..");
+        }
+
+        if (totalPages > 1) {
+          pagesToRender.push(totalPages);
+        }
+
+        pagesToRender.forEach((item) => {
+          if (item === "..") {
+            const ellipsis = document.createElement("span");
+            ellipsis.className = "page-ellipsis";
+            ellipsis.textContent = "..";
+            pageNumbers.appendChild(ellipsis);
+          } else {
+            pageNumbers.appendChild(createPageBtn(item));
+          }
+        });
       }
       function setActiveTab(activeTab) {
         document.querySelectorAll(".tab").forEach((tab) => {
