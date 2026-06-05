@@ -20,12 +20,15 @@
         vertical-align: middle;
         opacity: 0.85;
       }
+
       .rank-up {
         color: var(--green);
       }
+
       .rank-down {
         color: var(--red);
       }
+
       .rank-neutral {
         color: var(--text-muted);
       }
@@ -376,27 +379,51 @@
           `;
         renderLeaderboard(filteredData);
       }
-      function getRankChangeTag(rankChange) {
-        if (!rankChange) return "";
-        if (rankChange === "NEW")
-          return `<span class="rank-change rank-neutral">[new]</span>`;
-        if (rankChange === "=")
-          return `<span class="rank-change rank-neutral">[==]</span>`;
-        if (rankChange.startsWith("+"))
-          return `<span class="rank-change rank-up">[${rankChange}]</span>`;
-        return `<span class="rank-change rank-down">[${rankChange}]</span>`;
+
+      // Creates a rank change DOM element (safe — values are internally generated)
+      function createRankChangeElement(rankChange) {
+        if (!rankChange) return null;
+        var span = document.createElement("span");
+        span.className = "rank-change";
+        if (rankChange === "NEW") {
+          span.classList.add("rank-neutral");
+          span.textContent = "[new]";
+        } else if (rankChange === "=") {
+          span.classList.add("rank-neutral");
+          span.textContent = "[==]";
+        } else if (rankChange.startsWith("+")) {
+          span.classList.add("rank-up");
+          span.textContent = "[" + rankChange + "]";
+        } else {
+          span.classList.add("rank-down");
+          span.textContent = "[" + rankChange + "]";
+        }
+        return span;
       }
-      function getRankTag(rank) {
+
+      // Creates a rank tag DOM element (safe — values are hardcoded)
+      function createRankTagElement(rank) {
+        var className, label;
         switch (rank) {
           case 1:
-            return '<span class="privilege-tag root-tag">[ROOT]</span>';
+            className = "privilege-tag root-tag";
+            label = "[ROOT]";
+            break;
           case 2:
-            return '<span class="privilege-tag sudo-tag">[SUDO]</span>';
+            className = "privilege-tag sudo-tag";
+            label = "[SUDO]";
+            break;
           case 3:
-            return '<span class="privilege-tag exec-tag">[EXEC]</span>';
+            className = "privilege-tag exec-tag";
+            label = "[EXEC]";
+            break;
           default:
-            return "";
+            return null;
         }
+        var span = document.createElement("span");
+        span.className = className;
+        span.textContent = label;
+        return span;
       }
 
       function renderLeaderboard(data) {
@@ -430,10 +457,94 @@
           return;
         }
 
+        // Helper: create external link SVG icon (hardcoded — safe)
+        function createExternalIcon() {
+          var svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
+          svg.setAttribute("width", "12");
+          svg.setAttribute("height", "12");
+          svg.setAttribute("viewBox", "0 0 24 24");
+          svg.classList.add("external-icon");
+          var path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path",
+          );
+          path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
+          path.setAttribute("fill", "none");
+          path.setAttribute("stroke", "currentColor");
+          path.setAttribute("stroke-width", "2");
+          path.setAttribute("stroke-linecap", "round");
+          path.setAttribute("stroke-linejoin", "round");
+          svg.appendChild(path);
+          return svg;
+        }
+
+        // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
+        function buildScoreTooltip(
+          user,
+          easyPts,
+          medPts,
+          hardPts,
+          eScore,
+          mScore,
+          hScore,
+        ) {
+          var tooltip = document.createElement("div");
+          tooltip.className = "score-tooltip";
+
+          var easyLine = document.createElement("div");
+          easyLine.textContent =
+            "Easy: " +
+            user.data.easySolved +
+            " \u00D7 " +
+            easyPts +
+            " = " +
+            eScore;
+          tooltip.appendChild(easyLine);
+
+          var medLine = document.createElement("div");
+          medLine.textContent =
+            "Medium: " +
+            user.data.mediumSolved +
+            " \u00D7 " +
+            medPts +
+            " = " +
+            mScore;
+          tooltip.appendChild(medLine);
+
+          var hardLine = document.createElement("div");
+          hardLine.textContent =
+            "Hard: " +
+            user.data.hardSolved +
+            " \u00D7 " +
+            hardPts +
+            " = " +
+            hScore;
+          tooltip.appendChild(hardLine);
+
+          var totalSolvedLine = document.createElement("div");
+          totalSolvedLine.textContent =
+            "Questions Solved: " + user.data.totalSolved;
+          tooltip.appendChild(totalSolvedLine);
+
+          var hr = document.createElement("hr");
+          tooltip.appendChild(hr);
+
+          var totalLine = document.createElement("div");
+          var strong = document.createElement("strong");
+          strong.textContent = "Total: " + user.score;
+          totalLine.appendChild(strong);
+          tooltip.appendChild(totalLine);
+
+          return tooltip;
+        }
+
         displayData.forEach((user, index) => {
           const rank = user.originalRank || index + 1;
-          const tag = getRankTag(rank);
-          const leetcodeUrl = `https://leetcode.com/u/${user.id}`;
+          const rankTagEl = createRankTagElement(rank);
+          const rankChangeEl = createRankChangeElement(user.rankChange);
           const easyPoints = 1;
           const mediumPoints = 3;
           const hardPoints = 5;
@@ -443,106 +554,182 @@
           const hardScore = user.data.hardSolved * hardPoints;
           const row = document.createElement("div");
           row.className = "leaderboard-row";
-          row.innerHTML = `
-                    <div class="rank">${rank}</div>
-                    <div class="name-cell">${tag}${user.name}${getRankChangeTag(user.rankChange)}</div>
-                    <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
-                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
-                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                        </svg></a></div>
-                    <div class="easy">${user.data.easySolved}</div>
-                    <div class="medium">${user.data.mediumSolved}</div>
-                    <div class="hard">${user.data.hardSolved}</div>
-                    <div class="total">${user.data.totalSolved}</div>
-                    <div class="mobile-score tooltip-score">
-                            <span>${user.score}</span>
-                             <span class="score-caret"></span>
-                        <div class="score-tooltip">
-                            <div>
-                                Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
-                            </div>
-                            <div>
-                                Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
-                            </div>
-                            <div>
-                                Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
-                            </div>
-                            <div>
-                              Questions Solved: ${user.data.totalSolved}
-                            </div>
-                            <hr>
-                            <div>
-                                <strong>Total: ${user.score}</strong>
-                            </div>
-                        </div>
-                    </div>
-                `;
+
+          // Rank (numeric — safe)
+          const rankDiv = document.createElement("div");
+          rankDiv.className = "rank";
+          rankDiv.textContent = rank;
+          row.appendChild(rankDiv);
+
+          // Name cell — tag is safe DOM element, name is user-controlled (textContent)
+          const nameDiv = document.createElement("div");
+          nameDiv.className = "name-cell";
+          if (rankTagEl) {
+            nameDiv.appendChild(rankTagEl);
+          }
+          nameDiv.appendChild(document.createTextNode(user.name));
+          if (rankChangeEl) {
+            nameDiv.appendChild(rankChangeEl);
+          }
+          row.appendChild(nameDiv);
+
+          // Username with link and external icon — id is user-controlled (textContent)
+          const usernameDiv = document.createElement("div");
+          usernameDiv.className = "username";
+          const link = document.createElement("a");
+          link.href = `https://leetcode.com/u/${user.id}`;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.className = "user-link";
+          link.textContent = user.id;
+          link.appendChild(createExternalIcon());
+          usernameDiv.appendChild(link);
+          row.appendChild(usernameDiv);
+
+          // Easy (numeric — safe)
+          const easyDiv = document.createElement("div");
+          easyDiv.className = "easy";
+          easyDiv.textContent = user.data.easySolved;
+          row.appendChild(easyDiv);
+
+          // Medium (numeric — safe)
+          const mediumDiv = document.createElement("div");
+          mediumDiv.className = "medium";
+          mediumDiv.textContent = user.data.mediumSolved;
+          row.appendChild(mediumDiv);
+
+          // Hard (numeric — safe)
+          const hardDiv = document.createElement("div");
+          hardDiv.className = "hard";
+          hardDiv.textContent = user.data.hardSolved;
+          row.appendChild(hardDiv);
+
+          // Total (numeric — safe)
+          const totalDiv = document.createElement("div");
+          totalDiv.className = "total";
+          totalDiv.textContent = user.data.totalSolved;
+          row.appendChild(totalDiv);
+
+          // Score with tooltip — all content is numeric or hardcoded labels
+          const scoreDiv = document.createElement("div");
+          scoreDiv.className = "mobile-score tooltip-score";
+          const scoreSpan = document.createElement("span");
+          scoreSpan.textContent = user.score;
+          scoreDiv.appendChild(scoreSpan);
+          const caretSpan = document.createElement("span");
+          caretSpan.className = "score-caret";
+          scoreDiv.appendChild(caretSpan);
+          scoreDiv.appendChild(
+            buildScoreTooltip(
+              user,
+              easyPoints,
+              mediumPoints,
+              hardPoints,
+              easyScore,
+              mediumScore,
+              hardScore,
+            ),
+          );
+          row.appendChild(scoreDiv);
+
           body.appendChild(row);
 
+          // === Mobile card ===
           const card = document.createElement("div");
           card.className = "mobile-card";
-          card.innerHTML = `
-                    <div class="mobile-card-header">
-                        <div class="mobile-rank">#${rank}</div>
-                        <div class="mobile-score tooltip-score">
-                           <span> ${user.score}</span>
-                               <span class="score-caret"></span>
-                            <div class="score-tooltip">
-                                <div>
-                                    Easy: ${user.data.easySolved} × ${easyPoints} = ${easyScore}
-                                </div>
-                                <div>
-                                    Medium: ${user.data.mediumSolved} × ${mediumPoints} = ${mediumScore}
-                                </div>
-                                <div>
-                                    Hard: ${user.data.hardSolved} × ${hardPoints} = ${hardScore}
-                                </div>
-                                <div>
-                                  Questions Solved: ${user.data.totalSolved}
-                                </div>
-                                <hr>
-                                <div>
-                                    <strong>Total: ${user.score}</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    
-                    <div class="mobile-name">${tag}${user.name}${getRankChangeTag(user.rankChange)}</div>
-                    <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
-                        <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
-                        <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                    </svg></a></div>
-                    <div class="mobile-stats">
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number easy">${user.data.easySolved}</div>
-                            <div class="mobile-stat-label">Easy</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number medium">${user.data.mediumSolved}</div>
-                            <div class="mobile-stat-label">Medium</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number hard">${user.data.hardSolved}</div>
-                            <div class="mobile-stat-label">Hard</div>
-                        </div>
-                        <div class="mobile-stat">
-                            <div class="mobile-stat-number total">${user.data.totalSolved}</div>
-                            <div class="mobile-stat-label">Total</div>
-                        </div>
-                    </div>
-                `;
+          // Card header
+          const cardHeader = document.createElement("div");
+          cardHeader.className = "mobile-card-header";
+
+          const mobileRank = document.createElement("div");
+          mobileRank.className = "mobile-rank";
+          mobileRank.textContent = `#${rank}`;
+          cardHeader.appendChild(mobileRank);
+
+          const mobileScore = document.createElement("div");
+          mobileScore.className = "mobile-score tooltip-score";
+          const mobileScoreSpan = document.createElement("span");
+          mobileScoreSpan.textContent = user.score;
+          mobileScore.appendChild(mobileScoreSpan);
+          const mobileCaretSpan = document.createElement("span");
+          mobileCaretSpan.className = "score-caret";
+          mobileScore.appendChild(mobileCaretSpan);
+          mobileScore.appendChild(
+            buildScoreTooltip(
+              user,
+              easyPoints,
+              mediumPoints,
+              hardPoints,
+              easyScore,
+              mediumScore,
+              hardScore,
+            ),
+          );
+          cardHeader.appendChild(mobileScore);
+
+          card.appendChild(cardHeader);
+
+          // Name — tag safe DOM element, name is user-controlled (textContent)
+          const mobileName = document.createElement("div");
+          mobileName.className = "mobile-name";
+          const mobileRankTagEl = createRankTagElement(rank);
+          const mobileRankChangeEl = createRankChangeElement(user.rankChange);
+          if (mobileRankTagEl) {
+            mobileName.appendChild(mobileRankTagEl);
+          }
+          mobileName.appendChild(document.createTextNode(user.name));
+          if (mobileRankChangeEl) {
+            mobileName.appendChild(mobileRankChangeEl);
+          }
+          card.appendChild(mobileName);
+
+          // Username — id is user-controlled (textContent)
+          const mobileUsername = document.createElement("div");
+          mobileUsername.className = "mobile-username";
+          const mobileLink = document.createElement("a");
+          mobileLink.href = `https://leetcode.com/u/${user.id}`;
+          mobileLink.target = "_blank";
+          mobileLink.rel = "noopener noreferrer";
+          mobileLink.className = "user-link";
+          mobileLink.textContent = user.id;
+          mobileLink.appendChild(createExternalIcon());
+          mobileUsername.appendChild(mobileLink);
+          card.appendChild(mobileUsername);
+
+          // Stats
+          const mobileStats = document.createElement("div");
+          mobileStats.className = "mobile-stats";
+
+          const makeStat = (value, statClass, label) => {
+            const stat = document.createElement("div");
+            stat.className = "mobile-stat";
+            const num = document.createElement("div");
+            num.className = `mobile-stat-number ${statClass}`;
+            num.textContent = value;
+            stat.appendChild(num);
+            const lbl = document.createElement("div");
+            lbl.className = "mobile-stat-label";
+            lbl.textContent = label;
+            stat.appendChild(lbl);
+            return stat;
+          };
+
+          mobileStats.appendChild(
+            makeStat(user.data.easySolved, "easy", "Easy"),
+          );
+          mobileStats.appendChild(
+            makeStat(user.data.mediumSolved, "medium", "Medium"),
+          );
+          mobileStats.appendChild(
+            makeStat(user.data.hardSolved, "hard", "Hard"),
+          );
+          mobileStats.appendChild(
+            makeStat(user.data.totalSolved, "total", "Total"),
+          );
+
+          card.appendChild(mobileStats);
+
           mobileCards.appendChild(card);
         });
         renderPagination(data.length);
