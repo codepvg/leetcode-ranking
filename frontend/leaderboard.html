@@ -14,6 +14,8 @@
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
     <script src="js/leaderboard/tooltip.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" nonce="__NONCE__"></script>
+    <script src="js/leaderboard/compare.js"></script>
     <script src="js/leaderboard/render.js"></script>
     <script src="js/leaderboard/pagination.js"></script>
     <script src="js/leaderboard/search.js"></script>
@@ -350,9 +352,70 @@
         currentPage = 1;
         applyFiltersAndRender();
       }
-    </script>
-    <script src="js/footer.js"></script>
-    <script src="js/matrix.js"></script>
-    <script src="js/terminal_ui.js"></script>
-  </body>
+  </script>
+
+  <!-- Floating Compare Bar -->
+  <div id="compare-floating-bar" class="compare-bar hidden">
+    <div class="compare-bar-content">
+      <span class="compare-bar-text">$ compare_peers --selected=<span id="compare-count">0</span>/3</span>
+      <div id="compare-selected-names" class="compare-selected-names"></div>
+      <button id="compare-btn" class="btn btn-primary" disabled>compare</button>
+    </div>
+  </div>
+
+  <!-- Comparison Modal -->
+  <div id="compare-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="terminal-dots">
+          <div class="terminal-dot red close-modal-btn"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-title">peer_comparison.sh</div>
+        <button class="close-modal-x close-modal-btn" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="compare-modal-loading" class="compare-loading hidden">
+          <span class="loading-cursor">&gt;</span> [SYS]: FETCHING_PEER_DATA...
+        </div>
+        <div id="compare-modal-error" class="compare-error hidden">
+          <span class="error-cursor">[!]</span> Error: <span id="compare-error-msg"></span>
+        </div>
+        <div id="compare-modal-content" class="compare-modal-content">
+          <!-- Side-by-side Table -->
+          <div class="comparison-section">
+            <h3 class="section-title green">&gt; metrics_summary</h3>
+            <div class="table-responsive">
+              <table class="comparison-table" id="compare-metrics-table">
+                <!-- Dynamically populated -->
+              </table>
+            </div>
+          </div>
+          
+          <!-- Charts Grid -->
+          <div class="comparison-charts-grid">
+            <div class="chart-container-wrapper">
+              <h3 class="section-title blue">&gt; difficulty_breakdown</h3>
+              <div class="chart-holder">
+                <canvas id="difficultyChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-container-wrapper">
+              <h3 class="section-title orange">&gt; progress_history</h3>
+              <div class="chart-holder">
+                <canvas id="historyChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/footer.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/terminal_ui.js"></script>
+</body>
 </html>

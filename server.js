@@ -34,7 +34,11 @@ app.use(
         ],
         // Inline scripts need a per-request nonce; external scripts from 'self'
         // are allowed automatically.
-        scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          (req, res) => `'nonce-${res.locals.nonce}'`,
+        ],
         // Allow inline styles (style attributes) + Google Fonts stylesheet
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         // Google Fonts

@@ -2517,3 +2517,275 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
+
+/* ==========================================================================
+   LeetCode Comparison Styles
+   ========================================================================== */
+
+.compare-checkbox {
+  accent-color: var(--green);
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg);
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.mobile-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: calc(100% - 32px);
+  max-width: 650px;
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.05);
+  backdrop-filter: blur(8px);
+  animation: slideUpCompare 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpCompare {
+  from {
+    transform: translate(-50%, 100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.compare-bar.hidden {
+  display: none !important;
+}
+
+.compare-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.compare-bar-text {
+  font-family: "Space Mono", monospace;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
+
+.compare-bar-text span {
+  color: var(--green);
+}
+
+.compare-selected-names {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.compare-badge {
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid var(--green-dim);
+  color: var(--green);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Fira Code", monospace;
+}
+
+.compare-badge-remove {
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.compare-badge-remove:hover {
+  color: var(--red);
+}
+
+/* Modal and comparison details */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal.hidden {
+  display: none !important;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+.modal-container {
+  position: relative;
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 8px;
+  box-shadow: 0 0 35px rgba(0, 255, 65, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalAppear 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  background: var(--bg-raised);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.close-modal-x {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.close-modal-x:hover {
+  color: var(--red);
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  background: #000;
+}
+
+.compare-loading, .compare-error {
+  font-family: "Fira Code", monospace;
+  padding: 40px;
+  text-align: center;
+  color: var(--green-dim);
+}
+
+.compare-error {
+  color: var(--red);
+}
+
+.compare-loading .loading-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* Comparison metrics table */
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.comparison-table th, .comparison-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.comparison-table th:last-child, .comparison-table td:last-child {
+  border-right: none;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table th {
+  background: var(--bg-raised);
+  color: var(--green);
+  font-weight: 700;
+}
+
+.comparison-table td.metric-label {
+  color: var(--text-dim);
+  font-weight: 600;
+  background: rgba(0, 255, 65, 0.02);
+}
+
+/* Charts styling */
+.comparison-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .comparison-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compare-bar-content {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  .compare-bar {
+    bottom: 12px;
+  }
+}
+
+.chart-container-wrapper {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 15px;
+}
+
+.chart-holder {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}

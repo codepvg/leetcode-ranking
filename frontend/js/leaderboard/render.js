@@ -85,6 +85,24 @@ function renderLeaderboardRow(user, rank) {
   // Name cell — tag is safe DOM element, name is user-controlled (textContent)
   const nameDiv = document.createElement("div");
   nameDiv.className = "name-cell";
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "compare-checkbox";
+  checkbox.dataset.username = user.id;
+  if (window.selectedCompareUsers && window.selectedCompareUsers.some(u => u.id === user.id)) {
+    checkbox.checked = true;
+  }
+  if (window.selectedCompareUsers && window.selectedCompareUsers.length >= 3 && !window.selectedCompareUsers.some(u => u.id === user.id)) {
+    checkbox.disabled = true;
+  }
+  checkbox.addEventListener("change", (e) => {
+    if (window.handleCompareSelectionChange) {
+      window.handleCompareSelectionChange(user, e.target.checked);
+    }
+  });
+  nameDiv.appendChild(checkbox);
+
   if (rankTagEl) {
     nameDiv.appendChild(rankTagEl);
   }
@@ -203,6 +221,24 @@ function renderMobileCard(user, rank) {
   // Name — tag safe DOM element, name is user-controlled (textContent)
   const mobileName = document.createElement("div");
   mobileName.className = "mobile-name";
+
+  const mCheckbox = document.createElement("input");
+  mCheckbox.type = "checkbox";
+  mCheckbox.className = "compare-checkbox";
+  mCheckbox.dataset.username = user.id;
+  if (window.selectedCompareUsers && window.selectedCompareUsers.some(u => u.id === user.id)) {
+    mCheckbox.checked = true;
+  }
+  if (window.selectedCompareUsers && window.selectedCompareUsers.length >= 3 && !window.selectedCompareUsers.some(u => u.id === user.id)) {
+    mCheckbox.disabled = true;
+  }
+  mCheckbox.addEventListener("change", (e) => {
+    if (window.handleCompareSelectionChange) {
+      window.handleCompareSelectionChange(user, e.target.checked);
+    }
+  });
+  mobileName.appendChild(mCheckbox);
+
   const mobileRankTagEl = createRankTagElement(rank);
   const mobileRankChangeEl = createRankChangeElement(user.rankChange);
   if (mobileRankTagEl) {
