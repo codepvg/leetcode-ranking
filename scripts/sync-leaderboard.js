@@ -29,44 +29,54 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-function getSnapshotPath(dataDir) {
+async function getYesterdaySnapshot(filePath) {
+  const owner = "codepvg";
+  const repo = "leetcode-ranking-data";
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  const date = d.toISOString().split("T")[0];
-  return path.join(dataDir, "snapshots", `${date}.json`);
-}
+  const targetDate = d.toISOString().split("T")[0];
+  const until = `${targetDate}T23:59:59Z`;
+  const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&until=${until}&per_page=1`;
 
-function saveSnapshotIfNeeded(dataDir, overallData) {
-  const snapshotsDir = path.join(dataDir, "snapshots");
-  if (!fs.existsSync(snapshotsDir)) fs.mkdirSync(snapshotsDir);
+  const headers = { "User-Agent": "CodePVG-App" };
+  if (process.env.DATA_REPO_TOKEN) {
+    headers["Authorization"] = `token ${process.env.DATA_REPO_TOKEN}`;
+  }
 
-  const today = new Date().toISOString().split("T")[0];
-  const todaySnapshot = path.join(snapshotsDir, `${today}.json`);
-  if (!fs.existsSync(todaySnapshot)) {
-    fs.writeFileSync(
-      todaySnapshot,
-      JSON.stringify(overallData, null, 2),
-      "utf8",
-    );
-    console.log("Daily snapshot saved.");
+  try {
+    const commitResponse = await axios.get(commitsUrl, { headers });
+    const commits = commitResponse.data;
+
+    if (!commits || commits.length === 0) {
+      console.warn(`No commits found for ${filePath} on or before ${targetDate}.`);
+      return null;
+    }
+
+    const yesterdaySHA = commits[0].sha;
+    console.log(`📌 Using Commit for ${filePath}: "${commits[0].commit.message}" (SHA: ${yesterdaySHA})`);
+
+    const rawFileUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${yesterdaySHA}/${filePath}`;
+    const fileResponse = await axios.get(rawFileUrl);
+    return fileResponse.data;
+  } catch (error) {
+    console.error(`Error fetching historical data for ${filePath}:`, error.message);
+    return null;
   }
 }
 
-function computeRankChanges(currentSorted, dataDir) {
+async function computeRankChanges(currentSorted, filename) {
   let previousRanks = {};
-  try {
-    const snapshotPath = getSnapshotPath(dataDir);
-    const raw = fs.readFileSync(snapshotPath, "utf8");
-    const previousSorted = JSON.parse(raw);
-    previousSorted.forEach((user, idx) => {
+  const previousData = await getYesterdaySnapshot(filename);
+
+  if (previousData && Array.isArray(previousData)) {
+    previousData.forEach((user, idx) => {
       previousRanks[user.id] = idx + 1;
     });
-  } catch {
-    // File doesn't exist yet (first run) — everyone gets NEW
   }
 
   currentSorted.forEach((user, idx) => {
     const currentRank = idx + 1;
+
     if (previousRanks[user.id] === undefined) {
       user.rankChange = "NEW";
     } else {
@@ -136,8 +146,7 @@ function computeRankChanges(currentSorted, dataDir) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
-  saveSnapshotIfNeeded(DATA_DIR, overallData);
-  computeRankChanges(overallData, DATA_DIR);
+  await computeRankChanges(overallData, "overall.json");
   try {
     fs.writeFileSync(
       overallFilepath,
@@ -195,7 +204,7 @@ function computeRankChanges(currentSorted, dataDir) {
 
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
-  computeRankChanges(dailyData, DATA_DIR);
+  await computeRankChanges(dailyData, "daily.json");
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -251,7 +260,7 @@ function computeRankChanges(currentSorted, dataDir) {
 
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
-  computeRankChanges(weeklyData, DATA_DIR);
+  await computeRankChanges(weeklyData, "weekly.json");
   try {
     fs.writeFileSync(
       weeklyFilepath,
@@ -311,7 +320,7 @@ function computeRankChanges(currentSorted, dataDir) {
 
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
-  computeRankChanges(monthlyData, DATA_DIR);
+  await computeRankChanges(monthlyData, "monthly.json");
   try {
     fs.writeFileSync(
       monthlyFilepath,
