@@ -11,19 +11,15 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-// ---------------------------------------------------------------------------
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
-// ---------------------------------------------------------------------------
 app.use((req, res, next) => {
   res.locals.nonce = crypto.randomBytes(16).toString("base64url");
   next();
 });
 
-// ---------------------------------------------------------------------------
 // 2. Security headers via Helmet
 //    Sets: Content-Security-Policy, X-Frame-Options, X-Content-Type-Options,
 //          Referrer-Policy, Strict-Transport-Security, and more.
-// ---------------------------------------------------------------------------
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -57,10 +53,8 @@ app.use(
   }),
 );
 
-// ---------------------------------------------------------------------------
 // 3. Static assets (JS, CSS, images) — served normally
-//     HTML files are excluded — they go through nonce injection via routes.
-// ---------------------------------------------------------------------------
+//    HTML files are excluded — they go through nonce injection via routes.
 const staticMiddleware = express.static(path.join(__dirname, "frontend"), {
   index: false,
 });
@@ -70,9 +64,7 @@ app.use((req, res, next) => {
   staticMiddleware(req, res, next);
 });
 
-// ---------------------------------------------------------------------------
 // 4. HTML page routes — inject per-request nonce into __NONCE__ placeholders
-// ---------------------------------------------------------------------------
 function serveHtml(res, filePath) {
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -83,7 +75,7 @@ function serveHtml(res, filePath) {
   });
 }
 
-/* ---------------- HOME ROUTES ---------------- */
+/* HOME ROUTES */
 app.get("/", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "index.html"));
 });
@@ -106,9 +98,7 @@ app.get(/\.html$/, (req, res) => {
   res.redirect(301, cleanPath || "/");
 });
 
-// ---------------------------------------------------------------------------
 // 5. Utility endpoints
-// ---------------------------------------------------------------------------
 app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
@@ -146,3 +136,4 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
