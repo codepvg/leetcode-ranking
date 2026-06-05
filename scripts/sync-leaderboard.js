@@ -28,10 +28,31 @@ function getFileName(daysAgo) {
 
   return `${year}-${month}-${date}-${day}.json`;
 }
-function computeRankChanges(currentSorted, previousSortedFilepath) {
+
+function getSnapshotPath(dataDir) {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const date = d.toISOString().split("T")[0];
+  return path.join(dataDir, "snapshots", `${date}.json`);
+}
+
+function saveSnapshotIfNeeded(dataDir, overallData) {
+  const snapshotsDir = path.join(dataDir, "snapshots");
+  if (!fs.existsSync(snapshotsDir)) fs.mkdirSync(snapshotsDir);
+
+  const today = new Date().toISOString().split("T")[0];
+  const todaySnapshot = path.join(snapshotsDir, `${today}.json`);
+  if (!fs.existsSync(todaySnapshot)) {
+    fs.writeFileSync(todaySnapshot, JSON.stringify(overallData, null, 2), "utf8");
+    console.log("Daily snapshot saved.");
+  }
+}
+
+function computeRankChanges(currentSorted, dataDir) {
   let previousRanks = {};
   try {
-    const raw = fs.readFileSync(previousSortedFilepath, "utf8");
+    const snapshotPath = getSnapshotPath(dataDir);
+    const raw = fs.readFileSync(snapshotPath, "utf8");
     const previousSorted = JSON.parse(raw);
     previousSorted.forEach((user, idx) => {
       previousRanks[user.id] = idx + 1;
@@ -111,7 +132,8 @@ function computeRankChanges(currentSorted, previousSortedFilepath) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
-  computeRankChanges(overallData, overallFilepath);
+  saveSnapshotIfNeeded(DATA_DIR, overallData);
+  computeRankChanges(overallData, DATA_DIR);
   try {
     fs.writeFileSync(
       overallFilepath,
@@ -169,7 +191,7 @@ function computeRankChanges(currentSorted, previousSortedFilepath) {
 
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
-  computeRankChanges(dailyData, dailyFilepath);
+  computeRankChanges(dailyData, DATA_DIR);
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -225,7 +247,7 @@ function computeRankChanges(currentSorted, previousSortedFilepath) {
 
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
-  computeRankChanges(weeklyData, weeklyFilepath);
+  computeRankChanges(weeklyData, DATA_DIR);
   try {
     fs.writeFileSync(
       weeklyFilepath,
@@ -285,7 +307,7 @@ function computeRankChanges(currentSorted, previousSortedFilepath) {
 
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
-  computeRankChanges(monthlyData, monthlyFilepath);
+  computeRankChanges(monthlyData, DATA_DIR);
   try {
     fs.writeFileSync(
       monthlyFilepath,
