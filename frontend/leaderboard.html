@@ -11,6 +11,25 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/main.css" />
+    <style>
+      .rank-change {
+        display: inline-block;
+        font-size: 0.65rem;
+        font-family: "Fira Code", monospace;
+        margin-left: 0.4rem;
+        vertical-align: middle;
+        opacity: 0.85;
+      }
+      .rank-up {
+        color: var(--green);
+      }
+      .rank-down {
+        color: var(--red);
+      }
+      .rank-neutral {
+        color: var(--text-muted);
+      }
+    </style>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
   </head>
@@ -357,6 +376,16 @@
           `;
         renderLeaderboard(filteredData);
       }
+      function getRankChangeTag(rankChange) {
+        if (!rankChange) return "";
+        if (rankChange === "NEW")
+          return `<span class="rank-change rank-neutral">[new]</span>`;
+        if (rankChange === "=")
+          return `<span class="rank-change rank-neutral">[==]</span>`;
+        if (rankChange.startsWith("+"))
+          return `<span class="rank-change rank-up">[${rankChange}]</span>`;
+        return `<span class="rank-change rank-down">[${rankChange}]</span>`;
+      }
       function getRankTag(rank) {
         switch (rank) {
           case 1:
@@ -416,7 +445,7 @@
           row.className = "leaderboard-row";
           row.innerHTML = `
                     <div class="rank">${rank}</div>
-                    <div class="name-cell">${tag}${user.name}</div>
+                    <div class="name-cell">${tag}${user.name}${getRankChangeTag(user.rankChange)}</div>
                     <div class="username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
                         <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
                         <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
@@ -485,7 +514,7 @@
                     </div>
 
                     
-                    <div class="mobile-name">${tag}${user.name}</div>
+                    <div class="mobile-name">${tag}${user.name}${getRankChangeTag(user.rankChange)}</div>
                     <div class="mobile-username"><a href="https://leetcode.com/u/${user.id}" target="_blank" rel="noopener noreferrer" class="user-link">${user.id}
                         <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24">
                         <path d="M14 3H21V10M21 3L10 14M21 14V21H3V3H10"
