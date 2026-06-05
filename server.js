@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require('path');
+const path = require("path");
 const cors = require("cors");
 
 const app = express();
@@ -35,7 +35,6 @@ const studentCache = new Map();
 
 app.get("/api/student/:username", async (req, res) => {
   const username = req.params.username;
-
 
   if (studentCache.has(username)) {
     const cached = studentCache.get(username);
