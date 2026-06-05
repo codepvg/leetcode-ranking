@@ -48,18 +48,25 @@ async function getYesterdaySnapshot(filePath) {
     const commits = commitResponse.data;
 
     if (!commits || commits.length === 0) {
-      console.warn(`No commits found for ${filePath} on or before ${targetDate}.`);
+      console.warn(
+        `No commits found for ${filePath} on or before ${targetDate}.`,
+      );
       return null;
     }
 
     const yesterdaySHA = commits[0].sha;
-    console.log(`📌 Using Commit for ${filePath}: "${commits[0].commit.message}" (SHA: ${yesterdaySHA})`);
+    console.log(
+      `📌 Using Commit for ${filePath}: "${commits[0].commit.message}" (SHA: ${yesterdaySHA})`,
+    );
 
     const rawFileUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${yesterdaySHA}/${filePath}`;
     const fileResponse = await axios.get(rawFileUrl);
     return fileResponse.data;
   } catch (error) {
-    console.error(`Error fetching historical data for ${filePath}:`, error.message);
+    console.error(
+      `Error fetching historical data for ${filePath}:`,
+      error.message,
+    );
     return null;
   }
 }
