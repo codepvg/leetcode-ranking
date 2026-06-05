@@ -55,6 +55,7 @@ jobs:
 
             # 2. Run sync
             export DATA_DIR=db-repo
+            export DATA_REPO_TOKEN=${{ secrets.DATA_REPO_TOKEN }}
             node scripts/sync-leaderboard.js
 
             # 3. Stage changes (everything except users.json)

@@ -1,324 +1,391 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>leaderboard — CodePVG</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="icon" type="image/png" href="assets/logo.png" />
-    <script src="js/navbar.js"></script>
-  </head>
 
-  <body>
-    <canvas id="matrix-canvas"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>leaderboard — CodePVG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <style>
+    .rank-change {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-family: "Fira Code", monospace;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+      opacity: 0.85;
+    }
 
-    <main class="page">
-      <div class="container">
-        <h1 class="page-title">Leaderboard</h1>
-        <div
-          id="last-synced-indicator"
-          style="
+    .rank-up {
+      color: var(--green);
+    }
+
+    .rank-down {
+      color: var(--red);
+    }
+
+    .rank-neutral {
+      color: var(--text-muted);
+    }
+  </style>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <script src="js/navbar.js"></script>
+</head>
+
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <main class="page">
+    <div class="container">
+      <h1 class="page-title">Leaderboard</h1>
+      <div id="last-synced-indicator" style="
             text-align: center;
             font-family: &quot;Fira Code&quot;, monospace;
             font-size: 0.75rem;
             color: var(--text-dim);
             margin-top: -5px;
             margin-bottom: 0.3rem;
-          "
-        >
-          <span style="color: var(--text-muted)">[SYS_STATUS]:</span> LAST SYNC
-          <span
-            id="sync-time"
-            style="
+          ">
+        <span style="color: var(--text-muted)">[SYS_STATUS]:</span> LAST SYNC
+        <span id="sync-time" style="
               color: var(--cyan);
               text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
-            "
-            >__AWAITING_UPLINK__</span
-          >
-        </div>
-        <div
-          id="next-sync-indicator"
-          style="
+            ">__AWAITING_UPLINK__</span>
+      </div>
+      <div id="next-sync-indicator" style="
             text-align: center;
             font-family: &quot;Fira Code&quot;, monospace;
             font-size: 0.7rem;
             color: var(--text-dim);
             margin-bottom: 1.5rem;
-          "
-        >
-          <span style="color: var(--text-muted)">[NEXT_SYNC]:</span>
-          <span
-            id="next-sync-time"
-            style="
+          ">
+        <span style="color: var(--text-muted)">[NEXT_SYNC]:</span>
+        <span id="next-sync-time" style="
               color: var(--green);
               text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);
-            "
-            >__PENDING__</span
-          >
+            ">__PENDING__</span>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="overall">Overall</button>
+        <button class="tab" data-tab="monthly">Monthly</button>
+        <button class="tab" data-tab="weekly">Weekly</button>
+        <button class="tab" data-tab="daily">Daily</button>
+      </div>
+
+      <div class="search-container">
+        <div class="search-bar">
+          <span class="search-prefix">$ grep -i</span>
+          <input type="text" id="leaderboard-search" class="search-input" placeholder="pattern" autocomplete="off"
+            spellcheck="false" />
+
+          <span class="search-result-count" id="search-result-count"></span>
+          <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+          <button type="button" id="clear-search" class="clear-search-btn" aria-label="Clear search">
+            ESC
+          </button>
         </div>
+      </div>
 
-        <div class="tabs">
-          <button class="tab active" data-tab="overall">Overall</button>
-          <button class="tab" data-tab="monthly">Monthly</button>
-          <button class="tab" data-tab="weekly">Weekly</button>
-          <button class="tab" data-tab="daily">Daily</button>
-        </div>
+      <div id="leaderboard-stats"></div>
 
-        <div class="search-container">
-          <div class="search-bar">
-            <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
-            <span class="search-result-count" id="search-result-count"></span>
-            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
-          </div>
-        </div>
-
-        <div id="leaderboard-stats"></div>
-
-        <div class="leaderboard">
-          <div class="leaderboard-header">
-            <div>Rank</div>
-            <div>Name</div>
-            <div>LeetCode ID</div>
-            <div class="easy">Easy</div>
-            <div class="medium">Medium</div>
-            <div class="hard">Hard</div>
-            <div class="score-header">
-              Score
-              <div class="tooltip-container">
-                <span class="tooltip-icon">?</span>
-                <div class="tooltip-content">
-                  <strong>Score Calculation:</strong><br />
-                  Easy = 1 point<br />
-                  Medium = 3 points<br />
-                  Hard = 5 points<br />
-                  <a href="about.html">More details</a>
-                </div>
+      <div class="leaderboard">
+        <div class="leaderboard-header">
+          <div>Rank</div>
+          <div>Name</div>
+          <div>LeetCode ID</div>
+          <div class="easy">Easy</div>
+          <div class="medium">Medium</div>
+          <div class="hard">Hard</div>
+          <div class="total">Total</div>
+          <div class="score-header">
+            Score
+            <div class="tooltip-container">
+              <span class="tooltip-icon">?</span>
+              <div class="tooltip-content">
+                <strong>Score Calculation:</strong><br />
+                Easy = 1 point<br />
+                Medium = 3 points<br />
+                Hard = 5 points<br />
+                <a href="about.html">More details</a>
               </div>
             </div>
           </div>
-
-          <div id="leaderboard-body"></div>
         </div>
 
-        <div class="mobile-cards" id="mobile-cards"></div>
-
-        <div id="pagination-controls" class="pagination-controls">
-          <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
-          <div id="page-numbers" class="page-numbers-container"></div>
-          <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
-        </div>
+        <div id="leaderboard-body"></div>
       </div>
-    </main>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.addEventListener("click", () => {
-            setActiveTab(tab.dataset.tab);
-          });
+      <div class="mobile-cards" id="mobile-cards"></div>
+
+      <div id="pagination-controls" class="pagination-controls">
+        <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
+        <div id="page-numbers" class="page-numbers-container"></div>
+        <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setActiveTab(tab.dataset.tab);
         });
-
-        const searchInput = document.getElementById("leaderboard-search");
-        const shortcutBadge = document.getElementById("search-shortcut");
-
-        searchInput.addEventListener("input", (e) => {
-          currentSearchTerm = e.target.value.toLowerCase().trim();
-          applyFiltersAndRender();
-        });
-
-        searchInput.addEventListener("focus", () => {
-          shortcutBadge.style.opacity = "0";
-        });
-
-        searchInput.addEventListener("blur", () => {
-          if (!searchInput.value) {
-            shortcutBadge.style.opacity = "1";
-          }
-        });
-
-        // Ctrl+K / Cmd+K keyboard shortcut
-        document.addEventListener("keydown", (e) => {
-          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-            e.preventDefault();
-            searchInput.focus();
-          }
-          if (e.key === "Escape" && document.activeElement === searchInput) {
-            searchInput.value = "";
-            currentSearchTerm = "";
-            searchInput.blur();
-            applyFiltersAndRender();
-          }
-        });
-        document
-          .getElementById("prev-page-btn")
-          ?.addEventListener("click", () => {
-            if (currentPage > 1) {
-              currentPage--;
-              applyFiltersAndRender();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-          });
-
-        document
-          .getElementById("next-page-btn")
-          ?.addEventListener("click", () => {
-            const totalPages = Math.ceil(
-              leaderboardData[activeDatasetType].length / itemsPerPage,
-            );
-
-            if (currentPage < totalPages) {
-              currentPage++;
-              applyFiltersAndRender();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-          });
-
-        fetchLeaderboardData();
       });
 
-      const leaderboardData = {};
-      let currentPage = 1;
-      let itemsPerPage = 25;
-      let activeDatasetType = "overall";
-      let currentSearchTerm = "";
+      const searchInput = document.getElementById("leaderboard-search");
+      const shortcutBadge = document.getElementById("search-shortcut");
+      const clearBtn = document.getElementById("clear-search");
 
-      async function fetchLeaderboardData() {
-        const endpoints = ["overall", "monthly", "weekly", "daily"];
-        const cacheBuster = Date.now();
-        // Fetch directly from github to avoid needing a server redeploy for new data
-        const results = await Promise.allSettled(
-          endpoints.map((type) =>
-            fetch(
-              `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            ).then((res) => {
-              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
-              return res.json();
-            }),
-          ),
-        );
+      searchInput.addEventListener("input", (e) => {
+        currentSearchTerm = e.target.value.toLowerCase().trim();
 
-        results.forEach((result, index) => {
-          if (result.status === "fulfilled") {
-            leaderboardData[endpoints[index]] = result.value;
-          } else {
-            console.error("Failed to fetch", endpoints[index], result.reason);
-          }
-        });
-
-        try {
-          // Fetch directly from github to avoid needing a server redeploy for new data
-          const syncRes = await fetch(
-            `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
-          );
-          if (syncRes.ok) {
-            const syncData = await syncRes.json();
-            const options = {
-              month: "short",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              timeZoneName: "short",
-            };
-
-            const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
-            const formatted = date
-              .toLocaleString("en-US", options)
-              .toUpperCase();
-            document.getElementById("sync-time").innerText = formatted;
-
-            if (syncData.nextSync) {
-              const nextDate = new Date(syncData.nextSync);
-              const now = new Date();
-              if (nextDate > now) {
-                const diffMs = nextDate - now;
-                const diffMin = Math.ceil(diffMs / 60000);
-                document.getElementById("next-sync-time").innerText =
-                  `~${diffMin} MIN`;
-              } else {
-                document.getElementById("next-sync-time").innerText =
-                  "IMMINENT";
-              }
-            } else {
-              document.getElementById("next-sync-time").innerText = "~5 MIN";
-            }
-          } else {
-            document.getElementById("sync-time").innerText = "SYNC_FAILED";
-            document.getElementById("sync-time").style.color = "var(--red)";
-            document.getElementById("next-sync-time").innerText = "UNKNOWN";
-          }
-        } catch (e) {
-          console.error("Failed to fetch sync time", e);
-          document.getElementById("sync-time").innerText = "OFFLINE";
-          document.getElementById("sync-time").style.color = "var(--red)";
-          document.getElementById("next-sync-time").innerText = "OFFLINE";
-          document.getElementById("next-sync-time").style.color = "var(--red)";
-        }
+        clearBtn.style.display =
+          e.target.value.trim() !== "" ? "flex" : "none";
 
         applyFiltersAndRender();
-      }
+      });
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        currentSearchTerm = "";
 
-      function applyFiltersAndRender() {
-        if (!leaderboardData[activeDatasetType]) return;
+        clearBtn.style.display = "none";
 
-        const originalData = leaderboardData[activeDatasetType];
+        searchInput.focus();
+        applyFiltersAndRender();
+      });
+      searchInput.addEventListener("input", (e) => {
+        currentSearchTerm = e.target.value.toLowerCase().trim();
 
-        const rankedData = originalData.map((user, index) => ({
-          ...user,
-          originalRank: index + 1,
-        }));
+        clearBtn.style.display =
+          e.target.value.trim() !== "" ? "flex" : "none";
 
-        const filteredData = rankedData.filter((user) => {
-          if (!currentSearchTerm) return true;
+        applyFiltersAndRender();
+      });
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        currentSearchTerm = "";
 
-          return (
-            user.name.toLowerCase().includes(currentSearchTerm) ||
-            user.id.toLowerCase().includes(currentSearchTerm)
-          );
+        clearBtn.style.display = "none";
+
+        searchInput.focus();
+        applyFiltersAndRender();
+      });
+
+      searchInput.addEventListener("focus", () => {
+        shortcutBadge.style.display = "none";
+      });
+
+      searchInput.addEventListener("blur", () => {
+        if (!searchInput.value) {
+          shortcutBadge.style.display = "inline-flex";
+        }
+      });
+      searchInput.addEventListener("blur", () => {
+        if (!searchInput.value) {
+          shortcutBadge.style.display = "inline-flex";
+        }
+      });
+
+      // Ctrl+K / Cmd+K keyboard shortcut
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          searchInput.focus();
+        }
+        if (e.key === "Escape" && document.activeElement === searchInput) {
+          searchInput.value = "";
+          currentSearchTerm = "";
+          clearBtn.style.display = "none";
+          searchInput.blur();
+          applyFiltersAndRender();
+        }
+      });
+      document
+        .getElementById("prev-page-btn")
+        ?.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      // Ctrl+K / Cmd+K keyboard shortcut
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          searchInput.focus();
+        }
+        if (e.key === "Escape" && document.activeElement === searchInput) {
+          searchInput.value = "";
+          currentSearchTerm = "";
+          clearBtn.style.display = "none";
+          searchInput.blur();
+          applyFiltersAndRender();
+        }
+      });
+      document
+        .getElementById("prev-page-btn")
+        ?.addEventListener("click", () => {
+          if (currentPage > 1) {
+            currentPage--;
+            applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
         });
 
-        const countEl = document.getElementById("search-result-count");
+      document
+        .getElementById("next-page-btn")
+        ?.addEventListener("click", () => {
+          const totalPages = Math.ceil(
+            leaderboardData[activeDatasetType].length / itemsPerPage,
+          );
 
-        if (currentSearchTerm) {
-          const total = originalData.length;
-          const matched = filteredData.length;
+          if (currentPage < totalPages) {
+            currentPage++;
+            applyFiltersAndRender();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        });
+      clearBtn.style.display = "none";
+      fetchLeaderboardData();
+    });
 
-          countEl.textContent = `${matched}/${total}`;
-          countEl.style.opacity = "1";
+    const leaderboardData = {};
+    let currentPage = 1;
+    let itemsPerPage = 25;
+    let activeDatasetType = "overall";
+    let currentSearchTerm = "";
+
+    async function fetchLeaderboardData() {
+      const endpoints = ["overall", "monthly", "weekly", "daily"];
+      const cacheBuster = Date.now();
+      // Fetch directly from github to avoid needing a server redeploy for new data
+      const results = await Promise.allSettled(
+        endpoints.map((type) =>
+          fetch(
+            `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
+          ).then((res) => {
+            if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+            return res.json();
+          }),
+        ),
+      );
+
+      results.forEach((result, index) => {
+        if (result.status === "fulfilled") {
+          leaderboardData[endpoints[index]] = result.value;
         } else {
-          countEl.textContent = "";
-          countEl.style.opacity = "0";
+          console.error("Failed to fetch", endpoints[index], result.reason);
         }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
+      });
 
-        document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
-        const statsEl = document.getElementById("leaderboard-stats");
-
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
-        const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
-
-        const endRow = Math.min(
-          currentPage * itemsPerPage,
-          filteredData.length,
+      try {
+        // Fetch directly from github to avoid needing a server redeploy for new data
+        const syncRes = await fetch(
+          `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
         );
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          const options = {
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZoneName: "short",
+          };
 
-        statsEl.innerHTML = `
+          const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
+          const formatted = date
+            .toLocaleString("en-US", options)
+            .toUpperCase();
+          document.getElementById("sync-time").innerText = formatted;
+
+          if (syncData.nextSync) {
+            const nextDate = new Date(syncData.nextSync);
+            const now = new Date();
+            if (nextDate > now) {
+              const diffMs = nextDate - now;
+              const diffMin = Math.ceil(diffMs / 60000);
+              document.getElementById("next-sync-time").innerText =
+                `~${diffMin} MIN`;
+            } else {
+              document.getElementById("next-sync-time").innerText =
+                "IMMINENT";
+            }
+          } else {
+            document.getElementById("next-sync-time").innerText = "~5 MIN";
+          }
+        } else {
+          document.getElementById("sync-time").innerText = "SYNC_FAILED";
+          document.getElementById("sync-time").style.color = "var(--red)";
+          document.getElementById("next-sync-time").innerText = "UNKNOWN";
+        }
+      } catch (e) {
+        console.error("Failed to fetch sync time", e);
+        document.getElementById("sync-time").innerText = "OFFLINE";
+        document.getElementById("sync-time").style.color = "var(--red)";
+        document.getElementById("next-sync-time").innerText = "OFFLINE";
+        document.getElementById("next-sync-time").style.color = "var(--red)";
+      }
+
+      applyFiltersAndRender();
+    }
+
+    function applyFiltersAndRender() {
+      if (!leaderboardData[activeDatasetType]) return;
+
+      const originalData = leaderboardData[activeDatasetType];
+
+      const rankedData = originalData.map((user, index) => ({
+        ...user,
+        originalRank: index + 1,
+      }));
+
+      const filteredData = rankedData.filter((user) => {
+        if (!currentSearchTerm) return true;
+
+        return (
+          user.name.toLowerCase().includes(currentSearchTerm) ||
+          user.id.toLowerCase().includes(currentSearchTerm)
+        );
+      });
+
+      const countEl = document.getElementById("search-result-count");
+
+      if (currentSearchTerm) {
+        const total = originalData.length;
+        const matched = filteredData.length;
+
+        countEl.textContent = `${matched}/${total}`;
+        countEl.style.opacity = "1";
+      } else {
+        countEl.textContent = "";
+        countEl.style.opacity = "0";
+      }
+      document.getElementById("prev-page-btn").disabled = currentPage === 1;
+
+      document.getElementById("next-page-btn").disabled =
+        currentPage === Math.ceil(filteredData.length / itemsPerPage);
+      const statsEl = document.getElementById("leaderboard-stats");
+
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+      const startRow =
+        filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+
+      const endRow = Math.min(
+        currentPage * itemsPerPage,
+        filteredData.length,
+      );
+
+      statsEl.innerHTML = `
             <div style="
               text-align:center;
               color:var(--text-dim);
@@ -330,389 +397,447 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
+      renderLeaderboard(filteredData);
+    }
+
+    // Creates a rank change DOM element (safe — values are internally generated)
+    function createRankChangeElement(rankChange) {
+      if (!rankChange) return null;
+      var span = document.createElement("span");
+      span.className = "rank-change";
+      if (rankChange === "NEW") {
+        span.classList.add("rank-neutral");
+        span.textContent = "[new]";
+      } else if (rankChange === "=") {
+        span.classList.add("rank-neutral");
+        span.textContent = "[==]";
+      } else if (rankChange.startsWith("+")) {
+        span.classList.add("rank-up");
+        span.textContent = "[" + rankChange + "]";
+      } else {
+        span.classList.add("rank-down");
+        span.textContent = "[" + rankChange + "]";
       }
-      function getRankTag(rank) {
-        switch (rank) {
-          case 1:
-            return '<span class="privilege-tag root-tag">[ROOT]</span>';
-          case 2:
-            return '<span class="privilege-tag sudo-tag">[SUDO]</span>';
-          case 3:
-            return '<span class="privilege-tag exec-tag">[EXEC]</span>';
-          default:
-            return "";
-        }
+      return span;
+    }
+
+    // Creates a rank tag DOM element (safe — values are hardcoded)
+    function createRankTagElement(rank) {
+      var className, label;
+      switch (rank) {
+        case 1:
+          className = "privilege-tag root-tag";
+          label = "[ROOT]";
+          break;
+        case 2:
+          className = "privilege-tag sudo-tag";
+          label = "[SUDO]";
+          break;
+        case 3:
+          className = "privilege-tag exec-tag";
+          label = "[EXEC]";
+          break;
+        default:
+          return null;
       }
+      var span = document.createElement("span");
+      span.className = className;
+      span.textContent = label;
+      return span;
+    }
 
-      function renderLeaderboard(data) {
-        const body = document.getElementById("leaderboard-body");
-        const mobileCards = document.getElementById("mobile-cards");
+    function renderLeaderboard(data) {
+      const body = document.getElementById("leaderboard-body");
+      const mobileCards = document.getElementById("mobile-cards");
 
-        body.innerHTML = "";
-        mobileCards.innerHTML = "";
+      body.innerHTML = "";
+      mobileCards.innerHTML = "";
 
-        const isSearching = currentSearchTerm.length > 0;
+      const isSearching = currentSearchTerm.length > 0;
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+      const displayData = isSearching
+        ? data
+        : data.slice(startIndex, endIndex);
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
+      if (displayData.length === 0) {
+        body.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
 
-          mobileCards.innerHTML = `
+        mobileCards.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
-          return;
-        }
-
-        // Helper: create external link SVG icon (hardcoded — safe)
-        function createExternalIcon() {
-          var svg = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "svg",
-          );
-          svg.setAttribute("width", "12");
-          svg.setAttribute("height", "12");
-          svg.setAttribute("viewBox", "0 0 24 24");
-          svg.classList.add("external-icon");
-          var path = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path",
-          );
-          path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
-          path.setAttribute("fill", "none");
-          path.setAttribute("stroke", "currentColor");
-          path.setAttribute("stroke-width", "2");
-          path.setAttribute("stroke-linecap", "round");
-          path.setAttribute("stroke-linejoin", "round");
-          svg.appendChild(path);
-          return svg;
-        }
-
-        // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
-        function buildScoreTooltip(
-          user,
-          easyPts,
-          medPts,
-          hardPts,
-          eScore,
-          mScore,
-          hScore,
-        ) {
-          var tooltip = document.createElement("div");
-          tooltip.className = "score-tooltip";
-
-          var easyLine = document.createElement("div");
-          easyLine.textContent =
-            "Easy: " +
-            user.data.easySolved +
-            " \u00D7 " +
-            easyPts +
-            " = " +
-            eScore;
-          tooltip.appendChild(easyLine);
-
-          var medLine = document.createElement("div");
-          medLine.textContent =
-            "Medium: " +
-            user.data.mediumSolved +
-            " \u00D7 " +
-            medPts +
-            " = " +
-            mScore;
-          tooltip.appendChild(medLine);
-
-          var hardLine = document.createElement("div");
-          hardLine.textContent =
-            "Hard: " +
-            user.data.hardSolved +
-            " \u00D7 " +
-            hardPts +
-            " = " +
-            hScore;
-          tooltip.appendChild(hardLine);
-
-          var hr = document.createElement("hr");
-          tooltip.appendChild(hr);
-
-          var totalLine = document.createElement("div");
-          var strong = document.createElement("strong");
-          strong.textContent = "Total: " + user.score;
-          totalLine.appendChild(strong);
-          tooltip.appendChild(totalLine);
-
-          return tooltip;
-        }
-
-        displayData.forEach((user, index) => {
-          const rank = user.originalRank || index + 1;
-          const tag = getRankTag(rank);
-          const easyPoints = 1;
-          const mediumPoints = 3;
-          const hardPoints = 5;
-
-          const easyScore = user.data.easySolved * easyPoints;
-          const mediumScore = user.data.mediumSolved * mediumPoints;
-          const hardScore = user.data.hardSolved * hardPoints;
-          const row = document.createElement("div");
-          row.className = "leaderboard-row";
-
-          // Rank (numeric — safe)
-          const rankDiv = document.createElement("div");
-          rankDiv.className = "rank";
-          rankDiv.textContent = rank;
-          row.appendChild(rankDiv);
-
-          // Name cell — tag is safe hardcoded HTML, name is user-controlled (textContent)
-          const nameDiv = document.createElement("div");
-          nameDiv.className = "name-cell";
-          if (tag) {
-            nameDiv.insertAdjacentHTML("beforeend", tag);
-          }
-          nameDiv.appendChild(document.createTextNode(user.name));
-          row.appendChild(nameDiv);
-
-          // Username with link and external icon — id is user-controlled (textContent)
-          const usernameDiv = document.createElement("div");
-          usernameDiv.className = "username";
-          const link = document.createElement("a");
-          link.href = `https://leetcode.com/u/${user.id}`;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.className = "user-link";
-          link.textContent = user.id;
-          link.appendChild(createExternalIcon());
-          usernameDiv.appendChild(link);
-          row.appendChild(usernameDiv);
-
-          // Easy (numeric — safe)
-          const easyDiv = document.createElement("div");
-          easyDiv.className = "easy";
-          easyDiv.textContent = user.data.easySolved;
-          row.appendChild(easyDiv);
-
-          // Medium (numeric — safe)
-          const mediumDiv = document.createElement("div");
-          mediumDiv.className = "medium";
-          mediumDiv.textContent = user.data.mediumSolved;
-          row.appendChild(mediumDiv);
-
-          // Hard (numeric — safe)
-          const hardDiv = document.createElement("div");
-          hardDiv.className = "hard";
-          hardDiv.textContent = user.data.hardSolved;
-          row.appendChild(hardDiv);
-
-          // Score with tooltip — all content is numeric or hardcoded labels
-          const scoreDiv = document.createElement("div");
-          scoreDiv.className = "mobile-score tooltip-score";
-          const scoreSpan = document.createElement("span");
-          scoreSpan.textContent = user.score;
-          scoreDiv.appendChild(scoreSpan);
-          const caretSpan = document.createElement("span");
-          caretSpan.className = "score-caret";
-          scoreDiv.appendChild(caretSpan);
-          scoreDiv.appendChild(
-            buildScoreTooltip(
-              user,
-              easyPoints,
-              mediumPoints,
-              hardPoints,
-              easyScore,
-              mediumScore,
-              hardScore,
-            ),
-          );
-          row.appendChild(scoreDiv);
-
-          body.appendChild(row);
-
-          // === Mobile card ===
-          const card = document.createElement("div");
-          card.className = "mobile-card";
-
-          // Card header
-          const cardHeader = document.createElement("div");
-          cardHeader.className = "mobile-card-header";
-
-          const mobileRank = document.createElement("div");
-          mobileRank.className = "mobile-rank";
-          mobileRank.textContent = `#${rank}`;
-          cardHeader.appendChild(mobileRank);
-
-          const mobileScore = document.createElement("div");
-          mobileScore.className = "mobile-score tooltip-score";
-          const mobileScoreSpan = document.createElement("span");
-          mobileScoreSpan.textContent = user.score;
-          mobileScore.appendChild(mobileScoreSpan);
-          const mobileCaretSpan = document.createElement("span");
-          mobileCaretSpan.className = "score-caret";
-          mobileScore.appendChild(mobileCaretSpan);
-          mobileScore.appendChild(
-            buildScoreTooltip(
-              user,
-              easyPoints,
-              mediumPoints,
-              hardPoints,
-              easyScore,
-              mediumScore,
-              hardScore,
-            ),
-          );
-          cardHeader.appendChild(mobileScore);
-
-          card.appendChild(cardHeader);
-
-          // Name — tag safe hardcoded HTML, name is user-controlled (textContent)
-          const mobileName = document.createElement("div");
-          mobileName.className = "mobile-name";
-          if (tag) {
-            mobileName.insertAdjacentHTML("beforeend", tag);
-          }
-          mobileName.appendChild(document.createTextNode(user.name));
-          card.appendChild(mobileName);
-
-          // Username — id is user-controlled (textContent)
-          const mobileUsername = document.createElement("div");
-          mobileUsername.className = "mobile-username";
-          const mobileLink = document.createElement("a");
-          mobileLink.href = `https://leetcode.com/u/${user.id}`;
-          mobileLink.target = "_blank";
-          mobileLink.rel = "noopener noreferrer";
-          mobileLink.className = "user-link";
-          mobileLink.textContent = user.id;
-          mobileLink.appendChild(createExternalIcon());
-          mobileUsername.appendChild(mobileLink);
-          card.appendChild(mobileUsername);
-
-          // Stats
-          const mobileStats = document.createElement("div");
-          mobileStats.className = "mobile-stats";
-
-          const makeStat = (value, statClass, label) => {
-            const stat = document.createElement("div");
-            stat.className = "mobile-stat";
-            const num = document.createElement("div");
-            num.className = `mobile-stat-number ${statClass}`;
-            num.textContent = value;
-            stat.appendChild(num);
-            const lbl = document.createElement("div");
-            lbl.className = "mobile-stat-label";
-            lbl.textContent = label;
-            stat.appendChild(lbl);
-            return stat;
-          };
-
-          mobileStats.appendChild(
-            makeStat(user.data.easySolved, "easy", "Easy"),
-          );
-          mobileStats.appendChild(
-            makeStat(user.data.mediumSolved, "medium", "Medium"),
-          );
-          mobileStats.appendChild(
-            makeStat(user.data.hardSolved, "hard", "Hard"),
-          );
-
-          card.appendChild(mobileStats);
-
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
+        return;
       }
-      function renderPagination(totalItems) {
-        const pageNumbers = document.getElementById("page-numbers");
 
-        if (!pageNumbers) return;
-
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        pageNumbers.innerHTML = "";
-
-        if (totalPages === 0) return;
-
-        function createPageBtn(i) {
-          const btn = document.createElement("button");
-          btn.classList.add("page-btn");
-          btn.textContent = i;
-
-          if (i === currentPage) {
-            btn.classList.add("active-page");
-          }
-
-          btn.onclick = () => {
-            currentPage = i;
-            applyFiltersAndRender();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          };
-
-          return btn;
-        }
-
-        const pagesToRender = [];
-        const range = 1; // Number of pages to show around the current page
-
-        pagesToRender.push(1);
-
-        if (currentPage - range > 2) {
-          pagesToRender.push("..");
-        }
-
-        for (
-          let i = Math.max(2, currentPage - range);
-          i <= Math.min(totalPages - 1, currentPage + range);
-          i++
-        ) {
-          pagesToRender.push(i);
-        }
-
-        if (currentPage + range < totalPages - 1) {
-          pagesToRender.push("..");
-        }
-
-        if (totalPages > 1) {
-          pagesToRender.push(totalPages);
-        }
-
-        pagesToRender.forEach((item) => {
-          if (item === "..") {
-            const ellipsis = document.createElement("span");
-            ellipsis.className = "page-ellipsis";
-            ellipsis.textContent = "..";
-            pageNumbers.appendChild(ellipsis);
-          } else {
-            pageNumbers.appendChild(createPageBtn(item));
-          }
-        });
+      // Helper: create external link SVG icon (hardcoded — safe)
+      function createExternalIcon() {
+        var svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg",
+        );
+        svg.setAttribute("width", "12");
+        svg.setAttribute("height", "12");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.classList.add("external-icon");
+        var path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path",
+        );
+        path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", "currentColor");
+        path.setAttribute("stroke-width", "2");
+        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("stroke-linejoin", "round");
+        svg.appendChild(path);
+        return svg;
       }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
-          }
-        });
 
-        if (!leaderboardData[activeTab]) {
-          return;
+      // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
+      function buildScoreTooltip(
+        user,
+        easyPts,
+        medPts,
+        hardPts,
+        eScore,
+        mScore,
+        hScore,
+      ) {
+        var tooltip = document.createElement("div");
+        tooltip.className = "score-tooltip";
+
+        var easyLine = document.createElement("div");
+        easyLine.textContent =
+          "Easy: " +
+          user.data.easySolved +
+          " \u00D7 " +
+          easyPts +
+          " = " +
+          eScore;
+        tooltip.appendChild(easyLine);
+
+        var medLine = document.createElement("div");
+        medLine.textContent =
+          "Medium: " +
+          user.data.mediumSolved +
+          " \u00D7 " +
+          medPts +
+          " = " +
+          mScore;
+        tooltip.appendChild(medLine);
+
+        var hardLine = document.createElement("div");
+        hardLine.textContent =
+          "Hard: " +
+          user.data.hardSolved +
+          " \u00D7 " +
+          hardPts +
+          " = " +
+          hScore;
+        tooltip.appendChild(hardLine);
+
+        var totalSolvedLine = document.createElement("div");
+        totalSolvedLine.textContent =
+          "Questions Solved: " + user.data.totalSolved;
+        tooltip.appendChild(totalSolvedLine);
+
+        var hr = document.createElement("hr");
+        tooltip.appendChild(hr);
+
+        var totalLine = document.createElement("div");
+        var strong = document.createElement("strong");
+        strong.textContent = "Total: " + user.score;
+        totalLine.appendChild(strong);
+        tooltip.appendChild(totalLine);
+
+        return tooltip;
+      }
+
+      displayData.forEach((user, index) => {
+        const rank = user.originalRank || index + 1;
+        const rankTagEl = createRankTagElement(rank);
+        const rankChangeEl = createRankChangeElement(user.rankChange);
+        const easyPoints = 1;
+        const mediumPoints = 3;
+        const hardPoints = 5;
+
+        const easyScore = user.data.easySolved * easyPoints;
+        const mediumScore = user.data.mediumSolved * mediumPoints;
+        const hardScore = user.data.hardSolved * hardPoints;
+        const row = document.createElement("div");
+        row.className = "leaderboard-row";
+
+        // Rank (numeric — safe)
+        const rankDiv = document.createElement("div");
+        rankDiv.className = "rank";
+        rankDiv.textContent = rank;
+        row.appendChild(rankDiv);
+
+        // Name cell — tag is safe DOM element, name is user-controlled (textContent)
+        const nameDiv = document.createElement("div");
+        nameDiv.className = "name-cell";
+        if (rankTagEl) {
+          nameDiv.appendChild(rankTagEl);
+        }
+        nameDiv.appendChild(document.createTextNode(user.name));
+        if (rankChangeEl) {
+          nameDiv.appendChild(rankChangeEl);
+        }
+        row.appendChild(nameDiv);
+
+        // Username with link and external icon — id is user-controlled (textContent)
+        const usernameDiv = document.createElement("div");
+        usernameDiv.className = "username";
+        const link = document.createElement("a");
+        link.href = `https://leetcode.com/u/${user.id}`;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.className = "user-link";
+        link.textContent = user.id;
+        link.appendChild(createExternalIcon());
+        usernameDiv.appendChild(link);
+        row.appendChild(usernameDiv);
+
+        // Easy (numeric — safe)
+        const easyDiv = document.createElement("div");
+        easyDiv.className = "easy";
+        easyDiv.textContent = user.data.easySolved;
+        row.appendChild(easyDiv);
+
+        // Medium (numeric — safe)
+        const mediumDiv = document.createElement("div");
+        mediumDiv.className = "medium";
+        mediumDiv.textContent = user.data.mediumSolved;
+        row.appendChild(mediumDiv);
+
+        // Hard (numeric — safe)
+        const hardDiv = document.createElement("div");
+        hardDiv.className = "hard";
+        hardDiv.textContent = user.data.hardSolved;
+        row.appendChild(hardDiv);
+
+        // Total (numeric — safe)
+        const totalDiv = document.createElement("div");
+        totalDiv.className = "total";
+        totalDiv.textContent = user.data.totalSolved;
+        row.appendChild(totalDiv);
+
+        // Score with tooltip — all content is numeric or hardcoded labels
+        const scoreDiv = document.createElement("div");
+        scoreDiv.className = "mobile-score tooltip-score";
+        const scoreSpan = document.createElement("span");
+        scoreSpan.textContent = user.score;
+        scoreDiv.appendChild(scoreSpan);
+        const caretSpan = document.createElement("span");
+        caretSpan.className = "score-caret";
+        scoreDiv.appendChild(caretSpan);
+        scoreDiv.appendChild(
+          buildScoreTooltip(
+            user,
+            easyPoints,
+            mediumPoints,
+            hardPoints,
+            easyScore,
+            mediumScore,
+            hardScore,
+          ),
+        );
+        row.appendChild(scoreDiv);
+
+        body.appendChild(row);
+
+        // === Mobile card ===
+        const card = document.createElement("div");
+        card.className = "mobile-card";
+
+        // Card header
+        const cardHeader = document.createElement("div");
+        cardHeader.className = "mobile-card-header";
+
+        const mobileRank = document.createElement("div");
+        mobileRank.className = "mobile-rank";
+        mobileRank.textContent = `#${rank}`;
+        cardHeader.appendChild(mobileRank);
+
+        const mobileScore = document.createElement("div");
+        mobileScore.className = "mobile-score tooltip-score";
+        const mobileScoreSpan = document.createElement("span");
+        mobileScoreSpan.textContent = user.score;
+        mobileScore.appendChild(mobileScoreSpan);
+        const mobileCaretSpan = document.createElement("span");
+        mobileCaretSpan.className = "score-caret";
+        mobileScore.appendChild(mobileCaretSpan);
+        mobileScore.appendChild(
+          buildScoreTooltip(
+            user,
+            easyPoints,
+            mediumPoints,
+            hardPoints,
+            easyScore,
+            mediumScore,
+            hardScore,
+          ),
+        );
+        cardHeader.appendChild(mobileScore);
+
+        card.appendChild(cardHeader);
+
+        // Name — tag safe DOM element, name is user-controlled (textContent)
+        const mobileName = document.createElement("div");
+        mobileName.className = "mobile-name";
+        const mobileRankTagEl = createRankTagElement(rank);
+        const mobileRankChangeEl = createRankChangeElement(user.rankChange);
+        if (mobileRankTagEl) {
+          mobileName.appendChild(mobileRankTagEl);
+        }
+        mobileName.appendChild(document.createTextNode(user.name));
+        if (mobileRankChangeEl) {
+          mobileName.appendChild(mobileRankChangeEl);
+        }
+        card.appendChild(mobileName);
+
+        // Username — id is user-controlled (textContent)
+        const mobileUsername = document.createElement("div");
+        mobileUsername.className = "mobile-username";
+        const mobileLink = document.createElement("a");
+        mobileLink.href = `https://leetcode.com/u/${user.id}`;
+        mobileLink.target = "_blank";
+        mobileLink.rel = "noopener noreferrer";
+        mobileLink.className = "user-link";
+        mobileLink.textContent = user.id;
+        mobileLink.appendChild(createExternalIcon());
+        mobileUsername.appendChild(mobileLink);
+        card.appendChild(mobileUsername);
+
+        // Stats
+        const mobileStats = document.createElement("div");
+        mobileStats.className = "mobile-stats";
+
+        const makeStat = (value, statClass, label) => {
+          const stat = document.createElement("div");
+          stat.className = "mobile-stat";
+          const num = document.createElement("div");
+          num.className = `mobile-stat-number ${statClass}`;
+          num.textContent = value;
+          stat.appendChild(num);
+          const lbl = document.createElement("div");
+          lbl.className = "mobile-stat-label";
+          lbl.textContent = label;
+          stat.appendChild(lbl);
+          return stat;
+        };
+
+        mobileStats.appendChild(
+          makeStat(user.data.easySolved, "easy", "Easy"),
+        );
+        mobileStats.appendChild(
+          makeStat(user.data.mediumSolved, "medium", "Medium"),
+        );
+        mobileStats.appendChild(
+          makeStat(user.data.hardSolved, "hard", "Hard"),
+        );
+        mobileStats.appendChild(
+          makeStat(user.data.totalSolved, "total", "Total"),
+        );
+
+        card.appendChild(mobileStats);
+
+        mobileCards.appendChild(card);
+      });
+      renderPagination(data.length);
+    }
+    function renderPagination(totalItems) {
+      const pageNumbers = document.getElementById("page-numbers");
+
+      if (!pageNumbers) return;
+
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      pageNumbers.innerHTML = "";
+
+      if (totalPages === 0) return;
+
+      function createPageBtn(i) {
+        const btn = document.createElement("button");
+        btn.classList.add("page-btn");
+        btn.textContent = i;
+
+        if (i === currentPage) {
+          btn.classList.add("active-page");
         }
 
-        activeDatasetType = activeTab;
-        currentPage = 1;
-        applyFiltersAndRender();
+        btn.onclick = () => {
+          currentPage = i;
+          applyFiltersAndRender();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        return btn;
       }
-    </script>
-    <script src="js/footer.js"></script>
-    <script src="js/matrix.js"></script>
-    <script src="js/terminal_ui.js"></script>
-  </body>
+
+      const pagesToRender = [];
+      const range = 1; // Number of pages to show around the current page
+
+      pagesToRender.push(1);
+
+      if (currentPage - range > 2) {
+        pagesToRender.push("..");
+      }
+
+      for (
+        let i = Math.max(2, currentPage - range);
+        i <= Math.min(totalPages - 1, currentPage + range);
+        i++
+      ) {
+        pagesToRender.push(i);
+      }
+
+      if (currentPage + range < totalPages - 1) {
+        pagesToRender.push("..");
+      }
+
+      if (totalPages > 1) {
+        pagesToRender.push(totalPages);
+      }
+
+      pagesToRender.forEach((item) => {
+        if (item === "..") {
+          const ellipsis = document.createElement("span");
+          ellipsis.className = "page-ellipsis";
+          ellipsis.textContent = "..";
+          pageNumbers.appendChild(ellipsis);
+        } else {
+          pageNumbers.appendChild(createPageBtn(item));
+        }
+      });
+    }
+    function setActiveTab(activeTab) {
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.classList.remove("active");
+        if (tab.dataset.tab === activeTab) {
+          tab.classList.add("active");
+        }
+      });
+
+      if (!leaderboardData[activeTab]) {
+        return;
+      }
+
+      activeDatasetType = activeTab;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+  </script>
+  <script src="js/footer.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/terminal_ui.js"></script>
+</body>
+
 </html>
