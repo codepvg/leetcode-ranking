@@ -43,7 +43,11 @@ function saveSnapshotIfNeeded(dataDir, overallData) {
   const today = new Date().toISOString().split("T")[0];
   const todaySnapshot = path.join(snapshotsDir, `${today}.json`);
   if (!fs.existsSync(todaySnapshot)) {
-    fs.writeFileSync(todaySnapshot, JSON.stringify(overallData, null, 2), "utf8");
+    fs.writeFileSync(
+      todaySnapshot,
+      JSON.stringify(overallData, null, 2),
+      "utf8",
+    );
     console.log("Daily snapshot saved.");
   }
 }

@@ -12,18 +12,24 @@
     />
     <link rel="stylesheet" href="styles/main.css" />
     <style>
-  .rank-change {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-family: "Fira Code", monospace;
-    margin-left: 0.4rem;
-    vertical-align: middle;
-    opacity: 0.85;
-  }
-  .rank-up   { color: var(--green); }
-  .rank-down { color: var(--red); }
-  .rank-neutral { color: var(--text-muted); }
-</style>
+      .rank-change {
+        display: inline-block;
+        font-size: 0.65rem;
+        font-family: "Fira Code", monospace;
+        margin-left: 0.4rem;
+        vertical-align: middle;
+        opacity: 0.85;
+      }
+      .rank-up {
+        color: var(--green);
+      }
+      .rank-down {
+        color: var(--red);
+      }
+      .rank-neutral {
+        color: var(--text-muted);
+      }
+    </style>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
   </head>
@@ -346,15 +352,15 @@
         renderLeaderboard(filteredData);
       }
       function getRankChangeTag(rankChange) {
-  if (!rankChange) return "";
-  if (rankChange === "NEW")
-    return `<span class="rank-change rank-neutral">[new]</span>`;
-  if (rankChange === "=")
-    return `<span class="rank-change rank-neutral">[==]</span>`;
-  if (rankChange.startsWith("+"))
-    return `<span class="rank-change rank-up">[${rankChange}]</span>`;
-  return `<span class="rank-change rank-down">[${rankChange}]</span>`;
-}
+        if (!rankChange) return "";
+        if (rankChange === "NEW")
+          return `<span class="rank-change rank-neutral">[new]</span>`;
+        if (rankChange === "=")
+          return `<span class="rank-change rank-neutral">[==]</span>`;
+        if (rankChange.startsWith("+"))
+          return `<span class="rank-change rank-up">[${rankChange}]</span>`;
+        return `<span class="rank-change rank-down">[${rankChange}]</span>`;
+      }
       function getRankTag(rank) {
         switch (rank) {
           case 1:
