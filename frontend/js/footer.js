@@ -1,4 +1,4 @@
-if (!document.querySelector('link[data-font-awesome]')) {
+if (!document.querySelector("link[data-font-awesome]")) {
   const iconStylesheet = document.createElement("link");
   iconStylesheet.rel = "stylesheet";
   iconStylesheet.href =
@@ -7,7 +7,6 @@ if (!document.querySelector('link[data-font-awesome]')) {
 
   document.head.appendChild(iconStylesheet);
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   if (
@@ -47,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <li><a href="/leaderboard">leaderboard</a></li>
           <li><a href="/registration">register</a></li>
           <li><a href="/about">about</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+         <li><a href="/terms.html">Terms & Conditions</a></li>
         </ul>
       </div>
 
