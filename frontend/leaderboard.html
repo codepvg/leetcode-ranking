@@ -90,7 +90,7 @@
               class="clear-search-btn"
               aria-label="Clear search"
             >
-              ✕
+              ESC
             </button>
           </div>
         </div>
@@ -176,12 +176,12 @@
 });
 
         searchInput.addEventListener("focus", () => {
-          shortcutBadge.style.opacity = "0";
+          shortcutBadge.style.display = "none";
         });
 
         searchInput.addEventListener("blur", () => {
           if (!searchInput.value) {
-            shortcutBadge.style.opacity = "1";
+            shortcutBadge.style.display = "inline-flex";
           }
         });
 
@@ -194,6 +194,7 @@
           if (e.key === "Escape" && document.activeElement === searchInput) {
             searchInput.value = "";
             currentSearchTerm = "";
+            clearBtn.style.display = "none";
             searchInput.blur();
             applyFiltersAndRender();
           }
