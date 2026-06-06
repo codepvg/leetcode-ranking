@@ -9,6 +9,7 @@ async function fetchData(url) {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
       hardSolved: res.data.hardSolved || 0,
+      ranking: res.data.ranking || 0,
     };
   } catch (err) {
     console.error("API failed to respond: ", err.message);
@@ -120,7 +121,7 @@ async function computeRankChanges(currentSorted, filename) {
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
-    const ranking = data.ranking || null;
+    const ranking = data.ranking || 0;
     console.log(`${user.name}:`, data);
     overallData.push({
       name: user.name,

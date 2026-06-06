@@ -65,7 +65,7 @@ async function fetchStudentHistory(username) {
 
       if (user) {
         if (ranking === null) {
-          ranking = user.ranking || null;
+          ranking = user.ranking || 0;
         }
         const dateStr = result.fileName.split("-").slice(0, 3).join("-");
 
