@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 
 const fetchStudentHistory = require("./scripts/fetch-student-info");
 
+app.use("/scripts", express.static(path.join(__dirname, "scripts")));
 app.use(cors());
 app.use(express.static(path.join(__dirname, "frontend")));
 
@@ -29,6 +30,10 @@ app.get("/registration", (req, res) => {
 
 app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
+});
+
+app.get("/user/:username", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "user.html"));
 });
 
 const studentCache = new Map();
