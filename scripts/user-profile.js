@@ -59,50 +59,85 @@ function updateChart() {
   }
 
   const now = new Date();
-  let filteredData = [...studentHistoryArray]; // Copy the array
+  let labels = [];
+  let easyCounts = [];
+  let mediumCounts = [];
+  let hardCounts = [];
 
-  // Filter calculations based on dates
+  // 1. WEEKLY FILTER
   if (currentView === "weekly") {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(now.getDate() - 7);
-    filteredData = studentHistoryArray.filter(
-      (item) => new Date(item.date) >= sevenDaysAgo,
+    
+    let filteredData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= sevenDaysAgo
     );
+    
+    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    labels = filteredData.map((item) => item.date);
+    easyCounts = filteredData.map((item) => item.easy || 0);
+    mediumCounts = filteredData.map((item) => item.medium || 0);
+    hardCounts = filteredData.map((item) => item.hard || 0);
+
+  // 2. MONTHLY FILTER
   } else if (currentView === "monthly") {
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(now.getDate() - 30);
-    filteredData = studentHistoryArray.filter(
-      (item) => new Date(item.date) >= thirtyDaysAgo,
+    const twelveMonthsAgo = new Date();
+    twelveMonthsAgo.setMonth(now.getMonth() - 12);
+
+    const pastYearData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= twelveMonthsAgo
     );
+
+    pastYearData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const monthlyGroups = {};
+
+    pastYearData.forEach((item) => {
+      const dateObj = new Date(item.date);
+      const monthLabel = dateObj.toLocaleString("default", {
+        month: "short",
+        year: "numeric",
+      });
+
+      monthlyGroups[monthLabel] = {
+        easy: item.easy || 0,
+        medium: item.medium || 0,
+        hard: item.hard || 0
+      };
+    });
+
+    const sortedMonths = Object.keys(monthlyGroups).sort(
+      (a, b) => new Date(a) - new Date(b)
+    );
+
+    labels = sortedMonths;
+    easyCounts = sortedMonths.map((m) => monthlyGroups[m].easy);
+    mediumCounts = sortedMonths.map((m) => monthlyGroups[m].medium);
+    hardCounts = sortedMonths.map((m) => monthlyGroups[m].hard);
+    
+  // 3. OVERALL FILTER
+  } else if (currentView === "overall") {
+    let filteredData = [...studentHistoryArray];
+    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    labels = filteredData.map((item) => item.date);
+    easyCounts = filteredData.map((item) => item.easy || 0);
+    mediumCounts = filteredData.map((item) => item.medium || 0);
+    hardCounts = filteredData.map((item) => item.hard || 0);
   }
 
-  // Sort dates chronologically (oldest to newest)
-  filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  const labels = filteredData.map((item) =>
-    new Date(item.date).toLocaleDateString("en-IN", {
-      day: "numeric",
-      month: "short",
-    }),
-  );
-  const easyCounts = filteredData.map((item) => item.easy || 0);
-  const mediumCounts = filteredData.map((item) => item.medium || 0);
-  const hardCounts = filteredData.map((item) => item.hard || 0);
-
-  console.log("Filtered Data for Chart:", {
-    labels,
-    easyCounts,
-    mediumCounts,
-    hardCounts,
-  });
-
-  // Call the rendering engine (We will write this next)
+  // Render the line chart for the active view
   renderChartCanvas(labels, easyCounts, mediumCounts, hardCounts);
-  renderDifficultyChart(
-    easyCounts[easyCounts.length - 1],
-    mediumCounts[mediumCounts.length - 1],
-    hardCounts[hardCounts.length - 1],
-  );
+
+  // FIXED: Always render the doughnut chart using the latest active data entries!
+  if (easyCounts.length > 0) {
+    renderDifficultyChart(
+      easyCounts[easyCounts.length - 1],
+      mediumCounts[mediumCounts.length - 1],
+      hardCounts[hardCounts.length - 1]
+    );
+  }
 }
 
 function renderChartCanvas(labels, easy, medium, hard) {
@@ -120,7 +155,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Easy",
           data: easy,
-          borderColor: "#10b981", // Emerald green
+          borderColor: "#10b981", 
           backgroundColor: "rgba(16, 185, 129, 0.1)",
           tension: 0.3,
           fill: true,
@@ -128,7 +163,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Medium",
           data: medium,
-          borderColor: "#f59e0b", // Amber orange
+          borderColor: "#f59e0b", 
           backgroundColor: "rgba(245, 158, 11, 0.1)",
           tension: 0.3,
           fill: true,
@@ -136,7 +171,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Hard",
           data: hard,
-          borderColor: "#ef4444", // Crimson red
+          borderColor: "#ef4444", 
           backgroundColor: "rgba(239, 68, 68, 0.1)",
           tension: 0.3,
           fill: true,
@@ -148,12 +183,12 @@ function renderChartCanvas(labels, easy, medium, hard) {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          labels: { color: "#94a3b8" }, // Muted gray text
+          labels: { color: "#94a3b8" }, 
         },
       },
       scales: {
         x: {
-          grid: { color: "#334155" }, // Slate borders
+          grid: { color: "#334155" }, 
           ticks: { color: "#94a3b8" },
         },
         y: {
@@ -168,6 +203,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
 
 function renderDifficultyChart(easy, medium, hard) {
   const canvas = document.getElementById("difficultyChart");
+  if (!canvas) return; // Prevent errors if canvas element missing from HTML
 
   if (difficultyChartInstance) {
     difficultyChartInstance.destroy();
