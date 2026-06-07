@@ -99,6 +99,9 @@
               ESC
             </button>
           </div>
+          <button id="compare-mode-toggle" class="btn btn-secondary compare-toggle-btn">
+            $ compare_mode --enable
+          </button>
         </div>
 
         <div id="leaderboard-stats"></div>
@@ -348,6 +351,11 @@
           return;
         }
 
+        // Clear comparison selections when switching tabs
+        if (window.clearCompareSelection) {
+          window.clearCompareSelection();
+        }
+
         activeDatasetType = activeTab;
         currentPage = 1;
         applyFiltersAndRender();
@@ -359,7 +367,10 @@
     <div class="compare-bar-content">
       <span class="compare-bar-text">$ compare_peers --selected=<span id="compare-count">0</span>/3</span>
       <div id="compare-selected-names" class="compare-selected-names"></div>
-      <button id="compare-btn" class="btn btn-primary" disabled>compare</button>
+      <div class="compare-bar-actions" style="display: flex; gap: 10px; align-items: center;">
+        <button id="compare-reset-btn" class="btn btn-secondary">reset</button>
+        <button id="compare-btn" class="btn btn-primary" disabled>compare</button>
+      </div>
     </div>
   </div>
 
@@ -386,7 +397,7 @@
         <div id="compare-modal-content" class="compare-modal-content">
           <!-- Side-by-side Table -->
           <div class="comparison-section">
-            <h3 class="section-title green">&gt; metrics_summary</h3>
+            <h3 class="section-title green" id="compare-metrics-title">&gt; metrics_summary</h3>
             <div class="table-responsive">
               <table class="comparison-table" id="compare-metrics-table">
                 <!-- Dynamically populated -->
@@ -403,9 +414,10 @@
               </div>
             </div>
             <div class="chart-container-wrapper">
-              <h3 class="section-title orange">&gt; progress_history</h3>
+              <h3 class="section-title orange" id="history-chart-title">&gt; progress_history</h3>
               <div class="chart-holder">
                 <canvas id="historyChart"></canvas>
+                <div id="daily-comparison-placeholder" class="hidden"></div>
               </div>
             </div>
           </div>

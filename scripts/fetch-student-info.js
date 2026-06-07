@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 function getFileName(daysAgo) {
   const now = new Date();
   now.setDate(now.getDate() - daysAgo);
@@ -16,6 +18,7 @@ async function fetchStudentHistory(username) {
 
   let history = [];
   let missingFilesCount = 0;
+  let foundAny = false;
   const maxDays = 365;
   const chunkSize = 100;
 
@@ -31,13 +34,9 @@ async function fetchStudentHistory(username) {
       const fileName = getFileName(daysAgo);
       const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/daily/${fileName}`;
 
-      const p = fetch(rawUrl)
-        .then(async (res) => {
-          if (!res.ok) {
-            return { daysAgo, fileName, ok: false };
-          }
-          const data = await res.json();
-          return { daysAgo, fileName, ok: true, data };
+      const p = axios.get(rawUrl)
+        .then((res) => {
+          return { daysAgo, fileName, ok: true, data: res.data };
         })
         .catch((err) => {
           return { daysAgo, fileName, ok: false, error: err };
@@ -50,15 +49,18 @@ async function fetchStudentHistory(username) {
 
     for (const result of results) {
       if (!result.ok) {
-        missingFilesCount++;
-        if (missingFilesCount >= 7) {
-          done = true;
-          break;
+        if (foundAny) {
+          missingFilesCount++;
+          if (missingFilesCount >= 10) {
+            done = true;
+            break;
+          }
         }
         continue;
       }
 
       missingFilesCount = 0;
+      foundAny = true;
 
       const user = result.data.find((u) => u.id === username);
 
@@ -80,9 +82,20 @@ async function fetchStudentHistory(username) {
 
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
+  let globalRank = null;
+  try {
+    const leetcodeRes = await axios.get(`https://leetcode-api-dun.vercel.app/${username}`);
+    if (leetcodeRes.status === 200 && leetcodeRes.data) {
+      globalRank = leetcodeRes.data.ranking || null;
+    }
+  } catch (e) {
+    console.error(`Failed to fetch global rank for: ${username}`, e.message);
+  }
+
   return {
     username,
     history,
+    globalRank,
   };
 }
 

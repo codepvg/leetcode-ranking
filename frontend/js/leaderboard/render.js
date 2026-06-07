@@ -89,6 +89,7 @@ function renderLeaderboardRow(user, rank) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
   checkbox.className = "compare-checkbox";
+  checkbox.style.display = window.compareModeEnabled ? "inline-block" : "none";
   checkbox.dataset.username = user.id;
   if (window.selectedCompareUsers && window.selectedCompareUsers.some(u => u.id === user.id)) {
     checkbox.checked = true;
@@ -225,6 +226,7 @@ function renderMobileCard(user, rank) {
   const mCheckbox = document.createElement("input");
   mCheckbox.type = "checkbox";
   mCheckbox.className = "compare-checkbox";
+  mCheckbox.style.display = window.compareModeEnabled ? "inline-block" : "none";
   mCheckbox.dataset.username = user.id;
   if (window.selectedCompareUsers && window.selectedCompareUsers.some(u => u.id === user.id)) {
     mCheckbox.checked = true;
