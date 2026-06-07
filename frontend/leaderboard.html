@@ -39,6 +39,15 @@
 
   transition: all 0.25s ease;
 }
+#scrollTopBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #scrollTopBtn {
+    display: none;
+  }
+}
 
 #scrollTopBtn:hover {
   transform: translateY(-3px);
@@ -274,7 +283,8 @@
           const scrollTopBtn = document.getElementById("scrollTopBtn");
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
+  
+  if (window.innerWidth <= 768 && window.scrollY > 300) {
     scrollTopBtn.style.display = "block";
   } else {
     scrollTopBtn.style.display = "none";
