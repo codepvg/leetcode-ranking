@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <li><a href="/leaderboard">leaderboard</a></li>
           <li><a href="/registration">register</a></li>
           <li><a href="/about">about</a></li>
-          <li><a href="/privacy.html">Privacy Policy</a></li>
-         <li><a href="/terms.html">Terms & Conditions</a></li>
+          <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
+          <li><a href="/terms" class="footer-link">Terms & Conditions</a></li>
         </ul>
       </div>
 

@@ -24,6 +24,14 @@ app.get("/registration", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "registration.html"));
 });
 
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "privacy.html"));
+});
+
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "terms.html"));
+});
+
 app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
