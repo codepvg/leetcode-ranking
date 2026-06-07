@@ -2522,3 +2522,25 @@ body::-webkit-scrollbar-thumb {
 .active-page::after {
   display: none;
 }
+
+/* ── Leaderboard Rank Change ── */
+.rank-change {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-family: "Fira Code", monospace;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+
+.rank-up {
+  color: var(--green);
+}
+
+.rank-down {
+  color: var(--red);
+}
+
+.rank-neutral {
+  color: var(--text-muted);
+}
