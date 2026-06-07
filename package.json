@@ -2,9 +2,10 @@
   "name": "leetcode-ranking",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "node ./server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
   "dependencies": {
     "axios": "^1.10.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "helmet": "^8.2.0"
   },
   "devDependencies": {
     "prettier": "^3.8.3"

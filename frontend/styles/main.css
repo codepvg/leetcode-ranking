@@ -818,7 +818,7 @@ body::after {
 
 .leaderboard-header {
   display: grid;
-  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px;
+  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
   padding: 0.7rem 1.25rem;
   background: var(--bg-raised);
   font-weight: 700;
@@ -834,7 +834,7 @@ body::after {
 
 .leaderboard-row {
   display: grid;
-  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px;
+  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
   padding: 0.6rem 1.25rem;
   border-bottom: 1px solid var(--border);
   transition: background 0.1s ease;
@@ -1008,6 +1008,7 @@ body::after {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  gap: 12px;
 }
 
 .mobile-rank {
@@ -1021,6 +1022,11 @@ body::after {
   font-weight: 700;
   color: var(--amber);
   text-shadow: 0 0 6px rgba(255, 176, 0, 0.3);
+  white-space: nowrap !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .mobile-name {
@@ -1028,6 +1034,8 @@ body::after {
   font-weight: 600;
   margin-bottom: 0.2rem;
   color: var(--text);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .mobile-username {
@@ -1622,8 +1630,8 @@ body::after {
 
 @media (max-width: 768px) {
   .score-tooltip {
-    left: auto;
-    right: 0;
+    left: auto !important;
+    right: -10px !important;
     /* left: 50%; */
     transform: translateX(0%);
     white-space: normal;
@@ -2183,7 +2191,7 @@ body::-webkit-scrollbar-thumb {
 .tooltip-score {
   position: relative;
   cursor: pointer;
-  display: inline-flex;
+  display: inline-flex !important;
   /* key fix */
   width: fit-content;
   align-items: center;
@@ -2192,6 +2200,7 @@ body::-webkit-scrollbar-thumb {
   color: #ffffff;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
 }
 
 .score-tooltip {
@@ -2335,6 +2344,32 @@ body::-webkit-scrollbar-thumb {
   transition: opacity 0.15s ease;
   user-select: none;
 }
+.clear-search-btn {
+  background: rgba(255, 51, 51, 0.05);
+  border: 1px solid rgba(255, 51, 51, 0.4);
+  color: var(--red);
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: "Fira Code", monospace;
+  font-size: 0.65rem;
+  font-weight: bold;
+  transition: all 0.15s ease;
+}
+
+.clear-search-btn:hover {
+  background: rgba(255, 51, 51, 0.15);
+  border-color: var(--red);
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.2);
+  text-shadow: 0 0 5px rgba(255, 51, 51, 0.8);
+}
+
+.clear-search-btn:active {
+  transform: scale(0.95);
+}
 
 .no-results {
   text-align: center;
@@ -2459,4 +2494,26 @@ body::-webkit-scrollbar-thumb {
 .active-page::before,
 .active-page::after {
   display: none;
+}
+
+/* ── Leaderboard Rank Change ── */
+.rank-change {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-family: "Fira Code", monospace;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+
+.rank-up {
+  color: var(--green);
+}
+
+.rank-down {
+  color: var(--red);
+}
+
+.rank-neutral {
+  color: var(--text-muted);
 }

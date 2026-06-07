@@ -29,6 +29,72 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
+async function getYesterdaySnapshot(filePath) {
+  const owner = "codepvg";
+  const repo = "leetcode-ranking-data";
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const targetDate = d.toISOString().split("T")[0];
+  const until = `${targetDate}T23:59:59Z`;
+  const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&until=${until}&per_page=1`;
+
+  const headers = { "User-Agent": "CodePVG-App" };
+  if (process.env.DATA_REPO_TOKEN) {
+    headers["Authorization"] = `token ${process.env.DATA_REPO_TOKEN}`;
+  }
+
+  try {
+    const commitResponse = await axios.get(commitsUrl, { headers });
+    const commits = commitResponse.data;
+
+    if (!commits || commits.length === 0) {
+      console.warn(
+        `No commits found for ${filePath} on or before ${targetDate}.`,
+      );
+      return null;
+    }
+
+    const yesterdaySHA = commits[0].sha;
+    console.log(
+      `📌 Using Commit for ${filePath}: "${commits[0].commit.message}" (SHA: ${yesterdaySHA})`,
+    );
+
+    const rawFileUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${yesterdaySHA}/${filePath}`;
+    const fileResponse = await axios.get(rawFileUrl);
+    return fileResponse.data;
+  } catch (error) {
+    console.error(
+      `Error fetching historical data for ${filePath}:`,
+      error.message,
+    );
+    return null;
+  }
+}
+
+async function computeRankChanges(currentSorted, filename) {
+  let previousRanks = {};
+  const previousData = await getYesterdaySnapshot(filename);
+
+  if (previousData && Array.isArray(previousData)) {
+    previousData.forEach((user, idx) => {
+      previousRanks[user.id] = idx + 1;
+    });
+  }
+
+  currentSorted.forEach((user, idx) => {
+    const currentRank = idx + 1;
+
+    if (previousRanks[user.id] === undefined) {
+      user.rankChange = "NEW";
+    } else {
+      const delta = previousRanks[user.id] - currentRank;
+      if (delta > 0) user.rankChange = `+${delta}`;
+      else if (delta < 0) user.rankChange = `${delta}`;
+      else user.rankChange = "=";
+    }
+  });
+}
+
 (async () => {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
   console.log(`Using data directory: ${DATA_DIR}`);
@@ -87,6 +153,7 @@ function getFileName(daysAgo) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
+  await computeRankChanges(overallData, "overall.json");
   try {
     fs.writeFileSync(
       overallFilepath,
@@ -144,6 +211,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
+  await computeRankChanges(dailyData, "daily.json");
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -199,6 +267,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
+  await computeRankChanges(weeklyData, "weekly.json");
   try {
     fs.writeFileSync(
       weeklyFilepath,
@@ -258,6 +327,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
+  await computeRankChanges(monthlyData, "monthly.json");
   try {
     fs.writeFileSync(
       monthlyFilepath,
