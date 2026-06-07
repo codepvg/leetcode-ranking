@@ -193,10 +193,12 @@ async function computeRankChanges(currentSorted, filename) {
       dailyData.splice(i--, 1);
       continue;
     }
+    dailyData[i].ranking = dailyData[i].ranking || 0;
+
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    dailyData[i].data.mediumSolved -=
-      previousData[previousIndex].data.mediumSolved;
+    dailyData[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+
     dailyData[i].score =
       dailyData[i].data.easySolved +
       dailyData[i].data.mediumSolved * 3 +
@@ -247,6 +249,7 @@ async function computeRankChanges(currentSorted, filename) {
       weeklyData.splice(i--, 1);
       continue;
     }
+    weeklyData[i].ranking = weeklyData[i].ranking || 0;
     weeklyData[i].data.easySolved -=
       previousData[previousIndex].data.easySolved;
     weeklyData[i].data.mediumSolved -=
@@ -307,6 +310,7 @@ async function computeRankChanges(currentSorted, filename) {
       monthlyData.splice(i--, 1);
       continue;
     }
+    monthlyData[i].ranking = monthlyData[i].ranking || 0;
     monthlyData[i].data.easySolved -=
       previousData[previousIndex].data.easySolved;
     monthlyData[i].data.mediumSolved -=
