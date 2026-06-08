@@ -17,64 +17,44 @@
     <link rel="icon" type="image/png" href="assets/logo.png" />
 
     <style>
-      .legal-page {
-        min-height: 100vh;
-        padding: 4rem 1.5rem;
-        display: flex;
-        justify-content: center;
+      .legal-content h2 {
+        color: var(--green);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-family: "Space Mono", monospace;
       }
-
-      .legal-container {
-        width: 100%;
-        max-width: 1000px;
-        background: rgba(0, 0, 0, 0.35);
-        border: 1px solid rgba(0, 255, 120, 0.25);
-        border-radius: 12px;
-        padding: 2rem;
-        backdrop-filter: blur(8px);
-      }
-
-      .legal-title {
+      .legal-content h3,
+      .legal-content h4 {
+        color: var(--green-dim);
+        margin-top: 1rem;
         margin-bottom: 0.5rem;
       }
-
-      .last-updated {
-        opacity: 0.8;
-        margin-bottom: 2rem;
+      .legal-content p,
+      .legal-content li {
+        color: var(--text-dim);
+        line-height: 1.7;
+        margin-bottom: 1rem;
       }
-
-      .legal-section {
-        margin-bottom: 2rem;
-      }
-
-      .legal-section h2,
-      .legal-section h3 {
-        margin-bottom: 0.75rem;
-      }
-
-      .legal-section p,
-      .legal-section li {
-        line-height: 1.8;
-      }
-
-      .legal-section ul {
+      .legal-content ul {
         padding-left: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-dim);
       }
-
-      .back-link {
-        display: inline-block;
-        margin-top: 2rem;
+      .legal-content a {
+        color: var(--cyan);
         text-decoration: none;
       }
-
-      @media (max-width: 768px) {
-        .legal-page {
-          padding: 2rem 1rem;
-        }
-
-        .legal-container {
-          padding: 1.25rem;
-        }
+      .legal-content a:hover {
+        text-decoration: underline;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 1rem;
+        text-decoration: none;
+        color: var(--cyan);
+      }
+      .back-link:hover {
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
       }
     </style>
   </head>
@@ -82,203 +62,228 @@
   <body>
     <canvas id="matrix-canvas"></canvas>
 
-    <main class="legal-page">
-      <div class="legal-container">
-        <h1 class="legal-title">Terms and Conditions</h1>
-        <p class="last-updated">Last updated: June 04, 2026</p>
+    <main class="page">
+      <div class="container" style="max-width: 800px">
+        <h1 class="page-title">Terms and Conditions</h1>
+        <p
+          style="
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+          "
+        >
+          Last updated: June 04, 2026
+        </p>
 
-        <div class="legal-section">
-          <p>
-            Please read these Terms and Conditions carefully before using Our
-            Service.
-          </p>
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <div class="terminal-dot red"></div>
+              <div class="terminal-dot yellow"></div>
+              <div class="terminal-dot green"></div>
+            </div>
+            <span class="terminal-title">cat terms.md</span>
+          </div>
+          <div class="terminal-body legal-content">
+            <div class="legal-section">
+              <p>
+                Please read these Terms and Conditions carefully before using
+                Our Service.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Interpretation and Definitions</h2>
+
+              <h3>Interpretation</h3>
+              <p>
+                The words whose initial letters are capitalized have meanings
+                defined under the following conditions. These definitions shall
+                have the same meaning regardless of whether they appear in
+                singular or plural.
+              </p>
+
+              <h3>Definitions</h3>
+              <ul>
+                <li>
+                  <strong>Company</strong> refers to CodePVG LeetCode
+                  Leaderboard.
+                </li>
+                <li><strong>Country</strong> refers to Maharashtra, India.</li>
+                <li>
+                  <strong>Device</strong> means any device that can access the
+                  Service such as a computer, mobile phone, or tablet.
+                </li>
+                <li><strong>Service</strong> refers to the Website.</li>
+                <li>
+                  <strong>Terms and Conditions</strong> (also referred to as
+                  "Terms") means these Terms and Conditions.
+                </li>
+                <li>
+                  <strong>Website</strong> refers to CodePVG LeetCode
+                  Leaderboard, accessible from https://codepvg.onrender.com/
+                </li>
+                <li>
+                  <strong>You</strong> means the individual, company, or legal
+                  entity accessing or using the Service.
+                </li>
+              </ul>
+            </div>
+
+            <div class="legal-section">
+              <h2>Acknowledgment</h2>
+
+              <p>
+                These Terms and Conditions govern the use of this Service and
+                form the agreement between You and the Company.
+              </p>
+
+              <p>
+                Your access to and use of the Service is conditioned on Your
+                acceptance of and compliance with these Terms and Conditions.
+              </p>
+
+              <p>
+                By accessing or using the Service, You agree to be bound by
+                these Terms and Conditions. If You disagree with any part of
+                these Terms, You may not access the Service.
+              </p>
+
+              <p>
+                Your use of the Service is also subject to Our Privacy Policy.
+                Please read Our Privacy Policy carefully before using the
+                Service.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Links to Other Websites</h2>
+
+              <p>
+                Our Service may contain links to third-party websites or
+                services that are not owned or controlled by the Company.
+              </p>
+
+              <p>
+                The Company has no control over and assumes no responsibility
+                for the content, privacy policies, or practices of any
+                third-party websites or services.
+              </p>
+
+              <p>
+                We strongly advise You to read the terms and privacy policies of
+                any third-party websites You visit.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Termination</h2>
+
+              <p>
+                We may terminate or suspend Your access immediately, without
+                prior notice, for any reason whatsoever, including if You breach
+                these Terms.
+              </p>
+
+              <p>
+                Upon termination, Your right to use the Service will cease
+                immediately.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Limitation of Liability</h2>
+
+              <p>
+                To the maximum extent permitted by applicable law, the Company
+                shall not be liable for any special, incidental, indirect, or
+                consequential damages arising from the use of or inability to
+                use the Service.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>"AS IS" and "AS AVAILABLE" Disclaimer</h2>
+
+              <p>
+                The Service is provided on an "AS IS" and "AS AVAILABLE" basis,
+                without warranties of any kind.
+              </p>
+
+              <p>
+                The Company does not guarantee that the Service will meet Your
+                requirements, operate without interruption, or be error-free.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Governing Law</h2>
+
+              <p>
+                These Terms shall be governed by and interpreted in accordance
+                with the laws of Maharashtra, India.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Disputes Resolution</h2>
+
+              <p>
+                If You have any concern or dispute about the Service, You agree
+                to first attempt to resolve the issue informally by contacting
+                the Company.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Severability and Waiver</h2>
+
+              <h3>Severability</h3>
+              <p>
+                If any provision of these Terms is held invalid or
+                unenforceable, the remaining provisions will remain in effect.
+              </p>
+
+              <h3>Waiver</h3>
+              <p>
+                Failure to exercise a right or require performance of an
+                obligation under these Terms shall not constitute a waiver of
+                such right.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Changes to These Terms and Conditions</h2>
+
+              <p>
+                We reserve the right to modify or replace these Terms at any
+                time.
+              </p>
+
+              <p>
+                By continuing to use the Service after revisions become
+                effective, You agree to be bound by the revised Terms.
+              </p>
+            </div>
+
+            <div class="legal-section">
+              <h2>Contact Us</h2>
+
+              <p>
+                If You have any questions about these Terms and Conditions, You
+                can contact Us:
+              </p>
+
+              <ul>
+                <li>Email: jagadishdrp@gmail.com</li>
+                <li>Website: https://codepvg.onrender.com/about</li>
+              </ul>
+            </div>
+
+            <a href="/" class="back-link">← Back to Leaderboard</a>
+          </div>
         </div>
-
-        <div class="legal-section">
-          <h2>Interpretation and Definitions</h2>
-
-          <h3>Interpretation</h3>
-          <p>
-            The words whose initial letters are capitalized have meanings
-            defined under the following conditions. These definitions shall have
-            the same meaning regardless of whether they appear in singular or
-            plural.
-          </p>
-
-          <h3>Definitions</h3>
-          <ul>
-            <li>
-              <strong>Company</strong> refers to CodePVG LeetCode Leaderboard.
-            </li>
-            <li><strong>Country</strong> refers to Maharashtra, India.</li>
-            <li>
-              <strong>Device</strong> means any device that can access the
-              Service such as a computer, mobile phone, or tablet.
-            </li>
-            <li><strong>Service</strong> refers to the Website.</li>
-            <li>
-              <strong>Terms and Conditions</strong> (also referred to as
-              "Terms") means these Terms and Conditions.
-            </li>
-            <li>
-              <strong>Website</strong> refers to CodePVG LeetCode Leaderboard,
-              accessible from https://codepvg.onrender.com/
-            </li>
-            <li>
-              <strong>You</strong> means the individual, company, or legal
-              entity accessing or using the Service.
-            </li>
-          </ul>
-        </div>
-
-        <div class="legal-section">
-          <h2>Acknowledgment</h2>
-
-          <p>
-            These Terms and Conditions govern the use of this Service and form
-            the agreement between You and the Company.
-          </p>
-
-          <p>
-            Your access to and use of the Service is conditioned on Your
-            acceptance of and compliance with these Terms and Conditions.
-          </p>
-
-          <p>
-            By accessing or using the Service, You agree to be bound by these
-            Terms and Conditions. If You disagree with any part of these Terms,
-            You may not access the Service.
-          </p>
-
-          <p>
-            Your use of the Service is also subject to Our Privacy Policy.
-            Please read Our Privacy Policy carefully before using the Service.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Links to Other Websites</h2>
-
-          <p>
-            Our Service may contain links to third-party websites or services
-            that are not owned or controlled by the Company.
-          </p>
-
-          <p>
-            The Company has no control over and assumes no responsibility for
-            the content, privacy policies, or practices of any third-party
-            websites or services.
-          </p>
-
-          <p>
-            We strongly advise You to read the terms and privacy policies of any
-            third-party websites You visit.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Termination</h2>
-
-          <p>
-            We may terminate or suspend Your access immediately, without prior
-            notice, for any reason whatsoever, including if You breach these
-            Terms.
-          </p>
-
-          <p>
-            Upon termination, Your right to use the Service will cease
-            immediately.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Limitation of Liability</h2>
-
-          <p>
-            To the maximum extent permitted by applicable law, the Company shall
-            not be liable for any special, incidental, indirect, or
-            consequential damages arising from the use of or inability to use
-            the Service.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>"AS IS" and "AS AVAILABLE" Disclaimer</h2>
-
-          <p>
-            The Service is provided on an "AS IS" and "AS AVAILABLE" basis,
-            without warranties of any kind.
-          </p>
-
-          <p>
-            The Company does not guarantee that the Service will meet Your
-            requirements, operate without interruption, or be error-free.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Governing Law</h2>
-
-          <p>
-            These Terms shall be governed by and interpreted in accordance with
-            the laws of Maharashtra, India.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Disputes Resolution</h2>
-
-          <p>
-            If You have any concern or dispute about the Service, You agree to
-            first attempt to resolve the issue informally by contacting the
-            Company.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Severability and Waiver</h2>
-
-          <h3>Severability</h3>
-          <p>
-            If any provision of these Terms is held invalid or unenforceable,
-            the remaining provisions will remain in effect.
-          </p>
-
-          <h3>Waiver</h3>
-          <p>
-            Failure to exercise a right or require performance of an obligation
-            under these Terms shall not constitute a waiver of such right.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Changes to These Terms and Conditions</h2>
-
-          <p>
-            We reserve the right to modify or replace these Terms at any time.
-          </p>
-
-          <p>
-            By continuing to use the Service after revisions become effective,
-            You agree to be bound by the revised Terms.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Contact Us</h2>
-
-          <p>
-            If You have any questions about these Terms and Conditions, You can
-            contact Us:
-          </p>
-
-          <ul>
-            <li>Email: jagadishdrp@gmail.com</li>
-            <li>Website: https://codepvg.onrender.com/about</li>
-          </ul>
-        </div>
-
-        <a href="/" class="back-link">← Back to Leaderboard</a>
       </div>
     </main>
 
