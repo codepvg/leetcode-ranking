@@ -25,4 +25,4 @@ jobs:
           node-version: "20"
 
       - name: Run Prettier Requirements Check
-        run: npx prettier --check "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
+        run: npx prettier --check .

@@ -75,6 +75,8 @@ Before submitting your Pull Request, please run the following command in the roo
 npx prettier --write .
 ```
 
+Alternatively, you can comment `/format` on your Pull Request, and our GitHub Actions bot will automatically format your code and push the commit for you.
+
 ### Frontend Changes
 
 Please keep the existing terminal-inspired design language of the platform in mind when making UI changes.
