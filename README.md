@@ -6,15 +6,70 @@ It allows users to register with their LeetCode username and automatically fetch
 
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Purpose](#purpose)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Architecture](#architecture)
+- [Data Flow](#data-flow)
+- [Related Repositories](#related-repositories)
+- [Project Structure](#project-structure)
+- [How to Run Locally](#how-to-run-locally)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Overview
+
+CodePVG LeetCode Ranking is a web-based platform that tracks and ranks students based on their LeetCode activity. It automatically fetches users’ problem-solving statistics using their LeetCode username and displays them on a centralized leaderboard.
+
+The project is designed with a decoupled architecture where data collection, storage, and frontend display are handled across multiple services and repositories. This allows scalable updates and independent maintenance of each component.
+
+The system runs periodic sync jobs to keep leaderboard data updated and ensures that student rankings reflect their latest LeetCode performance.
+
+---
+
 ## Purpose
 
-The goal of this project is to:
+This project is built to track students’ LeetCode activity and generate a dynamic leaderboard based on their problem-solving statistics.
 
 - Encourage consistent problem-solving among students
 - Create a competitive yet motivating environment
 - Provide visibility into individual coding progress
 
 ---
+
+## Features
+
+- **Student Registration using LeetCode Username**  
+  Users can register by submitting their LeetCode username, which is used to fetch their coding statistics.
+
+- **Automatic LeetCode Data Fetching**  
+  The system automatically retrieves problem-solving data from LeetCode for each registered user.
+
+- **Dynamic Leaderboard Generation**  
+  Rankings are generated based on user performance metrics and updated regularly.
+
+- **Periodic Sync Jobs**  
+  Scheduled jobs ensure that leaderboard data stays updated with the latest LeetCode activity.
+
+- **Historical Performance Tracking**  
+  Stores past data to track student progress and rank changes over time.
+
+- **Decoupled System Architecture**  
+  Frontend, backend, and data storage are separated into different services for better scalability and maintenance.
+
+- **Automated Updates via GitHub Actions**  
+  Background workflows handle periodic synchronization and data updates without manual intervention.
+
+- **Lightweight Frontend Interface**  
+  A simple and responsive UI displays the leaderboard and user rankings in real time.
+
+  ---
 
 ## Screenshots
 
@@ -32,6 +87,37 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ![Leaderboard](assets/leaderboard.png)
 
+---
+
+## Architecture
+
+The project follows a decoupled architecture where data collection, processing, storage, and frontend display are handled independently.
+
+### Components
+
+- **Frontend (leetcode-ranking/frontend)**  
+  Responsible for displaying the leaderboard and user interface. It consumes processed data and renders rankings.
+
+- **Backend (server.js)**  
+  Handles API requests, user registration, and serves data to the frontend.
+
+- **Automation Scripts (scripts/)**  
+  Periodically fetch LeetCode statistics and update leaderboard data using sync scripts.
+
+- **Data Layer (leetcode-ranking-data repo)**  
+  Stores processed leaderboard data and historical records in JSON format.
+
+- **GitHub Actions (.github/workflows)**  
+  Automates scheduled sync jobs and keeps leaderboard data updated without manual intervention.
+
+---
+
+## Data Flow
+
+LeetCode → Sync Script → Data Processing → Data Repository → Backend API → Frontend Leaderboard
+
+---
+
 ## Related Repositories
 
 - [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) – The database repository where raw JSON data and historical stats are stored
@@ -46,10 +132,20 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ```
 leetcode-ranking/
-│── frontend/        # UI (HTML, CSS, JS) - Fetches data from leetcode-ranking-data
-│── scripts/         # Automation scripts (sync-leaderboard.js)
-│── server.js        # Express server
-│── package.json
+│── frontend/              # UI layer (HTML, CSS, JS)
+│   ├── assets/            # Images, icons, and static files
+│   ├── scripts/          # Frontend JavaScript logic
+│   └── styles/           # CSS stylesheets
+│
+│── scripts/              # Automation scripts
+│   └── sync-leaderboard.js  # Syncs LeetCode data and updates leaderboard
+│
+│── .github/              # GitHub Actions workflows
+│
+│── server.js             # Express server for backend API
+│── package.json          # Project dependencies and scripts
+│── package-lock.json     # Dependency lock file
+│── README.md
 ```
 
 > [!NOTE]
@@ -78,12 +174,16 @@ cd leetcode-ranking
 or
 `node start`
 
+---
+
 ## Usage
 
-1. Open the registration page
-2. Enter your name and LeetCode username
-3. Submit the form
-4. View your ranking on the leaderboard after the next sync
+1. Open the application in your browser after starting the server.
+2. Go to the registration page.
+3. Enter your name and LeetCode username.
+4. Submit the form to register.
+5. Your data will be fetched during the next sync cycle.
+6. View your updated ranking on the leaderboard page.
 
 ---
 
@@ -95,3 +195,19 @@ Contributions are welcome.
 - Create a new branch
 - Make your changes
 - Submit a Pull Request
+
+## Contributors
+
+Thanks to all the amazing people who have contributed to this project 💙
+
+<a href="https://github.com/codepvg/leetcode-ranking/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=codepvg/leetcode-ranking" />
+</a>
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+You are free to use, modify, and distribute this project with proper attribution.
