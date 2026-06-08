@@ -65,7 +65,7 @@ We use Prettier to enforce consistent code style across the project. Our automat
 Before submitting your Pull Request, please run the following command in the root of the repository to automatically format all your changes:
 
 ```bash
-npx prettier --write "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
+npx prettier --write .
 ```
 
 ### Frontend Changes
