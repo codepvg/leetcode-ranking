@@ -11,56 +11,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/main.css" />
-    <style>
-#scrollTopBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-  display: none;
-  z-index: 999;
-
-  padding: 0.7rem 1rem;
-
-  font-family: "Fira Code", monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-
-  color: var(--green);
-  background: rgba(0, 0, 0, 0.85);
-
-  border: 1px solid var(--green);
-  border-radius: 6px;
-
-  cursor: pointer;
-
-  text-shadow: 0 0 5px rgba(0, 255, 100, 0.5);
-  box-shadow: 0 0 10px rgba(0, 255, 100, 0.15);
-
-  transition: all 0.25s ease;
-}
-#scrollTopBtn {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  #scrollTopBtn {
-    display: none;
-  }
-}
-
-#scrollTopBtn:hover {
-  transform: translateY(-3px);
-  background: rgba(0, 255, 100, 0.08);
-  box-shadow:
-    0 0 12px rgba(0, 255, 100, 0.35),
-    0 0 20px rgba(0, 255, 100, 0.15);
-}
-
-#scrollTopBtn:active {
-  transform: translateY(0);
-}
-</style>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
     <script src="js/leaderboard/tooltip.js"></script>
@@ -209,7 +159,7 @@
     </main>
 
     <button id="scrollTopBtn" aria-label="Scroll to top">
-        [ ↑ TOP ]
+        ⮝ 
       </button>
 
     <script>
@@ -304,25 +254,6 @@
             }
           });
           clearBtn.style.display = "none";
-
-          const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-window.addEventListener("scroll", () => {
-  
-  if (window.innerWidth <= 768 && window.scrollY > 300) {
-    scrollTopBtn.style.display = "block";
-  } else {
-    scrollTopBtn.style.display = "none";
-  }
-});
-
-scrollTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-});
-
         clearBtn.style.display = "none";
         setupSearchListeners();
         setupPaginationListeners();
@@ -532,5 +463,9 @@ scrollTopBtn.addEventListener("click", () => {
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
+    <script src="js/leaderboard/mobile-scroll-top.js"></script>
+      
+    </script>
+
   </body>
 </html>

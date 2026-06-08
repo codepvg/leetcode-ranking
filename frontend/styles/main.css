@@ -2522,6 +2522,7 @@ body::-webkit-scrollbar-thumb {
 .active-page::after {
   display: none;
 }
+<<<<<<< HEAD
 
 /* ── Leaderboard Rank Change ── */
 .rank-change {
@@ -2543,4 +2544,42 @@ body::-webkit-scrollbar-thumb {
 
 .rank-neutral {
   color: var(--text-muted);
+=======
+#scrollTopBtn {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid var(--green);
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--green);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 999;
+
+  font-size: 18px;
+
+  box-shadow: 0 0 8px rgba(0, 255, 100, 0.25);
+
+  transition: all 0.25s ease;
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(-2px);
+}
+
+@media (min-width: 769px) {
+  #scrollTopBtn {
+    display: none !important;
+  }
+>>>>>>> 78c4107 (required things added in up button)
 }
