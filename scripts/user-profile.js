@@ -52,96 +52,57 @@ function setupFilterButtons() {
 }
 
 function updateChart() {
-  // If there's no history data, stop execution
   if (!studentHistoryArray || studentHistoryArray.length === 0) {
-    console.log("No history data found to filter.");
     return;
   }
 
   const now = new Date();
-  let labels = [];
-  let easyCounts = [];
-  let mediumCounts = [];
-  let hardCounts = [];
+  let filteredData = [];
 
-  // 1. WEEKLY FILTER
   if (currentView === "weekly") {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(now.getDate() - 7);
-    
-    let filteredData = studentHistoryArray.filter(
+
+    filteredData = studentHistoryArray.filter(
       (item) => new Date(item.date) >= sevenDaysAgo
     );
-    
-    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    labels = filteredData.map((item) => item.date);
-    easyCounts = filteredData.map((item) => item.easy || 0);
-    mediumCounts = filteredData.map((item) => item.medium || 0);
-    hardCounts = filteredData.map((item) => item.hard || 0);
-
-  // 2. MONTHLY FILTER
   } else if (currentView === "monthly") {
-    const twelveMonthsAgo = new Date();
-    twelveMonthsAgo.setMonth(now.getMonth() - 12);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(now.getDate() - 30);
 
-    const pastYearData = studentHistoryArray.filter(
-      (item) => new Date(item.date) >= twelveMonthsAgo
+    filteredData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= thirtyDaysAgo
     );
-
-    pastYearData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    const monthlyGroups = {};
-
-    pastYearData.forEach((item) => {
-      const dateObj = new Date(item.date);
-      const monthLabel = dateObj.toLocaleString("default", {
-        month: "short",
-        year: "numeric",
-      });
-
-      monthlyGroups[monthLabel] = {
-        easy: item.easy || 0,
-        medium: item.medium || 0,
-        hard: item.hard || 0
-      };
-    });
-
-    const sortedMonths = Object.keys(monthlyGroups).sort(
-      (a, b) => new Date(a) - new Date(b)
-    );
-
-    labels = sortedMonths;
-    easyCounts = sortedMonths.map((m) => monthlyGroups[m].easy);
-    mediumCounts = sortedMonths.map((m) => monthlyGroups[m].medium);
-    hardCounts = sortedMonths.map((m) => monthlyGroups[m].hard);
-    
-  // 3. OVERALL FILTER
-  } else if (currentView === "overall") {
-    let filteredData = [...studentHistoryArray];
-    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    labels = filteredData.map((item) => item.date);
-    easyCounts = filteredData.map((item) => item.easy || 0);
-    mediumCounts = filteredData.map((item) => item.medium || 0);
-    hardCounts = filteredData.map((item) => item.hard || 0);
+  } else {
+    filteredData = [...studentHistoryArray];
   }
 
-  // Render the line chart for the active view
+  if (filteredData.length === 0) {
+    filteredData = [...studentHistoryArray];
+  }
+
+  filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const labels = filteredData.map((item) => item.date);
+  const easyCounts = filteredData.map((item) => Number(item.easy) || 0);
+  const mediumCounts = filteredData.map((item) => Number(item.medium) || 0);
+  const hardCounts = filteredData.map((item) => Number(item.hard) || 0);
+
   renderChartCanvas(labels, easyCounts, mediumCounts, hardCounts);
 
-  // FIXED: Always render the doughnut chart using the latest active data entries!
-  if (easyCounts.length > 0) {
-    renderDifficultyChart(
-      easyCounts[easyCounts.length - 1],
-      mediumCounts[mediumCounts.length - 1],
-      hardCounts[hardCounts.length - 1]
-    );
-  }
+  renderDifficultyChart(
+    easyCounts[easyCounts.length - 1] || 0,
+    mediumCounts[mediumCounts.length - 1] || 0,
+    hardCounts[hardCounts.length - 1] || 0
+  );
 }
 
+
 function renderChartCanvas(labels, easy, medium, hard) {
-  const ctx = document.getElementById("performanceChart").getContext("2d");
+  const canvas = document.getElementById("performanceChart");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
 
   if (performanceChartInstance) {
     performanceChartInstance.destroy();
@@ -150,76 +111,36 @@ function renderChartCanvas(labels, easy, medium, hard) {
   performanceChartInstance = new Chart(ctx, {
     type: "line",
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           label: "Easy",
           data: easy,
-          borderColor: "#10b981", 
+          borderColor: "#10b981",
           backgroundColor: "rgba(16, 185, 129, 0.1)",
           tension: 0.3,
           fill: true,
+          spanGaps: true
         },
         {
           label: "Medium",
           data: medium,
-          borderColor: "#f59e0b", 
+          borderColor: "#f59e0b",
           backgroundColor: "rgba(245, 158, 11, 0.1)",
           tension: 0.3,
           fill: true,
+          spanGaps: true
         },
         {
           label: "Hard",
           data: hard,
-          borderColor: "#ef4444", 
+          borderColor: "#ef4444",
           backgroundColor: "rgba(239, 68, 68, 0.1)",
           tension: 0.3,
           fill: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: { color: "#94a3b8" }, 
-        },
-      },
-      scales: {
-        x: {
-          grid: { color: "#334155" }, 
-          ticks: { color: "#94a3b8" },
-        },
-        y: {
-          grid: { color: "#334155" },
-          ticks: { color: "#94a3b8" },
-          beginAtZero: false,
-        },
-      },
-    },
-  });
-}
-
-function renderDifficultyChart(easy, medium, hard) {
-  const canvas = document.getElementById("difficultyChart");
-  if (!canvas) return; // Prevent errors if canvas element missing from HTML
-
-  if (difficultyChartInstance) {
-    difficultyChartInstance.destroy();
-  }
-
-  difficultyChartInstance = new Chart(canvas, {
-    type: "doughnut",
-    data: {
-      labels: ["Easy", "Medium", "Hard"],
-      datasets: [
-        {
-          data: [easy, medium, hard],
-          backgroundColor: ["#10b981", "#f59e0b", "#ef4444"],
-          borderWidth: 2,
-        },
-      ],
+          spanGaps: true
+        }
+      ]
     },
     options: {
       responsive: true,
@@ -227,10 +148,71 @@ function renderDifficultyChart(easy, medium, hard) {
       plugins: {
         legend: {
           labels: {
-            color: "#94a3b8",
-          },
-        },
+            color: "#94a3b8"
+          }
+        }
       },
+      scales: {
+        x: {
+          grid: {
+            color: "#334155"
+          },
+          ticks: {
+            color: "#94a3b8"
+          }
+        },
+        y: {
+          beginAtZero: false,
+          grid: {
+            color: "#334155"
+          },
+          ticks: {
+            color: "#94a3b8"
+          }
+        }
+      }
+    }
+  });
+}
+
+
+function renderDifficultyChart(easy, medium, hard) {
+  const canvas = document.getElementById("difficultyChart");
+  if (!canvas) return;
+
+  if (difficultyChartInstance) {
+    difficultyChartInstance.destroy();
+  }
+
+  const e = Number(easy) || 0;
+  const m = Number(medium) || 0;
+  const h = Number(hard) || 0;
+
+  difficultyChartInstance = new Chart(canvas, {
+    type: "doughnut",
+    data: {
+      labels: ["Easy", "Medium", "Hard"],
+      datasets: [
+        {
+          data: e + m + h === 0 ? [1] : [e, m, h],
+          backgroundColor:
+            e + m + h === 0
+              ? ["#475569"]
+              : ["#10b981", "#f59e0b", "#ef4444"],
+          borderWidth: 2
+        }
+      ]
     },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#94a3b8"
+          }
+        }
+      }
+    }
   });
 }
