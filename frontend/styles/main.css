@@ -2517,3 +2517,40 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
+
+/* Matrix Cursor Effect */
+
+.matrix-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 6px var(--green),
+    0 0 12px var(--green),
+    0 0 18px var(--green);
+}
+
+.cursor-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--green);
+  transition: opacity 0.1s linear;
+}
+
+@media (hover: none) {
+  .matrix-cursor,
+  .cursor-particle {
+    display: none;
+  }
+}
