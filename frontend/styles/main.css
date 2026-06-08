@@ -2522,29 +2522,6 @@ body::-webkit-scrollbar-thumb {
 .active-page::after {
   display: none;
 }
-<<<<<<< HEAD
-
-/* ── Leaderboard Rank Change ── */
-.rank-change {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-family: "Fira Code", monospace;
-  margin-left: 0.4rem;
-  vertical-align: middle;
-  opacity: 0.85;
-}
-
-.rank-up {
-  color: var(--green);
-}
-
-.rank-down {
-  color: var(--red);
-}
-
-.rank-neutral {
-  color: var(--text-muted);
-=======
 #scrollTopBtn {
   position: fixed;
   right: 16px;
@@ -2581,5 +2558,4 @@ body::-webkit-scrollbar-thumb {
   #scrollTopBtn {
     display: none !important;
   }
->>>>>>> 78c4107 (required things added in up button)
 }
