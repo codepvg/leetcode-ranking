@@ -144,3 +144,10 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// Must be last route
+app.use((req, res) => {
+  res
+    .status(404)
+    .sendFile(path.join(__dirname, "frontend", "404.html"));
+});
