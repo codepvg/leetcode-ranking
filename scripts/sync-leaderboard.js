@@ -1,3 +1,5 @@
+"use strict";
+
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
@@ -166,11 +168,11 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  dailyData = JSON.parse(JSON.stringify(overallData));
+  let dailyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous day's file...");
   const previousDayFilepath = path.join(DATA_DIR, "daily", getFileName(1));
-  previousData = [];
+  let previousData = [];
   try {
     const rawData = fs.readFileSync(previousDayFilepath, "utf8");
     previousData = JSON.parse(rawData);
@@ -220,7 +222,7 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  weeklyData = JSON.parse(JSON.stringify(overallData));
+  let weeklyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous week's file...");
   const previousWeekFilepath = path.join(DATA_DIR, "daily", getFileName(7));
@@ -280,7 +282,7 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  monthlyData = JSON.parse(JSON.stringify(overallData));
+  let monthlyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous month's file...");
   const previousMonthFilepath = path.join(DATA_DIR, "daily", getFileName(30));
