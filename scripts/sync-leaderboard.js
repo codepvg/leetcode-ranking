@@ -1,5 +1,3 @@
-"use strict";
-
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
@@ -11,7 +9,6 @@ async function fetchData(url) {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
       hardSolved: res.data.hardSolved || 0,
-      ranking: res.data.ranking || 0,
     };
   } catch (err) {
     console.error(`API failed for ${url}: ${err.message}`);
@@ -127,12 +124,10 @@ async function computeRankChanges(currentSorted, filename) {
       continue;
     }
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
-    const ranking = data.ranking || 0;
     console.log(`${user.name}:`, data);
     overallData.push({
       name: user.name,
       id: user.id,
-      ranking,
       data,
       score,
     });
@@ -199,8 +194,7 @@ async function computeRankChanges(currentSorted, filename) {
       dailyData.splice(i--, 1);
       continue;
     }
-    dailyData[i].ranking = dailyData[i].ranking || 0;
-
+    
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
     dailyData[i].data.mediumSolved -=
       previousData[previousIndex].data.mediumSolved;
@@ -256,7 +250,6 @@ async function computeRankChanges(currentSorted, filename) {
       weeklyData.splice(i--, 1);
       continue;
     }
-    weeklyData[i].ranking = weeklyData[i].ranking || 0;
     weeklyData[i].data.easySolved -=
       previousData[previousIndex].data.easySolved;
     weeklyData[i].data.mediumSolved -=
@@ -317,7 +310,6 @@ async function computeRankChanges(currentSorted, filename) {
       monthlyData.splice(i--, 1);
       continue;
     }
-    monthlyData[i].ranking = monthlyData[i].ranking || 0;
     monthlyData[i].data.easySolved -=
       previousData[previousIndex].data.easySolved;
     monthlyData[i].data.mediumSolved -=
