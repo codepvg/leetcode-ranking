@@ -194,7 +194,7 @@ async function computeRankChanges(currentSorted, filename) {
       dailyData.splice(i--, 1);
       continue;
     }
-    
+
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
     dailyData[i].data.mediumSolved -=
       previousData[previousIndex].data.mediumSolved;
