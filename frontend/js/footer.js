@@ -92,6 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <p>
         © 2026 CodePVG Programming Club
       </p>
+      <div class="legal-links" style="margin-top: 4px; display: flex; justify-content: center; gap: 15px;">
+        <a href="/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/terms" class="footer-link">Terms & Conditions</a>
+      </div>
       <p>
         developed && maintained by <a href="https://github.com/jagdish-15" target="_blank" class="footer-link">jagdish</a>
       </p>
