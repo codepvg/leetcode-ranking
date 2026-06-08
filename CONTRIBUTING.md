@@ -43,7 +43,11 @@ npm start
 - Check whether an issue already exists for the change you want to make.
 - If you would like to work on an existing issue, please request assignment.
 - **Please do not start working on an issue or submit PRs until you are officially assigned.**
-- Issues are generally assigned to the issue creator first. If they choose not to work on it, the issue will be assigned to other contributors in the order of their requests (first-come, first-served).
+
+### Issue Assignment Policy
+
+- The issue creator is given the first priority to work on their issue.
+- If the creator declines or does not request assignment, the issue will be assigned to others in the order of requests received (first-come, first-served).
 
 > **Note:** This project is currently maintained by a solo maintainer, so reviews, assignments, and responses may sometimes take a little time. Thanks for your patience.
 
