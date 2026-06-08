@@ -169,6 +169,8 @@
         setupSearchListeners();
         setupPaginationListeners();
         fetchLeaderboardData();
+        // Poll every 2 minutes to detect new syncs
+        setInterval(fetchLeaderboardData, 2 * 60 * 1000);
       });
 
       const leaderboardData = {};
@@ -207,6 +209,12 @@
           );
           if (syncRes.ok) {
             const syncData = await syncRes.json();
+            // Trigger toast if sync time changed
+            const prevSyncTime = window._lastKnownSyncTime || null;
+            if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
+              showSyncToast();
+            }
+            window._lastKnownSyncTime = syncData.lastSync;
             const options = {
               month: "short",
               day: "2-digit",
@@ -371,6 +379,7 @@
         applyFiltersAndRender();
       }
     </script>
+    <script src="js/sync-toast.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>

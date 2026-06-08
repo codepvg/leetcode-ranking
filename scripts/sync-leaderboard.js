@@ -340,6 +340,64 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
+  console.log("Generating changes.json...");
+  const changesFilepath = path.join(DATA_DIR, "changes.json");
+  try {
+    const rankChanges = [];
+    const newUsers = [];
+    let totalNewSolves = 0;
+    let usersWithNewSolves = 0;
+
+    overallData.forEach((user, idx) => {
+      const currentRank = idx + 1;
+      if (user.rankChange === "NEW") {
+        newUsers.push(user.name);
+      } else if (user.rankChange && user.rankChange !== "=") {
+        const delta = parseInt(user.rankChange); // +ve = moved up, -ve = moved down
+        const oldRank = currentRank - delta;
+        rankChanges.push({
+          username: user.name,
+          id: user.id,
+          old_rank: oldRank,
+          new_rank: currentRank,
+          rank_delta: delta,
+          score: user.score,
+        });
+      }
+    });
+
+    dailyData.forEach((user) => {
+      const solved = user.data.totalSolved || 0;
+      if (solved > 0) {
+        totalNewSolves += solved;
+        usersWithNewSolves++;
+      }
+    });
+
+    const noChanges =
+      rankChanges.length === 0 && newUsers.length === 0 && totalNewSolves === 0;
+
+    fs.writeFileSync(
+      changesFilepath,
+      JSON.stringify(
+        {
+          sync_time: new Date().toISOString(),
+          rank_changes: rankChanges,
+          new_users: newUsers,
+          total_new_solves: totalNewSolves,
+          users_with_new_solves: usersWithNewSolves,
+          no_changes: noChanges,
+        },
+        null,
+        2,
+      ),
+      "utf8",
+    );
+    console.log("changes.json saved successfully");
+  } catch (err) {
+    console.error("Failed to write changes.json: ", err.message);
+  }
+
   console.log("Writing sync timestamp...");
   const syncFilepath = path.join(DATA_DIR, "last-sync.json");
   try {
