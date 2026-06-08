@@ -2517,3 +2517,52 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
+
+
+.custom-cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow:
+    0 0 10px #00ff66,
+    0 0 20px #00ff66,
+    0 0 40px #00ff66;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: transform 0.08s linear;
+}
+
+.trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff66;
+  box-shadow:
+    0 0 10px #00ff66,
+    0 0 20px #00ff66,
+    0 0 30px #00ff66;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: fadeTrail 0.8s linear forwards;
+  z-index: 9998;
+}
+
+@keyframes fadeTrail {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+}
+
+body{
+  cursor: none;
+}
