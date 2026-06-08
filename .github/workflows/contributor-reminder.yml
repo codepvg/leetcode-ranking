@@ -23,7 +23,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Thank you for opening an issue.\n\nPlease review our `CONTRIBUTING.md` guidelines before getting started.\n\nA maintainer will review this issue shortly. If you would like to work on the issue yourself, please leave a comment requesting assignment."
+              body: "Thank you for opening an issue.\n\nPlease review our `CONTRIBUTING.md` guidelines before getting started.\n\nA maintainer will review this issue shortly. If you would like to work on the issue yourself, please leave a comment requesting assignment.\n\n### Issue Assignment Policy\n- The issue creator is given the first priority to work on their issue.\n- If the creator declines or does not request assignment, the issue will be assigned to others in the order of requests received.\n- Please do not submit PRs or begin work until you are officially assigned.\n\n> **Note:** This project is currently maintained by a solo maintainer, so reviews, assignments, and responses may sometimes take a little time. Thanks for your patience."
             })
 
       - name: Comment on Pull Request
@@ -35,5 +35,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Thank you for submitting a pull request.\n\nPlease ensure your changes comply with the project's contribution guidelines and that all workflow checks pass successfully.\n\nA maintainer will review your submission shortly."
+              body: "Thank you for submitting a pull request.\n\nPlease ensure your changes comply with the project's contribution guidelines and that all workflow checks pass successfully.\n\n### Formatting and Branching\n- Please confirm you have formatted your code using `npx prettier --write .`\n- Ensure this PR is made from a `feature/*` branch and not `main`.\n\n> **Note:** This project is currently maintained by a solo maintainer, so reviews and responses may sometimes take a little time. Thanks for your patience."
             })

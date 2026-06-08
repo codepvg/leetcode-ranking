@@ -41,8 +41,11 @@ npm start
 ## Before You Start
 
 - Check whether an issue already exists for the change you want to make.
-- If you would like to work on an existing issue, please request assignment before starting work.
-- Please do not submit PRs for issues assigned to another contributor unless approved by a maintainer.
+- If you would like to work on an existing issue, please request assignment.
+- **Please do not start working on an issue or submit PRs until you are officially assigned.**
+- Issues are generally assigned to the issue creator first. If they choose not to work on it, the issue will be assigned to other contributors in the order of their requests (first-come, first-served).
+
+> **Note:** This project is currently maintained by a solo maintainer, so reviews, assignments, and responses may sometimes take a little time. Thanks for your patience.
 
 ## Pull Requests
 
@@ -65,7 +68,7 @@ We use Prettier to enforce consistent code style across the project. Our automat
 Before submitting your Pull Request, please run the following command in the root of the repository to automatically format all your changes:
 
 ```bash
-npx prettier --write "frontend/**/*.{html,css,js}" "scripts/**/*.js" "server.js"
+npx prettier --write .
 ```
 
 ### Frontend Changes

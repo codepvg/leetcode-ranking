@@ -31,7 +31,8 @@ Fixes # (issue number)
 ## Checklist
 
 - [ ] My code follows the project's coding style
-- [ ] I have formatted my code locally using Prettier
+- [ ] I have formatted my code locally by running `npx prettier --write .` before submitting
+- [ ] I am submitting my PR from a dedicated `feature/*` branch, not the `main` branch
 - [ ] I have performed a self-review of my code
 - [ ] My changes generate no new warnings or errors
 - [ ] I have updated documentation if required
