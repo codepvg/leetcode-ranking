@@ -4,15 +4,15 @@ const path = require("path");
 
 async function fetchData(url) {
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, { timeout: 15000 });
     return {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
       hardSolved: res.data.hardSolved || 0,
     };
   } catch (err) {
-    console.error("API failed to respond: ", err.message);
-    process.exit(1);
+    console.error(`API failed for ${url}: ${err.message}`);
+    return null;
   }
 }
 
@@ -53,6 +53,10 @@ function getFileName(daysAgo) {
   console.log("Starting daily fetch...");
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
+    if (!data) {
+      console.log(`${user.name}: skipped (API error)`);
+      continue;
+    }
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
     console.log(`${user.name}:`, data);
     overallData.push({
