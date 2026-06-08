@@ -92,6 +92,14 @@ app.get("/registration", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "registration.html"));
 });
 
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "privacy.html"));
+});
+
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "terms.html"));
+});
+
 // Redirect direct .html file access so nonce injection still applies
 app.get(/\.html$/, (req, res) => {
   const cleanPath = req.path.replace(/\.html$/, "");
