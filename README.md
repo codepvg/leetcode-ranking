@@ -19,6 +19,7 @@ It allows users to register with their LeetCode username and automatically fetch
 - [How to Run Locally](#how-to-run-locally)
 - [Usage](#usage)
 - [Contributing](#contributing)
+- [Contributors](#contributors)
 - [License](#license)
 
 ---
@@ -172,7 +173,7 @@ cd leetcode-ranking
 
 `npm run dev`
 or
-`node start`
+`npm start`
 
 ---
 
