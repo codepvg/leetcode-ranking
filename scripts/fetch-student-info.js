@@ -80,9 +80,6 @@ async function fetchStudentHistory(username) {
       const user = result.data.find((u) => u.id === username);
 
       if (user) {
-        if (ranking === null || ranking === 0) {
-          ranking = user.ranking || 0;
-        }
         const dateStr = result.fileName.split("-").slice(0, 3).join("-");
 
         history.push({
