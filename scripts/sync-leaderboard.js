@@ -196,10 +196,12 @@ async function computeRankChanges(currentSorted, filename) {
       dailyData.splice(i--, 1);
       continue;
     }
+
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
     dailyData[i].data.mediumSolved -=
       previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+
     dailyData[i].score =
       dailyData[i].data.easySolved +
       dailyData[i].data.mediumSolved * 3 +

@@ -15,9 +15,26 @@ async function fetchStudentHistory(username) {
   console.log("Fetching history for:", username);
 
   let history = [];
+  let ranking = null;
   let missingFilesCount = 0;
   const maxDays = 365;
   const chunkSize = 100;
+
+  try {
+    const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
+    const apiResponse = await fetch(liveApiUrl);
+    if (apiResponse.ok) {
+      const apiData = await apiResponse.json();
+      // Captures the live ranking directly from the endpoint payload
+      ranking = apiData.ranking || 0;
+      console.log(`Live ranking fetched for ${username}:`, ranking);
+    }
+  } catch (err) {
+    console.error(
+      "Failed to fetch live global ranking from API wrapper:",
+      err.message,
+    );
+  }
 
   let done = false;
 
@@ -82,6 +99,7 @@ async function fetchStudentHistory(username) {
 
   return {
     username,
+    ranking,
     history,
   };
 }
