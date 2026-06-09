@@ -1,3 +1,18 @@
+document.addEventListener("click", (e) => {
+  const scoreEl = e.target.closest(".mobile-score");
+  if (scoreEl) {
+    if (scoreEl.classList.contains("active")) {
+      scoreEl.classList.remove("active");
+    } else {
+      document.querySelectorAll(".mobile-score.active")
+        .forEach(el => el.classList.remove("active"));
+      scoreEl.classList.add("active");
+    }
+    return;
+  }
+  document.querySelectorAll(".mobile-score.active")
+    .forEach(el => el.classList.remove("active"));
+});
 // Creates a rank change DOM element (safe — values are internally generated)
 function createRankChangeElement(rankChange) {
   if (!rankChange) return null;
@@ -132,28 +147,30 @@ function renderLeaderboardRow(user, rank) {
   row.appendChild(totalDiv);
 
   // Score with tooltip — all content is numeric or hardcoded labels
-  const scoreDiv = document.createElement("div");
-  scoreDiv.className = "mobile-score tooltip-score";
-  const scoreSpan = document.createElement("span");
-  scoreSpan.textContent = user.score;
-  scoreDiv.appendChild(scoreSpan);
-  const caretSpan = document.createElement("span");
-  caretSpan.className = "score-caret";
-  scoreDiv.appendChild(caretSpan);
-  scoreDiv.appendChild(
-    buildScoreTooltip(
-      user,
-      easyPoints,
-      mediumPoints,
-      hardPoints,
-      easyScore,
-      mediumScore,
-      hardScore,
-    ),
-  );
-  row.appendChild(scoreDiv);
+const scoreDiv = document.createElement("div");
+scoreDiv.className = "mobile-score tooltip-score";
 
-  return row;
+const scoreSpan = document.createElement("span");
+scoreSpan.textContent = user.score;
+scoreDiv.appendChild(scoreSpan);
+
+const caretSpan = document.createElement("span");
+caretSpan.className = "score-caret";
+scoreDiv.appendChild(caretSpan);
+
+scoreDiv.appendChild(
+  buildScoreTooltip(
+    user,
+    easyPoints,
+    mediumPoints,
+    hardPoints,
+    easyScore,
+    mediumScore,
+    hardScore,
+  )
+);
+row.appendChild(scoreDiv);
+return row;
 }
 
 function renderMobileCard(user, rank) {
@@ -178,24 +195,27 @@ function renderMobileCard(user, rank) {
   cardHeader.appendChild(mobileRank);
 
   const mobileScore = document.createElement("div");
-  mobileScore.className = "mobile-score tooltip-score";
-  const mobileScoreSpan = document.createElement("span");
-  mobileScoreSpan.textContent = user.score;
-  mobileScore.appendChild(mobileScoreSpan);
-  const mobileCaretSpan = document.createElement("span");
-  mobileCaretSpan.className = "score-caret";
-  mobileScore.appendChild(mobileCaretSpan);
-  mobileScore.appendChild(
-    buildScoreTooltip(
-      user,
-      easyPoints,
-      mediumPoints,
-      hardPoints,
-      easyScore,
-      mediumScore,
-      hardScore,
-    ),
-  );
+mobileScore.className = "mobile-score tooltip-score";
+
+const mobileScoreSpan = document.createElement("span");
+mobileScoreSpan.textContent = user.score;
+mobileScore.appendChild(mobileScoreSpan);
+
+const mobileCaretSpan = document.createElement("span");
+mobileCaretSpan.className = "score-caret";
+mobileScore.appendChild(mobileCaretSpan);
+
+mobileScore.appendChild(
+  buildScoreTooltip(
+    user,
+    easyPoints,
+    mediumPoints,
+    hardPoints,
+    easyScore,
+    mediumScore,
+    hardScore,
+  ),
+);
   cardHeader.appendChild(mobileScore);
 
   card.appendChild(cardHeader);

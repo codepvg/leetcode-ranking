@@ -2226,10 +2226,6 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
-.tooltip-score:hover .score-tooltip {
-  opacity: 1;
-  visibility: visible;
-}
 
 .score-tooltip hr {
   border: none;
@@ -2241,17 +2237,14 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
   display: inline-block;
-  transition:
-    transform 0.25s ease,
-    color 0.25s ease;
+  transition: transform 0.25s ease, color 0.25s ease;
+  transform: rotate(0deg);
 }
 
 .score-caret::after {
   content: ">";
 }
-
 .tooltip-score:hover .score-caret {
-  transform: rotate(90deg);
   color: var(--cyan);
 }
 
@@ -2516,4 +2509,15 @@ body::-webkit-scrollbar-thumb {
 
 .rank-neutral {
   color: var(--text-muted);
+}
+
+.tooltip-score.active .score-tooltip {
+  opacity: 1;
+  visibility: visible;
+    pointer-events: auto;
+}
+
+.tooltip-score.active .score-caret {
+  transform: rotate(90deg);
+  color: var(--cyan);
 }
