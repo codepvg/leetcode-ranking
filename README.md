@@ -1,8 +1,8 @@
 # CodePVG LeetCode Ranking
 
-A web-based platform developed by [CodePVG](https://www.linkedin.com/company/codepvg/) to track and rank students of [PVG COET](https://www.pvgcoet.ac.in/) based on their LeetCode performance
+A web-based platform developed by [[CodePVG](https://www.linkedin.com/company/codepvg/)](https://www.linkedin.com/company/codepvg/) to track, analyze, and rank students of [[PVG COET](https://www.pvgcoet.ac.in/)](https://www.pvgcoet.ac.in/) based on their LeetCode activity and problem-solving performance.
 
-It allows users to register with their LeetCode username and automatically fetches their problem-solving statistics to display on a leaderboard.
+The platform allows students to register using their LeetCode username and automatically generates leaderboard rankings, historical progress tracking, and performance insights through periodic synchronization of LeetCode statistics.
 
 ---
 
@@ -16,8 +16,8 @@ It allows users to register with their LeetCode username and automatically fetch
 - [Data Flow](#data-flow)
 - [Related Repositories](#related-repositories)
 - [Project Structure](#project-structure)
-- [How to Run Locally](#how-to-run-locally)
 - [Usage](#usage)
+- [How to Run Locally](#how-to-run-locally)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [License](#license)
@@ -44,34 +44,25 @@ This project is built to track students’ LeetCode activity and generate a dyna
 
 ---
 
-## Features
+- **LeetCode-based Student Registration**
+  Students can register using their LeetCode username to participate in the leaderboard.
+- **Automated Performance Tracking**
+  The platform periodically fetches and updates user problem-solving statistics automatically.
+- **Dynamic Multi-View Leaderboards**
+  Supports overall, monthly, weekly, and daily leaderboard rankings.
+- **Historical Progress Tracking**
+  Tracks past performance and rank movement over time using historical leaderboard snapshots.
+- **Terminal-inspired Responsive UI**
+  A lightweight terminal-style interface designed to work across both desktop and mobile devices.
+- **Search, Filtering, and Comparison Tools**
+  Includes leaderboard search, filtering, and peer comparison features for easier performance analysis.
+- **Decoupled Data Architecture**
+  Frontend, backend, and leaderboard data storage are maintained independently for easier scalability and maintenance.
+- **Automated Synchronization Workflows**
+  GitHub Actions and sync scripts help keep leaderboard data updated without manual intervention.
 
-- **Student Registration using LeetCode Username**  
-  Users can register by submitting their LeetCode username, which is used to fetch their coding statistics.
-
-- **Automatic LeetCode Data Fetching**  
-  The system automatically retrieves problem-solving data from LeetCode for each registered user.
-
-- **Dynamic Leaderboard Generation**  
-  Rankings are generated based on user performance metrics and updated regularly.
-
-- **Periodic Sync Jobs**  
-  Scheduled jobs ensure that leaderboard data stays updated with the latest LeetCode activity.
-
-- **Historical Performance Tracking**  
-  Stores past data to track student progress and rank changes over time.
-
-- **Decoupled System Architecture**  
-  Frontend, backend, and data storage are separated into different services for better scalability and maintenance.
-
-- **Automated Updates via GitHub Actions**  
-  Background workflows handle periodic synchronization and data updates without manual intervention.
-
-- **Lightweight Frontend Interface**  
-  A simple and responsive UI displays the leaderboard and user rankings in real time.
-
-  ---
-
+---
+  
 ## Screenshots
 
 A quick preview of the platform UI. The appearance may evolve as the project develops.
@@ -152,41 +143,29 @@ leetcode-ranking/
 > [!NOTE]
 > All leaderboard data is now decoupled and stored in the [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) repository to prevent commit history bloat in this repo.
 
+## Usage
+
+The platform is publicly available at:
+
+`https://codepvg.onrender.com`
+
+- Students can register using their LeetCode username to participate in the leaderboard, track rankings across different leaderboard views, monitor historical performance, and compare progress with other users.
+
+- Leaderboard data is synchronised periodically, so newly registered users and recent submissions may take a few minutes to appear in the rankings.
+
 ---
 
 ## How to Run Locally
 
-### 1. Fork and clone the repository
-
-First, fork the repository to your GitHub account. Then clone it locally:
-
 ```bash
 git clone https://github.com/YOUR-USERNAME/leetcode-ranking.git
 cd leetcode-ranking
+npm install
+npm run dev
 ```
+Then open the frontend locally in your browser after starting the server.
 
-### 2. Install dependencies
-
-`npm install`
-
-### 3. Run the project
-
-`npm run dev`
-or
-`npm start`
-
----
-
-## Usage
-
-1. Open the application in your browser after starting the server.
-2. Go to the registration page.
-3. Enter your name and LeetCode username.
-4. Submit the form to register.
-5. Your data will be fetched during the next sync cycle.
-6. View your updated ranking on the leaderboard page.
-
----
+For detailed development setup, sync workflow testing, contribution guidelines, and local data repository configuration, refer to `CONTRIBUTING.md`.
 
 ## Contributing
 
