@@ -12,7 +12,6 @@ function getFileName(daysAgo) {
 }
 
 async function fetchStudentHistory(username) {
-  console.log("Fetching history for:", username);
 
   let history = [];
   let ranking = null;
@@ -27,7 +26,6 @@ async function fetchStudentHistory(username) {
       const apiData = await apiResponse.json();
       // Captures the live ranking directly from the endpoint payload
       ranking = apiData.ranking || 0;
-      console.log(`Live ranking fetched for ${username}:`, ranking);
     }
   } catch (err) {
     console.error(
