@@ -26,11 +26,10 @@ The platform allows students to register using their LeetCode username and autom
 
 ## Purpose
 
-This project is built to track students’ LeetCode activity and generate a dynamic leaderboard based on their problem-solving statistics.
+The goal of this project is to encourage consistent problem-solving among students by providing a centralized platform to track LeetCode activity and coding progress.
 
-- Encourage consistent problem-solving among students
-- Create a competitive yet motivating environment
-- Provide visibility into individual coding progress
+Through regularly updated leaderboards and historical performance tracking, the platform aims to create a competitive yet collaborative environment where students can monitor their growth, stay motivated, and improve their problem-solving skills over time.
+
 
 ---
 
