@@ -2517,3 +2517,41 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
+#scrollTopBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 90px; /* keep above footer area */
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  z-index: 999;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(-2px);
+}
+
+#scrollTopBtn.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  #scrollTopBtn {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    right: 16px;
+    bottom: 100px; /* extra space from footer on mobile */
+  }
+}
