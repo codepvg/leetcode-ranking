@@ -2345,6 +2345,33 @@ body::-webkit-scrollbar-thumb {
   user-select: none;
 }
 .clear-search-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--red);
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Fira Code", monospace;
+  font-size: 0.8rem;
+
+  transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+  border-color: var(--red);
+  background: rgba(255, 51, 51, 0.12);
+
+  box-shadow:
+    0 0 10px rgba(255, 51, 51, 0.25),
+    inset 0 0 8px rgba(255, 51, 51, 0.08);
+
+  text-shadow: 0 0 6px rgba(255, 51, 51, 0.8);
   background: rgba(255, 51, 51, 0.05);
   border: 1px solid rgba(255, 51, 51, 0.4);
   color: var(--red);
@@ -2495,25 +2522,40 @@ body::-webkit-scrollbar-thumb {
 .active-page::after {
   display: none;
 }
+#scrollTopBtn {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
 
-/* ── Leaderboard Rank Change ── */
-.rank-change {
-  display: inline-block;
-  font-size: 0.65rem;
-  font-family: "Fira Code", monospace;
-  margin-left: 0.4rem;
-  vertical-align: middle;
-  opacity: 0.85;
-}
+  width: 42px;
+  height: 42px;
 
-.rank-up {
+  border: 1px solid var(--green);
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.9);
   color: var(--green);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  z-index: 999;
+
+  font-size: 18px;
+
+  box-shadow: 0 0 8px rgba(0, 255, 100, 0.25);
+
+  transition: all 0.25s ease;
 }
 
-.rank-down {
-  color: var(--red);
+#scrollTopBtn:hover {
+  transform: translateY(-2px);
 }
 
-.rank-neutral {
-  color: var(--text-muted);
+@media (min-width: 769px) {
+  #scrollTopBtn {
+    display: none !important;
+  }
 }
