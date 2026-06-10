@@ -64,14 +64,14 @@ function updateChart() {
     sevenDaysAgo.setDate(now.getDate() - 7);
 
     filteredData = studentHistoryArray.filter(
-      (item) => new Date(item.date) >= sevenDaysAgo
+      (item) => new Date(item.date) >= sevenDaysAgo,
     );
   } else if (currentView === "monthly") {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(now.getDate() - 30);
 
     filteredData = studentHistoryArray.filter(
-      (item) => new Date(item.date) >= thirtyDaysAgo
+      (item) => new Date(item.date) >= thirtyDaysAgo,
     );
   } else {
     filteredData = [...studentHistoryArray];
@@ -93,10 +93,9 @@ function updateChart() {
   renderDifficultyChart(
     easyCounts[easyCounts.length - 1] || 0,
     mediumCounts[mediumCounts.length - 1] || 0,
-    hardCounts[hardCounts.length - 1] || 0
+    hardCounts[hardCounts.length - 1] || 0,
   );
 }
-
 
 function renderChartCanvas(labels, easy, medium, hard) {
   const canvas = document.getElementById("performanceChart");
@@ -120,7 +119,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
           backgroundColor: "rgba(16, 185, 129, 0.1)",
           tension: 0.3,
           fill: true,
-          spanGaps: true
+          spanGaps: true,
         },
         {
           label: "Medium",
@@ -129,7 +128,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
           backgroundColor: "rgba(245, 158, 11, 0.1)",
           tension: 0.3,
           fill: true,
-          spanGaps: true
+          spanGaps: true,
         },
         {
           label: "Hard",
@@ -138,9 +137,9 @@ function renderChartCanvas(labels, easy, medium, hard) {
           backgroundColor: "rgba(239, 68, 68, 0.1)",
           tension: 0.3,
           fill: true,
-          spanGaps: true
-        }
-      ]
+          spanGaps: true,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -148,33 +147,32 @@ function renderChartCanvas(labels, easy, medium, hard) {
       plugins: {
         legend: {
           labels: {
-            color: "#94a3b8"
-          }
-        }
+            color: "#94a3b8",
+          },
+        },
       },
       scales: {
         x: {
           grid: {
-            color: "#334155"
+            color: "#334155",
           },
           ticks: {
-            color: "#94a3b8"
-          }
+            color: "#94a3b8",
+          },
         },
         y: {
           beginAtZero: false,
           grid: {
-            color: "#334155"
+            color: "#334155",
           },
           ticks: {
-            color: "#94a3b8"
-          }
-        }
-      }
-    }
+            color: "#94a3b8",
+          },
+        },
+      },
+    },
   });
 }
-
 
 function renderDifficultyChart(easy, medium, hard) {
   const canvas = document.getElementById("difficultyChart");
@@ -196,12 +194,10 @@ function renderDifficultyChart(easy, medium, hard) {
         {
           data: e + m + h === 0 ? [1] : [e, m, h],
           backgroundColor:
-            e + m + h === 0
-              ? ["#475569"]
-              : ["#10b981", "#f59e0b", "#ef4444"],
-          borderWidth: 2
-        }
-      ]
+            e + m + h === 0 ? ["#475569"] : ["#10b981", "#f59e0b", "#ef4444"],
+          borderWidth: 2,
+        },
+      ],
     },
     options: {
       responsive: true,
@@ -209,10 +205,10 @@ function renderDifficultyChart(easy, medium, hard) {
       plugins: {
         legend: {
           labels: {
-            color: "#94a3b8"
-          }
-        }
-      }
-    }
+            color: "#94a3b8",
+          },
+        },
+      },
+    },
   });
 }

@@ -9,8 +9,6 @@ const fetchStudentHistory = require("./scripts/fetch-student-info");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const fetchStudentHistory = require("./scripts/fetch-student-info");
-
 app.use("/scripts", express.static(path.join(__dirname, "scripts")));
 app.use(cors());
 
@@ -96,7 +94,7 @@ app.get("/registration", (req, res) => {
 });
 
 app.get("/privacy", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "privacy.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
 
 app.get("/terms", (req, res) => {
@@ -115,7 +113,7 @@ app.get("/uptime", (req, res) => {
 });
 
 app.get("/user/:username", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "user.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
 
 const studentCache = new Map();
