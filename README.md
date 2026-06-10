@@ -158,6 +158,7 @@ You are free to use, modify, and distribute this project with proper attribution
 
 Thanks to everyone who has contributed to the project and helped improve the platform through features, fixes, suggestions, and discussions.
 
+You can view the full list of contributors here:
 https://github.com/codepvg/leetcode-ranking/graphs/contributors
 
 ---
