@@ -153,6 +153,15 @@ async function computeRankChanges(currentSorted, filename) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
+
+  let previousOverall = [];
+  try {
+    const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
+    previousOverall = JSON.parse(rawPrevious);
+  } catch (err) {
+    console.warn("No previous overall.json found, skipping diff.");
+  }
+
   await computeRankChanges(overallData, "overall.json");
   try {
     fs.writeFileSync(
@@ -343,6 +352,15 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");
   try {
+    // Build lookup of previous solve counts and ranks
+    const previousMap = {};
+    previousOverall.forEach((user, idx) => {
+      previousMap[user.id] = {
+        rank: idx + 1,
+        totalSolved: user.data.totalSolved || 0,
+      };
+    });
+
     const rankChanges = [];
     const newUsers = [];
     let totalNewSolves = 0;
@@ -350,27 +368,31 @@ async function computeRankChanges(currentSorted, filename) {
 
     overallData.forEach((user, idx) => {
       const currentRank = idx + 1;
-      if (user.rankChange === "NEW") {
+      const prev = previousMap[user.id];
+
+      if (!prev) {
+        // User not in previous snapshot = newly joined
         newUsers.push(user.name);
-      } else if (user.rankChange && user.rankChange !== "=") {
-        const delta = parseInt(user.rankChange); // +ve = moved up, -ve = moved down
-        const oldRank = currentRank - delta;
+        return;
+      }
+
+      // Check solve count delta since last sync
+      const currentTotal = user.data.totalSolved || 0;
+      const delta = currentTotal - prev.totalSolved;
+      if (delta > 0) {
+        totalNewSolves += delta;
+        usersWithNewSolves++;
+      }
+
+      // Check rank movement since last sync
+      if (prev.rank !== currentRank) {
         rankChanges.push({
           username: user.name,
           id: user.id,
-          old_rank: oldRank,
+          old_rank: prev.rank,
           new_rank: currentRank,
-          rank_delta: delta,
-          score: user.score,
+          rank_delta: prev.rank - currentRank, // +ve = moved up
         });
-      }
-    });
-
-    dailyData.forEach((user) => {
-      const solved = user.data.totalSolved || 0;
-      if (solved > 0) {
-        totalNewSolves += solved;
-        usersWithNewSolves++;
       }
     });
 
