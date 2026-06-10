@@ -6,24 +6,6 @@ The platform allows students to register using their LeetCode username and autom
 
 ---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Purpose](#purpose)
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Data Flow](#data-flow)
-- [Related Repositories](#related-repositories)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-- [How to Run Locally](#how-to-run-locally)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
-- [License](#license)
-
----
-
 ## Purpose
 
 The goal of this project is to encourage consistent problem-solving among students by providing a centralized platform to track LeetCode activity and coding progress.
