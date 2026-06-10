@@ -16,28 +16,28 @@ Through regularly updated leaderboards and historical performance tracking, the 
 
 ## Features
 
-* **LeetCode-based Student Registration**
+- **LeetCode-based Student Registration**
   Students can register using their LeetCode username to participate in the leaderboard.
 
-* **Automated Performance Tracking**
+- **Automated Performance Tracking**
   The platform periodically fetches and updates user problem-solving statistics automatically.
 
-* **Dynamic Multi-View Leaderboards**
+- **Dynamic Multi-View Leaderboards**
   Supports overall, monthly, weekly, and daily leaderboard rankings.
 
-* **Historical Progress Tracking**
+- **Historical Progress Tracking**
   Tracks past performance and rank movement over time using historical leaderboard snapshots.
 
-* **Terminal-inspired Responsive UI**
+- **Terminal-inspired Responsive UI**
   A lightweight terminal-style interface designed to work across both desktop and mobile devices.
 
-* **Search, Filtering, and Comparison Tools**
+- **Search, Filtering, and Comparison Tools**
   Includes leaderboard search, filtering, and peer comparison features for easier performance analysis.
 
-* **Decoupled Data Architecture**
+- **Decoupled Data Architecture**
   Frontend, backend, and leaderboard data storage are maintained independently for easier scalability and maintenance.
 
-* **Automated Synchronization Workflows**
+- **Automated Synchronization Workflows**
   GitHub Actions and sync scripts help keep leaderboard data updated without manual intervention.
 
 ---
@@ -66,30 +66,30 @@ The project follows a decoupled structure where leaderboard generation, data sto
 
 ### Components
 
-* **Frontend (`frontend/`)**
+- **Frontend (`frontend/`)**
   Handles the leaderboard UI, registration pages, comparison features, and client-side interactions. Leaderboard datasets are fetched directly from the `leetcode-ranking-data` repository.
 
-* **Express Server (`server.js`)**
+- **Express Server (`server.js`)**
   Serves the frontend and exposes API endpoints for student-specific information, history tracking, and related backend functionality.
 
-* **Sync Scripts (`scripts/`)**
+- **Sync Scripts (`scripts/`)**
   Periodically fetch and process LeetCode statistics to generate updated leaderboard datasets.
 
-* **Data Repository (`leetcode-ranking-data`)**
+- **Data Repository (`leetcode-ranking-data`)**
   Stores generated leaderboard snapshots, historical statistics, and processed JSON data separately from the main application repository.
 
-* **GitHub Actions (`.github/workflows/`)**
+- **GitHub Actions (`.github/workflows/`)**
   Automates scheduled sync runs, formatting checks, stale issue management, and other repository workflows.
 
 ---
 
 ## Related Repositories
 
-* [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) – The database repository where raw JSON data and historical stats are stored
-* [leetcode-api](https://github.com/codepvg/leetcode-api) – API used to fetch user data from LeetCode
-* [lc-backend](https://github.com/codepvg/lc-backend) – Backend service for storing and managing leaderboard data
-* [frontend-uptime-monitor](https://github.com/codepvg/frontend-uptime-monitor) – Pinger service to monitor frontend server uptime
-* [backend-uptime-monitor](https://github.com/codepvg/backend-uptime-monitor) – Pinger service to monitor backend server uptime
+- [leetcode-ranking-data](https://github.com/codepvg/leetcode-ranking-data) – The database repository where raw JSON data and historical stats are stored
+- [leetcode-api](https://github.com/codepvg/leetcode-api) – API used to fetch user data from LeetCode
+- [lc-backend](https://github.com/codepvg/lc-backend) – Backend service for storing and managing leaderboard data
+- [frontend-uptime-monitor](https://github.com/codepvg/frontend-uptime-monitor) – Pinger service to monitor frontend server uptime
+- [backend-uptime-monitor](https://github.com/codepvg/backend-uptime-monitor) – Pinger service to monitor backend server uptime
 
 ---
 
