@@ -24,16 +24,6 @@ The platform allows students to register using their LeetCode username and autom
 
 ---
 
-## Overview
-
-CodePVG LeetCode Ranking is a web-based platform that tracks and ranks students based on their LeetCode activity. It automatically fetches users’ problem-solving statistics using their LeetCode username and displays them on a centralized leaderboard.
-
-The project is designed with a decoupled architecture where data collection, storage, and frontend display are handled across multiple services and repositories. This allows scalable updates and independent maintenance of each component.
-
-The system runs periodic sync jobs to keep leaderboard data updated and ensures that student rankings reflect their latest LeetCode performance.
-
----
-
 ## Purpose
 
 This project is built to track students’ LeetCode activity and generate a dynamic leaderboard based on their problem-solving statistics.
