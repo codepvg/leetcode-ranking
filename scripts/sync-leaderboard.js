@@ -1,18 +1,20 @@
+"use strict";
+
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
 async function fetchData(url) {
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, { timeout: 15000 });
     return {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
       hardSolved: res.data.hardSolved || 0,
     };
   } catch (err) {
-    console.error("API failed to respond: ", err.message);
-    process.exit(1);
+    console.error(`API failed for ${url}: ${err.message}`);
+    return null;
   }
 }
 
@@ -119,6 +121,10 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("Starting daily fetch...");
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
+    if (!data) {
+      console.log(`${user.name}: skipped (API error)`);
+      continue;
+    }
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
     console.log(`${user.name}:`, data);
     overallData.push({
@@ -166,11 +172,11 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  dailyData = JSON.parse(JSON.stringify(overallData));
+  let dailyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous day's file...");
   const previousDayFilepath = path.join(DATA_DIR, "daily", getFileName(1));
-  previousData = [];
+  let previousData = [];
   try {
     const rawData = fs.readFileSync(previousDayFilepath, "utf8");
     previousData = JSON.parse(rawData);
@@ -190,10 +196,12 @@ async function computeRankChanges(currentSorted, filename) {
       dailyData.splice(i--, 1);
       continue;
     }
+
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
     dailyData[i].data.mediumSolved -=
       previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+
     dailyData[i].score =
       dailyData[i].data.easySolved +
       dailyData[i].data.mediumSolved * 3 +
@@ -220,7 +228,7 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  weeklyData = JSON.parse(JSON.stringify(overallData));
+  let weeklyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous week's file...");
   const previousWeekFilepath = path.join(DATA_DIR, "daily", getFileName(7));
@@ -280,7 +288,7 @@ async function computeRankChanges(currentSorted, filename) {
     process.exit(1);
   }
 
-  monthlyData = JSON.parse(JSON.stringify(overallData));
+  let monthlyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous month's file...");
   const previousMonthFilepath = path.join(DATA_DIR, "daily", getFileName(30));

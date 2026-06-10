@@ -11,30 +11,32 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/main.css" />
-    <style>
-      .rank-change {
-        display: inline-block;
-        font-size: 0.65rem;
-        font-family: "Fira Code", monospace;
-        margin-left: 0.4rem;
-        vertical-align: middle;
-        opacity: 0.85;
-      }
-
-      .rank-up {
-        color: var(--green);
-      }
-
-      .rank-down {
-        color: var(--red);
-      }
-
-      .rank-neutral {
-        color: var(--text-muted);
-      }
-    </style>
     <link rel="icon" type="image/png" href="assets/logo.png" />
     <script src="js/navbar.js"></script>
+    <script src="js/leaderboard/tooltip.js"></script>
+    <script src="js/leaderboard/render.js"></script>
+    <script src="js/leaderboard/pagination.js"></script>
+    <script src="js/leaderboard/search.js"></script>
+
+    <meta
+      name="description"
+      content="Live LeetCode leaderboard for PVG students. See overall, monthly, weekly, and daily rankings scored by problem difficulty."
+    />
+    <meta property="og:title" content="Leaderboard — CodePVG" />
+    <meta
+      property="og:description"
+      content="Live LeetCode leaderboard for PVG students. Scored by problem difficulty, updated every 5 minutes."
+    />
+    <meta
+      property="og:url"
+      content="https://codepvg.onrender.com/leaderboard"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://codepvg.onrender.com/assets/logo.png"
+    />
+    <meta property="og:site_name" content="CodePVG" />
   </head>
 
   <body>
@@ -156,7 +158,7 @@
       </div>
     </main>
 
-    <script>
+    <script nonce="__NONCE__">
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.addEventListener("click", () => {
@@ -164,76 +166,8 @@
           });
         });
 
-        const searchInput = document.getElementById("leaderboard-search");
-        const shortcutBadge = document.getElementById("search-shortcut");
-        const clearBtn = document.getElementById("clear-search");
-
-        searchInput.addEventListener("input", (e) => {
-          currentSearchTerm = e.target.value.toLowerCase().trim();
-
-          clearBtn.style.display =
-            e.target.value.trim() !== "" ? "flex" : "none";
-
-          applyFiltersAndRender();
-        });
-        clearBtn.addEventListener("click", () => {
-          searchInput.value = "";
-          currentSearchTerm = "";
-
-          clearBtn.style.display = "none";
-
-          searchInput.focus();
-          applyFiltersAndRender();
-        });
-
-        searchInput.addEventListener("focus", () => {
-          shortcutBadge.style.display = "none";
-        });
-
-        searchInput.addEventListener("blur", () => {
-          if (!searchInput.value) {
-            shortcutBadge.style.display = "inline-flex";
-          }
-        });
-
-        // Ctrl+K / Cmd+K keyboard shortcut
-        document.addEventListener("keydown", (e) => {
-          if ((e.ctrlKey || e.metaKey) && e.key === "k") {
-            e.preventDefault();
-            searchInput.focus();
-          }
-          if (e.key === "Escape" && document.activeElement === searchInput) {
-            searchInput.value = "";
-            currentSearchTerm = "";
-            clearBtn.style.display = "none";
-            searchInput.blur();
-            applyFiltersAndRender();
-          }
-        });
-        document
-          .getElementById("prev-page-btn")
-          ?.addEventListener("click", () => {
-            if (currentPage > 1) {
-              currentPage--;
-              applyFiltersAndRender();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-          });
-
-        document
-          .getElementById("next-page-btn")
-          ?.addEventListener("click", () => {
-            const totalPages = Math.ceil(
-              leaderboardData[activeDatasetType].length / itemsPerPage,
-            );
-
-            if (currentPage < totalPages) {
-              currentPage++;
-              applyFiltersAndRender();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-          });
-        clearBtn.style.display = "none";
+        setupSearchListeners();
+        setupPaginationListeners();
         fetchLeaderboardData();
       });
 
@@ -380,52 +314,6 @@
         renderLeaderboard(filteredData);
       }
 
-      // Creates a rank change DOM element (safe — values are internally generated)
-      function createRankChangeElement(rankChange) {
-        if (!rankChange) return null;
-        var span = document.createElement("span");
-        span.className = "rank-change";
-        if (rankChange === "NEW") {
-          span.classList.add("rank-neutral");
-          span.textContent = "[new]";
-        } else if (rankChange === "=") {
-          span.classList.add("rank-neutral");
-          span.textContent = "[==]";
-        } else if (rankChange.startsWith("+")) {
-          span.classList.add("rank-up");
-          span.textContent = "[" + rankChange + "]";
-        } else {
-          span.classList.add("rank-down");
-          span.textContent = "[" + rankChange + "]";
-        }
-        return span;
-      }
-
-      // Creates a rank tag DOM element (safe — values are hardcoded)
-      function createRankTagElement(rank) {
-        var className, label;
-        switch (rank) {
-          case 1:
-            className = "privilege-tag root-tag";
-            label = "[ROOT]";
-            break;
-          case 2:
-            className = "privilege-tag sudo-tag";
-            label = "[SUDO]";
-            break;
-          case 3:
-            className = "privilege-tag exec-tag";
-            label = "[EXEC]";
-            break;
-          default:
-            return null;
-        }
-        var span = document.createElement("span");
-        span.className = className;
-        span.textContent = label;
-        return span;
-      }
-
       function renderLeaderboard(data) {
         const body = document.getElementById("leaderboard-body");
         const mobileCards = document.getElementById("mobile-cards");
@@ -457,346 +345,14 @@
           return;
         }
 
-        // Helper: create external link SVG icon (hardcoded — safe)
-        function createExternalIcon() {
-          var svg = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "svg",
-          );
-          svg.setAttribute("width", "12");
-          svg.setAttribute("height", "12");
-          svg.setAttribute("viewBox", "0 0 24 24");
-          svg.classList.add("external-icon");
-          var path = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path",
-          );
-          path.setAttribute("d", "M14 3H21V10M21 3L10 14M21 14V21H3V3H10");
-          path.setAttribute("fill", "none");
-          path.setAttribute("stroke", "currentColor");
-          path.setAttribute("stroke-width", "2");
-          path.setAttribute("stroke-linecap", "round");
-          path.setAttribute("stroke-linejoin", "round");
-          svg.appendChild(path);
-          return svg;
-        }
-
-        // Helper: build score breakdown tooltip (all content is numeric or hardcoded — safe)
-        function buildScoreTooltip(
-          user,
-          easyPts,
-          medPts,
-          hardPts,
-          eScore,
-          mScore,
-          hScore,
-        ) {
-          var tooltip = document.createElement("div");
-          tooltip.className = "score-tooltip";
-
-          var easyLine = document.createElement("div");
-          easyLine.textContent =
-            "Easy: " +
-            user.data.easySolved +
-            " \u00D7 " +
-            easyPts +
-            " = " +
-            eScore;
-          tooltip.appendChild(easyLine);
-
-          var medLine = document.createElement("div");
-          medLine.textContent =
-            "Medium: " +
-            user.data.mediumSolved +
-            " \u00D7 " +
-            medPts +
-            " = " +
-            mScore;
-          tooltip.appendChild(medLine);
-
-          var hardLine = document.createElement("div");
-          hardLine.textContent =
-            "Hard: " +
-            user.data.hardSolved +
-            " \u00D7 " +
-            hardPts +
-            " = " +
-            hScore;
-          tooltip.appendChild(hardLine);
-
-          var totalSolvedLine = document.createElement("div");
-          totalSolvedLine.textContent =
-            "Questions Solved: " + user.data.totalSolved;
-          tooltip.appendChild(totalSolvedLine);
-
-          var hr = document.createElement("hr");
-          tooltip.appendChild(hr);
-
-          var totalLine = document.createElement("div");
-          var strong = document.createElement("strong");
-          strong.textContent = "Total: " + user.score;
-          totalLine.appendChild(strong);
-          tooltip.appendChild(totalLine);
-
-          return tooltip;
-        }
-
         displayData.forEach((user, index) => {
           const rank = user.originalRank || index + 1;
-          const rankTagEl = createRankTagElement(rank);
-          const rankChangeEl = createRankChangeElement(user.rankChange);
-          const easyPoints = 1;
-          const mediumPoints = 3;
-          const hardPoints = 5;
-
-          const easyScore = user.data.easySolved * easyPoints;
-          const mediumScore = user.data.mediumSolved * mediumPoints;
-          const hardScore = user.data.hardSolved * hardPoints;
-          const row = document.createElement("div");
-          row.className = "leaderboard-row";
-
-          // Rank (numeric — safe)
-          const rankDiv = document.createElement("div");
-          rankDiv.className = "rank";
-          rankDiv.textContent = rank;
-          row.appendChild(rankDiv);
-
-          // Name cell — tag is safe DOM element, name is user-controlled (textContent)
-          const nameDiv = document.createElement("div");
-          nameDiv.className = "name-cell";
-          if (rankTagEl) {
-            nameDiv.appendChild(rankTagEl);
-          }
-          nameDiv.appendChild(document.createTextNode(user.name));
-          if (rankChangeEl) {
-            nameDiv.appendChild(rankChangeEl);
-          }
-          row.appendChild(nameDiv);
-
-          // Username with link and external icon — id is user-controlled (textContent)
-          const usernameDiv = document.createElement("div");
-          usernameDiv.className = "username";
-          const link = document.createElement("a");
-          link.href = `https://leetcode.com/u/${user.id}`;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.className = "user-link";
-          link.textContent = user.id;
-          link.appendChild(createExternalIcon());
-          usernameDiv.appendChild(link);
-          row.appendChild(usernameDiv);
-
-          // Easy (numeric — safe)
-          const easyDiv = document.createElement("div");
-          easyDiv.className = "easy";
-          easyDiv.textContent = user.data.easySolved;
-          row.appendChild(easyDiv);
-
-          // Medium (numeric — safe)
-          const mediumDiv = document.createElement("div");
-          mediumDiv.className = "medium";
-          mediumDiv.textContent = user.data.mediumSolved;
-          row.appendChild(mediumDiv);
-
-          // Hard (numeric — safe)
-          const hardDiv = document.createElement("div");
-          hardDiv.className = "hard";
-          hardDiv.textContent = user.data.hardSolved;
-          row.appendChild(hardDiv);
-
-          // Total (numeric — safe)
-          const totalDiv = document.createElement("div");
-          totalDiv.className = "total";
-          totalDiv.textContent = user.data.totalSolved;
-          row.appendChild(totalDiv);
-
-          // Score with tooltip — all content is numeric or hardcoded labels
-          const scoreDiv = document.createElement("div");
-          scoreDiv.className = "mobile-score tooltip-score";
-          const scoreSpan = document.createElement("span");
-          scoreSpan.textContent = user.score;
-          scoreDiv.appendChild(scoreSpan);
-          const caretSpan = document.createElement("span");
-          caretSpan.className = "score-caret";
-          scoreDiv.appendChild(caretSpan);
-          scoreDiv.appendChild(
-            buildScoreTooltip(
-              user,
-              easyPoints,
-              mediumPoints,
-              hardPoints,
-              easyScore,
-              mediumScore,
-              hardScore,
-            ),
-          );
-          row.appendChild(scoreDiv);
-
+          const row = renderLeaderboardRow(user, rank);
+          const card = renderMobileCard(user, rank);
           body.appendChild(row);
-
-          // === Mobile card ===
-          const card = document.createElement("div");
-          card.className = "mobile-card";
-
-          // Card header
-          const cardHeader = document.createElement("div");
-          cardHeader.className = "mobile-card-header";
-
-          const mobileRank = document.createElement("div");
-          mobileRank.className = "mobile-rank";
-          mobileRank.textContent = `#${rank}`;
-          cardHeader.appendChild(mobileRank);
-
-          const mobileScore = document.createElement("div");
-          mobileScore.className = "mobile-score tooltip-score";
-          const mobileScoreSpan = document.createElement("span");
-          mobileScoreSpan.textContent = user.score;
-          mobileScore.appendChild(mobileScoreSpan);
-          const mobileCaretSpan = document.createElement("span");
-          mobileCaretSpan.className = "score-caret";
-          mobileScore.appendChild(mobileCaretSpan);
-          mobileScore.appendChild(
-            buildScoreTooltip(
-              user,
-              easyPoints,
-              mediumPoints,
-              hardPoints,
-              easyScore,
-              mediumScore,
-              hardScore,
-            ),
-          );
-          cardHeader.appendChild(mobileScore);
-
-          card.appendChild(cardHeader);
-
-          // Name — tag safe DOM element, name is user-controlled (textContent)
-          const mobileName = document.createElement("div");
-          mobileName.className = "mobile-name";
-          const mobileRankTagEl = createRankTagElement(rank);
-          const mobileRankChangeEl = createRankChangeElement(user.rankChange);
-          if (mobileRankTagEl) {
-            mobileName.appendChild(mobileRankTagEl);
-          }
-          mobileName.appendChild(document.createTextNode(user.name));
-          if (mobileRankChangeEl) {
-            mobileName.appendChild(mobileRankChangeEl);
-          }
-          card.appendChild(mobileName);
-
-          // Username — id is user-controlled (textContent)
-          const mobileUsername = document.createElement("div");
-          mobileUsername.className = "mobile-username";
-          const mobileLink = document.createElement("a");
-          mobileLink.href = `https://leetcode.com/u/${user.id}`;
-          mobileLink.target = "_blank";
-          mobileLink.rel = "noopener noreferrer";
-          mobileLink.className = "user-link";
-          mobileLink.textContent = user.id;
-          mobileLink.appendChild(createExternalIcon());
-          mobileUsername.appendChild(mobileLink);
-          card.appendChild(mobileUsername);
-
-          // Stats
-          const mobileStats = document.createElement("div");
-          mobileStats.className = "mobile-stats";
-
-          const makeStat = (value, statClass, label) => {
-            const stat = document.createElement("div");
-            stat.className = "mobile-stat";
-            const num = document.createElement("div");
-            num.className = `mobile-stat-number ${statClass}`;
-            num.textContent = value;
-            stat.appendChild(num);
-            const lbl = document.createElement("div");
-            lbl.className = "mobile-stat-label";
-            lbl.textContent = label;
-            stat.appendChild(lbl);
-            return stat;
-          };
-
-          mobileStats.appendChild(
-            makeStat(user.data.easySolved, "easy", "Easy"),
-          );
-          mobileStats.appendChild(
-            makeStat(user.data.mediumSolved, "medium", "Medium"),
-          );
-          mobileStats.appendChild(
-            makeStat(user.data.hardSolved, "hard", "Hard"),
-          );
-          mobileStats.appendChild(
-            makeStat(user.data.totalSolved, "total", "Total"),
-          );
-
-          card.appendChild(mobileStats);
-
           mobileCards.appendChild(card);
         });
         renderPagination(data.length);
-      }
-      function renderPagination(totalItems) {
-        const pageNumbers = document.getElementById("page-numbers");
-
-        if (!pageNumbers) return;
-
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
-        pageNumbers.innerHTML = "";
-
-        if (totalPages === 0) return;
-
-        function createPageBtn(i) {
-          const btn = document.createElement("button");
-          btn.classList.add("page-btn");
-          btn.textContent = i;
-
-          if (i === currentPage) {
-            btn.classList.add("active-page");
-          }
-
-          btn.onclick = () => {
-            currentPage = i;
-            applyFiltersAndRender();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          };
-
-          return btn;
-        }
-
-        const pagesToRender = [];
-        const range = 1; // Number of pages to show around the current page
-
-        pagesToRender.push(1);
-
-        if (currentPage - range > 2) {
-          pagesToRender.push("..");
-        }
-
-        for (
-          let i = Math.max(2, currentPage - range);
-          i <= Math.min(totalPages - 1, currentPage + range);
-          i++
-        ) {
-          pagesToRender.push(i);
-        }
-
-        if (currentPage + range < totalPages - 1) {
-          pagesToRender.push("..");
-        }
-
-        if (totalPages > 1) {
-          pagesToRender.push(totalPages);
-        }
-
-        pagesToRender.forEach((item) => {
-          if (item === "..") {
-            const ellipsis = document.createElement("span");
-            ellipsis.className = "page-ellipsis";
-            ellipsis.textContent = "..";
-            pageNumbers.appendChild(ellipsis);
-          } else {
-            pageNumbers.appendChild(createPageBtn(item));
-          }
-        });
       }
       function setActiveTab(activeTab) {
         document.querySelectorAll(".tab").forEach((tab) => {
