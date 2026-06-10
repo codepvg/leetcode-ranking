@@ -1,16 +1,25 @@
 document.addEventListener("click", (e) => {
+  if (window.innerWidth > 768) return; // desktop uses hover
+
   const scoreEl = e.target.closest(".mobile-score");
+
   if (scoreEl) {
+    e.preventDefault();
+
     if (scoreEl.classList.contains("active")) {
       scoreEl.classList.remove("active");
     } else {
-      document.querySelectorAll(".mobile-score.active")
+      document
+        .querySelectorAll(".mobile-score.active")
         .forEach(el => el.classList.remove("active"));
+
       scoreEl.classList.add("active");
     }
     return;
   }
-  document.querySelectorAll(".mobile-score.active")
+
+  document
+    .querySelectorAll(".mobile-score.active")
     .forEach(el => el.classList.remove("active"));
 });
 // Creates a rank change DOM element (safe — values are internally generated)
