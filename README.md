@@ -72,30 +72,24 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ## Architecture
 
-The project follows a decoupled architecture where data collection, processing, storage, and frontend display are handled independently.
+The project follows a decoupled structure where leaderboard generation, data storage, API handling, and frontend rendering are handled independently across multiple repositories and services.
 
 ### Components
 
-- **Frontend (leetcode-ranking/frontend)**  
-  Responsible for displaying the leaderboard and user interface. It consumes processed data and renders rankings.
+* **Frontend (`frontend/`)**
+  Handles the leaderboard UI, registration pages, comparison features, and client-side interactions. Leaderboard datasets are fetched directly from the `leetcode-ranking-data` repository.
 
-- **Backend (server.js)**  
-  Handles API requests, user registration, and serves data to the frontend.
+* **Express Server (`server.js`)**
+  Serves the frontend and exposes API endpoints for student-specific information, history tracking, and related backend functionality.
 
-- **Automation Scripts (scripts/)**  
-  Periodically fetch LeetCode statistics and update leaderboard data using sync scripts.
+* **Sync Scripts (`scripts/`)**
+  Periodically fetch and process LeetCode statistics to generate updated leaderboard datasets.
 
-- **Data Layer (leetcode-ranking-data repo)**  
-  Stores processed leaderboard data and historical records in JSON format.
+* **Data Repository (`leetcode-ranking-data`)**
+  Stores generated leaderboard snapshots, historical statistics, and processed JSON data separately from the main application repository.
 
-- **GitHub Actions (.github/workflows)**  
-  Automates scheduled sync jobs and keeps leaderboard data updated without manual intervention.
-
----
-
-## Data Flow
-
-LeetCode → Sync Script → Data Processing → Data Repository → Backend API → Frontend Leaderboard
+* **GitHub Actions (`.github/workflows/`)**
+  Automates scheduled sync runs, formatting checks, stale issue management, and other repository workflows.
 
 ---
 
