@@ -1,18 +1,20 @@
+"use strict";
+
 const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
 async function fetchData(url) {
   try {
-    const res = await axios.get(url);
+    const res = await axios.get(url, { timeout: 15000 });
     return {
       easySolved: res.data.easySolved || 0,
       mediumSolved: res.data.mediumSolved || 0,
       hardSolved: res.data.hardSolved || 0,
     };
   } catch (err) {
-    console.error("API failed to respond: ", err.message);
-    process.exit(1);
+    console.error(`API failed for ${url}: ${err.message}`);
+    return null;
   }
 }
 
@@ -27,6 +29,72 @@ function getFileName(daysAgo) {
   day = day === 0 ? 7 : day;
 
   return `${year}-${month}-${date}-${day}.json`;
+}
+
+async function getYesterdaySnapshot(filePath) {
+  const owner = "codepvg";
+  const repo = "leetcode-ranking-data";
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const targetDate = d.toISOString().split("T")[0];
+  const until = `${targetDate}T23:59:59Z`;
+  const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&until=${until}&per_page=1`;
+
+  const headers = { "User-Agent": "CodePVG-App" };
+  if (process.env.DATA_REPO_TOKEN) {
+    headers["Authorization"] = `token ${process.env.DATA_REPO_TOKEN}`;
+  }
+
+  try {
+    const commitResponse = await axios.get(commitsUrl, { headers });
+    const commits = commitResponse.data;
+
+    if (!commits || commits.length === 0) {
+      console.warn(
+        `No commits found for ${filePath} on or before ${targetDate}.`,
+      );
+      return null;
+    }
+
+    const yesterdaySHA = commits[0].sha;
+    console.log(
+      `📌 Using Commit for ${filePath}: "${commits[0].commit.message}" (SHA: ${yesterdaySHA})`,
+    );
+
+    const rawFileUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${yesterdaySHA}/${filePath}`;
+    const fileResponse = await axios.get(rawFileUrl);
+    return fileResponse.data;
+  } catch (error) {
+    console.error(
+      `Error fetching historical data for ${filePath}:`,
+      error.message,
+    );
+    return null;
+  }
+}
+
+async function computeRankChanges(currentSorted, filename) {
+  let previousRanks = {};
+  const previousData = await getYesterdaySnapshot(filename);
+
+  if (previousData && Array.isArray(previousData)) {
+    previousData.forEach((user, idx) => {
+      previousRanks[user.id] = idx + 1;
+    });
+  }
+
+  currentSorted.forEach((user, idx) => {
+    const currentRank = idx + 1;
+
+    if (previousRanks[user.id] === undefined) {
+      user.rankChange = "NEW";
+    } else {
+      const delta = previousRanks[user.id] - currentRank;
+      if (delta > 0) user.rankChange = `+${delta}`;
+      else if (delta < 0) user.rankChange = `${delta}`;
+      else user.rankChange = "=";
+    }
+  });
 }
 
 (async () => {
@@ -53,6 +121,10 @@ function getFileName(daysAgo) {
   console.log("Starting daily fetch...");
   for (const user of users) {
     const data = await fetchData(baseUrl + user.id);
+    if (!data) {
+      console.log(`${user.name}: skipped (API error)`);
+      continue;
+    }
     const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
     console.log(`${user.name}:`, data);
     overallData.push({
@@ -87,6 +159,7 @@ function getFileName(daysAgo) {
   overallData.sort((a, b) => b.score - a.score);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
+  await computeRankChanges(overallData, "overall.json");
   try {
     fs.writeFileSync(
       overallFilepath,
@@ -99,11 +172,11 @@ function getFileName(daysAgo) {
     process.exit(1);
   }
 
-  dailyData = JSON.parse(JSON.stringify(overallData));
+  let dailyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous day's file...");
   const previousDayFilepath = path.join(DATA_DIR, "daily", getFileName(1));
-  previousData = [];
+  let previousData = [];
   try {
     const rawData = fs.readFileSync(previousDayFilepath, "utf8");
     previousData = JSON.parse(rawData);
@@ -123,10 +196,12 @@ function getFileName(daysAgo) {
       dailyData.splice(i--, 1);
       continue;
     }
+
     dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
     dailyData[i].data.mediumSolved -=
       previousData[previousIndex].data.mediumSolved;
     dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+
     dailyData[i].score =
       dailyData[i].data.easySolved +
       dailyData[i].data.mediumSolved * 3 +
@@ -144,6 +219,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
+  await computeRankChanges(dailyData, "daily.json");
   try {
     fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
     console.log("Daily data saved successfully");
@@ -152,7 +228,7 @@ function getFileName(daysAgo) {
     process.exit(1);
   }
 
-  weeklyData = JSON.parse(JSON.stringify(overallData));
+  let weeklyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous week's file...");
   const previousWeekFilepath = path.join(DATA_DIR, "daily", getFileName(7));
@@ -199,6 +275,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
+  await computeRankChanges(weeklyData, "weekly.json");
   try {
     fs.writeFileSync(
       weeklyFilepath,
@@ -211,7 +288,7 @@ function getFileName(daysAgo) {
     process.exit(1);
   }
 
-  monthlyData = JSON.parse(JSON.stringify(overallData));
+  let monthlyData = JSON.parse(JSON.stringify(overallData));
   console.log(" ");
   console.log("Loading previous month's file...");
   const previousMonthFilepath = path.join(DATA_DIR, "daily", getFileName(30));
@@ -258,6 +335,7 @@ function getFileName(daysAgo) {
 
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
+  await computeRankChanges(monthlyData, "monthly.json");
   try {
     fs.writeFileSync(
       monthlyFilepath,
