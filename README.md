@@ -143,6 +143,14 @@ For detailed development setup, sync workflow testing, contribution guidelines, 
 
 ## Contributing
 
+Contributions, suggestions, and improvements are welcome.
+
+Before starting work on a feature or fix, please check the existing issues/discussions or open a new issue to discuss the proposed change first.
+
+For detailed contribution guidelines, local workflow setup, formatting instructions, and sync workflow testing, refer to `CONTRIBUTING.md`.
+
+## Contributing
+
 Contributions are welcome.
 
 - Fork the repository
