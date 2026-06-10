@@ -113,20 +113,11 @@ LeetCode → Sync Script → Data Processing → Data Repository → Backend API
 
 ```
 leetcode-ranking/
-│── frontend/              # UI layer (HTML, CSS, JS)
-│   ├── assets/            # Images, icons, and static files
-│   ├── scripts/          # Frontend JavaScript logic
-│   └── styles/           # CSS stylesheets
-│
-│── scripts/              # Automation scripts
-│   └── sync-leaderboard.js  # Syncs LeetCode data and updates leaderboard
-│
-│── .github/              # GitHub Actions workflows
-│
-│── server.js             # Express server for backend API
-│── package.json          # Project dependencies and scripts
-│── package-lock.json     # Dependency lock file
-│── README.md
+│── .github/        # GitHub Actions workflows
+│── frontend/       # UI (HTML, CSS, JS) - Fetches data from leetcode-ranking-data
+│── scripts/        # Automation scripts (sync-leaderboard.js)
+│── server.js       # Express server
+│── package.json
 ```
 
 > [!NOTE]
