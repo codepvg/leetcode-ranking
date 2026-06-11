@@ -94,11 +94,11 @@ app.get("/registration", (req, res) => {
 });
 
 app.get("/privacy", (req, res) => {
-  serveHtml(res, path.join(__dirname, "frontend", "user.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "privacy.html"));
 });
 
 app.get("/terms", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "terms.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "terms.html"));
 });
 
 // Redirect direct .html file access so nonce injection still applies
