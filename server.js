@@ -36,9 +36,18 @@ app.use(
         // are allowed automatically.
         scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
         // Allow inline styles (style attributes) + Google Fonts and FontAwesome stylesheet
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com",
+        ],
         // Google Fonts and FontAwesome fonts
-        fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com",
+        ],
         // Images: self + data: URIs (used by matrix canvas)
         imgSrc: ["'self'", "data:"],
         // No plugins

@@ -12,7 +12,6 @@ function getFileName(daysAgo) {
 }
 
 async function fetchStudentHistory(username) {
-
   let history = [];
   let ranking = null;
   let missingFilesCount = 0;
