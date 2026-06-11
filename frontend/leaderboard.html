@@ -65,6 +65,8 @@
             "
             >__AWAITING_UPLINK__</span
           >
+          <span style="color: var(--text-muted); margin: 0 4px;">|</span>
+          <button id="view-changes-btn" class="changes-btn">[CHANGES]</button>
         </div>
         <div
           id="next-sync-indicator"
@@ -157,6 +159,19 @@
         </div>
       </div>
     </main>
+
+    <!-- Sync Changes Modal Overlay -->
+    <div id="changes-modal-overlay" class="changes-modal-overlay">
+      <div class="changes-card">
+        <div class="changes-card-header">
+          <span class="changes-card-title">[SYNC_CHANGES]</span>
+          <button id="close-changes-btn" class="changes-card-close">[DISMISS]</button>
+        </div>
+        <div id="changes-card-body" class="changes-card-body">
+          <!-- Content dynamically rendered here -->
+        </div>
+      </div>
+    </div>
 
     <script nonce="__NONCE__">
       document.addEventListener("DOMContentLoaded", () => {
