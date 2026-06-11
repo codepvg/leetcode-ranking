@@ -1028,7 +1028,7 @@ body::after {
   justify-content: flex-end;
   gap: 6px;
 
-    user-select: none;
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -2238,7 +2238,6 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
-
 .score-tooltip hr {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -2249,7 +2248,9 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
   display: inline-block;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
   transform: rotate(0deg);
 }
 
@@ -2546,5 +2547,3 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
-
-
