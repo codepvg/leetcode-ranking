@@ -964,9 +964,11 @@ body::after {
 .easy {
   color: #1cbaba;
 }
+
 .medium {
   color: #ffb700;
 }
+
 .hard {
   color: #f63737;
 }
@@ -1478,7 +1480,7 @@ body::after {
 }
 
 /* ── Mobile Responsiveness ── */
-@media (max-width: 768px) {
+@media (max-width: 940px) {
   .hero-title {
     font-size: 2.2rem;
   }
@@ -1628,7 +1630,7 @@ body::after {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 940px) {
   .score-tooltip {
     left: auto !important;
     right: -10px !important;
@@ -2344,6 +2346,7 @@ body::-webkit-scrollbar-thumb {
   transition: opacity 0.15s ease;
   user-select: none;
 }
+
 .clear-search-btn {
   background: rgba(255, 51, 51, 0.05);
   border: 1px solid rgba(255, 51, 51, 0.4);

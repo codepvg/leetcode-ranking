@@ -88,10 +88,16 @@ function renderLeaderboardRow(user, rank) {
   if (rankTagEl) {
     nameDiv.appendChild(rankTagEl);
   }
-  nameDiv.appendChild(document.createTextNode(user.name));
+  const nameTextWrapper = document.createElement("span");
+  nameTextWrapper.className = "name-text";
+  nameTextWrapper.appendChild(document.createTextNode(user.name));
+
   if (rankChangeEl) {
-    nameDiv.appendChild(rankChangeEl);
+    nameTextWrapper.appendChild(document.createTextNode(" "));
+    nameTextWrapper.appendChild(rankChangeEl);
   }
+
+  nameDiv.appendChild(nameTextWrapper);
   row.appendChild(nameDiv);
 
   // Username with link and external icon — id is user-controlled (textContent)
