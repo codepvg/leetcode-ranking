@@ -31,7 +31,6 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-
 function assignCompetitionRanks(sortedData) {
   let currentRank = 1;
   for (let i = 0; i < sortedData.length; i++) {
@@ -47,7 +46,7 @@ function stableSortByScore(dataArray) {
     if (b.score !== a.score) {
       return b.score - a.score;
     }
-    return a.id.localeCompare(b.id); 
+    return a.id.localeCompare(b.id);
   });
 }
 
