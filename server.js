@@ -9,7 +9,6 @@ const fetchStudentHistory = require("./scripts/fetch-student-info");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use("/scripts", express.static(path.join(__dirname, "scripts")));
 app.use(cors());
 
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
