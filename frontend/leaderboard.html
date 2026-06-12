@@ -373,15 +373,19 @@
     </script>
 
     <!-- Scroll to Top button -->
-    <button id="scroll-top-btn" aria-label="Scroll to top">^<br>TOP</button>
+    <button id="scroll-top-btn" aria-label="Scroll to top">^<br />TOP</button>
 
     <script nonce="__NONCE__">
       (function () {
         var btn = document.getElementById("scroll-top-btn");
         var THRESHOLD = 300;
-        window.addEventListener("scroll", function () {
-          btn.classList.toggle("visible", window.scrollY > THRESHOLD);
-        }, { passive: true });
+        window.addEventListener(
+          "scroll",
+          function () {
+            btn.classList.toggle("visible", window.scrollY > THRESHOLD);
+          },
+          { passive: true },
+        );
         btn.addEventListener("click", function () {
           window.scrollTo({ top: 0, behavior: "smooth" });
         });

@@ -2541,11 +2541,15 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
   line-height: 1;
 
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.25),
-              inset 0 0 8px rgba(0, 229, 255, 0.05);
+  box-shadow:
+    0 0 8px rgba(0, 229, 255, 0.25),
+    inset 0 0 8px rgba(0, 229, 255, 0.05);
   text-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
 
-  transition: opacity 0.25s ease, visibility 0.25s ease, box-shadow 0.2s ease;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease,
+    box-shadow 0.2s ease;
 }
 
 @media (max-width: 768px) {
@@ -2560,8 +2564,9 @@ body::-webkit-scrollbar-thumb {
   }
 
   #scroll-top-btn:active {
-    box-shadow: 0 0 14px rgba(0, 229, 255, 0.55),
-                inset 0 0 10px rgba(0, 229, 255, 0.15);
+    box-shadow:
+      0 0 14px rgba(0, 229, 255, 0.55),
+      inset 0 0 10px rgba(0, 229, 255, 0.15);
     color: #fff;
   }
 }
