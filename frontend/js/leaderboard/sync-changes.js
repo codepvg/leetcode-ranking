@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     body.innerHTML = "";
 
     if (changes.no_changes) {
-      body.innerHTML = `<div class="changes-content-line"><span style="color:var(--text-muted);">No changes detected since last sync.</span></div>`;
+      body.innerHTML = `<div class="changes-content-line"><span style="color:var(--text-muted);">No changes detected in the most recent sync.</span></div>`;
       btn.classList.remove("pulse");
       return;
     }
