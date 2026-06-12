@@ -1029,6 +1029,18 @@ body::after {
   align-items: center;
   justify-content: flex-end;
   gap: 6px;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.mobile-score span {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .mobile-name {
@@ -2228,11 +2240,6 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
-.tooltip-score:hover .score-tooltip {
-  opacity: 1;
-  visibility: visible;
-}
-
 .score-tooltip hr {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -2246,15 +2253,38 @@ body::-webkit-scrollbar-thumb {
   transition:
     transform 0.25s ease,
     color 0.25s ease;
+  transform: rotate(0deg);
 }
 
 .score-caret::after {
   content: ">";
 }
+@media (hover: hover) and (pointer: fine) {
+  .tooltip-score:hover .score-caret {
+    color: var(--cyan);
+  }
+}
 
-.tooltip-score:hover .score-caret {
+.tooltip-score.active .score-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tooltip-score:hover .score-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.tooltip-score.active .score-caret {
   transform: rotate(90deg);
   color: var(--cyan);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tooltip-score:hover .score-caret {
+    transform: rotate(90deg);
+    color: var(--cyan);
+  }
 }
 
 /* ── Search Bar ── */
