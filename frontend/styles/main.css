@@ -2520,3 +2520,48 @@ body::-webkit-scrollbar-thumb {
 .rank-neutral {
   color: var(--text-muted);
 }
+
+/* scroll to top button */
+#scroll-top-btn {
+  display: none; /* hidden on desktop entirely, can be changed if needed */
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.25rem;
+  z-index: 111999;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+
+  background: transparent;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: "Fira Code", monospace;
+  font-size: 0.75rem;
+  padding: 0.45rem 0.6rem;
+  cursor: pointer;
+  line-height: 1;
+
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.25),
+              inset 0 0 8px rgba(0, 229, 255, 0.05);
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
+
+  transition: opacity 0.25s ease, visibility 0.25s ease, box-shadow 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  #scroll-top-btn {
+    display: block;
+  }
+
+  #scroll-top-btn.visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #scroll-top-btn:active {
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.55),
+                inset 0 0 10px rgba(0, 229, 255, 0.15);
+    color: #fff;
+  }
+}
