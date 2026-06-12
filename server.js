@@ -102,11 +102,11 @@ app.get("/registration", (req, res) => {
 });
 
 app.get("/privacy", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "privacy.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "privacy.html"));
 });
 
 app.get("/terms", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "terms.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "terms.html"));
 });
 
 // Redirect direct .html file access so nonce injection still applies
@@ -118,6 +118,10 @@ app.get(/\.html$/, (req, res) => {
 // 5. Utility endpoints
 app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
+});
+
+app.get("/user/:username", (req, res) => {
+  serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
 
 const studentCache = new Map();

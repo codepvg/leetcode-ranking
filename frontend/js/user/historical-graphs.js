@@ -1,0 +1,214 @@
+let rawPerformanceData = [];
+let difficultyChartInstance = null;
+let studentHistoryArray = [];
+let performanceChartInstance = null;
+
+let currentView = "weekly";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const currentPath = window.location.pathname;
+  const pathSegments = currentPath.split("/");
+  const currentUsername = pathSegments[pathSegments.length - 1];
+
+  const usernameHeading = document.getElementById("username-display");
+  if (usernameHeading) {
+    usernameHeading.innerText = `Performance Profile: @${currentUsername}`;
+  }
+  setupFilterButtons();
+  fetchStudentData(currentUsername);
+});
+
+async function fetchStudentData(username) {
+  try {
+    const apiUrl = `${window.location.origin}/api/student/${username}`;
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    rawPerformanceData = await response.json();
+    studentHistoryArray = rawPerformanceData.history || [];
+    console.log("Successfully fetched student data:", studentHistoryArray);
+    updateChart();
+  } catch (error) {
+    console.log("error loading performance statics: ", error);
+  }
+}
+
+function setupFilterButtons() {
+  const buttons = {
+    weekly: document.getElementById("btn-weekly"),
+    monthly: document.getElementById("btn-monthly"),
+    overall: document.getElementById("btn-overall"),
+  };
+  Object.keys(buttons).forEach((view) => {
+    if (buttons[view]) {
+      buttons[view].addEventListener("click", () => {
+        currentView = view;
+        updateChart();
+      });
+    }
+  });
+}
+
+function updateChart() {
+  if (!studentHistoryArray || studentHistoryArray.length === 0) {
+    return;
+  }
+
+  const now = new Date();
+  let filteredData = [];
+
+  if (currentView === "weekly") {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(now.getDate() - 7);
+
+    filteredData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= sevenDaysAgo,
+    );
+  } else if (currentView === "monthly") {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(now.getDate() - 30);
+
+    filteredData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= thirtyDaysAgo,
+    );
+  } else {
+    filteredData = [...studentHistoryArray];
+  }
+
+  if (filteredData.length === 0) {
+    filteredData = [...studentHistoryArray];
+  }
+
+  filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const labels = filteredData.map((item) => item.date);
+  const easyCounts = filteredData.map((item) => Number(item.easy) || 0);
+  const mediumCounts = filteredData.map((item) => Number(item.medium) || 0);
+  const hardCounts = filteredData.map((item) => Number(item.hard) || 0);
+
+  renderChartCanvas(labels, easyCounts, mediumCounts, hardCounts);
+
+  renderDifficultyChart(
+    easyCounts[easyCounts.length - 1] || 0,
+    mediumCounts[mediumCounts.length - 1] || 0,
+    hardCounts[hardCounts.length - 1] || 0,
+  );
+}
+
+function renderChartCanvas(labels, easy, medium, hard) {
+  const canvas = document.getElementById("performanceChart");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  if (performanceChartInstance) {
+    performanceChartInstance.destroy();
+  }
+
+  performanceChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Easy",
+          data: easy,
+          borderColor: "#10b981",
+          backgroundColor: "rgba(16, 185, 129, 0.1)",
+          tension: 0.3,
+          fill: true,
+          spanGaps: true,
+        },
+        {
+          label: "Medium",
+          data: medium,
+          borderColor: "#f59e0b",
+          backgroundColor: "rgba(245, 158, 11, 0.1)",
+          tension: 0.3,
+          fill: true,
+          spanGaps: true,
+        },
+        {
+          label: "Hard",
+          data: hard,
+          borderColor: "#ef4444",
+          backgroundColor: "rgba(239, 68, 68, 0.1)",
+          tension: 0.3,
+          fill: true,
+          spanGaps: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#94a3b8",
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            color: "#334155",
+          },
+          ticks: {
+            color: "#94a3b8",
+          },
+        },
+        y: {
+          beginAtZero: false,
+          grid: {
+            color: "#334155",
+          },
+          ticks: {
+            color: "#94a3b8",
+          },
+        },
+      },
+    },
+  });
+}
+
+function renderDifficultyChart(easy, medium, hard) {
+  const canvas = document.getElementById("difficultyChart");
+  if (!canvas) return;
+
+  if (difficultyChartInstance) {
+    difficultyChartInstance.destroy();
+  }
+
+  const e = Number(easy) || 0;
+  const m = Number(medium) || 0;
+  const h = Number(hard) || 0;
+
+  difficultyChartInstance = new Chart(canvas, {
+    type: "doughnut",
+    data: {
+      labels: ["Easy", "Medium", "Hard"],
+      datasets: [
+        {
+          data: e + m + h === 0 ? [1] : [e, m, h],
+          backgroundColor:
+            e + m + h === 0 ? ["#475569"] : ["#10b981", "#f59e0b", "#ef4444"],
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#94a3b8",
+          },
+        },
+      },
+    },
+  });
+}
