@@ -31,6 +31,25 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
+function assignCompetitionRanks(sortedData) {
+  let currentRank = 1;
+  for (let i = 0; i < sortedData.length; i++) {
+    if (i > 0 && sortedData[i].score < sortedData[i - 1].score) {
+      currentRank = i + 1;
+    }
+    sortedData[i].originalRank = currentRank;
+  }
+}
+
+function stableSortByScore(dataArray) {
+  dataArray.sort((a, b) => {
+    if (b.score !== a.score) {
+      return b.score - a.score;
+    }
+    return a.id.localeCompare(b.id);
+  });
+}
+
 async function getYesterdaySnapshot(filePath) {
   const owner = "codepvg";
   const repo = "leetcode-ranking-data";
@@ -156,7 +175,8 @@ async function computeRankChanges(currentSorted, filename) {
       user.data.easySolved + user.data.mediumSolved + user.data.hardSolved;
   });
   console.log("Sorting collected data...");
-  overallData.sort((a, b) => b.score - a.score);
+  stableSortByScore(overallData);
+  assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
   await computeRankChanges(overallData, "overall.json");
@@ -215,8 +235,8 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("");
 
   console.log("Sorting calculated data...");
-  dailyData.sort((a, b) => b.score - a.score);
-
+  stableSortByScore(dailyData);
+  assignCompetitionRanks(dailyData);
   console.log("Writing sorted daily data to daily.json...");
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
   await computeRankChanges(dailyData, "daily.json");
@@ -271,8 +291,8 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("");
 
   console.log("Sorting calculated data...");
-  weeklyData.sort((a, b) => b.score - a.score);
-
+  stableSortByScore(weeklyData);
+  assignCompetitionRanks(weeklyData);
   console.log("Writing sorted weekly data to weekly.json...");
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
   await computeRankChanges(weeklyData, "weekly.json");
@@ -331,8 +351,8 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("");
 
   console.log("Sorting calculated data...");
-  monthlyData.sort((a, b) => b.score - a.score);
-
+  stableSortByScore(monthlyData);
+  assignCompetitionRanks(monthlyData);
   console.log("Writing sorted monthly data to monthly.json...");
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
   await computeRankChanges(monthlyData, "monthly.json");

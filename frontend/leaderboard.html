@@ -257,12 +257,7 @@
 
         const originalData = leaderboardData[activeDatasetType];
 
-        const rankedData = originalData.map((user, index) => ({
-          ...user,
-          originalRank: index + 1,
-        }));
-
-        const filteredData = rankedData.filter((user) => {
+        const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;
 
           return (
@@ -346,7 +341,10 @@
         }
 
         displayData.forEach((user, index) => {
-          const rank = user.originalRank || index + 1;
+          const rank =
+            user.originalRank !== undefined
+              ? user.originalRank
+              : startIndex + index + 1;
           const row = renderLeaderboardRow(user, rank);
           const card = renderMobileCard(user, rank);
           body.appendChild(row);
