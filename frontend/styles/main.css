@@ -2540,9 +2540,20 @@ body::-webkit-scrollbar-thumb {
 }
 
 @keyframes changes-pulse {
-  0% { opacity: 0.8; text-shadow: 0 0 2px var(--cyan); }
-  50% { opacity: 1; text-shadow: 0 0 8px var(--cyan), 0 0 12px var(--cyan); }
-  100% { opacity: 0.8; text-shadow: 0 0 2px var(--cyan); }
+  0% {
+    opacity: 0.8;
+    text-shadow: 0 0 2px var(--cyan);
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 8px var(--cyan),
+      0 0 12px var(--cyan);
+  }
+  100% {
+    opacity: 0.8;
+    text-shadow: 0 0 2px var(--cyan);
+  }
 }
 
 .changes-modal-overlay {
@@ -2568,13 +2579,15 @@ body::-webkit-scrollbar-thumb {
   background: var(--bg, #000);
   border: 1px solid var(--green);
   color: var(--green);
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 0.75rem;
   padding: 18px 24px;
   width: min(480px, 90vw);
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 10px rgba(0, 255, 65, 0.05);
+  box-shadow:
+    0 0 20px rgba(0, 255, 65, 0.15),
+    inset 0 0 10px rgba(0, 255, 65, 0.05);
   transform: translateY(20px);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -2602,7 +2615,7 @@ body::-webkit-scrollbar-thumb {
   color: var(--red);
   background: transparent;
   border: none;
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 0.75rem;
   padding: 0;
   text-decoration: underline;
