@@ -398,23 +398,7 @@
     <!-- Scroll to Top button -->
     <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
 
-    <script nonce="__NONCE__">
-      (function () {
-        var btn = document.getElementById("scroll-top-btn");
-        var THRESHOLD = 300;
-        window.addEventListener(
-          "scroll",
-          function () {
-            btn.classList.toggle("visible", window.scrollY > THRESHOLD);
-          },
-          { passive: true },
-        );
-        btn.addEventListener("click", function () {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      })();
-    </script>
-
+    <script src="js/leaderboard/mobile-scroll-top.js"></script>
     <script src="js/leaderboard/sync-changes.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
