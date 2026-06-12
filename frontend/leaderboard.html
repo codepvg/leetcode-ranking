@@ -65,6 +65,8 @@
             "
             >__AWAITING_UPLINK__</span
           >
+          <span style="color: var(--text-muted); margin: 0 4px">|</span>
+          <button id="view-changes-btn" class="changes-btn">[CHANGES]</button>
         </div>
         <div
           id="next-sync-indicator"
@@ -158,6 +160,21 @@
       </div>
     </main>
 
+    <!-- Sync Changes Modal Overlay -->
+    <div id="changes-modal-overlay" class="changes-modal-overlay">
+      <div class="changes-card">
+        <div class="changes-card-header">
+          <span class="changes-card-title">[SYNC_CHANGES]</span>
+          <button id="close-changes-btn" class="changes-card-close">
+            [DISMISS]
+          </button>
+        </div>
+        <div id="changes-card-body" class="changes-card-body">
+          <!-- Content dynamically rendered here -->
+        </div>
+      </div>
+    </div>
+
     <script nonce="__NONCE__">
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".tab").forEach((tab) => {
@@ -169,6 +186,8 @@
         setupSearchListeners();
         setupPaginationListeners();
         fetchLeaderboardData();
+        // Poll every 2 minutes to detect new syncs
+        setInterval(fetchLeaderboardData, 2 * 60 * 1000);
       });
 
       const leaderboardData = {};
@@ -207,6 +226,12 @@
           );
           if (syncRes.ok) {
             const syncData = await syncRes.json();
+            // Trigger toast if sync time changed
+            const prevSyncTime = window._lastKnownSyncTime || null;
+            if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
+              showSyncToast();
+            }
+            window._lastKnownSyncTime = syncData.lastSync;
             const options = {
               month: "short",
               day: "2-digit",
@@ -257,12 +282,7 @@
 
         const originalData = leaderboardData[activeDatasetType];
 
-        const rankedData = originalData.map((user, index) => ({
-          ...user,
-          originalRank: index + 1,
-        }));
-
-        const filteredData = rankedData.filter((user) => {
+        const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;
 
           return (
@@ -346,7 +366,10 @@
         }
 
         displayData.forEach((user, index) => {
-          const rank = user.originalRank || index + 1;
+          const rank =
+            user.originalRank !== undefined
+              ? user.originalRank
+              : startIndex + index + 1;
           const row = renderLeaderboardRow(user, rank);
           const card = renderMobileCard(user, rank);
           body.appendChild(row);
@@ -373,7 +396,7 @@
     </script>
 
     <!-- Scroll to Top button -->
-    <button id="scroll-top-btn" aria-label="Scroll to top">^<br />TOP</button>
+    <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
 
     <script nonce="__NONCE__">
       (function () {
@@ -392,6 +415,7 @@
       })();
     </script>
 
+    <script src="js/leaderboard/sync-changes.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>
