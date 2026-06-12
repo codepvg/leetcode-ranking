@@ -1,5 +1,5 @@
 document.addEventListener("click", (e) => {
-if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
   const scoreEl = e.target.closest(".mobile-score");
 
