@@ -1,5 +1,5 @@
 document.addEventListener("click", (e) => {
-  if (window.innerWidth > 768) return; // desktop uses hover
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
   const scoreEl = e.target.closest(".mobile-score");
 
