@@ -2623,8 +2623,8 @@ body::-webkit-scrollbar-thumb {
   position: fixed;
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(2px);
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(8px);
 
   z-index: 99999;
 
@@ -2635,7 +2635,7 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
   pointer-events: none;
 
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .changes-modal-overlay.active {
@@ -2644,74 +2644,113 @@ body::-webkit-scrollbar-thumb {
 }
 
 .changes-card {
-  background: var(--bg, #000);
-  border: 1px solid var(--green);
-  color: var(--green);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  color: var(--text);
 
   font-family: "Fira Code", monospace;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 
-  padding: 18px 24px;
+  padding: 24px 28px;
 
-  width: min(480px, 90vw);
+  width: min(500px, 90vw);
   max-height: 80vh;
   overflow-y: auto;
 
-  box-shadow:
-    0 0 20px rgba(0, 255, 65, 0.15),
-    inset 0 0 10px rgba(0, 255, 65, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 
-  transform: translateY(20px);
+  transform: translateY(20px) scale(0.98);
 
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .changes-modal-overlay.active .changes-card {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .changes-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-
-  border-bottom: 1px dashed rgba(0, 255, 65, 0.4);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
 }
 
 .changes-card-title {
-  font-weight: bold;
-  text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.changes-card-title::before {
+  content: ">";
+  color: var(--green);
+  animation: changes-blink 1s step-end infinite;
+}
+
+@keyframes changes-blink {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 5px var(--green);
+  }
+  50% {
+    opacity: 0;
+    text-shadow: none;
+  }
 }
 
 .changes-card-close {
   background: transparent;
-  border: none;
-
+  border: 1px solid transparent;
+  border-radius: 4px;
   color: var(--red);
-
-  font-family: "Fira Code", monospace;
-  font-size: 0.75rem;
-
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  padding: 4px 10px;
   cursor: pointer;
-  padding: 0;
-
   text-decoration: underline;
   text-decoration-color: rgba(255, 68, 68, 0.4);
-
   transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .changes-card-close:hover {
+  background: rgba(255, 68, 68, 0.08);
+  border-color: rgba(255, 68, 68, 0.3);
   text-shadow: 0 0 5px var(--red);
 }
 
+.changes-card-close:active {
+  transform: scale(0.95);
+}
+
 .changes-card-body {
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .changes-content-line {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-dim, #ccc);
+}
+
+.changes-content-line::before {
+  content: "➔";
+  color: var(--cyan);
+  font-size: 0.7rem;
+  margin-top: 2px;
+}
+
+.changes-content-line.no-icon::before {
+  display: none;
 }
