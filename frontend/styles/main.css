@@ -2663,8 +2663,7 @@ body::-webkit-scrollbar-thumb {
 
   transform: translateY(20px);
 
-  transition: transform 0.3s
-    cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .changes-modal-overlay.active .changes-card {
