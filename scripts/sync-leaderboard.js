@@ -179,6 +179,15 @@ async function computeRankChanges(currentSorted, filename) {
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
+
+  let previousOverall = [];
+  try {
+    const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
+    previousOverall = JSON.parse(rawPrevious);
+  } catch (err) {
+    console.warn("No previous overall.json found, skipping diff.");
+  }
+
   await computeRankChanges(overallData, "overall.json");
   try {
     fs.writeFileSync(
@@ -366,6 +375,77 @@ async function computeRankChanges(currentSorted, filename) {
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
+  }
+
+  console.log("Generating changes.json...");
+  const changesFilepath = path.join(DATA_DIR, "changes.json");
+  try {
+    // Build lookup of previous solve counts and ranks
+    const previousMap = {};
+    previousOverall.forEach((user, idx) => {
+      previousMap[user.id] = {
+        rank: idx + 1,
+        totalSolved: user.data.totalSolved || 0,
+      };
+    });
+
+    const rankChanges = [];
+    const newUsers = [];
+    let totalNewSolves = 0;
+    let usersWithNewSolves = 0;
+
+    overallData.forEach((user, idx) => {
+      const currentRank = idx + 1;
+      const prev = previousMap[user.id];
+
+      if (!prev) {
+        // User not in previous snapshot = newly joined
+        newUsers.push(user.name);
+        return;
+      }
+
+      // Check solve count delta since last sync
+      const currentTotal = user.data.totalSolved || 0;
+      const delta = currentTotal - prev.totalSolved;
+      if (delta > 0) {
+        totalNewSolves += delta;
+        usersWithNewSolves++;
+      }
+
+      // Check rank movement since last sync
+      if (prev.rank !== currentRank) {
+        rankChanges.push({
+          username: user.name,
+          id: user.id,
+          old_rank: prev.rank,
+          new_rank: currentRank,
+          rank_delta: prev.rank - currentRank, // +ve = moved up
+        });
+      }
+    });
+
+    const noChanges =
+      rankChanges.length === 0 && newUsers.length === 0 && totalNewSolves === 0;
+
+    fs.writeFileSync(
+      changesFilepath,
+      JSON.stringify(
+        {
+          sync_time: new Date().toISOString(),
+          rank_changes: rankChanges,
+          new_users: newUsers,
+          total_new_solves: totalNewSolves,
+          users_with_new_solves: usersWithNewSolves,
+          no_changes: noChanges,
+        },
+        null,
+        2,
+      ),
+      "utf8",
+    );
+    console.log("changes.json saved successfully");
+  } catch (err) {
+    console.error("Failed to write changes.json: ", err.message);
   }
 
   console.log("Writing sync timestamp...");
