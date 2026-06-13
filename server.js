@@ -150,8 +150,9 @@ app.get("/api/student/:username", async (req, res) => {
   }
 });
 
+// 404 handler
 app.use((req, res) => {
-  res.status(404).send("Page not found");
+  res.status(404).sendFile(path.join(__dirname, "frontend", "404.html"));
 });
 
 app.listen(PORT, () => {
