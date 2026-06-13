@@ -1,325 +1,300 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>leaderboard — CodePVG</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="icon" type="image/png" href="assets/logo.png" />
-    <script src="js/navbar.js"></script>
-    <script src="js/leaderboard/tooltip.js"></script>
-    <script src="js/leaderboard/render.js"></script>
-    <script src="js/leaderboard/pagination.js"></script>
-    <script src="js/leaderboard/search.js"></script>
 
-    <meta
-      name="description"
-      content="Live LeetCode leaderboard for PVG students. See overall, monthly, weekly, and daily rankings scored by problem difficulty."
-    />
-    <meta property="og:title" content="Leaderboard — CodePVG" />
-    <meta
-      property="og:description"
-      content="Live LeetCode leaderboard for PVG students. Scored by problem difficulty, updated every 5 minutes."
-    />
-    <meta
-      property="og:url"
-      content="https://codepvg.onrender.com/leaderboard"
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://codepvg.onrender.com/assets/logo.png"
-    />
-    <meta property="og:site_name" content="CodePVG" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>leaderboard — CodePVG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <script src="js/navbar.js"></script>
+  <script src="js/leaderboard/tooltip.js"></script>
+  <script src="js/leaderboard/render.js"></script>
+  <script src="js/leaderboard/pagination.js"></script>
+  <script src="js/leaderboard/search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" nonce="__NONCE__"></script>
+  <script src="js/compare.js" nonce="__NONCE__"></script>
 
-  <body>
-    <canvas id="matrix-canvas"></canvas>
+  <meta name="description"
+    content="Live LeetCode leaderboard for PVG students. See overall, monthly, weekly, and daily rankings scored by problem difficulty." />
+  <meta property="og:title" content="Leaderboard — CodePVG" />
+  <meta property="og:description"
+    content="Live LeetCode leaderboard for PVG students. Scored by problem difficulty, updated every 5 minutes." />
+  <meta property="og:url" content="https://codepvg.onrender.com/leaderboard" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://codepvg.onrender.com/assets/logo.png" />
+  <meta property="og:site_name" content="CodePVG" />
+</head>
 
-    <main class="page">
-      <div class="container">
-        <h1 class="page-title">Leaderboard</h1>
-        <div
-          id="last-synced-indicator"
-          style="
+<body>
+  <canvas id="matrix-canvas"></canvas>
+
+  <main class="page">
+    <div class="container">
+      <h1 class="page-title">Leaderboard</h1>
+      <div id="last-synced-indicator" style="
             text-align: center;
             font-family: &quot;Fira Code&quot;, monospace;
             font-size: 0.75rem;
             color: var(--text-dim);
             margin-top: -5px;
             margin-bottom: 0.3rem;
-          "
-        >
-          <span style="color: var(--text-muted)">[SYS_STATUS]:</span> LAST SYNC
-          <span
-            id="sync-time"
-            style="
+          ">
+        <span style="color: var(--text-muted)">[SYS_STATUS]:</span> LAST SYNC
+        <span id="sync-time" style="
               color: var(--cyan);
               text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
-            "
-            >__AWAITING_UPLINK__</span
-          >
-          <span style="color: var(--text-muted); margin: 0 4px">|</span>
-          <button id="view-changes-btn" class="changes-btn">[CHANGES]</button>
-        </div>
-        <div
-          id="next-sync-indicator"
-          style="
+            ">__AWAITING_UPLINK__</span>
+        <span style="color: var(--text-muted); margin: 0 4px">|</span>
+        <button id="view-changes-btn" class="changes-btn">[CHANGES]</button>
+      </div>
+      <div id="next-sync-indicator" style="
             text-align: center;
             font-family: &quot;Fira Code&quot;, monospace;
             font-size: 0.7rem;
             color: var(--text-dim);
             margin-bottom: 1.5rem;
-          "
-        >
-          <span style="color: var(--text-muted)">[NEXT_SYNC]:</span>
-          <span
-            id="next-sync-time"
-            style="
+          ">
+        <span style="color: var(--text-muted)">[NEXT_SYNC]:</span>
+        <span id="next-sync-time" style="
               color: var(--green);
               text-shadow: 0 0 5px rgba(0, 255, 100, 0.2);
-            "
-            >__PENDING__</span
-          >
-        </div>
+            ">__PENDING__</span>
+      </div>
 
-        <div class="tabs">
-          <button class="tab active" data-tab="overall">Overall</button>
-          <button class="tab" data-tab="monthly">Monthly</button>
-          <button class="tab" data-tab="weekly">Weekly</button>
-          <button class="tab" data-tab="daily">Daily</button>
-        </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="overall">Overall</button>
+        <button class="tab" data-tab="monthly">Monthly</button>
+        <button class="tab" data-tab="weekly">Weekly</button>
+        <button class="tab" data-tab="daily">Daily</button>
+      </div>
 
-        <div class="search-container">
-          <div class="search-bar">
+      <div class="search-container" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+        <div
+          style="display: flex; gap: 1rem; width: 100%; max-width: 600px; justify-content: center; align-items: center; flex-wrap: wrap;">
+          <div class="search-bar" style="flex: 1 1 300px; max-width: 420px; margin-bottom: 0;">
             <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
+            <input type="text" id="leaderboard-search" class="search-input" placeholder="pattern" autocomplete="off"
+              spellcheck="false" />
 
             <span class="search-result-count" id="search-result-count"></span>
             <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
-            <button
-              type="button"
-              id="clear-search"
-              class="clear-search-btn"
-              aria-label="Clear search"
-            >
+            <button type="button" id="clear-search" class="clear-search-btn" aria-label="Clear search">
               ESC
             </button>
           </div>
+          <button type="button" id="compare-mode-toggle" class="btn btn-secondary"
+            style="min-width: unset; width: auto; padding: 0.55rem 1.25rem; font-size: 0.82rem; margin: 0; font-family: 'Fira Code', monospace;">
+            Compare Users
+          </button>
         </div>
+      </div>
 
-        <div id="leaderboard-stats"></div>
+      <div id="leaderboard-stats"></div>
 
-        <div class="leaderboard">
-          <div class="leaderboard-header">
-            <div>Rank</div>
-            <div>Name</div>
-            <div>LeetCode ID</div>
-            <div class="easy">Easy</div>
-            <div class="medium">Medium</div>
-            <div class="hard">Hard</div>
-            <div class="total">Total</div>
-            <div class="score-header">
-              Score
-              <div class="tooltip-container">
-                <span class="tooltip-icon">?</span>
-                <div class="tooltip-content">
-                  <strong>Score Calculation:</strong><br />
-                  Easy = 1 point<br />
-                  Medium = 3 points<br />
-                  Hard = 5 points<br />
-                  <a href="about.html">More details</a>
-                </div>
+      <div class="leaderboard">
+        <div class="leaderboard-header">
+          <div class="compare-checkbox-cell"></div>
+          <div>Rank</div>
+          <div>Name</div>
+          <div>LeetCode ID</div>
+          <div class="easy">Easy</div>
+          <div class="medium">Medium</div>
+          <div class="hard">Hard</div>
+          <div class="total">Total</div>
+          <div class="score-header">
+            Score
+            <div class="tooltip-container">
+              <span class="tooltip-icon">?</span>
+              <div class="tooltip-content">
+                <strong>Score Calculation:</strong><br />
+                Easy = 1 point<br />
+                Medium = 3 points<br />
+                Hard = 5 points<br />
+                <a href="about.html">More details</a>
               </div>
             </div>
           </div>
-
-          <div id="leaderboard-body"></div>
         </div>
 
-        <div class="mobile-cards" id="mobile-cards"></div>
-
-        <div id="pagination-controls" class="pagination-controls">
-          <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
-          <div id="page-numbers" class="page-numbers-container"></div>
-          <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
-        </div>
+        <div id="leaderboard-body"></div>
       </div>
-    </main>
 
-    <!-- Sync Changes Modal Overlay -->
-    <div id="changes-modal-overlay" class="changes-modal-overlay">
-      <div class="changes-card">
-        <div class="changes-card-header">
-          <span class="changes-card-title">[ACTIVITY_LOG]</span>
-          <button id="close-changes-btn" class="changes-card-close">
-            [DISMISS]
-          </button>
-        </div>
-        <div id="changes-card-body" class="changes-card-body">
-          <!-- Content dynamically rendered here -->
-        </div>
+      <div class="mobile-cards" id="mobile-cards"></div>
+
+      <div id="pagination-controls" class="pagination-controls">
+        <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
+        <div id="page-numbers" class="page-numbers-container"></div>
+        <button id="next-page-btn" class="page-nav-btn">NEXT &gt;</button>
       </div>
     </div>
+  </main>
 
-    <script nonce="__NONCE__">
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.addEventListener("click", () => {
-            setActiveTab(tab.dataset.tab);
-          });
+  <!-- Sync Changes Modal Overlay -->
+  <div id="changes-modal-overlay" class="changes-modal-overlay">
+    <div class="changes-card">
+      <div class="changes-card-header">
+        <span class="changes-card-title">[ACTIVITY_LOG]</span>
+        <button id="close-changes-btn" class="changes-card-close">
+          [DISMISS]
+        </button>
+      </div>
+      <div id="changes-card-body" class="changes-card-body">
+        <!-- Content dynamically rendered here -->
+      </div>
+    </div>
+  </div>
+
+  <script nonce="__NONCE__">
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          setActiveTab(tab.dataset.tab);
         });
-
-        setupSearchListeners();
-        setupPaginationListeners();
-        fetchLeaderboardData();
-        // Poll every 2 minutes to detect new syncs
-        setInterval(fetchLeaderboardData, 2 * 60 * 1000);
       });
 
-      const leaderboardData = {};
-      let currentPage = 1;
-      let itemsPerPage = 25;
-      let activeDatasetType = "overall";
-      let currentSearchTerm = "";
+      setupSearchListeners();
+      setupPaginationListeners();
+      fetchLeaderboardData();
+      // Poll every 2 minutes to detect new syncs
+      setInterval(fetchLeaderboardData, 2 * 60 * 1000);
+    });
 
-      async function fetchLeaderboardData() {
-        const endpoints = ["overall", "monthly", "weekly", "daily"];
-        const cacheBuster = Date.now();
-        // Fetch directly from github to avoid needing a server redeploy for new data
-        const results = await Promise.allSettled(
-          endpoints.map((type) =>
-            fetch(
-              `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            ).then((res) => {
-              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
-              return res.json();
-            }),
-          ),
-        );
+    const leaderboardData = {};
+    let currentPage = 1;
+    let itemsPerPage = 25;
+    let activeDatasetType = "overall";
+    let currentSearchTerm = "";
 
-        results.forEach((result, index) => {
-          if (result.status === "fulfilled") {
-            leaderboardData[endpoints[index]] = result.value;
-          } else {
-            console.error("Failed to fetch", endpoints[index], result.reason);
-          }
-        });
+    async function fetchLeaderboardData() {
+      const endpoints = ["overall", "monthly", "weekly", "daily"];
+      const cacheBuster = Date.now();
+      // Fetch directly from github to avoid needing a server redeploy for new data
+      const results = await Promise.allSettled(
+        endpoints.map((type) =>
+          fetch(
+            `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
+          ).then((res) => {
+            if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+            return res.json();
+          }),
+        ),
+      );
 
-        try {
-          // Fetch directly from github to avoid needing a server redeploy for new data
-          const syncRes = await fetch(
-            `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
-          );
-          if (syncRes.ok) {
-            const syncData = await syncRes.json();
-            // Trigger toast if sync time changed
-            const prevSyncTime = window._lastKnownSyncTime || null;
-            if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
-              showSyncToast();
-            }
-            window._lastKnownSyncTime = syncData.lastSync;
-            const options = {
-              month: "short",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              timeZoneName: "short",
-            };
-
-            const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
-            const formatted = date
-              .toLocaleString("en-US", options)
-              .toUpperCase();
-            document.getElementById("sync-time").innerText = formatted;
-
-            if (syncData.nextSync) {
-              const nextDate = new Date(syncData.nextSync);
-              const now = new Date();
-              if (nextDate > now) {
-                const diffMs = nextDate - now;
-                const diffMin = Math.ceil(diffMs / 60000);
-                document.getElementById("next-sync-time").innerText =
-                  `~${diffMin} MIN`;
-              } else {
-                document.getElementById("next-sync-time").innerText =
-                  "IMMINENT";
-              }
-            } else {
-              document.getElementById("next-sync-time").innerText = "~5 MIN";
-            }
-          } else {
-            document.getElementById("sync-time").innerText = "SYNC_FAILED";
-            document.getElementById("sync-time").style.color = "var(--red)";
-            document.getElementById("next-sync-time").innerText = "UNKNOWN";
-          }
-        } catch (e) {
-          console.error("Failed to fetch sync time", e);
-          document.getElementById("sync-time").innerText = "OFFLINE";
-          document.getElementById("sync-time").style.color = "var(--red)";
-          document.getElementById("next-sync-time").innerText = "OFFLINE";
-          document.getElementById("next-sync-time").style.color = "var(--red)";
+      results.forEach((result, index) => {
+        if (result.status === "fulfilled") {
+          leaderboardData[endpoints[index]] = result.value;
+        } else {
+          console.error("Failed to fetch", endpoints[index], result.reason);
         }
+      });
 
-        applyFiltersAndRender();
+      try {
+        // Fetch directly from github to avoid needing a server redeploy for new data
+        const syncRes = await fetch(
+          `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
+        );
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          // Trigger toast if sync time changed
+          const prevSyncTime = window._lastKnownSyncTime || null;
+          if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
+            showSyncToast();
+          }
+          window._lastKnownSyncTime = syncData.lastSync;
+          const options = {
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZoneName: "short",
+          };
+
+          const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
+          const formatted = date
+            .toLocaleString("en-US", options)
+            .toUpperCase();
+          document.getElementById("sync-time").innerText = formatted;
+
+          if (syncData.nextSync) {
+            const nextDate = new Date(syncData.nextSync);
+            const now = new Date();
+            if (nextDate > now) {
+              const diffMs = nextDate - now;
+              const diffMin = Math.ceil(diffMs / 60000);
+              document.getElementById("next-sync-time").innerText =
+                `~${diffMin} MIN`;
+            } else {
+              document.getElementById("next-sync-time").innerText =
+                "IMMINENT";
+            }
+          } else {
+            document.getElementById("next-sync-time").innerText = "~5 MIN";
+          }
+        } else {
+          document.getElementById("sync-time").innerText = "SYNC_FAILED";
+          document.getElementById("sync-time").style.color = "var(--red)";
+          document.getElementById("next-sync-time").innerText = "UNKNOWN";
+        }
+      } catch (e) {
+        console.error("Failed to fetch sync time", e);
+        document.getElementById("sync-time").innerText = "OFFLINE";
+        document.getElementById("sync-time").style.color = "var(--red)";
+        document.getElementById("next-sync-time").innerText = "OFFLINE";
+        document.getElementById("next-sync-time").style.color = "var(--red)";
       }
 
-      function applyFiltersAndRender() {
-        if (!leaderboardData[activeDatasetType]) return;
+      applyFiltersAndRender();
+    }
 
-        const originalData = leaderboardData[activeDatasetType];
+    function applyFiltersAndRender() {
+      if (!leaderboardData[activeDatasetType]) return;
 
-        const filteredData = originalData.filter((user) => {
-          if (!currentSearchTerm) return true;
+      const originalData = leaderboardData[activeDatasetType];
 
-          return (
-            user.name.toLowerCase().includes(currentSearchTerm) ||
-            user.id.toLowerCase().includes(currentSearchTerm)
-          );
-        });
+      const filteredData = originalData.filter((user) => {
+        if (!currentSearchTerm) return true;
 
-        const countEl = document.getElementById("search-result-count");
-
-        if (currentSearchTerm) {
-          const total = originalData.length;
-          const matched = filteredData.length;
-
-          countEl.textContent = `${matched}/${total}`;
-          countEl.style.opacity = "1";
-        } else {
-          countEl.textContent = "";
-          countEl.style.opacity = "0";
-        }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
-
-        document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
-        const statsEl = document.getElementById("leaderboard-stats");
-
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
-        const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
-
-        const endRow = Math.min(
-          currentPage * itemsPerPage,
-          filteredData.length,
+        return (
+          user.name.toLowerCase().includes(currentSearchTerm) ||
+          user.id.toLowerCase().includes(currentSearchTerm)
         );
+      });
 
-        statsEl.innerHTML = `
+      const countEl = document.getElementById("search-result-count");
+
+      if (currentSearchTerm) {
+        const total = originalData.length;
+        const matched = filteredData.length;
+
+        countEl.textContent = `${matched}/${total}`;
+        countEl.style.opacity = "1";
+      } else {
+        countEl.textContent = "";
+        countEl.style.opacity = "0";
+      }
+      document.getElementById("prev-page-btn").disabled = currentPage === 1;
+
+      document.getElementById("next-page-btn").disabled =
+        currentPage === Math.ceil(filteredData.length / itemsPerPage);
+      const statsEl = document.getElementById("leaderboard-stats");
+
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+      const startRow =
+        filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+
+      const endRow = Math.min(
+        currentPage * itemsPerPage,
+        filteredData.length,
+      );
+
+      statsEl.innerHTML = `
             <div style="
               text-align:center;
               color:var(--text-dim);
@@ -331,77 +306,133 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
-      }
+      renderLeaderboard(filteredData);
+    }
 
-      function renderLeaderboard(data) {
-        const body = document.getElementById("leaderboard-body");
-        const mobileCards = document.getElementById("mobile-cards");
+    function renderLeaderboard(data) {
+      const body = document.getElementById("leaderboard-body");
+      const mobileCards = document.getElementById("mobile-cards");
 
-        body.innerHTML = "";
-        mobileCards.innerHTML = "";
+      body.innerHTML = "";
+      mobileCards.innerHTML = "";
 
-        const isSearching = currentSearchTerm.length > 0;
+      const isSearching = currentSearchTerm.length > 0;
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+      const displayData = isSearching
+        ? data
+        : data.slice(startIndex, endIndex);
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
+      if (displayData.length === 0) {
+        body.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
 
-          mobileCards.innerHTML = `
+        mobileCards.innerHTML = `
                         <div class="no-results">
                             [SYS]: NO_MATCHING_USERS_FOUND
                         </div>
                     `;
-          return;
-        }
-
-        displayData.forEach((user, index) => {
-          const rank =
-            user.originalRank !== undefined
-              ? user.originalRank
-              : startIndex + index + 1;
-          const row = renderLeaderboardRow(user, rank);
-          const card = renderMobileCard(user, rank);
-          body.appendChild(row);
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
+        return;
       }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
-          }
-        });
 
-        if (!leaderboardData[activeTab]) {
-          return;
+      displayData.forEach((user, index) => {
+        const rank =
+          user.originalRank !== undefined
+            ? user.originalRank
+            : startIndex + index + 1;
+        const row = renderLeaderboardRow(user, rank);
+        const card = renderMobileCard(user, rank);
+        body.appendChild(row);
+        mobileCards.appendChild(card);
+      });
+      renderPagination(data.length);
+    }
+    function setActiveTab(activeTab) {
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.classList.remove("active");
+        if (tab.dataset.tab === activeTab) {
+          tab.classList.add("active");
         }
+      });
 
-        activeDatasetType = activeTab;
-        currentPage = 1;
-        applyFiltersAndRender();
+      if (!leaderboardData[activeTab]) {
+        return;
       }
-    </script>
 
-    <!-- Scroll to Top button -->
-    <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
+      activeDatasetType = activeTab;
+      currentPage = 1;
+      applyFiltersAndRender();
+    }
+  </script>
 
-    <script src="js/leaderboard/mobile-scroll-top.js"></script>
-    <script src="js/leaderboard/sync-changes.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/matrix.js"></script>
-    <script src="js/terminal_ui.js"></script>
-  </body>
+  <!-- User Comparison Modal Overlay -->
+  <div id="compare-modal" class="compare-modal-overlay">
+    <div class="compare-card">
+      <div class="compare-card-header">
+        <span class="compare-card-title">[SYSTEM_COMPARE_MODULE]</span>
+        <button id="close-compare-modal" class="compare-card-close">
+          [DISMISS]
+        </button>
+      </div>
+
+      <div class="compare-card-body">
+        <div class="compare-loading" id="compare-loading"
+          style="text-align: center; padding: 2rem; font-family: 'Fira Code', monospace; color: var(--green);">
+          <span class="blink">[SYS_INIT]:</span> FETCHING PEER DATA...
+        </div>
+
+        <div class="compare-error" id="compare-error"
+          style="display: none; text-align: center; padding: 2rem; font-family: 'Fira Code', monospace; color: var(--red);">
+          [SYS_ERR]: FAILED_TO_FETCH_PEER_DATA. PLEASE TRY AGAIN.
+        </div>
+
+        <div class="compare-results" id="compare-results" style="display: none;">
+          <!-- Metrics Table -->
+          <div style="overflow-x: auto; margin-bottom: 1rem;">
+            <table class="compare-table" id="compare-table-el">
+              <!-- Dynamically populated -->
+            </table>
+          </div>
+
+          <!-- Filter buttons for Progress Graph -->
+          <div style="display: flex; gap: 10px; margin: 1.5rem 0 1rem 0; justify-content: center;">
+            <button id="compare-btn-weekly" class="btn btn-secondary active-filter"
+              style="min-width: unset; width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin: 0; font-family: 'Fira Code', monospace;">Weekly</button>
+            <button id="compare-btn-monthly" class="btn btn-secondary"
+              style="min-width: unset; width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin: 0; font-family: 'Fira Code', monospace;">Monthly</button>
+            <button id="compare-btn-overall" class="btn btn-secondary"
+              style="min-width: unset; width: auto; padding: 0.4rem 1rem; font-size: 0.8rem; margin: 0; font-family: 'Fira Code', monospace;">Overall</button>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="compare-charts-row">
+            <div class="compare-chart-card">
+              <div class="compare-chart-title">// DIFFICULTY_BREAKDOWN</div>
+              <canvas id="compareDifficultyChart"></canvas>
+            </div>
+            <div class="compare-chart-card">
+              <div class="compare-chart-title">// PROGRESS_HISTORY</div>
+              <canvas id="compareProgressChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top button -->
+  <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
+
+  <script src="js/leaderboard/mobile-scroll-top.js"></script>
+  <script src="js/leaderboard/sync-changes.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/terminal_ui.js"></script>
+</body>
+
 </html>
