@@ -64,17 +64,6 @@
         margin-bottom: 0.4rem;
       }
 
-      .title .cursor {
-        display: inline-block;
-        width: 3px;
-        height: 2.2rem;
-        background: var(--green);
-        vertical-align: middle;
-        margin-left: 4px;
-        animation: blink 1s step-end infinite;
-        box-shadow: 0 0 8px var(--green);
-      }
-
       @keyframes blink {
         50% {
           opacity: 0;
@@ -178,9 +167,7 @@
         .title {
           font-size: 1.6rem;
         }
-        .title .cursor {
-          height: 1.5rem;
-        }
+
         .subtitle {
           font-size: 0.75rem;
         }
@@ -205,7 +192,7 @@
     <canvas id="matrix"></canvas>
 
     <div class="panel">
-      <div class="title">404 — Not Found<span class="cursor"></span></div>
+      <div class="title">404 — Not Found</div>
       <div class="subtitle">
         &gt; route resolution failed. filesystem integrity nominal.
       </div>
