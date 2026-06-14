@@ -2804,3 +2804,43 @@ body::-webkit-scrollbar-thumb {
 .changes-content-line.no-icon::before {
   display: none;
 }
+
+.rank-change {
+  position: relative;
+  cursor: help; 
+  display: inline-block;
+  user-select: none;
+  font-family: "Fira Code", monospace;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.rank-change[data-tooltip]::before {
+  content: attr(data-tooltip); 
+  position: absolute;
+  bottom: 140%;
+  left: 50%;
+  transform: translateX(-50%); 
+  background: var(--bg-raised);
+  color: var(--text);
+  border: 1px solid var(--green);
+  padding: 6px 12px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap; 
+  border-radius: 4px;
+  z-index: 99999; 
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-in-out;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+.rank-change[data-tooltip]:hover::before {
+  opacity: 1;
+}
+@media (max-width: 480px) {
+  .rank-change[data-tooltip]::before {
+    bottom: auto;
+    top: 140%; 
+  }
+}
