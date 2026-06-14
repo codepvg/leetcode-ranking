@@ -97,13 +97,13 @@ async function computeRankChanges(currentSorted, filename) {
   const previousData = await getYesterdaySnapshot(filename);
 
   if (previousData && Array.isArray(previousData)) {
-    previousData.forEach((user, idx) => {
-      previousRanks[user.id] = idx + 1;
+    previousData.forEach((user) => {
+      previousRanks[user.id] = user.originalRank;
     });
   }
 
-  currentSorted.forEach((user, idx) => {
-    const currentRank = idx + 1;
+  currentSorted.forEach((user) => {
+    const currentRank = user.originalRank;
 
     if (previousRanks[user.id] === undefined) {
       user.rankChange = "NEW";
@@ -382,9 +382,9 @@ async function computeRankChanges(currentSorted, filename) {
   try {
     // Build lookup of previous solve counts and ranks
     const previousMap = {};
-    previousOverall.forEach((user, idx) => {
+    previousOverall.forEach((user) => {
       previousMap[user.id] = {
-        rank: idx + 1,
+        rank: user.originalRank,
         totalSolved: user.data.totalSolved || 0,
       };
     });
@@ -394,8 +394,8 @@ async function computeRankChanges(currentSorted, filename) {
     let totalNewSolves = 0;
     let usersWithNewSolves = 0;
 
-    overallData.forEach((user, idx) => {
-      const currentRank = idx + 1;
+    overallData.forEach((user) => {
+      const currentRank = user.originalRank;
       const prev = previousMap[user.id];
 
       if (!prev) {
