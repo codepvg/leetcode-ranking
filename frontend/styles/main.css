@@ -2804,3 +2804,342 @@ body::-webkit-scrollbar-thumb {
 .changes-content-line.no-icon::before {
   display: none;
 }
+
+/* ==========================================================================
+   LeetCode Leaderboard Peer Comparison Module
+   ========================================================================== */
+
+/* --- Grid Adjustments for Comparison Mode --- */
+.compare-checkbox-cell {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard.compare-mode .compare-checkbox-cell {
+  display: flex;
+}
+
+.leaderboard.compare-mode .leaderboard-header,
+.leaderboard.compare-mode .leaderboard-row {
+  grid-template-columns: 40px 55px 1fr 170px 65px 65px 65px 85px 85px;
+}
+
+/* Custom Green/Terminal Style Checkboxes */
+input[type="checkbox"].compare-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--green-dim);
+  background: var(--bg);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+input[type="checkbox"].compare-checkbox:checked {
+  background: var(--green-muted);
+  border-color: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+
+input[type="checkbox"].compare-checkbox:checked::after {
+  content: "X";
+  color: var(--green);
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* Mobile Cards Compare Mode */
+#mobile-cards.compare-mode .compare-checkbox-cell {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+/* --- Floating Comparison Bar --- */
+.floating-compare-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  z-index: 1000;
+  box-shadow:
+    0 0 25px rgba(0, 255, 65, 0.15),
+    inset 0 0 10px rgba(0, 255, 65, 0.05);
+  font-family: "Fira Code", monospace;
+  animation: compareBarSlideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1)
+    forwards;
+  max-width: 90%;
+  width: 520px;
+}
+
+@keyframes compareBarSlideUp {
+  from {
+    transform: translate(-50%, 100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.floating-compare-bar .selected-list {
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.floating-compare-bar .selected-tag {
+  color: var(--cyan);
+  font-weight: bold;
+}
+
+.floating-compare-bar .actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.floating-compare-bar .btn-compare {
+  background: var(--green-muted);
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: bold;
+  font-family: "Fira Code", monospace;
+  transition: all 0.15s ease;
+}
+
+.floating-compare-bar .btn-compare:hover:not(:disabled) {
+  background: var(--green);
+  color: var(--bg);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.floating-compare-bar .btn-compare:disabled {
+  border-color: var(--text-muted);
+  color: var(--text-muted);
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.floating-compare-bar .btn-clear {
+  background: transparent;
+  color: var(--amber);
+  border: 1px solid var(--amber-dim);
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 2px;
+  font-family: "Fira Code", monospace;
+  transition: all 0.15s ease;
+}
+
+.floating-compare-bar .btn-clear:hover {
+  background: var(--amber-muted);
+  box-shadow: 0 0 8px rgba(255, 176, 0, 0.3);
+}
+
+/* --- Comparison Modal Overlay & Card --- */
+.compare-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.compare-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compare-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: "Fira Code", monospace;
+  padding: 24px 28px;
+  width: min(900px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.compare-modal-overlay.active .compare-card {
+  transform: translateY(0) scale(1);
+}
+
+.compare-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.compare-card-title {
+  color: var(--green);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.compare-card-close {
+  background: transparent;
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-family: "Fira Code", monospace;
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.compare-card-close:hover {
+  background: rgba(255, 51, 51, 0.12);
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.3);
+}
+
+.compare-card-close:active {
+  transform: scale(0.95);
+}
+
+/* --- Metrics Comparison Table --- */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Fira Code", monospace;
+  font-size: 0.82rem;
+  margin-bottom: 1.5rem;
+}
+
+.compare-table th,
+.compare-table td {
+  border: 1px solid var(--border);
+  padding: 0.75rem 0.85rem;
+  text-align: center;
+}
+
+.compare-table th {
+  background: var(--bg-raised);
+  color: var(--green-dim);
+  font-weight: bold;
+}
+
+.compare-table td:first-child,
+.compare-table th:first-child {
+  text-align: left;
+  font-weight: bold;
+  color: var(--text-dim);
+  background: rgba(0, 255, 65, 0.01);
+}
+
+.compare-table tr:hover td {
+  background: rgba(0, 255, 65, 0.02);
+}
+
+/* --- Charts Row & Layout --- */
+.compare-charts-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.compare-chart-card {
+  flex: 1;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  height: 350px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-chart-title {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+  font-family: "Space Mono", monospace;
+  text-align: center;
+}
+
+.compare-chart-card canvas {
+  flex: 1;
+  width: 100% !important;
+  height: calc(100% - 20px) !important;
+}
+
+.btn.active-filter {
+  background: var(--green-muted) !important;
+  color: var(--green) !important;
+  border-color: var(--green) !important;
+  text-shadow: 0 0 5px var(--green);
+}
+
+/* --- Retro Toast Notifications --- */
+.retro-toast {
+  background: var(--bg-surface);
+  border: 1px solid var(--red);
+  color: var(--red);
+  padding: 0.8rem 1.2rem;
+  font-family: "Fira Code", monospace;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.2);
+  animation: compareSlideInRight 0.3s ease-out;
+  pointer-events: auto;
+}
+
+@keyframes compareSlideInRight {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .compare-charts-row {
+    flex-direction: column;
+  }
+  .compare-chart-card {
+    height: 300px;
+  }
+}

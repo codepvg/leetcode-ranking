@@ -100,6 +100,27 @@ function renderLeaderboardRow(user, rank) {
   const row = document.createElement("div");
   row.className = "leaderboard-row";
 
+  // Compare checkbox column
+  const checkboxCell = document.createElement("div");
+  checkboxCell.className = "compare-checkbox-cell";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "compare-checkbox";
+  checkbox.dataset.username = user.id;
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
+    checkbox.checked = true;
+  }
+  checkbox.addEventListener("change", (e) => {
+    if (typeof window.handleUserSelection === "function") {
+      window.handleUserSelection(user, e.target.checked);
+    }
+  });
+  checkboxCell.appendChild(checkbox);
+  row.appendChild(checkboxCell);
+
   // Rank (numeric — safe)
   const rankDiv = document.createElement("div");
   rankDiv.className = "rank";
@@ -203,6 +224,27 @@ function renderMobileCard(user, rank) {
   // Card header
   const cardHeader = document.createElement("div");
   cardHeader.className = "mobile-card-header";
+
+  // Compare checkbox column for mobile
+  const checkboxCell = document.createElement("div");
+  checkboxCell.className = "compare-checkbox-cell";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "compare-checkbox";
+  checkbox.dataset.username = user.id;
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
+    checkbox.checked = true;
+  }
+  checkbox.addEventListener("change", (e) => {
+    if (typeof window.handleUserSelection === "function") {
+      window.handleUserSelection(user, e.target.checked);
+    }
+  });
+  checkboxCell.appendChild(checkbox);
+  cardHeader.appendChild(checkboxCell);
 
   const mobileRank = document.createElement("div");
   mobileRank.className = "mobile-rank";
