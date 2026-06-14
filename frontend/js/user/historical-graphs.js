@@ -44,6 +44,13 @@ function setupFilterButtons() {
   Object.keys(buttons).forEach((view) => {
     if (buttons[view]) {
       buttons[view].addEventListener("click", () => {
+        // Remove active from all
+        Object.values(buttons).forEach((btn) =>
+          btn?.classList.remove("active"),
+        );
+        // Add active to clicked
+        buttons[view].classList.add("active");
+
         currentView = view;
         updateChart();
       });
