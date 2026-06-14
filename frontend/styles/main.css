@@ -2878,16 +2878,25 @@ input[type="checkbox"].compare-checkbox:checked::after {
   justify-content: space-between;
   gap: 1.5rem;
   z-index: 1000;
-  box-shadow: 0 0 25px rgba(0, 255, 65, 0.15), inset 0 0 10px rgba(0, 255, 65, 0.05);
+  box-shadow:
+    0 0 25px rgba(0, 255, 65, 0.15),
+    inset 0 0 10px rgba(0, 255, 65, 0.05);
   font-family: "Fira Code", monospace;
-  animation: compareBarSlideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+  animation: compareBarSlideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1)
+    forwards;
   max-width: 90%;
   width: 520px;
 }
 
 @keyframes compareBarSlideUp {
-  from { transform: translate(-50%, 100px); opacity: 0; }
-  to { transform: translate(-50%, 0); opacity: 1; }
+  from {
+    transform: translate(-50%, 100px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
 }
 
 .floating-compare-bar .selected-list {
@@ -3107,7 +3116,7 @@ input[type="checkbox"].compare-checkbox:checked::after {
   border: 1px solid var(--red);
   color: var(--red);
   padding: 0.8rem 1.2rem;
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-size: 0.8rem;
   border-radius: 4px;
   box-shadow: 0 0 15px rgba(255, 51, 51, 0.2);
@@ -3116,8 +3125,14 @@ input[type="checkbox"].compare-checkbox:checked::after {
 }
 
 @keyframes compareSlideInRight {
-  from { transform: translateX(120%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {

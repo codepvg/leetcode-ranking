@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 async function fetchStudentHistoryData(userId) {
   const origins = [];
-  
+
   if (window.location.port !== "5500" && window.location.protocol !== "file:") {
     origins.push(window.location.origin);
   }
@@ -43,7 +43,9 @@ async function fetchStudentHistoryData(userId) {
       lastError = err;
     }
   }
-  throw lastError || new Error("Failed to fetch student data from all endpoints");
+  throw (
+    lastError || new Error("Failed to fetch student data from all endpoints")
+  );
 }
 
 async function fetchStudentData(username) {

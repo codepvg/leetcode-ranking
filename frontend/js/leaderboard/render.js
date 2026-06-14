@@ -107,7 +107,10 @@ function renderLeaderboardRow(user, rank) {
   checkbox.type = "checkbox";
   checkbox.className = "compare-checkbox";
   checkbox.dataset.username = user.id;
-  if (window.selectedUsers && window.selectedUsers.some((u) => u.id === user.id)) {
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
     checkbox.checked = true;
   }
   checkbox.addEventListener("change", (e) => {
@@ -229,7 +232,10 @@ function renderMobileCard(user, rank) {
   checkbox.type = "checkbox";
   checkbox.className = "compare-checkbox";
   checkbox.dataset.username = user.id;
-  if (window.selectedUsers && window.selectedUsers.some((u) => u.id === user.id)) {
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
     checkbox.checked = true;
   }
   checkbox.addEventListener("change", (e) => {

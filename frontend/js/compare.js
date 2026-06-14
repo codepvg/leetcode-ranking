@@ -43,7 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btn) {
       btn.addEventListener("click", () => {
         // Toggle active-filter class
-        Object.values(rangeButtons).forEach((b) => b.classList.remove("active-filter"));
+        Object.values(rangeButtons).forEach((b) =>
+          b.classList.remove("active-filter"),
+        );
         btn.classList.add("active-filter");
         currentGraphRange = range;
         renderProgressHistoryChart();
@@ -88,7 +90,9 @@ function handleUserSelection(user, isChecked) {
   if (isChecked) {
     if (window.selectedUsers.length >= 3) {
       // Revert checkbox state
-      const checkboxes = document.querySelectorAll(`input.compare-checkbox[data-username="${user.id}"]`);
+      const checkboxes = document.querySelectorAll(
+        `input.compare-checkbox[data-username="${user.id}"]`,
+      );
       checkboxes.forEach((cb) => (cb.checked = false));
       showRetroNotification("SYSTEM: Peer limit reached (max 3 users).");
       return;
@@ -101,7 +105,9 @@ function handleUserSelection(user, isChecked) {
   }
 
   // Synchronize desktop & mobile checkboxes for the same student
-  const checkboxes = document.querySelectorAll(`input.compare-checkbox[data-username="${user.id}"]`);
+  const checkboxes = document.querySelectorAll(
+    `input.compare-checkbox[data-username="${user.id}"]`,
+  );
   checkboxes.forEach((cb) => (cb.checked = isChecked));
 
   updateFloatingCompareBar();
@@ -151,9 +157,13 @@ function updateFloatingCompareBar() {
   `;
 
   // Bind click handlers
-  document.getElementById("floating-btn-clear").addEventListener("click", clearSelectedUsers);
+  document
+    .getElementById("floating-btn-clear")
+    .addEventListener("click", clearSelectedUsers);
   if (count >= 2) {
-    document.getElementById("floating-btn-compare").addEventListener("click", openCompareModal);
+    document
+      .getElementById("floating-btn-compare")
+      .addEventListener("click", openCompareModal);
   }
 }
 
@@ -198,7 +208,7 @@ function showRetroNotification(message) {
  */
 async function fetchStudentHistoryData(userId) {
   const origins = [];
-  
+
   if (window.location.port !== "5500" && window.location.protocol !== "file:") {
     origins.push(window.location.origin);
   }
@@ -218,7 +228,9 @@ async function fetchStudentHistoryData(userId) {
       lastError = err;
     }
   }
-  throw lastError || new Error("Failed to fetch student data from all endpoints");
+  throw (
+    lastError || new Error("Failed to fetch student data from all endpoints")
+  );
 }
 
 /**
@@ -243,7 +255,10 @@ async function openCompareModal() {
     });
 
     selectedUserHistories = await Promise.all(fetchPromises);
-    console.log("Successfully fetched compared users history:", selectedUserHistories);
+    console.log(
+      "Successfully fetched compared users history:",
+      selectedUserHistories,
+    );
 
     // Populate UI
     populateComparisonTable();
@@ -287,11 +302,21 @@ function calculateGrindingVelocity(history) {
   const earliest = history[0];
   const latest = history[history.length - 1];
 
-  const earliestTotal = (Number(earliest.easy) || 0) + (Number(earliest.medium) || 0) + (Number(earliest.hard) || 0);
-  const latestTotal = (Number(latest.easy) || 0) + (Number(latest.medium) || 0) + (Number(latest.hard) || 0);
+  const earliestTotal =
+    (Number(earliest.easy) || 0) +
+    (Number(earliest.medium) || 0) +
+    (Number(earliest.hard) || 0);
+  const latestTotal =
+    (Number(latest.easy) || 0) +
+    (Number(latest.medium) || 0) +
+    (Number(latest.hard) || 0);
   const diffSolved = latestTotal - earliestTotal;
 
-  const diffDays = Math.ceil(Math.abs(new Date(latest.date) - new Date(earliest.date)) / (1000 * 60 * 60 * 24)) || 1;
+  const diffDays =
+    Math.ceil(
+      Math.abs(new Date(latest.date) - new Date(earliest.date)) /
+        (1000 * 60 * 60 * 24),
+    ) || 1;
   return (diffSolved / diffDays).toFixed(2);
 }
 
@@ -303,18 +328,38 @@ function populateComparisonTable() {
   if (!table) return;
 
   const headers = ["Metric", ...window.selectedUsers.map((u) => u.name)];
-  
+
   // Rows data matrix
   const metrics = [
-    { label: "LeetCode Username", values: window.selectedUsers.map((u) => `@${u.id}`) },
-    { label: "Overall Score", values: window.selectedUsers.map((u) => u.score) },
-    { label: "Total Solved", values: window.selectedUsers.map((u) => u.data.totalSolved) },
-    { label: "Easy Solved", values: window.selectedUsers.map((u) => u.data.easySolved) },
-    { label: "Medium Solved", values: window.selectedUsers.map((u) => u.data.mediumSolved) },
-    { label: "Hard Solved", values: window.selectedUsers.map((u) => u.data.hardSolved) },
+    {
+      label: "LeetCode Username",
+      values: window.selectedUsers.map((u) => `@${u.id}`),
+    },
+    {
+      label: "Overall Score",
+      values: window.selectedUsers.map((u) => u.score),
+    },
+    {
+      label: "Total Solved",
+      values: window.selectedUsers.map((u) => u.data.totalSolved),
+    },
+    {
+      label: "Easy Solved",
+      values: window.selectedUsers.map((u) => u.data.easySolved),
+    },
+    {
+      label: "Medium Solved",
+      values: window.selectedUsers.map((u) => u.data.mediumSolved),
+    },
+    {
+      label: "Hard Solved",
+      values: window.selectedUsers.map((u) => u.data.hardSolved),
+    },
     {
       label: "Grinding Velocity (Avg Daily)",
-      values: selectedUserHistories.map((sh) => `${calculateGrindingVelocity(sh.history)} / day`),
+      values: selectedUserHistories.map(
+        (sh) => `${calculateGrindingVelocity(sh.history)} / day`,
+      ),
     },
   ];
 
@@ -349,9 +394,15 @@ function renderDifficultyBreakdownChart() {
   }
 
   const labels = window.selectedUsers.map((u) => u.name);
-  const easyData = window.selectedUsers.map((u) => Number(u.data.easySolved) || 0);
-  const mediumData = window.selectedUsers.map((u) => Number(u.data.mediumSolved) || 0);
-  const hardData = window.selectedUsers.map((u) => Number(u.data.hardSolved) || 0);
+  const easyData = window.selectedUsers.map(
+    (u) => Number(u.data.easySolved) || 0,
+  );
+  const mediumData = window.selectedUsers.map(
+    (u) => Number(u.data.mediumSolved) || 0,
+  );
+  const hardData = window.selectedUsers.map(
+    (u) => Number(u.data.hardSolved) || 0,
+  );
 
   difficultyChartInstance = new Chart(ctx, {
     type: "bar",
@@ -450,7 +501,9 @@ function renderProgressHistoryChart() {
   filteredHistories.forEach((fh) => {
     fh.history.forEach((h) => allDatesSet.add(h.date));
   });
-  const sortedDates = Array.from(allDatesSet).sort((a, b) => new Date(a) - new Date(b));
+  const sortedDates = Array.from(allDatesSet).sort(
+    (a, b) => new Date(a) - new Date(b),
+  );
 
   if (sortedDates.length === 0) {
     // Edge case: no history records in filter range
@@ -471,7 +524,10 @@ function renderProgressHistoryChart() {
     const dateValuesMap = new Map();
 
     fh.history.forEach((item) => {
-      const total = (Number(item.easy) || 0) + (Number(item.medium) || 0) + (Number(item.hard) || 0);
+      const total =
+        (Number(item.easy) || 0) +
+        (Number(item.medium) || 0) +
+        (Number(item.hard) || 0);
       dateValuesMap.set(item.date, total);
     });
 
