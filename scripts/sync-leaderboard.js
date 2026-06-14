@@ -34,10 +34,14 @@ function getFileName(daysAgo) {
 function assignCompetitionRanks(sortedData) {
   let currentRank = 1;
   for (let i = 0; i < sortedData.length; i++) {
-    if (i > 0 && sortedData[i].score < sortedData[i - 1].score) {
-      currentRank = i + 1;
+    if (sortedData[i].score === 0) {
+      sortedData[i].originalRank = "--";
+    } else {
+      if (i > 0 && sortedData[i].score < sortedData[i - 1].score) {
+        currentRank = i + 1;
+      }
+      sortedData[i].originalRank = currentRank;
     }
-    sortedData[i].originalRank = currentRank;
   }
 }
 

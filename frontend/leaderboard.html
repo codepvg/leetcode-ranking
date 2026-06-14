@@ -303,20 +303,27 @@
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        const renderableData =
+          activeDatasetType === "overall"
+            ? filteredData.filter((user) => user.score > 0)
+            : filteredData;
+
+        const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
         document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+          currentPage === totalPages;
+
         const statsEl = document.getElementById("leaderboard-stats");
 
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
         const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+          renderableData.length === 0
+            ? 0
+            : (currentPage - 1) * itemsPerPage + 1;
 
         const endRow = Math.min(
           currentPage * itemsPerPage,
-          filteredData.length,
+          renderableData.length,
         );
 
         statsEl.innerHTML = `
@@ -326,15 +333,15 @@
               margin-bottom:1rem;
               font-family:'Fira Code', monospace;
             ">
-              Total Users: ${filteredData.length}
+              Total Users: ${renderableData.length}
               | Showing: ${startRow}-${endRow}
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
+        renderLeaderboard(filteredData, totalPages);
       }
 
-      function renderLeaderboard(data) {
+      function renderLeaderboard(data, totalPages) {
         const body = document.getElementById("leaderboard-body");
         const mobileCards = document.getElementById("mobile-cards");
 
@@ -346,48 +353,64 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+        let activeList = data;
+        let inactiveList = [];
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        if (activeDatasetType === "overall") {
+          activeList = data.filter((user) => user.score > 0);
+          inactiveList = data.filter((user) => user.score === 0);
+        }
 
-          mobileCards.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        const displayActiveData =
+          isSearching || activeDatasetType !== "overall"
+            ? activeList
+            : activeList.slice(startIndex, endIndex);
+
+        if (displayActiveData.length === 0 && inactiveList.length === 0) {
+          const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
+          body.innerHTML = emptyStateHtml;
+          mobileCards.innerHTML = emptyStateHtml;
           return;
         }
 
-        displayData.forEach((user, index) => {
+        displayActiveData.forEach((user, index) => {
           const rank =
             user.originalRank !== undefined
               ? user.originalRank
               : startIndex + index + 1;
-          const row = renderLeaderboardRow(user, rank);
-          const card = renderMobileCard(user, rank);
-          body.appendChild(row);
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
-      }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
-          }
+          body.appendChild(renderLeaderboardRow(user, rank));
+          mobileCards.appendChild(renderMobileCard(user, rank));
         });
 
-        if (!leaderboardData[activeTab]) {
-          return;
+        if (
+          activeDatasetType === "overall" &&
+          inactiveList.length > 0 &&
+          (currentPage === totalPages || isSearching)
+        ) {
+          const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
+
+          const tableHeader = document.createElement("div");
+          tableHeader.className = "no-results";
+          tableHeader.style.gridColumn = "1 / -1";
+          tableHeader.innerText = dividerText;
+          body.appendChild(tableHeader);
+
+          const mobileHeader = document.createElement("div");
+          mobileHeader.className = "no-results";
+          mobileHeader.innerText = dividerText;
+          mobileCards.appendChild(mobileHeader);
+
+          inactiveList.forEach((user) => {
+            body.appendChild(renderLeaderboardRow(user, "--"));
+            mobileCards.appendChild(renderMobileCard(user, "--"));
+          });
         }
+
+        renderPagination(activeList.length);
+      }
+
+      function setActiveTab(activeTab) {
+        if (!leaderboardData[activeTab]) return;
 
         activeDatasetType = activeTab;
         currentPage = 1;
