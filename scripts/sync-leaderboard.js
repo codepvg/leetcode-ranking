@@ -31,6 +31,47 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
+function updateUserHistory(user, DATA_DIR) {
+  const historyDir = path.join(DATA_DIR, "historical-user-data");
+  if (!fs.existsSync(historyDir)) {
+    fs.mkdirSync(historyDir, { recursive: true });
+  }
+
+  const userHistoryPath = path.join(historyDir, `${user.id}.json`);
+  let history = [];
+
+  if (fs.existsSync(userHistoryPath)) {
+    try {
+      history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+    } catch (err) {
+      console.error(
+        `Failed to parse history for ${user.id}, resetting:`,
+        err.message,
+      );
+    }
+  }
+
+  const dateStr = getFileName(0).split("-").slice(0, 3).join("-");
+  const existingIndex = history.findIndex((entry) => entry.date === dateStr);
+
+  const newEntry = {
+    date: dateStr,
+    easy: user.data.easySolved,
+    medium: user.data.mediumSolved,
+    hard: user.data.hardSolved,
+  };
+
+  if (existingIndex !== -1) {
+    history[existingIndex] = newEntry;
+  } else {
+    history.push(newEntry);
+  }
+
+  history.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  fs.writeFileSync(userHistoryPath, JSON.stringify(history, null, 2), "utf8");
+}
+
 function assignCompetitionRanks(sortedData) {
   let currentRank = 1;
   for (let i = 0; i < sortedData.length; i++) {
@@ -165,6 +206,12 @@ async function computeRankChanges(currentSorted, filename) {
   try {
     fs.writeFileSync(filepath, JSON.stringify(overallData, null, 2), "utf8");
     console.log("Daily data saved successfully");
+
+    console.log("Updating historical user files...");
+    overallData.forEach((user) => {
+      updateUserHistory(user, DATA_DIR);
+    });
+    console.log("Historical user files updated successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);

@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 function getFileName(daysAgo) {
   const now = new Date();
   now.setDate(now.getDate() - daysAgo);
@@ -14,9 +17,6 @@ function getFileName(daysAgo) {
 async function fetchStudentHistory(username) {
   let history = [];
   let ranking = null;
-  let missingFilesCount = 0;
-  const maxDays = 365;
-  const chunkSize = 100;
 
   try {
     const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
@@ -33,65 +33,38 @@ async function fetchStudentHistory(username) {
     );
   }
 
-  let done = false;
+  try {
+    // If a local data folder is present, try reading from it first (development helper)
+    const localDir = process.env.DATA_DIR || path.join(__dirname, "..", "data");
+    const localFilePath = path.join(
+      localDir,
+      "historical-user-data",
+      `${username}.json`,
+    );
 
-  for (let chunkStart = 0; chunkStart < maxDays; chunkStart += chunkSize) {
-    if (done) break;
-
-    const fetchPromises = [];
-    const chunkEnd = Math.min(chunkStart + chunkSize, maxDays);
-
-    for (let daysAgo = chunkStart; daysAgo < chunkEnd; daysAgo++) {
-      const fileName = getFileName(daysAgo);
-      const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/daily/${fileName}`;
-
-      const p = fetch(rawUrl)
-        .then(async (res) => {
-          if (!res.ok) {
-            return { daysAgo, fileName, ok: false };
-          }
-          const data = await res.json();
-          return { daysAgo, fileName, ok: true, data };
-        })
-        .catch((err) => {
-          return { daysAgo, fileName, ok: false, error: err };
-        });
-
-      fetchPromises.push(p);
-    }
-
-    const results = await Promise.all(fetchPromises);
-
-    for (const result of results) {
-      if (!result.ok) {
-        missingFilesCount++;
-        if (missingFilesCount >= 7) {
-          done = true;
-          break;
-        }
-        continue;
-      }
-
-      missingFilesCount = 0;
-
-      const user = result.data.find((u) => u.id === username);
-
-      if (user) {
-        const dateStr = result.fileName.split("-").slice(0, 3).join("-");
-
-        history.push({
-          date: dateStr,
-          easy: user.data.easySolved,
-          medium: user.data.mediumSolved,
-          hard: user.data.hardSolved,
-        });
+    if (fs.existsSync(localFilePath)) {
+      console.log(`[Dev] Loading historical data locally for: ${username}`);
+      history = JSON.parse(fs.readFileSync(localFilePath, "utf8"));
+    } else {
+      // Fallback to fetching from remote GitHub repository (production behavior)
+      const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/historical-user-data/${username}.json`;
+      const response = await fetch(rawUrl);
+      if (response.ok) {
+        history = await response.json();
       } else {
-        done = true;
-        break;
+        console.warn(
+          `No historical data found for user: ${username} (HTTP ${response.status})`,
+        );
       }
     }
+  } catch (err) {
+    console.error(
+      `Failed to fetch historical data for ${username}:`,
+      err.message,
+    );
   }
 
+  // Ensure history is sorted chronologically
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return {
