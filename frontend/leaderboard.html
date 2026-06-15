@@ -401,12 +401,15 @@
           countEl.style.opacity = "0";
         }
 
-        const overallDataset = window.leaderboardData["overall"] || originalData || [];
+        const overallDataset = window.leaderboardData && window.leaderboardData["overall"] 
+          ? window.leaderboardData["overall"] 
+          : (originalData || []);
+
         const zeroScoreUserIds = new Set(
-          overallDataset.filter(user => user.score === 0).map(user => user.id)
+          overallDataset.filter(user => (user && user.score === 0)).map(user => user.id)
         );
 
-        const renderableData = filteredData.filter((user) => !zeroScoreUserIds.has(user.id));
+        const renderableData = filteredData.filter((user) => user && !zeroScoreUserIds.has(user.id));
 
         const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
         document.getElementById("prev-page-btn").disabled = currentPage === 1;
@@ -456,10 +459,9 @@
         const activeList = data.filter((user) => !zeroScoreUserIds.has(user.id));
         const inactiveList = data.filter((user) => zeroScoreUserIds.has(user.id));
 
-        const displayActiveData =
-          isSearching || activeDatasetType !== "overall"
-            ? activeList
-            : activeList.slice(startIndex, endIndex);
+        const displayActiveData = isSearching 
+          ? activeList 
+          : activeList.slice(startIndex, endIndex);
 
         if (displayActiveData.length === 0 && inactiveList.length === 0) {
           const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
@@ -500,8 +502,8 @@
           mobileCards.appendChild(mobileHeader);
 
           inactiveList.forEach((user) => {
-            body.appendChild(renderLeaderboardRow(user, "--"));
-            mobileCards.appendChild(renderMobileCard(user, "--"));
+            body.appendChild(renderLeaderboardRow(user, ""));
+            mobileCards.appendChild(renderMobileCard(user, ""));
           });
         }
 
@@ -515,6 +517,15 @@
 
         activeDatasetType = activeTab;
         currentPage = 1;
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          if (tab.dataset.tab === activeTab) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
         applyFiltersAndRender();
       }
     </script>
