@@ -17,6 +17,11 @@
     <script src="js/leaderboard/render.js"></script>
     <script src="js/leaderboard/pagination.js"></script>
     <script src="js/leaderboard/search.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js"
+      nonce="__NONCE__"
+    ></script>
+    <script src="js/compare.js" nonce="__NONCE__"></script>
 
     <meta
       name="description"
@@ -96,27 +101,65 @@
           <button class="tab" data-tab="daily">Daily</button>
         </div>
 
-        <div class="search-container">
-          <div class="search-bar">
-            <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
+        <div
+          class="search-container"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              width: 100%;
+              max-width: 600px;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              class="search-bar"
+              style="flex: 1 1 300px; max-width: 420px; margin-bottom: 0"
+            >
+              <span class="search-prefix">$ grep -i</span>
+              <input
+                type="text"
+                id="leaderboard-search"
+                class="search-input"
+                placeholder="pattern"
+                autocomplete="off"
+                spellcheck="false"
+              />
 
-            <span class="search-result-count" id="search-result-count"></span>
-            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+              <span class="search-result-count" id="search-result-count"></span>
+              <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+              <button
+                type="button"
+                id="clear-search"
+                class="clear-search-btn"
+                aria-label="Clear search"
+              >
+                ESC
+              </button>
+            </div>
             <button
               type="button"
-              id="clear-search"
-              class="clear-search-btn"
-              aria-label="Clear search"
+              id="compare-mode-toggle"
+              class="btn btn-secondary"
+              style="
+                min-width: unset;
+                width: auto;
+                padding: 0.55rem 1.25rem;
+                font-size: 0.82rem;
+                margin: 0;
+                font-family: &quot;Fira Code&quot;, monospace;
+              "
             >
-              ESC
+              Compare Users
             </button>
           </div>
         </div>
@@ -125,6 +168,7 @@
 
         <div class="leaderboard">
           <div class="leaderboard-header">
+            <div class="compare-checkbox-cell"></div>
             <div>Rank</div>
             <div>Name</div>
             <div>LeetCode ID</div>
@@ -394,6 +438,125 @@
         applyFiltersAndRender();
       }
     </script>
+
+    <!-- User Comparison Modal Overlay -->
+    <div id="compare-modal" class="compare-modal-overlay">
+      <div class="compare-card">
+        <div class="compare-card-header">
+          <span class="compare-card-title">[SYSTEM_COMPARE_MODULE]</span>
+          <button id="close-compare-modal" class="compare-card-close">
+            [DISMISS]
+          </button>
+        </div>
+
+        <div class="compare-card-body">
+          <div
+            class="compare-loading"
+            id="compare-loading"
+            style="
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--green);
+            "
+          >
+            <span class="blink">[SYS_INIT]:</span> FETCHING PEER DATA...
+          </div>
+
+          <div
+            class="compare-error"
+            id="compare-error"
+            style="
+              display: none;
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--red);
+            "
+          >
+            [SYS_ERR]: FAILED_TO_FETCH_PEER_DATA. PLEASE TRY AGAIN.
+          </div>
+
+          <div
+            class="compare-results"
+            id="compare-results"
+            style="display: none"
+          >
+            <!-- Metrics Table -->
+            <div style="overflow-x: auto; margin-bottom: 1rem">
+              <table class="compare-table" id="compare-table-el">
+                <!-- Dynamically populated -->
+              </table>
+            </div>
+
+            <!-- Filter buttons for Progress Graph -->
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                margin: 1.5rem 0 1rem 0;
+                justify-content: center;
+              "
+            >
+              <button
+                id="compare-btn-weekly"
+                class="btn btn-secondary active-filter"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Weekly
+              </button>
+              <button
+                id="compare-btn-monthly"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Monthly
+              </button>
+              <button
+                id="compare-btn-overall"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Overall
+              </button>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="compare-charts-row">
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// DIFFICULTY_BREAKDOWN</div>
+                <canvas id="compareDifficultyChart"></canvas>
+              </div>
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// PROGRESS_HISTORY</div>
+                <canvas id="compareProgressChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Scroll to Top button -->
     <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
