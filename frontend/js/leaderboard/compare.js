@@ -11,6 +11,26 @@ let difficultyChartInstance = null;
 let progressChartInstance = null;
 let currentGraphRange = "weekly"; // "weekly", "monthly", "overall"
 
+function updateDatasetButtons() {
+  const rangeButtons = {
+    weekly: document.getElementById("compare-btn-weekly"),
+    monthly: document.getElementById("compare-btn-monthly"),
+    overall: document.getElementById("compare-btn-overall"),
+    daily: document.getElementById("compare-btn-daily"),
+  };
+  Object.values(rangeButtons).forEach((b) => b && b.classList.remove("active-filter"));
+  if (rangeButtons[currentGraphRange]) {
+     rangeButtons[currentGraphRange].classList.add("active-filter");
+  }
+}
+
+function updateModalTitle() {
+  const titleEl = document.querySelector(".compare-card-title");
+  if (titleEl) {
+     titleEl.textContent = `[SYSTEM_COMPARE_MODULE] - metrics_summary (${currentGraphRange})`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("compare-mode-toggle");
   if (toggleBtn) {
@@ -36,18 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
     weekly: document.getElementById("compare-btn-weekly"),
     monthly: document.getElementById("compare-btn-monthly"),
     overall: document.getElementById("compare-btn-overall"),
+    daily: document.getElementById("compare-btn-daily"),
   };
 
   Object.keys(rangeButtons).forEach((range) => {
     const btn = rangeButtons[range];
     if (btn) {
       btn.addEventListener("click", () => {
-        // Toggle active-filter class
-        Object.values(rangeButtons).forEach((b) =>
-          b.classList.remove("active-filter"),
-        );
-        btn.classList.add("active-filter");
         currentGraphRange = range;
+        updateDatasetButtons();
+        updateModalTitle();
+        populateComparisonTable();
+        renderDifficultyBreakdownChart();
         renderProgressHistoryChart();
       });
     }
@@ -67,17 +87,21 @@ function toggleCompareMode() {
     if (leaderboardEl) leaderboardEl.classList.add("compare-mode");
     if (mobileCardsEl) mobileCardsEl.classList.add("compare-mode");
     if (toggleBtn) {
-      toggleBtn.innerText = "Exit Compare";
-      toggleBtn.classList.remove("btn-secondary");
-      toggleBtn.classList.add("btn-primary");
+      toggleBtn.innerText = "[--exit-compare]";
+      toggleBtn.style.color = "var(--green)";
+      toggleBtn.style.background = "var(--green-muted)";
+      toggleBtn.style.borderColor = "var(--green-dim)";
+      toggleBtn.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
     }
   } else {
     if (leaderboardEl) leaderboardEl.classList.remove("compare-mode");
     if (mobileCardsEl) mobileCardsEl.classList.remove("compare-mode");
     if (toggleBtn) {
-      toggleBtn.innerText = "Compare Users";
-      toggleBtn.classList.remove("btn-primary");
-      toggleBtn.classList.add("btn-secondary");
+      toggleBtn.innerText = "[--compare-peers]";
+      toggleBtn.style.color = "var(--amber)";
+      toggleBtn.style.background = "var(--bg-raised)";
+      toggleBtn.style.borderColor = "var(--border)";
+      toggleBtn.style.textShadow = "none";
     }
     clearSelectedUsers();
   }
@@ -153,6 +177,7 @@ function updateFloatingCompareBar() {
     <div class="actions">
       <button id="floating-btn-compare" class="btn-compare" ${count < 2 ? "disabled" : ""}>Compare</button>
       <button id="floating-btn-clear" class="btn-clear">Clear</button>
+      <button id="floating-btn-cancel" class="btn-clear" style="color: var(--amber);">Cancel</button>
     </div>
   `;
 
@@ -160,6 +185,9 @@ function updateFloatingCompareBar() {
   document
     .getElementById("floating-btn-clear")
     .addEventListener("click", clearSelectedUsers);
+  document
+    .getElementById("floating-btn-cancel")
+    .addEventListener("click", toggleCompareMode);
   if (count >= 2) {
     document
       .getElementById("floating-btn-compare")
@@ -244,6 +272,10 @@ async function openCompareModal() {
 
   if (!modal) return;
 
+  currentGraphRange = window.activeDatasetType || "overall";
+  updateDatasetButtons();
+  updateModalTitle();
+
   modal.classList.add("active");
   loading.style.display = "block";
   errorEl.style.display = "none";
@@ -327,6 +359,19 @@ function populateComparisonTable() {
   const table = document.getElementById("compare-table-el");
   if (!table) return;
 
+  const dataset = window.leaderboardData && window.leaderboardData[currentGraphRange] ? window.leaderboardData[currentGraphRange] : [];
+  
+  const getUserData = (id) => {
+    const found = dataset.find(u => u.id === id);
+    if (found) return found;
+    return { data: { easySolved: 0, mediumSolved: 0, hardSolved: 0, totalSolved: 0 }, score: 0, rankChange: "N/A" };
+  };
+
+  const getHistoryData = (id) => {
+    const found = selectedUserHistories.find(sh => sh.username === id);
+    return found || {};
+  };
+
   const headers = ["Metric", ...window.selectedUsers.map((u) => u.name)];
 
   // Rows data matrix
@@ -336,32 +381,52 @@ function populateComparisonTable() {
       values: window.selectedUsers.map((u) => `@${u.id}`),
     },
     {
-      label: "Overall Score",
-      values: window.selectedUsers.map((u) => u.score),
+      label: "Global Rank",
+      values: window.selectedUsers.map((u) => getHistoryData(u.id).ranking || "N/A"),
+    },
+    {
+      label: `${currentGraphRange.charAt(0).toUpperCase() + currentGraphRange.slice(1)} Rank Change`,
+      values: window.selectedUsers.map((u) => getUserData(u.id).rankChange || "N/A"),
+    },
+    {
+      label: "Score",
+      values: window.selectedUsers.map((u) => getUserData(u.id).score || 0),
     },
     {
       label: "Total Solved",
-      values: window.selectedUsers.map((u) => u.data.totalSolved),
+      values: window.selectedUsers.map((u) => getUserData(u.id).data.totalSolved || 0),
     },
     {
       label: "Easy Solved",
-      values: window.selectedUsers.map((u) => u.data.easySolved),
+      values: window.selectedUsers.map((u) => getUserData(u.id).data.easySolved || 0),
     },
     {
       label: "Medium Solved",
-      values: window.selectedUsers.map((u) => u.data.mediumSolved),
+      values: window.selectedUsers.map((u) => getUserData(u.id).data.mediumSolved || 0),
     },
     {
       label: "Hard Solved",
-      values: window.selectedUsers.map((u) => u.data.hardSolved),
-    },
-    {
-      label: "Grinding Velocity (Avg Daily)",
-      values: selectedUserHistories.map(
-        (sh) => `${calculateGrindingVelocity(sh.history)} / day`,
-      ),
+      values: window.selectedUsers.map((u) => getUserData(u.id).data.hardSolved || 0),
     },
   ];
+
+  if (currentGraphRange !== "daily") {
+    metrics.push({
+      label: "Grinding Velocity (Avg Daily)",
+      values: window.selectedUsers.map((u) => {
+         const sh = getHistoryData(u.id);
+         let history = sh.history || [];
+         if (currentGraphRange === "weekly") {
+            const fd = new Date(); fd.setDate(fd.getDate() - 7);
+            history = history.filter(item => new Date(item.date) >= fd);
+         } else if (currentGraphRange === "monthly") {
+            const fd = new Date(); fd.setDate(fd.getDate() - 30);
+            history = history.filter(item => new Date(item.date) >= fd);
+         }
+         return `${calculateGrindingVelocity(history)} / day`;
+      })
+    });
+  }
 
   let html = "<thead><tr>";
   headers.forEach((h) => {
@@ -393,15 +458,21 @@ function renderDifficultyBreakdownChart() {
     difficultyChartInstance.destroy();
   }
 
+  const dataset = window.leaderboardData && window.leaderboardData[currentGraphRange] ? window.leaderboardData[currentGraphRange] : [];
+  const getUserData = (id) => {
+    const found = dataset.find(u => u.id === id);
+    return found ? found.data : { easySolved: 0, mediumSolved: 0, hardSolved: 0 };
+  };
+
   const labels = window.selectedUsers.map((u) => u.name);
   const easyData = window.selectedUsers.map(
-    (u) => Number(u.data.easySolved) || 0,
+    (u) => Number(getUserData(u.id).easySolved) || 0,
   );
   const mediumData = window.selectedUsers.map(
-    (u) => Number(u.data.mediumSolved) || 0,
+    (u) => Number(getUserData(u.id).mediumSolved) || 0,
   );
   const hardData = window.selectedUsers.map(
-    (u) => Number(u.data.hardSolved) || 0,
+    (u) => Number(getUserData(u.id).hardSolved) || 0,
   );
 
   difficultyChartInstance = new Chart(ctx, {
@@ -474,6 +545,23 @@ function renderProgressHistoryChart() {
   const ctx = canvas.getContext("2d");
   if (progressChartInstance) {
     progressChartInstance.destroy();
+    progressChartInstance = null;
+  }
+
+  const parent = canvas.parentElement;
+  let fallback = document.getElementById("compareDailyFallback");
+  if (fallback) fallback.remove();
+
+  if (currentGraphRange === "daily") {
+    canvas.style.display = "none";
+    const msg = document.createElement("div");
+    msg.id = "compareDailyFallback";
+    msg.style.cssText = "color: var(--text-dim); text-align: center; margin-top: 2rem; font-family: 'Fira Code', monospace; font-size: 0.9rem;";
+    msg.innerText = "// No meaningful historical trend available for daily comparison.";
+    parent.appendChild(msg);
+    return;
+  } else {
+    canvas.style.display = "block";
   }
 
   // Filter histories according to range
@@ -489,12 +577,27 @@ function renderProgressHistoryChart() {
   // Slice histories by range and gather unique timeline dates
   const filteredHistories = selectedUserHistories.map((sh) => {
     let history = sh.history || [];
+    let baseTotal = 0;
+
     if (currentGraphRange !== "overall") {
+      // Find the user's total precisely before the timeframe begins
+      let preHistory = history.filter((item) => new Date(item.date) < filterDate);
+      preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
+      if (preHistory.length > 0) {
+        const pre = preHistory[preHistory.length - 1];
+        baseTotal = (Number(pre.easy) || 0) + (Number(pre.medium) || 0) + (Number(pre.hard) || 0);
+      } else if (history.length > 0) {
+        // If there's no prehistory but they exist, use their earliest known record in the timeframe 
+        // to avoid spikes from '0 => total' when their real starting total isn't officially logged exactly before the range.
+        const earliest = history.sort((a,b) => new Date(a.date) - new Date(b.date))[0];
+        baseTotal = (Number(earliest.easy) || 0) + (Number(earliest.medium) || 0) + (Number(earliest.hard) || 0);
+      }
+
       history = history.filter((item) => new Date(item.date) >= filterDate);
     }
     // Make sure it's sorted chronologically
     history.sort((a, b) => new Date(a.date) - new Date(b.date));
-    return { username: sh.username, history };
+    return { username: sh.username, history, baseTotal };
   });
 
   const allDatesSet = new Set();
@@ -520,7 +623,7 @@ function renderProgressHistoryChart() {
 
   // Map each user's history values onto the sorted timeline
   const datasets = filteredHistories.map((fh, index) => {
-    let lastKnownTotal = 0;
+    let lastKnownTotal = fh.baseTotal || 0; // Initialize at their starting baseline
     const dateValuesMap = new Map();
 
     fh.history.forEach((item) => {
@@ -534,6 +637,11 @@ function renderProgressHistoryChart() {
     const dataPoints = sortedDates.map((date) => {
       if (dateValuesMap.has(date)) {
         lastKnownTotal = dateValuesMap.get(date);
+      }
+      
+      // For filtered views, we subtract the baseline so they all begin near 0
+      if (currentGraphRange !== "overall") {
+        return Math.max(0, lastKnownTotal - fh.baseTotal);
       }
       return lastKnownTotal;
     });
@@ -572,6 +680,12 @@ function renderProgressHistoryChart() {
       },
       scales: {
         x: {
+          title: {
+            display: true,
+            text: "Timeline",
+            color: "#5a8a5a",
+            font: { family: "Fira Code", size: 10 }
+          },
           grid: { color: "rgba(0, 255, 65, 0.1)" },
           ticks: {
             color: "#5a8a5a",
@@ -581,6 +695,12 @@ function renderProgressHistoryChart() {
           },
         },
         y: {
+          title: {
+            display: true,
+            text: currentGraphRange === "overall" ? "Total Solved" : `Total Solved (+/-) ${currentGraphRange}`,
+            color: "#5a8a5a",
+            font: { family: "Fira Code", size: 10 }
+          },
           grid: { color: "rgba(0, 255, 65, 0.1)" },
           ticks: {
             color: "#5a8a5a",

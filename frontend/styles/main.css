@@ -234,6 +234,20 @@ body.crt-scrolling {
     inset 0 0 60px rgba(0, 255, 65, 0.02);
 }
 
+/* Compare Mode Toggles */
+.compare-checkbox-cell {
+  display: none !important;
+}
+
+.leaderboard.compare-mode .compare-checkbox-cell,
+.mobile-cards.compare-mode .compare-checkbox-cell {
+  display: flex !important;
+}
+
+.compare-mode .compare-checkbox-cell {
+  display: block !important;
+}
+
 .terminal-header {
   background: var(--bg-raised);
   padding: 0.5rem 1rem;
@@ -2961,7 +2975,7 @@ input[type="checkbox"].compare-checkbox:checked::after {
 .compare-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10, 10, 12, 0.85);
+  background: rgba(10, 10, 12, 0.65);
   backdrop-filter: blur(8px);
   z-index: 99999;
   display: flex;
@@ -3071,22 +3085,23 @@ input[type="checkbox"].compare-checkbox:checked::after {
 /* --- Charts Row & Layout --- */
 .compare-charts-row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1.5rem;
   width: 100%;
   margin-top: 1rem;
 }
 
 .compare-chart-card {
-  flex: 1;
+  flex: none;
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 1rem;
   height: 350px;
+  min-height: 350px;
+  max-height: 350px;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .compare-chart-title {
@@ -3098,9 +3113,11 @@ input[type="checkbox"].compare-checkbox:checked::after {
 }
 
 .compare-chart-card canvas {
-  flex: 1;
-  width: 100% !important;
-  height: calc(100% - 20px) !important;
+  position: absolute;
+  top: 40px;
+  left: 1rem;
+  width: calc(100% - 2rem) !important;
+  height: calc(100% - 60px) !important;
 }
 
 .btn.active-filter {
