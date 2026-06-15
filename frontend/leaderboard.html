@@ -267,6 +267,7 @@
         let pollInterval;
 
         function startPolling() {
+          clearInterval(pollInterval);
           pollInterval = setInterval(fetchLeaderboardData, 2 * 60 * 1000);
         }
 
