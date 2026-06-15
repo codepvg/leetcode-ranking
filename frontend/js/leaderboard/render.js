@@ -344,9 +344,7 @@ function renderMobileCard(user, rank) {
   };
 
   mobileStats.appendChild(makeStat(user.data.easySolved, "easy", "Easy"));
-  mobileStats.appendChild(
-    makeStat(user.data.mediumSolved, "medium", "Medium"),
-  );
+  mobileStats.appendChild(makeStat(user.data.mediumSolved, "medium", "Medium"));
   mobileStats.appendChild(makeStat(user.data.hardSolved, "hard", "Hard"));
   mobileStats.appendChild(makeStat(user.data.totalSolved, "total", "Total"));
 
