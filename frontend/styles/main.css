@@ -2821,7 +2821,7 @@ body::-webkit-scrollbar-thumb {
 
 .rank-change {
   position: relative;
-  cursor: help; 
+  cursor: help;
   display: inline-block;
   user-select: none;
   font-family: "Fira Code", monospace;
@@ -2829,11 +2829,11 @@ body::-webkit-scrollbar-thumb {
   margin-left: 4px;
 }
 .rank-change[data-tooltip]::before {
-  content: attr(data-tooltip); 
+  content: attr(data-tooltip);
   position: absolute;
   bottom: 140%;
   left: 50%;
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
   background: var(--bg-raised);
   color: var(--text);
   border: 1px solid var(--green);
@@ -2841,9 +2841,9 @@ body::-webkit-scrollbar-thumb {
   font-family: "Fira Code", monospace;
   font-size: 0.75rem;
   line-height: 1.4;
-  white-space: nowrap; 
+  white-space: nowrap;
   border-radius: 4px;
-  z-index: 99999; 
+  z-index: 99999;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s ease-in-out;
@@ -2855,7 +2855,7 @@ body::-webkit-scrollbar-thumb {
 @media (max-width: 480px) {
   .rank-change[data-tooltip]::before {
     bottom: auto;
-    top: 140%; 
+    top: 140%;
   }
 }
 

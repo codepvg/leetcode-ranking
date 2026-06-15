@@ -26,7 +26,7 @@ document.addEventListener("click", (e) => {
 function createRankChangeElement(rankChange) {
   if (!rankChange) return null;
   if (rankChange === "=") {
-    return null; 
+    return null;
   }
   var span = document.createElement("span");
   span.className = "rank-change";
@@ -34,18 +34,22 @@ function createRankChangeElement(rankChange) {
     span.classList.add("rank-neutral");
     span.textContent = "[new]";
     span.setAttribute("data-tooltip", "Newly added to the leaderboard");
-  } 
-  else if (rankChange.startsWith("+")) {
+  } else if (rankChange.startsWith("+")) {
     span.classList.add("rank-up");
     span.textContent = "[" + rankChange + "]";
-    var placesUp = rankChange.replace("+", ""); 
-    span.setAttribute("data-tooltip", "Rank increased by " + placesUp + " places today");
-  } 
-  else {
+    var placesUp = rankChange.replace("+", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank increased by " + placesUp + " places today",
+    );
+  } else {
     span.classList.add("rank-down");
     span.textContent = "[" + rankChange + "]";
-    var placesDown = rankChange.replace("-", ""); 
-    span.setAttribute("data-tooltip", "Rank dropped by " + placesDown + " places today");
+    var placesDown = rankChange.replace("-", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank dropped by " + placesDown + " places today",
+    );
   }
 
   return span;
