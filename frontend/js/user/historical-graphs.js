@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (usernameHeading) {
     usernameHeading.innerText = `Performance Profile: @${currentUsername}`;
   }
+
+  // Update page title dynamically
+  const pageTitle = document.getElementById("page-title");
+  if (pageTitle) {
+    pageTitle.textContent = `${currentUsername} — CodePVG`;
+  }
   setupFilterButtons();
   fetchStudentData(currentUsername);
 });
