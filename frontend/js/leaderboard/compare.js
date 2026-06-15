@@ -18,16 +18,18 @@ function updateDatasetButtons() {
     overall: document.getElementById("compare-btn-overall"),
     daily: document.getElementById("compare-btn-daily"),
   };
-  Object.values(rangeButtons).forEach((b) => b && b.classList.remove("active-filter"));
+  Object.values(rangeButtons).forEach(
+    (b) => b && b.classList.remove("active-filter"),
+  );
   if (rangeButtons[currentGraphRange]) {
-     rangeButtons[currentGraphRange].classList.add("active-filter");
+    rangeButtons[currentGraphRange].classList.add("active-filter");
   }
 }
 
 function updateModalTitle() {
   const titleEl = document.querySelector(".compare-card-title");
   if (titleEl) {
-     titleEl.textContent = `[SYSTEM_COMPARE_MODULE] - metrics_summary (${currentGraphRange})`;
+    titleEl.textContent = `[SYSTEM_COMPARE_MODULE] - metrics_summary (${currentGraphRange})`;
   }
 }
 
@@ -359,16 +361,23 @@ function populateComparisonTable() {
   const table = document.getElementById("compare-table-el");
   if (!table) return;
 
-  const dataset = window.leaderboardData && window.leaderboardData[currentGraphRange] ? window.leaderboardData[currentGraphRange] : [];
-  
+  const dataset =
+    window.leaderboardData && window.leaderboardData[currentGraphRange]
+      ? window.leaderboardData[currentGraphRange]
+      : [];
+
   const getUserData = (id) => {
-    const found = dataset.find(u => u.id === id);
+    const found = dataset.find((u) => u.id === id);
     if (found) return found;
-    return { data: { easySolved: 0, mediumSolved: 0, hardSolved: 0, totalSolved: 0 }, score: 0, rankChange: "N/A" };
+    return {
+      data: { easySolved: 0, mediumSolved: 0, hardSolved: 0, totalSolved: 0 },
+      score: 0,
+      rankChange: "N/A",
+    };
   };
 
   const getHistoryData = (id) => {
-    const found = selectedUserHistories.find(sh => sh.username === id);
+    const found = selectedUserHistories.find((sh) => sh.username === id);
     return found || {};
   };
 
@@ -382,11 +391,15 @@ function populateComparisonTable() {
     },
     {
       label: "Global Rank",
-      values: window.selectedUsers.map((u) => getHistoryData(u.id).ranking || "N/A"),
+      values: window.selectedUsers.map(
+        (u) => getHistoryData(u.id).ranking || "N/A",
+      ),
     },
     {
       label: `${currentGraphRange.charAt(0).toUpperCase() + currentGraphRange.slice(1)} Rank Change`,
-      values: window.selectedUsers.map((u) => getUserData(u.id).rankChange || "N/A"),
+      values: window.selectedUsers.map(
+        (u) => getUserData(u.id).rankChange || "N/A",
+      ),
     },
     {
       label: "Score",
@@ -394,19 +407,27 @@ function populateComparisonTable() {
     },
     {
       label: "Total Solved",
-      values: window.selectedUsers.map((u) => getUserData(u.id).data.totalSolved || 0),
+      values: window.selectedUsers.map(
+        (u) => getUserData(u.id).data.totalSolved || 0,
+      ),
     },
     {
       label: "Easy Solved",
-      values: window.selectedUsers.map((u) => getUserData(u.id).data.easySolved || 0),
+      values: window.selectedUsers.map(
+        (u) => getUserData(u.id).data.easySolved || 0,
+      ),
     },
     {
       label: "Medium Solved",
-      values: window.selectedUsers.map((u) => getUserData(u.id).data.mediumSolved || 0),
+      values: window.selectedUsers.map(
+        (u) => getUserData(u.id).data.mediumSolved || 0,
+      ),
     },
     {
       label: "Hard Solved",
-      values: window.selectedUsers.map((u) => getUserData(u.id).data.hardSolved || 0),
+      values: window.selectedUsers.map(
+        (u) => getUserData(u.id).data.hardSolved || 0,
+      ),
     },
   ];
 
@@ -414,17 +435,19 @@ function populateComparisonTable() {
     metrics.push({
       label: "Grinding Velocity (Avg Daily)",
       values: window.selectedUsers.map((u) => {
-         const sh = getHistoryData(u.id);
-         let history = sh.history || [];
-         if (currentGraphRange === "weekly") {
-            const fd = new Date(); fd.setDate(fd.getDate() - 7);
-            history = history.filter(item => new Date(item.date) >= fd);
-         } else if (currentGraphRange === "monthly") {
-            const fd = new Date(); fd.setDate(fd.getDate() - 30);
-            history = history.filter(item => new Date(item.date) >= fd);
-         }
-         return `${calculateGrindingVelocity(history)} / day`;
-      })
+        const sh = getHistoryData(u.id);
+        let history = sh.history || [];
+        if (currentGraphRange === "weekly") {
+          const fd = new Date();
+          fd.setDate(fd.getDate() - 7);
+          history = history.filter((item) => new Date(item.date) >= fd);
+        } else if (currentGraphRange === "monthly") {
+          const fd = new Date();
+          fd.setDate(fd.getDate() - 30);
+          history = history.filter((item) => new Date(item.date) >= fd);
+        }
+        return `${calculateGrindingVelocity(history)} / day`;
+      }),
     });
   }
 
@@ -458,10 +481,15 @@ function renderDifficultyBreakdownChart() {
     difficultyChartInstance.destroy();
   }
 
-  const dataset = window.leaderboardData && window.leaderboardData[currentGraphRange] ? window.leaderboardData[currentGraphRange] : [];
+  const dataset =
+    window.leaderboardData && window.leaderboardData[currentGraphRange]
+      ? window.leaderboardData[currentGraphRange]
+      : [];
   const getUserData = (id) => {
-    const found = dataset.find(u => u.id === id);
-    return found ? found.data : { easySolved: 0, mediumSolved: 0, hardSolved: 0 };
+    const found = dataset.find((u) => u.id === id);
+    return found
+      ? found.data
+      : { easySolved: 0, mediumSolved: 0, hardSolved: 0 };
   };
 
   const labels = window.selectedUsers.map((u) => u.name);
@@ -556,8 +584,10 @@ function renderProgressHistoryChart() {
     canvas.style.display = "none";
     const msg = document.createElement("div");
     msg.id = "compareDailyFallback";
-    msg.style.cssText = "color: var(--text-dim); text-align: center; margin-top: 2rem; font-family: 'Fira Code', monospace; font-size: 0.9rem;";
-    msg.innerText = "// No meaningful historical trend available for daily comparison.";
+    msg.style.cssText =
+      "color: var(--text-dim); text-align: center; margin-top: 2rem; font-family: 'Fira Code', monospace; font-size: 0.9rem;";
+    msg.innerText =
+      "// No meaningful historical trend available for daily comparison.";
     parent.appendChild(msg);
     return;
   } else {
@@ -581,16 +611,26 @@ function renderProgressHistoryChart() {
 
     if (currentGraphRange !== "overall") {
       // Find the user's total precisely before the timeframe begins
-      let preHistory = history.filter((item) => new Date(item.date) < filterDate);
+      let preHistory = history.filter(
+        (item) => new Date(item.date) < filterDate,
+      );
       preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
       if (preHistory.length > 0) {
         const pre = preHistory[preHistory.length - 1];
-        baseTotal = (Number(pre.easy) || 0) + (Number(pre.medium) || 0) + (Number(pre.hard) || 0);
+        baseTotal =
+          (Number(pre.easy) || 0) +
+          (Number(pre.medium) || 0) +
+          (Number(pre.hard) || 0);
       } else if (history.length > 0) {
-        // If there's no prehistory but they exist, use their earliest known record in the timeframe 
+        // If there's no prehistory but they exist, use their earliest known record in the timeframe
         // to avoid spikes from '0 => total' when their real starting total isn't officially logged exactly before the range.
-        const earliest = history.sort((a,b) => new Date(a.date) - new Date(b.date))[0];
-        baseTotal = (Number(earliest.easy) || 0) + (Number(earliest.medium) || 0) + (Number(earliest.hard) || 0);
+        const earliest = history.sort(
+          (a, b) => new Date(a.date) - new Date(b.date),
+        )[0];
+        baseTotal =
+          (Number(earliest.easy) || 0) +
+          (Number(earliest.medium) || 0) +
+          (Number(earliest.hard) || 0);
       }
 
       history = history.filter((item) => new Date(item.date) >= filterDate);
@@ -638,7 +678,7 @@ function renderProgressHistoryChart() {
       if (dateValuesMap.has(date)) {
         lastKnownTotal = dateValuesMap.get(date);
       }
-      
+
       // For filtered views, we subtract the baseline so they all begin near 0
       if (currentGraphRange !== "overall") {
         return Math.max(0, lastKnownTotal - fh.baseTotal);
@@ -684,7 +724,7 @@ function renderProgressHistoryChart() {
             display: true,
             text: "Timeline",
             color: "#5a8a5a",
-            font: { family: "Fira Code", size: 10 }
+            font: { family: "Fira Code", size: 10 },
           },
           grid: { color: "rgba(0, 255, 65, 0.1)" },
           ticks: {
@@ -697,9 +737,12 @@ function renderProgressHistoryChart() {
         y: {
           title: {
             display: true,
-            text: currentGraphRange === "overall" ? "Total Solved" : `Total Solved (+/-) ${currentGraphRange}`,
+            text:
+              currentGraphRange === "overall"
+                ? "Total Solved"
+                : `Total Solved (+/-) ${currentGraphRange}`,
             color: "#5a8a5a",
-            font: { family: "Fira Code", size: 10 }
+            font: { family: "Fira Code", size: 10 },
           },
           grid: { color: "rgba(0, 255, 65, 0.1)" },
           ticks: {

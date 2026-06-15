@@ -65,7 +65,9 @@ function updateChart() {
 
   const now = new Date();
   let filteredData = [];
-  let baseEasy = 0, baseMedium = 0, baseHard = 0;
+  let baseEasy = 0,
+    baseMedium = 0,
+    baseHard = 0;
   let filterDate = null;
 
   if (currentView === "weekly") {
@@ -77,15 +79,19 @@ function updateChart() {
   }
 
   if (filterDate) {
-    let preHistory = studentHistoryArray.filter((item) => new Date(item.date) < filterDate);
-    preHistory.sort((a,b) => new Date(a.date) - new Date(b.date));
+    let preHistory = studentHistoryArray.filter(
+      (item) => new Date(item.date) < filterDate,
+    );
+    preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
     if (preHistory.length > 0) {
       const pre = preHistory[preHistory.length - 1];
       baseEasy = Number(pre.easy) || 0;
       baseMedium = Number(pre.medium) || 0;
       baseHard = Number(pre.hard) || 0;
     } else if (studentHistoryArray.length > 0) {
-      const earliest = [...studentHistoryArray].sort((a,b) => new Date(a.date) - new Date(b.date))[0];
+      const earliest = [...studentHistoryArray].sort(
+        (a, b) => new Date(a.date) - new Date(b.date),
+      )[0];
       baseEasy = Number(earliest.easy) || 0;
       baseMedium = Number(earliest.medium) || 0;
       baseHard = Number(earliest.hard) || 0;
@@ -93,7 +99,9 @@ function updateChart() {
   }
 
   if (currentView !== "overall") {
-    filteredData = studentHistoryArray.filter((item) => new Date(item.date) >= filterDate);
+    filteredData = studentHistoryArray.filter(
+      (item) => new Date(item.date) >= filterDate,
+    );
   } else {
     filteredData = [...studentHistoryArray];
   }
@@ -105,9 +113,21 @@ function updateChart() {
   filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const labels = filteredData.map((item) => item.date);
-  const easyCounts = filteredData.map((item) => currentView === "overall" ? (Number(item.easy) || 0) : Math.max(0, (Number(item.easy) || 0) - baseEasy));
-  const mediumCounts = filteredData.map((item) => currentView === "overall" ? (Number(item.medium) || 0) : Math.max(0, (Number(item.medium) || 0) - baseMedium));
-  const hardCounts = filteredData.map((item) => currentView === "overall" ? (Number(item.hard) || 0) : Math.max(0, (Number(item.hard) || 0) - baseHard));
+  const easyCounts = filteredData.map((item) =>
+    currentView === "overall"
+      ? Number(item.easy) || 0
+      : Math.max(0, (Number(item.easy) || 0) - baseEasy),
+  );
+  const mediumCounts = filteredData.map((item) =>
+    currentView === "overall"
+      ? Number(item.medium) || 0
+      : Math.max(0, (Number(item.medium) || 0) - baseMedium),
+  );
+  const hardCounts = filteredData.map((item) =>
+    currentView === "overall"
+      ? Number(item.hard) || 0
+      : Math.max(0, (Number(item.hard) || 0) - baseHard),
+  );
 
   renderChartCanvas(labels, easyCounts, mediumCounts, hardCounts);
 
@@ -177,7 +197,7 @@ function renderChartCanvas(labels, easy, medium, hard) {
           title: {
             display: true,
             text: "Timeline",
-            color: "#94a3b8"
+            color: "#94a3b8",
           },
           grid: {
             color: "#334155",
@@ -189,8 +209,11 @@ function renderChartCanvas(labels, easy, medium, hard) {
         y: {
           title: {
             display: true,
-            text: currentView === "overall" ? "Total Solved" : `Total Solved (+/-) ${currentView}`,
-            color: "#94a3b8"
+            text:
+              currentView === "overall"
+                ? "Total Solved"
+                : `Total Solved (+/-) ${currentView}`,
+            color: "#94a3b8",
           },
           beginAtZero: false,
           grid: {
