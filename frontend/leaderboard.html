@@ -187,27 +187,27 @@
         setupPaginationListeners();
         fetchLeaderboardData();
         // Poll every 2 minutes to detect new syncs
-       // Page Visibility API — pause polling when tab is hidden
-let pollInterval;
+        // Page Visibility API — pause polling when tab is hidden
+        let pollInterval;
 
-function startPolling() {
-  pollInterval = setInterval(fetchLeaderboardData, 2 * 60 * 1000);
-}
+        function startPolling() {
+          pollInterval = setInterval(fetchLeaderboardData, 2 * 60 * 1000);
+        }
 
-function stopPolling() {
-  clearInterval(pollInterval);
-}
+        function stopPolling() {
+          clearInterval(pollInterval);
+        }
 
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
-    fetchLeaderboardData(); // immediate refresh when tab becomes visible
-    startPolling();
-  } else {
-    stopPolling();
-  }
-});
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") {
+            fetchLeaderboardData(); // immediate refresh when tab becomes visible
+            startPolling();
+          } else {
+            stopPolling();
+          }
+        });
 
-startPolling(); 
+        startPolling();
       });
 
       const leaderboardData = {};
