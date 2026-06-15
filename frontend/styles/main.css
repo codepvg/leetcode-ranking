@@ -2804,3 +2804,21 @@ body::-webkit-scrollbar-thumb {
 .changes-content-line.no-icon::before {
   display: none;
 }
+/* Skip to main content — accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--green);
+  color: var(--bg);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
