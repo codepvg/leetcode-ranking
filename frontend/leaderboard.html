@@ -17,6 +17,11 @@
     <script src="js/leaderboard/render.js"></script>
     <script src="js/leaderboard/pagination.js"></script>
     <script src="js/leaderboard/search.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js"
+      nonce="__NONCE__"
+    ></script>
+    <script src="js/leaderboard/compare.js" nonce="__NONCE__"></script>
 
     <meta
       name="description"
@@ -96,32 +101,130 @@
           <button class="tab" data-tab="daily">Daily</button>
         </div>
 
-        <div class="search-container">
-          <div class="search-bar">
-            <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
-
-            <span class="search-result-count" id="search-result-count"></span>
-            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
-            <button
-              type="button"
-              id="clear-search"
-              class="clear-search-btn"
-              aria-label="Clear search"
+        <div
+          class="search-container"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              width: 100%;
+              max-width: 600px;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              class="search-bar"
+              style="flex: 1 1 300px; max-width: 420px; margin-bottom: 0"
             >
-              ESC
-            </button>
+              <span class="search-prefix">$ grep -i</span>
+              <input
+                type="text"
+                id="leaderboard-search"
+                class="search-input"
+                placeholder="pattern"
+                autocomplete="off"
+                spellcheck="false"
+              />
+
+              <span class="search-result-count" id="search-result-count"></span>
+              <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+              <button
+                type="button"
+                id="clear-search"
+                class="clear-search-btn"
+                aria-label="Clear search"
+              >
+                ESC
+              </button>
+            </div>
           </div>
         </div>
 
-        
+        <div id="leaderboard-stats"></div>
+
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.5rem;
+          "
+        >
+          <button
+            type="button"
+            id="compare-mode-toggle"
+            style="
+              background: var(--bg-raised);
+              border: 1px solid var(--border);
+              border-bottom: 1px solid var(--border-bright);
+              color: var(--amber);
+              font-family: inherit;
+              font-size: 0.82rem;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              padding: 3px 10px;
+              border-radius: 4px;
+              margin-right: 0.5rem;
+              white-space: nowrap;
+            "
+            onmouseover="
+              this.style.background = 'var(--amber-muted)';
+              this.style.borderColor = 'var(--amber-dim)';
+              this.style.textShadow = '0 0 5px rgba(255, 176, 0, 0.4)';
+            "
+            onmouseout="
+              if (!window.compareModeActive) {
+                this.style.background = 'var(--bg-raised)';
+                this.style.borderColor = 'var(--border)';
+                this.style.color = 'var(--amber)';
+                this.style.textShadow = 'none';
+              } else {
+                this.style.background = 'var(--green-muted)';
+                this.style.borderColor = 'var(--green-dim)';
+                this.style.color = 'var(--green)';
+                this.style.textShadow = '0 0 5px rgba(0, 255, 65, 0.3)';
+              }
+            "
+          >
+            [--compare-peers]
+          </button>
+        </div>
+
+        <div class="leaderboard">
+          <div class="leaderboard-header">
+            <div class="compare-checkbox-cell"></div>
+            <div>Rank</div>
+            <div>Name</div>
+            <div>LeetCode ID</div>
+            <div class="easy">Easy</div>
+            <div class="medium">Medium</div>
+            <div class="hard">Hard</div>
+            <div class="total">Total</div>
+            <div class="score-header">
+              Score
+              <div class="tooltip-container">
+                <span class="tooltip-icon">?</span>
+                <div class="tooltip-content">
+                  <strong>Score Calculation:</strong><br />
+                  Easy = 1 point<br />
+                  Medium = 3 points<br />
+                  Hard = 5 points<br />
+                  <a href="about.html">More details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="leaderboard-body"></div>
+        </div>
 
         <div class="mobile-cards" id="mobile-cards"></div>
 
@@ -160,10 +263,30 @@
         setupPaginationListeners();
         fetchLeaderboardData();
         // Poll every 2 minutes to detect new syncs
-        setInterval(fetchLeaderboardData, 2 * 60 * 1000);
+        // Page Visibility API — pause polling when tab is hidden
+        let pollInterval;
+
+        function startPolling() {
+          pollInterval = setInterval(fetchLeaderboardData, 2 * 60 * 1000);
+        }
+
+        function stopPolling() {
+          clearInterval(pollInterval);
+        }
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") {
+            fetchLeaderboardData(); // immediate refresh when tab becomes visible
+            startPolling();
+          } else {
+            stopPolling();
+          }
+        });
+
+        startPolling();
       });
 
-      const leaderboardData = {};
+      window.leaderboardData = {};
       let currentPage = 1;
       let itemsPerPage = 25;
       let activeDatasetType = "overall";
@@ -186,7 +309,7 @@
 
         results.forEach((result, index) => {
           if (result.status === "fulfilled") {
-            leaderboardData[endpoints[index]] = result.value;
+            window.leaderboardData[endpoints[index]] = result.value;
           } else {
             console.error("Failed to fetch", endpoints[index], result.reason);
           }
@@ -251,9 +374,9 @@
       }
 
       function applyFiltersAndRender() {
-        if (!leaderboardData[activeDatasetType]) return;
+        if (!window.leaderboardData[activeDatasetType]) return;
 
-        const originalData = leaderboardData[activeDatasetType];
+        const originalData = window.leaderboardData[activeDatasetType];
 
         const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;
@@ -358,7 +481,7 @@
           }
         });
 
-        if (!leaderboardData[activeTab]) {
+        if (!window.leaderboardData[activeTab]) {
           return;
         }
 
@@ -367,6 +490,139 @@
         applyFiltersAndRender();
       }
     </script>
+
+    <!-- User Comparison Modal Overlay -->
+    <div id="compare-modal" class="compare-modal-overlay">
+      <div class="compare-card">
+        <div class="compare-card-header">
+          <span class="compare-card-title">[SYSTEM_COMPARE_MODULE]</span>
+          <button id="close-compare-modal" class="compare-card-close">
+            [DISMISS]
+          </button>
+        </div>
+
+        <div class="compare-card-body">
+          <div
+            class="compare-loading"
+            id="compare-loading"
+            style="
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--green);
+            "
+          >
+            <span class="blink">[SYS_INIT]:</span> FETCHING PEER DATA...
+          </div>
+
+          <div
+            class="compare-error"
+            id="compare-error"
+            style="
+              display: none;
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--red);
+            "
+          >
+            [SYS_ERR]: FAILED_TO_FETCH_PEER_DATA. PLEASE TRY AGAIN.
+          </div>
+
+          <div
+            class="compare-results"
+            id="compare-results"
+            style="display: none"
+          >
+            <!-- Metrics Table -->
+            <div style="overflow-x: auto; margin-bottom: 1rem">
+              <table class="compare-table" id="compare-table-el">
+                <!-- Dynamically populated -->
+              </table>
+            </div>
+
+            <!-- Filter buttons for Progress Graph -->
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                margin: 1.5rem 0 1rem 0;
+                justify-content: center;
+              "
+            >
+              <button
+                id="compare-btn-overall"
+                class="btn btn-secondary active-filter"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Overall
+              </button>
+              <button
+                id="compare-btn-monthly"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Monthly
+              </button>
+              <button
+                id="compare-btn-weekly"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Weekly
+              </button>
+              <button
+                id="compare-btn-daily"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Daily
+              </button>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="compare-charts-row">
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// DIFFICULTY_BREAKDOWN</div>
+                <canvas id="compareDifficultyChart"></canvas>
+              </div>
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// PROGRESS_HISTORY</div>
+                <canvas id="compareProgressChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Scroll to Top button -->
     <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>

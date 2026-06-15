@@ -23,24 +23,35 @@ document.addEventListener("click", (e) => {
     .forEach((el) => el.classList.remove("active"));
 });
 
-// Creates a rank change DOM element (safe — values are internally generated)
 function createRankChangeElement(rankChange) {
   if (!rankChange) return null;
+  if (rankChange === "=") {
+    return null;
+  }
   var span = document.createElement("span");
   span.className = "rank-change";
   if (rankChange === "NEW") {
     span.classList.add("rank-neutral");
     span.textContent = "[new]";
-  } else if (rankChange === "=") {
-    span.classList.add("rank-neutral");
-    span.textContent = "[==]";
+    span.setAttribute("data-tooltip", "Newly added to the leaderboard");
   } else if (rankChange.startsWith("+")) {
     span.classList.add("rank-up");
     span.textContent = "[" + rankChange + "]";
+    var placesUp = rankChange.replace("+", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank increased by " + placesUp + " places today",
+    );
   } else {
     span.classList.add("rank-down");
     span.textContent = "[" + rankChange + "]";
+    var placesDown = rankChange.replace("-", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank dropped by " + placesDown + " places today",
+    );
   }
+
   return span;
 }
 
@@ -101,6 +112,27 @@ function renderLeaderboardRow(user, rank) {
   const row = document.createElement("div");
   row.className = "leaderboard-row";
   row.setAttribute("role", "row");
+
+  // Compare checkbox column
+  const checkboxCell = document.createElement("div");
+  checkboxCell.className = "compare-checkbox-cell";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "compare-checkbox";
+  checkbox.dataset.username = user.id;
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
+    checkbox.checked = true;
+  }
+  checkbox.addEventListener("change", (e) => {
+    if (typeof window.handleUserSelection === "function") {
+      window.handleUserSelection(user, e.target.checked);
+    }
+  });
+  checkboxCell.appendChild(checkbox);
+  row.appendChild(checkboxCell);
 
   // Rank (numeric — safe)
   const rankDiv = document.createElement("div");
@@ -213,6 +245,27 @@ function renderMobileCard(user, rank) {
   // Card header
   const cardHeader = document.createElement("div");
   cardHeader.className = "mobile-card-header";
+
+  // Compare checkbox column for mobile
+  const checkboxCell = document.createElement("div");
+  checkboxCell.className = "compare-checkbox-cell";
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "compare-checkbox";
+  checkbox.dataset.username = user.id;
+  if (
+    window.selectedUsers &&
+    window.selectedUsers.some((u) => u.id === user.id)
+  ) {
+    checkbox.checked = true;
+  }
+  checkbox.addEventListener("change", (e) => {
+    if (typeof window.handleUserSelection === "function") {
+      window.handleUserSelection(user, e.target.checked);
+    }
+  });
+  checkboxCell.appendChild(checkbox);
+  cardHeader.appendChild(checkboxCell);
 
   const mobileRank = document.createElement("div");
   mobileRank.className = "mobile-rank";
