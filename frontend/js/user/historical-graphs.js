@@ -18,44 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchStudentData(currentUsername);
 });
 
-/**
- * Resilient student data fetcher that tries local origin, localhost:3000, and production endpoints
- */
-async function fetchStudentHistoryData(userId) {
-  const origins = [];
-
-  if (window.location.port !== "5500" && window.location.protocol !== "file:") {
-    origins.push(window.location.origin);
-  }
-  origins.push("http://localhost:3000");
-  origins.push("https://lc-backend-lyq2.onrender.com");
-
-  let lastError = null;
-  for (const origin of origins) {
-    try {
-      const url = `${origin}/api/student/${userId}`;
-      const res = await fetch(url);
-      if (res.ok) {
-        return await res.json();
-      }
-      lastError = new Error(`HTTP ${res.status} from ${origin}`);
-    } catch (err) {
-      lastError = err;
-    }
-  }
-  throw (
-    lastError || new Error("Failed to fetch student data from all endpoints")
-  );
-}
-
 async function fetchStudentData(username) {
   try {
-    rawPerformanceData = await fetchStudentHistoryData(username);
+    const apiUrl = `${window.location.origin}/api/student/${username}`;
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    rawPerformanceData = await response.json();
     studentHistoryArray = rawPerformanceData.history || [];
     console.log("Successfully fetched student data:", studentHistoryArray);
     updateChart();
   } catch (error) {
-    console.log("error loading performance statistics: ", error);
+    console.log("error loading performance statics: ", error);
   }
 }
 
@@ -68,6 +44,13 @@ function setupFilterButtons() {
   Object.keys(buttons).forEach((view) => {
     if (buttons[view]) {
       buttons[view].addEventListener("click", () => {
+        // Remove active from all
+        Object.values(buttons).forEach((btn) =>
+          btn?.classList.remove("active"),
+        );
+        // Add active to clicked
+        buttons[view].classList.add("active");
+
         currentView = view;
         updateChart();
       });
