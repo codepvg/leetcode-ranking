@@ -22,24 +22,36 @@ document.addEventListener("click", (e) => {
     .querySelectorAll(".mobile-score.active")
     .forEach((el) => el.classList.remove("active"));
 });
-// Creates a rank change DOM element (safe — values are internally generated)
+
 function createRankChangeElement(rankChange) {
   if (!rankChange) return null;
+  if (rankChange === "=") {
+    return null;
+  }
   var span = document.createElement("span");
   span.className = "rank-change";
   if (rankChange === "NEW") {
     span.classList.add("rank-neutral");
     span.textContent = "[new]";
-  } else if (rankChange === "=") {
-    span.classList.add("rank-neutral");
-    span.textContent = "[==]";
+    span.setAttribute("data-tooltip", "Newly added to the leaderboard");
   } else if (rankChange.startsWith("+")) {
     span.classList.add("rank-up");
     span.textContent = "[" + rankChange + "]";
+    var placesUp = rankChange.replace("+", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank increased by " + placesUp + " places today",
+    );
   } else {
     span.classList.add("rank-down");
     span.textContent = "[" + rankChange + "]";
+    var placesDown = rankChange.replace("-", "");
+    span.setAttribute(
+      "data-tooltip",
+      "Rank dropped by " + placesDown + " places today",
+    );
   }
+
   return span;
 }
 
