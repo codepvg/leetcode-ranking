@@ -401,15 +401,20 @@
           countEl.style.opacity = "0";
         }
 
-        const overallDataset = window.leaderboardData && window.leaderboardData["overall"] 
-          ? window.leaderboardData["overall"] 
-          : (originalData || []);
+        const overallDataset =
+          window.leaderboardData && window.leaderboardData["overall"]
+            ? window.leaderboardData["overall"]
+            : originalData || [];
 
         const zeroScoreUserIds = new Set(
-          overallDataset.filter(user => (user && user.score === 0)).map(user => user.id)
+          overallDataset
+            .filter((user) => user && user.score === 0)
+            .map((user) => user.id),
         );
 
-        const renderableData = filteredData.filter((user) => user && !zeroScoreUserIds.has(user.id));
+        const renderableData = filteredData.filter(
+          (user) => user && !zeroScoreUserIds.has(user.id),
+        );
 
         const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
         document.getElementById("prev-page-btn").disabled = currentPage === 1;
@@ -440,7 +445,7 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-          
+
         renderLeaderboard(filteredData, zeroScoreUserIds, totalPages);
       }
 
@@ -456,11 +461,15 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        const activeList = data.filter((user) => !zeroScoreUserIds.has(user.id));
-        const inactiveList = data.filter((user) => zeroScoreUserIds.has(user.id));
+        const activeList = data.filter(
+          (user) => !zeroScoreUserIds.has(user.id),
+        );
+        const inactiveList = data.filter((user) =>
+          zeroScoreUserIds.has(user.id),
+        );
 
-        const displayActiveData = isSearching 
-          ? activeList 
+        const displayActiveData = isSearching
+          ? activeList
           : activeList.slice(startIndex, endIndex);
 
         if (displayActiveData.length === 0 && inactiveList.length === 0) {
@@ -475,7 +484,7 @@
             user.originalRank !== undefined
               ? user.originalRank
               : startIndex + index + 1;
-              
+
           if (activeDatasetType !== "overall" && user.score === 0) {
             rank = "--";
           }
