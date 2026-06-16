@@ -100,7 +100,7 @@ function createExternalIcon() {
 
 function renderLeaderboardRow(user, rank) {
   const rankTagEl = createRankTagElement(rank);
-  const rankChangeEl = createRankChangeElement(user.rankChange);
+  const rankChangeEl = user.score > 0 ? createRankChangeElement(user.rankChange) : null;
   const easyPoints = 1;
   const mediumPoints = 3;
   const hardPoints = 5;
@@ -136,7 +136,16 @@ function renderLeaderboardRow(user, rank) {
   // Rank (numeric — safe)
   const rankDiv = document.createElement("div");
   rankDiv.className = "rank";
-  rankDiv.textContent = rank;
+  if (rank === "") {
+    rankDiv.textContent = "[IDLE]";
+    rankDiv.style.color = "var(--text-dim)";
+    rankDiv.style.fontSize = "0.75rem";
+  } else if (rank === "--") {
+    rankDiv.textContent = "[--]";
+    rankDiv.style.color = "var(--text-dim)";
+  } else {
+    rankDiv.textContent = rank;
+  }
   row.appendChild(rankDiv);
 
   // Name cell — tag is safe DOM element, name is user-controlled (textContent)
@@ -260,7 +269,16 @@ function renderMobileCard(user, rank) {
 
   const mobileRank = document.createElement("div");
   mobileRank.className = "mobile-rank";
-  mobileRank.textContent = `#${rank}`;
+  if (rank === "") {
+    mobileRank.textContent = "[IDLE]";
+    mobileRank.style.color = "var(--text-dim)";
+    mobileRank.style.fontSize = "0.75rem";
+  } else if (rank === "--") {
+    mobileRank.textContent = "[--]";
+    mobileRank.style.color = "var(--text-dim)";
+  } else {
+    mobileRank.textContent = `#${rank}`;
+  }
   cardHeader.appendChild(mobileRank);
 
   const mobileScore = document.createElement("div");
@@ -293,7 +311,7 @@ function renderMobileCard(user, rank) {
   const mobileName = document.createElement("div");
   mobileName.className = "mobile-name";
   const mobileRankTagEl = createRankTagElement(rank);
-  const mobileRankChangeEl = createRankChangeElement(user.rankChange);
+  const mobileRankChangeEl = user.score > 0 ? createRankChangeElement(user.rankChange) : null;
   if (mobileRankTagEl) {
     mobileName.appendChild(mobileRankTagEl);
   }
