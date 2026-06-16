@@ -21,68 +21,69 @@ async function fetchData(url) {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
   console.log(`Using data directory: ${DATA_DIR}`);
 
-  console.log("Loading users...");
-  const userFilePath = path.join(DATA_DIR, "users.json");
+  console.log("Loading leaderboard users...");
+  const overallFilePath = path.join(DATA_DIR, "overall.json");
   let users = [];
   try {
-    const rawData = fs.readFileSync(userFilePath, "utf8");
+    const rawData = fs.readFileSync(overallFilePath, "utf8");
     users = JSON.parse(rawData);
-    console.log(`Loaded ${users.length} users from users.json`);
+    console.log(`Loaded ${users.length} users from overall.json`);
   } catch (err) {
-    console.error("Failed to load users.json: ", err.message);
+    console.error("Failed to load overall.json: ", err.message);
     process.exit(1);
   }
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
   const inactiveUsers = [];
-  const neverActiveUsers = [];
   const now = new Date();
 
   console.log(" ");
   console.log("Starting inactivity analysis...");
 
   for (const user of users) {
-    const profile = await fetchData(baseUrl + user.id);
+    if (!user.totalSolved || user.totalSolved === 0) {
+      console.log(
+        `${user.username || user.name || user.id}: skipped (0 solved / never active)`,
+      );
+      continue;
+    }
+
+    const username = user.username || user.id;
+    const profile = await fetchData(baseUrl + username);
     if (!profile) {
-      console.log(`${user.name}: skipped (API error)`);
+      console.log(`${username}: skipped (API error)`);
       continue;
     }
 
     const calendar = profile.submissionCalendar;
     const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
-    // Case 1: Checking for users with absolutely no history (0 score baseline profiles)
     if (timestamps.length === 0) {
-      console.log(`${user.name}: Never Active`);
-      neverActiveUsers.push(user.id);
+      console.log(`${username}: skipped (no submission calendar)`);
       continue;
     }
 
-    // Case 2: Extracting the absolute latest submission unix timestamp marker
     const latestTimestampSeconds = Math.max(...timestamps);
     const lastActiveDate = new Date(latestTimestampSeconds * 1000);
 
-    // Compute day delta between execution runtime and user's last platform interaction
     const diffTime = Math.abs(now - lastActiveDate);
     const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
 
     if (diffDays > THRESHOLD_DAYS) {
-      console.log(`${user.name}: Inactive (${diffDays} days ago)`);
-      inactiveUsers.push(user.id);
+      console.log(`${username}: Inactive (${diffDays} days ago)`);
+      inactiveUsers.push(username);
     } else {
-      console.log(`${user.name}: Active (${diffDays} days ago)`);
+      console.log(`${username}: Active (${diffDays} days ago)`);
     }
   }
 
   console.log("...");
   console.log(" ");
 
-  // Formatting output schema matching maintainer's blueprint specification
   const outputData = {
     generatedAt: now.toISOString(),
     thresholdDays: THRESHOLD_DAYS,
     inactiveUsers: inactiveUsers.sort(),
-    neverActiveUsers: neverActiveUsers.sort(),
   };
 
   console.log("Writing inactivity analysis data to inactive-users.json...");

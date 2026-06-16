@@ -2,8 +2,8 @@ name: Daily Inactivity Analysis
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Triggers at 00:00 UTC every day
-  workflow_dispatch: # Allows clicking a button in GitHub to test run it anytime
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   analyze:
@@ -15,7 +15,6 @@ jobs:
         with:
           path: code-repo
 
-      # Checks out the separate repository containing your user files and JSON assets
       - name: Checkout Data Repository
         uses: actions/checkout@v4
         with:
@@ -35,7 +34,6 @@ jobs:
           cd code-repo
           npm install
 
-      # Executes your new tracking file and safely maps its destination to the data path
       - name: Run Inactivity Analysis Script
         env:
           DATA_DIR: "${{ github.workspace }}/data-repo"
@@ -43,7 +41,6 @@ jobs:
           cd code-repo
           node scripts/analyze-inactivity.js
 
-      # Stages, commits, and pushes the newly generated file directly back into the data repo
       - name: Commit and Push to Data Repo
         run: |
           cd data-repo
