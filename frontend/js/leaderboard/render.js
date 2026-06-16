@@ -100,7 +100,8 @@ function createExternalIcon() {
 
 function renderLeaderboardRow(user, rank) {
   const rankTagEl = createRankTagElement(rank);
-  const rankChangeEl = user.score > 0 ? createRankChangeElement(user.rankChange) : null;
+  const rankChangeEl =
+    user.score > 0 ? createRankChangeElement(user.rankChange) : null;
   const easyPoints = 1;
   const mediumPoints = 3;
   const hardPoints = 5;
@@ -311,7 +312,8 @@ function renderMobileCard(user, rank) {
   const mobileName = document.createElement("div");
   mobileName.className = "mobile-name";
   const mobileRankTagEl = createRankTagElement(rank);
-  const mobileRankChangeEl = user.score > 0 ? createRankChangeElement(user.rankChange) : null;
+  const mobileRankChangeEl =
+    user.score > 0 ? createRankChangeElement(user.rankChange) : null;
   if (mobileRankTagEl) {
     mobileName.appendChild(mobileRankTagEl);
   }
