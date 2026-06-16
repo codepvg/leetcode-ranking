@@ -206,15 +206,25 @@ async function computeRankChanges(currentSorted, filename) {
   try {
     fs.writeFileSync(filepath, JSON.stringify(overallData, null, 2), "utf8");
     console.log("Daily data saved successfully");
-
-    console.log("Updating historical user files...");
-    overallData.forEach((user) => {
-      updateUserHistory(user, DATA_DIR);
-    });
-    console.log("Historical user files updated successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
+  }
+
+  console.log("Updating historical user files...");
+  let historyUpdateFailures = 0;
+  overallData.forEach((user) => {
+    try {
+      updateUserHistory(user, DATA_DIR);
+    } catch (err) {
+      historyUpdateFailures++;
+      console.error(`Failed to update history for ${user.id}:`, err.message);
+    }
+  });
+  if (historyUpdateFailures > 0) {
+    console.warn(`${historyUpdateFailures} user history update(s) failed.`);
+  } else {
+    console.log("Historical user files updated successfully");
   }
 
   overallData.forEach((user) => {
