@@ -400,20 +400,37 @@
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        const overallDataset =
+          window.leaderboardData && window.leaderboardData["overall"]
+            ? window.leaderboardData["overall"]
+            : originalData || [];
+
+        const zeroScoreUserIds = new Set(
+          overallDataset
+            .filter((user) => user && user.score === 0)
+            .map((user) => user.id),
+        );
+
+        const renderableData = filteredData.filter(
+          (user) => user && !zeroScoreUserIds.has(user.id),
+        );
+
+        const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
         document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+          currentPage === totalPages;
+
         const statsEl = document.getElementById("leaderboard-stats");
 
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
         const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+          renderableData.length === 0
+            ? 0
+            : (currentPage - 1) * itemsPerPage + 1;
 
         const endRow = Math.min(
           currentPage * itemsPerPage,
-          filteredData.length,
+          renderableData.length,
         );
 
         statsEl.innerHTML = `
@@ -428,10 +445,11 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
+
+        renderLeaderboard(filteredData, zeroScoreUserIds, totalPages);
       }
 
-      function renderLeaderboard(data) {
+      function renderLeaderboard(data, zeroScoreUserIds, totalPages) {
         const body = document.getElementById("leaderboard-body");
         const mobileCards = document.getElementById("mobile-cards");
 
@@ -443,51 +461,80 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+        const activeList = data.filter(
+          (user) => !zeroScoreUserIds.has(user.id),
+        );
+        const inactiveList = data.filter((user) =>
+          zeroScoreUserIds.has(user.id),
+        );
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        const displayActiveData = isSearching
+          ? activeList
+          : activeList.slice(startIndex, endIndex);
 
-          mobileCards.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        if (displayActiveData.length === 0 && inactiveList.length === 0) {
+          const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
+          body.innerHTML = emptyStateHtml;
+          mobileCards.innerHTML = emptyStateHtml;
           return;
         }
 
-        displayData.forEach((user, index) => {
-          const rank =
+        displayActiveData.forEach((user, index) => {
+          let rank =
             user.originalRank !== undefined
               ? user.originalRank
               : startIndex + index + 1;
-          const row = renderLeaderboardRow(user, rank);
-          const card = renderMobileCard(user, rank);
-          body.appendChild(row);
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
-      }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
+
+          if (activeDatasetType !== "overall" && user.score === 0) {
+            rank = "--";
           }
+
+          body.appendChild(renderLeaderboardRow(user, rank));
+          mobileCards.appendChild(renderMobileCard(user, rank));
         });
 
+        if (
+          inactiveList.length > 0 &&
+          (currentPage === totalPages || isSearching)
+        ) {
+          const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
+
+          const tableHeader = document.createElement("div");
+          tableHeader.className = "no-results";
+          tableHeader.style.gridColumn = "1 / -1";
+          tableHeader.innerText = dividerText;
+          body.appendChild(tableHeader);
+
+          const mobileHeader = document.createElement("div");
+          mobileHeader.className = "no-results";
+          mobileHeader.innerText = dividerText;
+          mobileCards.appendChild(mobileHeader);
+
+          inactiveList.forEach((user) => {
+            body.appendChild(renderLeaderboardRow(user, ""));
+            mobileCards.appendChild(renderMobileCard(user, ""));
+          });
+        }
+
+        renderPagination(activeList.length);
+      }
+
+      function setActiveTab(activeTab) {
         if (!window.leaderboardData[activeTab]) {
           return;
         }
 
         activeDatasetType = activeTab;
         currentPage = 1;
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          if (tab.dataset.tab === activeTab) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
         applyFiltersAndRender();
       }
     </script>

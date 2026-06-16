@@ -1574,7 +1574,8 @@ body.crt-scrolling {
   }
 
   .leaderboard-header,
-  .leaderboard-row {
+  .leaderboard-row,
+  .leaderboard .no-results {
     display: none;
   }
 
