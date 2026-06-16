@@ -111,6 +111,7 @@ function renderLeaderboardRow(user, rank) {
 
   const row = document.createElement("div");
   row.className = "leaderboard-row";
+  row.setAttribute("role", "row");
 
   // Compare checkbox column
   const checkboxCell = document.createElement("div");
@@ -137,11 +138,13 @@ function renderLeaderboardRow(user, rank) {
   const rankDiv = document.createElement("div");
   rankDiv.className = "rank";
   rankDiv.textContent = rank;
+  rankDiv.setAttribute("role", "cell");
   row.appendChild(rankDiv);
 
   // Name cell — tag is safe DOM element, name is user-controlled (textContent)
   const nameDiv = document.createElement("div");
   nameDiv.className = "name-cell";
+  nameDiv.setAttribute("role", "cell");
   if (rankTagEl) {
     nameDiv.appendChild(rankTagEl);
   }
@@ -160,6 +163,7 @@ function renderLeaderboardRow(user, rank) {
   // Username with link and external icon — id is user-controlled (textContent)
   const usernameDiv = document.createElement("div");
   usernameDiv.className = "username";
+  usernameDiv.setAttribute("role", "cell");
   const link = document.createElement("a");
   link.href = `https://leetcode.com/u/${user.id}`;
   link.target = "_blank";
@@ -174,29 +178,34 @@ function renderLeaderboardRow(user, rank) {
   const easyDiv = document.createElement("div");
   easyDiv.className = "easy";
   easyDiv.textContent = user.data.easySolved;
+  easyDiv.setAttribute("role", "cell");
   row.appendChild(easyDiv);
 
   // Medium (numeric — safe)
   const mediumDiv = document.createElement("div");
   mediumDiv.className = "medium";
   mediumDiv.textContent = user.data.mediumSolved;
+  mediumDiv.setAttribute("role", "cell");
   row.appendChild(mediumDiv);
 
   // Hard (numeric — safe)
   const hardDiv = document.createElement("div");
   hardDiv.className = "hard";
   hardDiv.textContent = user.data.hardSolved;
+  hardDiv.setAttribute("role", "cell");
   row.appendChild(hardDiv);
 
   // Total (numeric — safe)
   const totalDiv = document.createElement("div");
   totalDiv.className = "total";
   totalDiv.textContent = user.data.totalSolved;
+  totalDiv.setAttribute("role", "cell");
   row.appendChild(totalDiv);
 
   // Score with tooltip — all content is numeric or hardcoded labels
   const scoreDiv = document.createElement("div");
   scoreDiv.className = "mobile-score tooltip-score";
+  scoreDiv.setAttribute("role", "cell");
 
   const scoreSpan = document.createElement("span");
   scoreSpan.textContent = user.score;
