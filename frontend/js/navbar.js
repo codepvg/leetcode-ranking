@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   nav.innerHTML = `
     <div class="container">
       <a href="/" class="nav-brand">
-        <img src="assets/logo.png" alt="CodePVG Logo" class="nav-logo" />
+        <img src="/assets/logo.png" alt="CodePVG Logo" class="nav-logo" />
         <span class="nav-title">CODEPVG</span>
       </a>
 

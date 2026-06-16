@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <div class="footer-section brand">
         <div class="brand-row">
-          <img src="assets/logo.png" alt="CodePVG Logo" class="footer-logo" />
+          <img src="/assets/logo.png" alt="CodePVG Logo" class="footer-logo" />
           <h2>CODEPVG</h2>
         </div>
 
