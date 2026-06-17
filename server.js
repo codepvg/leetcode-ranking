@@ -10,7 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ limit: '10kb', extended: true }));
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
 app.use((req, res, next) => {
   res.locals.nonce = crypto.randomBytes(16).toString("base64url");
@@ -128,12 +129,7 @@ const studentCache = new Map();
 
 app.get("/api/student/:username", async (req, res) => {
   const username = req.params.username;
-  if (!username || !/^[a-zA-Z0-9_-]{1,50}$/.test(username)) {
-  return res.status(400).json({
-    error: "Invalid username format.",
-    message: "Username must be 1-50 characters: letters, numbers, _ or - only."
-  });
-}
+  
 
   if (studentCache.has(username)) {
     const cached = studentCache.get(username);
