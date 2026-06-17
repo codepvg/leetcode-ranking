@@ -32,7 +32,7 @@ function getFileName(daysAgo) {
 }
 
 function updateUserHistory(user, DATA_DIR) {
-  const historyDir = path.join(DATA_DIR, "historical-user-data");
+  const historyDir = path.join(DATA_DIR, "user-data");
   if (!fs.existsSync(historyDir)) {
     fs.mkdirSync(historyDir, { recursive: true });
   }

@@ -19,7 +19,7 @@ async function fetchStudentHistory(username) {
 
   try {
     const cacheBuster = Date.now();
-    const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/historical-user-data/${username}.json?t=${cacheBuster}`;
+    const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/user-data/${username}.json?t=${cacheBuster}`;
     const response = await fetch(rawUrl);
     if (response.ok) {
       history = await response.json();
