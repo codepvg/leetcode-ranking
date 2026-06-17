@@ -127,6 +127,11 @@ app.get("/user/:username", (req, res) => {
 app.get("/api/user/:username", async (req, res) => {
   const username = req.params.username;
 
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!usernameRegex.test(username)) {
+    return res.status(400).json({ error: "Invalid username format" });
+  }
+
   try {
     const data = await fetchUserInfo(username);
     res.json(data);
