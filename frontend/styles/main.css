@@ -1,5 +1,5 @@
-/* ============================================
-   CodePVG Leaderboard — Terminal / CRT Theme
+﻿/* ============================================
+   CodePVG Leaderboard â€” Terminal / CRT Theme
    ============================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
@@ -24,7 +24,7 @@
   --border-bright: rgba(0, 255, 65, 0.25);
 }
 
-/* ── Reset ── */
+/* â”€â”€ Reset â”€â”€ */
 * {
   margin: 0;
   padding: 0;
@@ -45,7 +45,7 @@ body {
   font-size: 14px;
 }
 
-/* ── CRT Screen Glow & Scanlines ── */
+/* â”€â”€ CRT Screen Glow & Scanlines â”€â”€ */
 body::before {
   content: "";
   position: fixed;
@@ -61,7 +61,7 @@ body::before {
   animation: crtScan 10s linear infinite;
 }
 
-/* ── CRT Scanline Overlay ── */
+/* â”€â”€ CRT Scanline Overlay â”€â”€ */
 body::after {
   content: "";
   position: fixed;
@@ -82,7 +82,7 @@ body.crt-scrolling {
   filter: blur(0.5px) contrast(1.1) brightness(1.2);
 }
 
-/* ── Animations ── */
+/* â”€â”€ Animations â”€â”€ */
 @keyframes blink {
   0%,
   100% {
@@ -179,7 +179,7 @@ body.crt-scrolling {
   }
 }
 
-/* ── Utility ── */
+/* â”€â”€ Utility â”€â”€ */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -223,7 +223,7 @@ body.crt-scrolling {
   display: none;
 }
 
-/* ── Terminal Window ── */
+/* â”€â”€ Terminal Window â”€â”€ */
 .terminal-window {
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
@@ -291,7 +291,7 @@ body.crt-scrolling {
   padding: 1.5rem;
 }
 
-/* ── Navigation ── */
+/* â”€â”€ Navigation â”€â”€ */
 .navbar {
   background: var(--bg);
   padding: 0;
@@ -396,7 +396,7 @@ body.crt-scrolling {
   display: block;
 }
 
-/* ── Hero Section ── */
+/* â”€â”€ Hero Section â”€â”€ */
 .hero {
   min-height: 100vh;
   width: 100%;
@@ -583,7 +583,7 @@ body.crt-scrolling {
   margin: 0;
 }
 
-/* ── Page Content ── */
+/* â”€â”€ Page Content â”€â”€ */
 .page {
   min-height: 100vh;
   background: transparent;
@@ -616,7 +616,7 @@ body.crt-scrolling {
   margin-left: 4px;
 }
 
-/* ── Registration Forms ── */
+/* â”€â”€ Registration Forms â”€â”€ */
 .form-container {
   max-width: 580px;
   margin: 0 auto;
@@ -690,7 +690,7 @@ body.crt-scrolling {
   content: "// ";
 }
 
-/* ── Interactive Bash Form Inputs ── */
+/* â”€â”€ Interactive Bash Form Inputs â”€â”€ */
 .form-input-bash-wrapper {
   display: flex;
   align-items: center;
@@ -735,7 +735,7 @@ body.crt-scrolling {
   margin-left: 2px;
 }
 
-/* ── Execution Log Container ── */
+/* â”€â”€ Execution Log Container â”€â”€ */
 .execution-log-container {
   background: #000;
   border: 1px solid var(--border-bright);
@@ -772,7 +772,7 @@ body.crt-scrolling {
   text-shadow: 0 0 8px rgba(255, 51, 51, 0.4);
 }
 
-/* ── Tabs ── */
+/* â”€â”€ Tabs â”€â”€ */
 .tabs {
   display: flex;
   justify-content: center;
@@ -1005,7 +1005,7 @@ body.crt-scrolling {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
 
-/* ── Mobile Cards ── */
+/* â”€â”€ Mobile Cards â”€â”€ */
 .mobile-cards {
   display: none;
 }
@@ -1110,7 +1110,7 @@ body.crt-scrolling {
   margin-top: 2px;
 }
 
-/* ── Forms ── */
+/* â”€â”€ Forms â”€â”€ */
 .form-container {
   display: flex;
   align-items: center;
@@ -1171,7 +1171,7 @@ body.crt-scrolling {
     0 0 15px rgba(0, 255, 65, 0.1);
 }
 
-/* ── Interactive Bash Form Inputs ── */
+/* â”€â”€ Interactive Bash Form Inputs â”€â”€ */
 .form-input-bash-wrapper {
   display: flex;
   align-items: center;
@@ -1233,7 +1233,7 @@ body.crt-scrolling {
   color: var(--text-muted);
 }
 
-/* ── Success Message ── */
+/* â”€â”€ Success Message â”€â”€ */
 .success-container {
   text-align: center;
 }
@@ -1257,7 +1257,7 @@ body.crt-scrolling {
   color: var(--text-dim);
 }
 
-/* ── Content Sections ── */
+/* â”€â”€ Content Sections â”€â”€ */
 .content-section {
   background: var(--bg-surface);
   border: 1px solid var(--border);
@@ -1342,7 +1342,7 @@ body.crt-scrolling {
 }
 
 .feature-list li::before {
-  content: "→ ";
+  content: "â†’ ";
   color: var(--text-muted);
 }
 
@@ -1384,7 +1384,7 @@ body.crt-scrolling {
   border-color: rgba(191, 127, 255, 0.25);
 }
 
-/* ── Scroll Indicator ── */
+/* â”€â”€ Scroll Indicator â”€â”€ */
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
@@ -1412,7 +1412,7 @@ body.crt-scrolling {
   animation: blink 1.5s ease-in-out infinite;
 }
 
-/* ── Contact Section ── */
+/* â”€â”€ Contact Section â”€â”€ */
 .contact-card {
   text-align: center;
   padding: 1.5rem 1.25rem;
@@ -1511,7 +1511,7 @@ body.crt-scrolling {
   font-size: 0.82rem;
 }
 
-/* ── Mobile Responsiveness ── */
+/* â”€â”€ Mobile Responsiveness â”€â”€ */
 @media (max-width: 940px) {
   .hero-title {
     font-size: 2.2rem;
@@ -1677,7 +1677,7 @@ body.crt-scrolling {
   }
 }
 
-/* ── Scrollbar ── */
+/* â”€â”€ Scrollbar â”€â”€ */
 html,
 body {
   scrollbar-width: thin;
@@ -1700,7 +1700,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 2px;
 }
 
-/* ── Footer ── */
+/* â”€â”€ Footer â”€â”€ */
 .footer {
   width: 100%;
   padding: 40px 20px 16px;
@@ -1887,7 +1887,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Boot Sequence Overlay ── */
+/* â”€â”€ Boot Sequence Overlay â”€â”€ */
 .boot-overlay {
   position: fixed;
   inset: 0;
@@ -1933,7 +1933,7 @@ body::-webkit-scrollbar-thumb {
   text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
 }
 
-/* ── Mock Shell & Live Feed ── */
+/* â”€â”€ Mock Shell & Live Feed â”€â”€ */
 .mock-shell {
   margin-top: 1.5rem;
   text-align: left;
@@ -1969,7 +1969,7 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
 }
 
-/* ── Live Feed ── */
+/* â”€â”€ Live Feed â”€â”€ */
 .live-feed {
   margin-top: 3rem;
   background: rgba(0, 0, 0, 0.4);
@@ -2023,7 +2023,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Glitch Effects ── */
+/* â”€â”€ Glitch Effects â”€â”€ */
 @keyframes glitch-anim-text {
   0% {
     text-shadow:
@@ -2142,7 +2142,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Tooltip ── */
+/* â”€â”€ Tooltip â”€â”€ */
 .score-header {
   display: flex;
   align-items: center;
@@ -2310,7 +2310,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Search Bar ── */
+/* â”€â”€ Search Bar â”€â”€ */
 .search-container {
   display: flex;
   justify-content: center;
@@ -2435,7 +2435,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.85rem;
 }
 
-/* ── Terminal Cyberpunk Pagination ── */
+/* â”€â”€ Terminal Cyberpunk Pagination â”€â”€ */
 .page {
   display: flex;
   flex-direction: column;
@@ -2552,7 +2552,7 @@ body::-webkit-scrollbar-thumb {
   display: none;
 }
 
-/* ── Leaderboard Rank Change ── */
+/* â”€â”€ Leaderboard Rank Change â”€â”€ */
 .rank-change {
   display: inline-block;
   font-size: 0.65rem;
@@ -2639,7 +2639,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Sync Changes Button & Card ── */
+/* â”€â”€ Sync Changes Button & Card â”€â”€ */
 .changes-btn {
   background: transparent;
   color: var(--cyan);
@@ -2809,7 +2809,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .changes-content-line::before {
-  content: "➔";
+  content: "âž”";
   color: var(--cyan);
   font-size: 0.7rem;
   margin-top: 2px;
@@ -2818,7 +2818,7 @@ body::-webkit-scrollbar-thumb {
 .changes-content-line.no-icon::before {
   display: none;
 }
-/* Skip to main content — accessibility */
+/* Skip to main content â€” accessibility */
 .skip-link {
   position: absolute;
   top: -40px;
@@ -2835,6 +2835,7 @@ body::-webkit-scrollbar-thumb {
 }
 .skip-link:focus {
   top: 0;
+}
 
 .rank-change {
   position: relative;
