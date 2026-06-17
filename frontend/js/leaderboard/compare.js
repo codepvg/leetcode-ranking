@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Initialize compare mode from localStorage
+  initializeCompareMode();
 });
 
 /**
@@ -110,6 +113,38 @@ function toggleCompareMode() {
 }
 
 /**
+ * Initializes the compare mode and loads selections from localStorage on page load
+ */
+function initializeCompareMode() {
+  try {
+    const stored = localStorage.getItem("compare_users");
+    if (stored) {
+      window.selectedUsers = JSON.parse(stored);
+    }
+  } catch (err) {
+    console.error("Failed to load compare_users from localStorage:", err);
+  }
+
+  if (window.selectedUsers && window.selectedUsers.length > 0) {
+    window.compareModeActive = true;
+    const leaderboardEl = document.querySelector(".leaderboard");
+    const mobileCardsEl = document.getElementById("mobile-cards");
+    const toggleBtn = document.getElementById("compare-mode-toggle");
+
+    if (leaderboardEl) leaderboardEl.classList.add("compare-mode");
+    if (mobileCardsEl) mobileCardsEl.classList.add("compare-mode");
+    if (toggleBtn) {
+      toggleBtn.innerText = "[--exit-compare]";
+      toggleBtn.style.color = "var(--green)";
+      toggleBtn.style.background = "var(--green-muted)";
+      toggleBtn.style.borderColor = "var(--green-dim)";
+      toggleBtn.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
+    }
+    updateFloatingCompareBar();
+  }
+}
+
+/**
  * Handles adding or removing a user from the comparison array
  */
 function handleUserSelection(user, isChecked) {
@@ -130,6 +165,13 @@ function handleUserSelection(user, isChecked) {
     window.selectedUsers = window.selectedUsers.filter((u) => u.id !== user.id);
   }
 
+  // Persist selections to localStorage
+  try {
+    localStorage.setItem("compare_users", JSON.stringify(window.selectedUsers));
+  } catch (err) {
+    console.error("Failed to save compare_users to localStorage:", err);
+  }
+
   // Synchronize desktop & mobile checkboxes for the same user
   const checkboxes = document.querySelectorAll(
     `input.compare-checkbox[data-username="${user.id}"]`,
@@ -144,6 +186,11 @@ function handleUserSelection(user, isChecked) {
  */
 function clearSelectedUsers() {
   window.selectedUsers = [];
+  try {
+    localStorage.removeItem("compare_users");
+  } catch (err) {
+    console.error("Failed to remove compare_users from localStorage:", err);
+  }
   const checkboxes = document.querySelectorAll("input.compare-checkbox");
   checkboxes.forEach((cb) => (cb.checked = false));
   updateFloatingCompareBar();
