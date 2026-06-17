@@ -1,4 +1,9 @@
 async function fetchUserInfo(username) {
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!username || !usernameRegex.test(username)) {
+    throw new Error("Invalid username format");
+  }
+
   let history = [];
   let ranking = null;
 
