@@ -1,4 +1,4 @@
-async function fetchStudentHistory(username) {
+async function fetchUserInfo(username) {
   let history = [];
   let ranking = null;
 
@@ -45,4 +45,4 @@ async function fetchStudentHistory(username) {
   };
 }
 
-module.exports = fetchStudentHistory;
+module.exports = fetchUserInfo;

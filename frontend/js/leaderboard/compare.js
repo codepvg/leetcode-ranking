@@ -6,7 +6,7 @@
 window.selectedUsers = [];
 window.compareModeActive = false;
 
-let selectedUserHistories = [];
+let selectedUserData = [];
 let difficultyChartInstance = null;
 let progressChartInstance = null;
 let currentGraphRange = "weekly"; // "weekly", "monthly", "overall"
@@ -130,7 +130,7 @@ function handleUserSelection(user, isChecked) {
     window.selectedUsers = window.selectedUsers.filter((u) => u.id !== user.id);
   }
 
-  // Synchronize desktop & mobile checkboxes for the same student
+  // Synchronize desktop & mobile checkboxes for the same user
   const checkboxes = document.querySelectorAll(
     `input.compare-checkbox[data-username="${user.id}"]`,
   );
@@ -234,9 +234,9 @@ function showRetroNotification(message) {
 }
 
 /**
- * Resilient student data fetcher that tries local origin, localhost:3000, and production endpoints
+ * Resilient user data fetcher that tries local origin, localhost:3000, and production endpoints
  */
-async function fetchStudentHistoryData(userId) {
+async function fetchUserData(userId) {
   const origins = [];
 
   if (window.location.port !== "5500" && window.location.protocol !== "file:") {
@@ -248,7 +248,7 @@ async function fetchStudentHistoryData(userId) {
   let lastError = null;
   for (const origin of origins) {
     try {
-      const url = `${origin}/api/student/${userId}`;
+      const url = `${origin}/api/user/${userId}`;
       const res = await fetch(url);
       if (res.ok) {
         return await res.json();
@@ -259,12 +259,12 @@ async function fetchStudentHistoryData(userId) {
     }
   }
   throw (
-    lastError || new Error("Failed to fetch student data from all endpoints")
+    lastError || new Error("Failed to fetch user data from all endpoints")
   );
 }
 
 /**
- * Opens comparison overlay and fetches student history
+ * Opens comparison overlay and fetches user history
  */
 async function openCompareModal() {
   const modal = document.getElementById("compare-modal");
@@ -285,13 +285,13 @@ async function openCompareModal() {
 
   try {
     const fetchPromises = window.selectedUsers.map(async (user) => {
-      return fetchStudentHistoryData(user.id);
+      return fetchUserData(user.id);
     });
 
-    selectedUserHistories = await Promise.all(fetchPromises);
+    selectedUserData = await Promise.all(fetchPromises);
     console.log(
       "Successfully fetched compared users history:",
-      selectedUserHistories,
+      selectedUserData,
     );
 
     // Populate UI
@@ -377,7 +377,7 @@ function populateComparisonTable() {
   };
 
   const getHistoryData = (id) => {
-    const found = selectedUserHistories.find((sh) => sh.username === id);
+    const found = selectedUserData.find((sh) => sh.username === id);
     return found || {};
   };
 
@@ -605,7 +605,7 @@ function renderProgressHistoryChart() {
   }
 
   // Slice histories by range and gather unique timeline dates
-  const filteredHistories = selectedUserHistories.map((sh) => {
+  const filteredHistories = selectedUserData.map((sh) => {
     let history = sh.history || [];
     let baseTotal = 0;
 

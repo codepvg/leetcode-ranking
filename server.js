@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const fetchStudentHistory = require("./scripts/fetch-student-info");
+const fetchUserInfo = require("./scripts/fetch-user-info");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -124,27 +124,15 @@ app.get("/user/:username", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
 
-const studentCache = new Map();
-
-app.get("/api/student/:username", async (req, res) => {
+app.get("/api/user/:username", async (req, res) => {
   const username = req.params.username;
 
-  if (studentCache.has(username)) {
-    const cached = studentCache.get(username);
-    if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
-      return res.json(cached.data);
-    }
-  }
-
   try {
-    const data = await fetchStudentHistory(username);
-
-    studentCache.set(username, { timestamp: Date.now(), data });
-
+    const data = await fetchUserInfo(username);
     res.json(data);
   } catch (err) {
     res.status(500).json({
-      error: "Failed to fetch student details",
+      error: "Failed to fetch user details",
       details: err.message,
     });
   }
