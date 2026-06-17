@@ -6,7 +6,7 @@
 window.selectedUsers = [];
 window.compareModeActive = false;
 
-let selectedUserHistories = [];
+let selectedUserData = [];
 let difficultyChartInstance = null;
 let progressChartInstance = null;
 let currentGraphRange = "weekly"; // "weekly", "monthly", "overall"
@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Initialize compare mode from localStorage
+  initializeCompareMode();
 });
 
 /**
@@ -110,6 +113,38 @@ function toggleCompareMode() {
 }
 
 /**
+ * Initializes the compare mode and loads selections from localStorage on page load
+ */
+function initializeCompareMode() {
+  try {
+    const stored = localStorage.getItem("compare_users");
+    if (stored) {
+      window.selectedUsers = JSON.parse(stored);
+    }
+  } catch (err) {
+    console.error("Failed to load compare_users from localStorage:", err);
+  }
+
+  if (window.selectedUsers && window.selectedUsers.length > 0) {
+    window.compareModeActive = true;
+    const leaderboardEl = document.querySelector(".leaderboard");
+    const mobileCardsEl = document.getElementById("mobile-cards");
+    const toggleBtn = document.getElementById("compare-mode-toggle");
+
+    if (leaderboardEl) leaderboardEl.classList.add("compare-mode");
+    if (mobileCardsEl) mobileCardsEl.classList.add("compare-mode");
+    if (toggleBtn) {
+      toggleBtn.innerText = "[--exit-compare]";
+      toggleBtn.style.color = "var(--green)";
+      toggleBtn.style.background = "var(--green-muted)";
+      toggleBtn.style.borderColor = "var(--green-dim)";
+      toggleBtn.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
+    }
+    updateFloatingCompareBar();
+  }
+}
+
+/**
  * Handles adding or removing a user from the comparison array
  */
 function handleUserSelection(user, isChecked) {
@@ -130,7 +165,14 @@ function handleUserSelection(user, isChecked) {
     window.selectedUsers = window.selectedUsers.filter((u) => u.id !== user.id);
   }
 
-  // Synchronize desktop & mobile checkboxes for the same student
+  // Persist selections to localStorage
+  try {
+    localStorage.setItem("compare_users", JSON.stringify(window.selectedUsers));
+  } catch (err) {
+    console.error("Failed to save compare_users to localStorage:", err);
+  }
+
+  // Synchronize desktop & mobile checkboxes for the same user
   const checkboxes = document.querySelectorAll(
     `input.compare-checkbox[data-username="${user.id}"]`,
   );
@@ -144,6 +186,11 @@ function handleUserSelection(user, isChecked) {
  */
 function clearSelectedUsers() {
   window.selectedUsers = [];
+  try {
+    localStorage.removeItem("compare_users");
+  } catch (err) {
+    console.error("Failed to remove compare_users from localStorage:", err);
+  }
   const checkboxes = document.querySelectorAll("input.compare-checkbox");
   checkboxes.forEach((cb) => (cb.checked = false));
   updateFloatingCompareBar();
@@ -234,9 +281,9 @@ function showRetroNotification(message) {
 }
 
 /**
- * Resilient student data fetcher that tries local origin, localhost:3000, and production endpoints
+ * Resilient user data fetcher that tries local origin, localhost:3000, and production endpoints
  */
-async function fetchStudentHistoryData(userId) {
+async function fetchUserData(userId) {
   const origins = [];
 
   if (window.location.port !== "5500" && window.location.protocol !== "file:") {
@@ -248,7 +295,7 @@ async function fetchStudentHistoryData(userId) {
   let lastError = null;
   for (const origin of origins) {
     try {
-      const url = `${origin}/api/student/${userId}`;
+      const url = `${origin}/api/user/${userId}`;
       const res = await fetch(url);
       if (res.ok) {
         return await res.json();
@@ -258,13 +305,11 @@ async function fetchStudentHistoryData(userId) {
       lastError = err;
     }
   }
-  throw (
-    lastError || new Error("Failed to fetch student data from all endpoints")
-  );
+  throw lastError || new Error("Failed to fetch user data from all endpoints");
 }
 
 /**
- * Opens comparison overlay and fetches student history
+ * Opens comparison overlay and fetches user history
  */
 async function openCompareModal() {
   const modal = document.getElementById("compare-modal");
@@ -285,13 +330,13 @@ async function openCompareModal() {
 
   try {
     const fetchPromises = window.selectedUsers.map(async (user) => {
-      return fetchStudentHistoryData(user.id);
+      return fetchUserData(user.id);
     });
 
-    selectedUserHistories = await Promise.all(fetchPromises);
+    selectedUserData = await Promise.all(fetchPromises);
     console.log(
       "Successfully fetched compared users history:",
-      selectedUserHistories,
+      selectedUserData,
     );
 
     // Populate UI
@@ -377,7 +422,7 @@ function populateComparisonTable() {
   };
 
   const getHistoryData = (id) => {
-    const found = selectedUserHistories.find((sh) => sh.username === id);
+    const found = selectedUserData.find((sh) => sh.username === id);
     return found || {};
   };
 
@@ -605,7 +650,7 @@ function renderProgressHistoryChart() {
   }
 
   // Slice histories by range and gather unique timeline dates
-  const filteredHistories = selectedUserHistories.map((sh) => {
+  const filteredHistories = selectedUserData.map((sh) => {
     let history = sh.history || [];
     let baseTotal = 0;
 

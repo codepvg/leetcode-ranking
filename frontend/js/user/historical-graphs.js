@@ -1,6 +1,6 @@
 let rawPerformanceData = [];
 let difficultyChartInstance = null;
-let studentHistoryArray = [];
+let userDataArray = [];
 let performanceChartInstance = null;
 
 let currentView = "weekly";
@@ -21,20 +21,20 @@ document.addEventListener("DOMContentLoaded", () => {
     pageTitle.textContent = `${currentUsername} — CodePVG`;
   }
   setupFilterButtons();
-  fetchStudentData(currentUsername);
+  fetchUserData(currentUsername);
 });
 
-async function fetchStudentData(username) {
+async function fetchUserData(username) {
   try {
-    const apiUrl = `${window.location.origin}/api/student/${username}`;
+    const apiUrl = `${window.location.origin}/api/user/${username}`;
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
     rawPerformanceData = await response.json();
-    studentHistoryArray = rawPerformanceData.history || [];
-    console.log("Successfully fetched student data:", studentHistoryArray);
+    userDataArray = rawPerformanceData.history || [];
+    console.log("Successfully fetched user data:", userDataArray);
     updateChart();
   } catch (error) {
     console.log("error loading performance statics: ", error);
@@ -65,7 +65,7 @@ function setupFilterButtons() {
 }
 
 function updateChart() {
-  if (!studentHistoryArray || studentHistoryArray.length === 0) {
+  if (!userDataArray || userDataArray.length === 0) {
     return;
   }
 
@@ -85,7 +85,7 @@ function updateChart() {
   }
 
   if (filterDate) {
-    let preHistory = studentHistoryArray.filter(
+    let preHistory = userDataArray.filter(
       (item) => new Date(item.date) < filterDate,
     );
     preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -94,8 +94,8 @@ function updateChart() {
       baseEasy = Number(pre.easy) || 0;
       baseMedium = Number(pre.medium) || 0;
       baseHard = Number(pre.hard) || 0;
-    } else if (studentHistoryArray.length > 0) {
-      const earliest = [...studentHistoryArray].sort(
+    } else if (userDataArray.length > 0) {
+      const earliest = [...userDataArray].sort(
         (a, b) => new Date(a.date) - new Date(b.date),
       )[0];
       baseEasy = Number(earliest.easy) || 0;
@@ -105,15 +105,15 @@ function updateChart() {
   }
 
   if (currentView !== "overall") {
-    filteredData = studentHistoryArray.filter(
+    filteredData = userDataArray.filter(
       (item) => new Date(item.date) >= filterDate,
     );
   } else {
-    filteredData = [...studentHistoryArray];
+    filteredData = [...userDataArray];
   }
 
   if (filteredData.length === 0) {
-    filteredData = [...studentHistoryArray];
+    filteredData = [...userDataArray];
   }
 
   filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
