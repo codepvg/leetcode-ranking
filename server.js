@@ -128,6 +128,12 @@ const studentCache = new Map();
 
 app.get("/api/student/:username", async (req, res) => {
   const username = req.params.username;
+  if (!username || !/^[a-zA-Z0-9_-]{1,50}$/.test(username)) {
+  return res.status(400).json({
+    error: "Invalid username format.",
+    message: "Username must be 1-50 characters: letters, numbers, _ or - only."
+  });
+}
 
   if (studentCache.has(username)) {
     const cached = studentCache.get(username);
