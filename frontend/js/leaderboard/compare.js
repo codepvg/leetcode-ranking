@@ -258,9 +258,7 @@ async function fetchUserData(userId) {
       lastError = err;
     }
   }
-  throw (
-    lastError || new Error("Failed to fetch user data from all endpoints")
-  );
+  throw lastError || new Error("Failed to fetch user data from all endpoints");
 }
 
 /**
