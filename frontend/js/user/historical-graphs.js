@@ -35,6 +35,7 @@ async function fetchStudentData(username) {
     rawPerformanceData = await response.json();
     studentHistoryArray = rawPerformanceData.history || [];
     console.log("Successfully fetched student data:", studentHistoryArray);
+    renderRankings(rawPerformanceData);
     updateChart();
   } catch (error) {
     console.log("error loading performance statics: ", error);
@@ -62,6 +63,17 @@ function setupFilterButtons() {
       });
     }
   });
+}
+
+function renderRankings(data) {
+  const globalRankingEl = document.getElementById("global-ranking");
+  if (!globalRankingEl) return;
+
+  if (data && data.ranking) {
+    globalRankingEl.textContent = `#${Number(data.ranking).toLocaleString()}`;
+  } else {
+    globalRankingEl.textContent = "--";
+  }
 }
 
 function updateChart() {
