@@ -61,18 +61,7 @@ async function fetchData(url) {
       console.log(`${username}: skipped (API error)`);
       continue;
     }
-
-    const easySolved = profile.easySolved || 0;
-    const mediumSolved = profile.mediumSolved || 0;
-    const hardSolved = profile.hardSolved || 0;
-    const totalSolved = easySolved + mediumSolved + hardSolved;
-
-    if (totalSolved === 0) {
-      console.log(`💤 ${username}: Inactive (0 questions solved)`);
-      inactiveUsers.push(username);
-      continue;
-    }
-
+    
     const calendar = profile.submissionCalendar;
     const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
