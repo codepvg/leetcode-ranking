@@ -4,6 +4,19 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
+function atomicWrite(filePath, data) {
+  const dir = path.dirname(filePath);
+  const ext = path.extname(filePath);
+  const base = path.basename(filePath, ext);
+  const tmpPath = path.join(
+    dir,
+    `${base}.tmp.${process.pid}.${Date.now()}${ext}`,
+  );
+
+  fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), "utf8");
+  fs.renameSync(tmpPath, filePath);
+}
+
 async function fetchData(url) {
   try {
     const res = await axios.get(url, { timeout: 15000 });
@@ -32,7 +45,7 @@ function getFileName(daysAgo) {
 }
 
 function updateUserHistory(user, DATA_DIR) {
-  const historyDir = path.join(DATA_DIR, "historical-user-data");
+  const historyDir = path.join(DATA_DIR, "user-data");
   if (!fs.existsSync(historyDir)) {
     fs.mkdirSync(historyDir, { recursive: true });
   }
@@ -69,7 +82,7 @@ function updateUserHistory(user, DATA_DIR) {
 
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  fs.writeFileSync(userHistoryPath, JSON.stringify(history, null, 2), "utf8");
+  atomicWrite(userHistoryPath, history);
 }
 
 function assignCompetitionRanks(sortedData) {
@@ -161,6 +174,25 @@ async function computeRankChanges(currentSorted, filename) {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
   console.log(`Using data directory: ${DATA_DIR}`);
 
+  // Clean up leftover tmp files from previous crashes
+  const tmpCleanupDirs = [DATA_DIR, path.join(DATA_DIR, "daily")];
+  tmpCleanupDirs.forEach((dirPath) => {
+    try {
+      if (fs.existsSync(dirPath)) {
+        const tmpFiles = fs
+          .readdirSync(dirPath)
+          .filter((f) => f.includes(".tmp."));
+        tmpFiles.forEach((f) => {
+          const filePath = path.join(dirPath, f);
+          fs.unlinkSync(filePath);
+          console.log(`Cleaned up leftover tmp file: ${f}`);
+        });
+      }
+    } catch (err) {
+      console.warn(`Failed to clean tmp files in ${dirPath}:`, err.message);
+    }
+  });
+
   console.log("Loading users...");
   const userFilePath = path.join(DATA_DIR, "users.json");
   let users = [];
@@ -204,7 +236,7 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("Writing daily data to file...");
   const filepath = path.join(DATA_DIR, "daily", getFileName(0));
   try {
-    fs.writeFileSync(filepath, JSON.stringify(overallData, null, 2), "utf8");
+    atomicWrite(filepath, overallData);
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -247,11 +279,7 @@ async function computeRankChanges(currentSorted, filename) {
 
   await computeRankChanges(overallData, "overall.json");
   try {
-    fs.writeFileSync(
-      overallFilepath,
-      JSON.stringify(overallData, null, 2),
-      "utf8",
-    );
+    atomicWrite(overallFilepath, overallData);
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -307,7 +335,7 @@ async function computeRankChanges(currentSorted, filename) {
   const dailyFilepath = path.join(DATA_DIR, "daily.json");
   await computeRankChanges(dailyData, "daily.json");
   try {
-    fs.writeFileSync(dailyFilepath, JSON.stringify(dailyData, null, 2), "utf8");
+    atomicWrite(dailyFilepath, dailyData);
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -363,11 +391,7 @@ async function computeRankChanges(currentSorted, filename) {
   const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
   await computeRankChanges(weeklyData, "weekly.json");
   try {
-    fs.writeFileSync(
-      weeklyFilepath,
-      JSON.stringify(weeklyData, null, 2),
-      "utf8",
-    );
+    atomicWrite(weeklyFilepath, weeklyData);
     console.log("Weekly data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -423,11 +447,7 @@ async function computeRankChanges(currentSorted, filename) {
   const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
   await computeRankChanges(monthlyData, "monthly.json");
   try {
-    fs.writeFileSync(
-      monthlyFilepath,
-      JSON.stringify(monthlyData, null, 2),
-      "utf8",
-    );
+    atomicWrite(monthlyFilepath, monthlyData);
     console.log("Monthly data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -484,22 +504,14 @@ async function computeRankChanges(currentSorted, filename) {
     const noChanges =
       rankChanges.length === 0 && newUsers.length === 0 && totalNewSolves === 0;
 
-    fs.writeFileSync(
-      changesFilepath,
-      JSON.stringify(
-        {
-          sync_time: new Date().toISOString(),
-          rank_changes: rankChanges,
-          new_users: newUsers,
-          total_new_solves: totalNewSolves,
-          users_with_new_solves: usersWithNewSolves,
-          no_changes: noChanges,
-        },
-        null,
-        2,
-      ),
-      "utf8",
-    );
+    atomicWrite(changesFilepath, {
+      sync_time: new Date().toISOString(),
+      rank_changes: rankChanges,
+      new_users: newUsers,
+      total_new_solves: totalNewSolves,
+      users_with_new_solves: usersWithNewSolves,
+      no_changes: noChanges,
+    });
     console.log("changes.json saved successfully");
   } catch (err) {
     console.error("Failed to write changes.json: ", err.message);
@@ -510,18 +522,10 @@ async function computeRankChanges(currentSorted, filename) {
   try {
     const now = new Date();
     const nextSync = new Date(now.getTime() + 5 * 60 * 1000);
-    fs.writeFileSync(
-      syncFilepath,
-      JSON.stringify(
-        {
-          lastSync: now.toISOString(),
-          nextSync: nextSync.toISOString(),
-        },
-        null,
-        2,
-      ),
-      "utf8",
-    );
+    atomicWrite(syncFilepath, {
+      lastSync: now.toISOString(),
+      nextSync: nextSync.toISOString(),
+    });
     console.log("Sync timestamp saved successfully");
   } catch (err) {
     console.error(`Failed to write sync file: `, err.message);

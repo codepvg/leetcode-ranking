@@ -3,7 +3,7 @@ const path = require("path");
 
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
 const dailyDir = path.join(DATA_DIR, "daily");
-const historyDir = path.join(DATA_DIR, "historical-user-data");
+const historyDir = path.join(DATA_DIR, "user-data");
 
 if (!fs.existsSync(dailyDir)) {
   console.error(`Daily directory not found at: ${dailyDir}`);
