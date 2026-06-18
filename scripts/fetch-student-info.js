@@ -12,7 +12,7 @@ async function fetchStudentHistory(username) {
     }
   } catch (err) {
     console.error(
-      "Failed to fetch live global ranking from API wrapper:",
+      "Failed to fetch live profile ranking from API wrapper:",
       err.message,
     );
   }

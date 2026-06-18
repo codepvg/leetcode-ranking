@@ -66,13 +66,13 @@ function setupFilterButtons() {
 }
 
 function renderRankings(data) {
-  const globalRankingEl = document.getElementById("global-ranking");
-  if (!globalRankingEl) return;
+  const profileRankingEl = document.getElementById("profile-ranking");
+  if (!profileRankingEl) return;
 
   if (data && data.ranking) {
-    globalRankingEl.textContent = `#${Number(data.ranking).toLocaleString()}`;
+    profileRankingEl.textContent = `#${Number(data.ranking).toLocaleString()}`;
   } else {
-    globalRankingEl.textContent = "--";
+    profileRankingEl.textContent = "--";
   }
 }
 

@@ -237,40 +237,40 @@
       }
 
       /* Rankings Banner Styles */
-.ranks-banner {
-  margin-bottom: 1.5rem;
-  padding: 1rem 1.5rem;
-}
+      .ranks-banner {
+        margin-bottom: 1.5rem;
+        padding: 1rem 1.5rem;
+      }
 
-.ranks-banner .card-header {
-  margin-bottom: 0.5rem;
-}
+      .ranks-banner .card-header {
+        margin-bottom: 0.5rem;
+      }
 
-.ranks-display-wrapper {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.9rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: space-between;
-  align-items: center;
-}
+      .ranks-display-wrapper {
+        font-family: "Space Mono", monospace;
+        font-size: 0.9rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-.rank-item .rank-label {
-  color: var(--text-dim);
-}
+      .rank-item .rank-label {
+        color: var(--text-dim);
+      }
 
-.rank-item .rank-value {
-  margin-left: 0.5rem;
-}
+      .rank-item .rank-value {
+        margin-left: 0.5rem;
+      }
 
-.active-rank .rank-value {
-  font-weight: bold;
-}
+      .active-rank .rank-value {
+        font-weight: bold;
+      }
 
-.placeholder-rank {
-  opacity: 0.5;
-}
+      .placeholder-rank {
+        opacity: 0.5;
+      }
     </style>
   </head>
   <body>
@@ -407,33 +407,35 @@
         </div>
 
         <div class="terminal-card ranks-banner">
-  <div class="card-header">
-    <span class="card-title">[SYS_RANKS]</span>
-    <span class="card-subtitle">// LEETCODE_LOCAL_RANKS</span>
-  </div>
-  <div class="ranks-display-wrapper">
-    <div class="rank-item active-rank">
-      <span class="rank-label">GLOBAL:</span> 
-      <span id="global-ranking" class="rank-value streak-current">--</span>
-    </div>
-    <div class="rank-item placeholder-rank">
-      <span class="rank-label">OVERALL:</span> 
-      <span class="rank-value">--</span>
-    </div>
-    <div class="rank-item placeholder-rank">
-      <span class="rank-label">MONTHLY:</span> 
-      <span class="rank-value">--</span>
-    </div>
-    <div class="rank-item placeholder-rank">
-      <span class="rank-label">WEEKLY:</span> 
-      <span class="rank-value">--</span>
-    </div>
-    <div class="rank-item placeholder-rank">
-      <span class="rank-label">DAILY:</span> 
-      <span class="rank-value">--</span>
-    </div>
-  </div>
-</div>
+          <div class="card-header">
+            <span class="card-title">[SYS_RANKS]</span>
+            <span class="card-subtitle">// LEETCODE_LOCAL_RANKS</span>
+          </div>
+          <div class="ranks-display-wrapper">
+            <div class="rank-item active-rank">
+              <span class="rank-label">PROFILE:</span>
+              <span id="profile-ranking" class="rank-value streak-current"
+                >--</span
+              >
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">OVERALL:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">MONTHLY:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">WEEKLY:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">DAILY:</span>
+              <span class="rank-value">--</span>
+            </div>
+          </div>
+        </div>
 
         <!-- Historical Graphs Section -->
         <div class="terminal-card" style="margin-bottom: 3rem">
