@@ -6,6 +6,7 @@ async function fetchUserInfo(username) {
 
   let history = [];
   let ranking = null;
+  let badges = [];
 
   try {
     const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
@@ -40,12 +41,31 @@ async function fetchUserInfo(username) {
     );
   }
 
+  try {
+    const cacheBuster = Date.now();
+    const badgesUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/badges.json?t=${cacheBuster}`;
+    const response = await fetch(badgesUrl);
+
+    if (response.ok) {
+      const badgesMap = await response.json();
+      // Extract badges for this specific username, fallback to empty array if none
+      badges = badgesMap[username] || [];
+    } else {
+      console.warn(
+        `Could not retrieve badges.json from GitHub (HTTP ${response.status})`,
+      );
+    }
+  } catch (err) {
+    console.error(`Failed to fetch badges data for ${username}:`, err.message);
+  }
+
   // Ensure history is sorted chronologically
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return {
     username,
     ranking,
+    badges,
     history,
   };
 }
