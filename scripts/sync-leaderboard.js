@@ -206,12 +206,62 @@ async function computeRankChanges(currentSorted, filename) {
   }
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
+
+  const inactiveFilePath = path.join(DATA_DIR, "inactive-users.json");
+  const inactiveUsersSet = new Set();
+  try {
+    if (fs.existsSync(inactiveFilePath)) {
+      const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
+      const inactiveData = JSON.parse(rawInactive);
+      if (Array.isArray(inactiveData.inactiveUsers)) {
+        inactiveData.inactiveUsers.forEach(id => inactiveUsersSet.add(id));
+        console.log(`Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`);
+      }
+    }
+  } catch (err) {
+    console.warn("Warning: Could not parse inactive-users.json, proceeding without skips:", err.message);
+  }
+
+  const overallFilepath = path.join(DATA_DIR, "overall.json");
+  let previousOverall = [];
+  try {
+    if (fs.existsSync(overallFilepath)) {
+      previousOverall = JSON.parse(fs.readFileSync(overallFilepath, "utf8"));
+    }
+  } catch (err) {
+    console.warn("No previous overall.json found, cannot recycle stale records.");
+  }
+
+  const historyMap = new Map();
+  previousOverall.forEach(oldUser => {
+    if (oldUser.id) historyMap.set(oldUser.id, oldUser);
+  });
+
   const interval = 0;
   let overallData = [];
 
   console.log(" ");
   console.log("Starting daily fetch...");
   for (const user of users) {
+    if (inactiveUsersSet.has(user.id)) {
+      const cache = historyMap.get(user.id);
+      if (cache) {
+        console.log(`⏭️  ${user.name} (${user.id}): Bypassed API (Reusing cached stats)`);
+        overallData.push({
+          name: cache.name,
+          id: cache.id,
+          data: {
+            easySolved: cache.data?.easySolved || 0,
+            mediumSolved: cache.data?.mediumSolved || 0,
+            hardSolved: cache.data?.hardSolved || 0,
+            totalSolved: cache.data?.totalSolved || 0
+          },
+          score: cache.score || 0
+        });
+        continue;
+      }
+    }
+
     const data = await fetchData(baseUrl + user.id);
     if (!data) {
       console.log(`${user.name}: skipped (API error)`);
@@ -269,7 +319,7 @@ async function computeRankChanges(currentSorted, filename) {
   console.log("Writing sorted daily data to overall file...");
   const overallFilepath = path.join(DATA_DIR, "overall.json");
 
-  let previousOverall = [];
+  previousOverall = [];
   try {
     const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
     previousOverall = JSON.parse(rawPrevious);
