@@ -61,7 +61,7 @@ async function fetchData(url) {
       console.log(`${username}: skipped (API error)`);
       continue;
     }
-    
+
     const calendar = profile.submissionCalendar;
     const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
