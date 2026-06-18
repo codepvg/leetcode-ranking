@@ -223,10 +223,117 @@
             </div>
           </div>
 
-          <div id="leaderboard-body"></div>
+          <div id="leaderboard-body">
+            <!-- Skeleton rows — shown on initial load, cleared by renderLeaderboard() -->
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="mobile-cards" id="mobile-cards"></div>
+        <div class="mobile-cards" id="mobile-cards">
+          <!-- Skeleton mobile cards — shown on initial load, cleared by renderLeaderboard() -->
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+
+        <!-- Error State -->
+        <div id="leaderboard-error" class="leaderboard-error">
+          <div class="leaderboard-error-content">
+            <div class="leaderboard-error-icon">[!]</div>
+            <div class="leaderboard-error-msg">
+              LEADERBOARD_DATA_UNAVAILABLE
+            </div>
+            <div class="leaderboard-error-desc">
+              Failed to fetch leaderboard data. The upstream API may be
+              rate-limited or unreachable. Please try again.
+            </div>
+            <button id="retry-btn" class="btn btn-error">[RETRY]</button>
+          </div>
+        </div>
 
         <div id="pagination-controls" class="pagination-controls">
           <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
@@ -252,6 +359,15 @@
     </div>
 
     <script nonce="__NONCE__">
+      // ── Error State Helpers ──
+      function showError() {
+        document.getElementById("leaderboard-error").classList.add("active");
+      }
+
+      function hideError() {
+        document.getElementById("leaderboard-error").classList.remove("active");
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.addEventListener("click", () => {
@@ -261,6 +377,7 @@
 
         setupSearchListeners();
         setupPaginationListeners();
+        // Skeleton rows are already in #leaderboard-body — shown until renderLeaderboard() clears them
         fetchLeaderboardData();
         // Poll every 2 minutes to detect new syncs
         // Page Visibility API — pause polling when tab is hidden
@@ -285,6 +402,18 @@
         });
 
         startPolling();
+
+        // Retry button — re-fetches data
+        document
+          .getElementById("retry-btn")
+          .addEventListener("click", function () {
+            hideError();
+            leaderboardData["overall"] = null;
+            leaderboardData["monthly"] = null;
+            leaderboardData["weekly"] = null;
+            leaderboardData["daily"] = null;
+            fetchLeaderboardData();
+          });
       });
 
       window.leaderboardData = {};
@@ -308,13 +437,26 @@
           ),
         );
 
+        let anySuccess = false;
         results.forEach((result, index) => {
           if (result.status === "fulfilled") {
             window.leaderboardData[endpoints[index]] = result.value;
+            anySuccess = true;
           } else {
             console.error("Failed to fetch", endpoints[index], result.reason);
           }
         });
+
+        // If ALL endpoints failed, show error state instead of blank page
+        if (!anySuccess) {
+          document.getElementById("leaderboard-body").innerHTML = "";
+          document.getElementById("mobile-cards").innerHTML = "";
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          hideError(); // reset in case retry was clicked
+          showError();
+          return;
+        }
+        hideError();
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
@@ -378,6 +520,16 @@
         if (!window.leaderboardData[activeDatasetType]) return;
 
         const originalData = window.leaderboardData[activeDatasetType];
+
+        // Empty state — data exists but is empty array
+        if (originalData.length === 0) {
+          document.getElementById("leaderboard-body").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("mobile-cards").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          return;
+        }
 
         const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;

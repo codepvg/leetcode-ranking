@@ -1,5 +1,5 @@
 /* ============================================
-   CodePVG Leaderboard — Terminal / CRT Theme
+   CodePVG Leaderboard ??? Terminal / CRT Theme
    ============================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
@@ -24,7 +24,7 @@
   --border-bright: rgba(0, 255, 65, 0.25);
 }
 
-/* ── Reset ── */
+/* ?????? Reset ?????? */
 * {
   margin: 0;
   padding: 0;
@@ -45,7 +45,7 @@ body {
   font-size: 14px;
 }
 
-/* ── CRT Screen Glow & Scanlines ── */
+/* ?????? CRT Screen Glow & Scanlines ?????? */
 body::before {
   content: "";
   position: fixed;
@@ -61,7 +61,7 @@ body::before {
   animation: crtScan 10s linear infinite;
 }
 
-/* ── CRT Scanline Overlay ── */
+/* ?????? CRT Scanline Overlay ?????? */
 body::after {
   content: "";
   position: fixed;
@@ -82,7 +82,7 @@ body.crt-scrolling {
   filter: blur(0.5px) contrast(1.1) brightness(1.2);
 }
 
-/* ── Animations ── */
+/* ?????? Animations ?????? */
 @keyframes blink {
   0%,
   100% {
@@ -179,7 +179,7 @@ body.crt-scrolling {
   }
 }
 
-/* ── Utility ── */
+/* ?????? Utility ?????? */
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -223,7 +223,7 @@ body.crt-scrolling {
   display: none;
 }
 
-/* ── Terminal Window ── */
+/* ?????? Terminal Window ?????? */
 .terminal-window {
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
@@ -291,7 +291,7 @@ body.crt-scrolling {
   padding: 1.5rem;
 }
 
-/* ── Navigation ── */
+/* ?????? Navigation ?????? */
 .navbar {
   background: var(--bg);
   padding: 0;
@@ -396,7 +396,7 @@ body.crt-scrolling {
   display: block;
 }
 
-/* ── Hero Section ── */
+/* ?????? Hero Section ?????? */
 .hero {
   min-height: 100vh;
   width: 100%;
@@ -583,7 +583,7 @@ body.crt-scrolling {
   margin: 0;
 }
 
-/* ── Page Content ── */
+/* ?????? Page Content ?????? */
 .page {
   min-height: 100vh;
   background: transparent;
@@ -616,7 +616,7 @@ body.crt-scrolling {
   margin-left: 4px;
 }
 
-/* ── Registration Forms ── */
+/* ?????? Registration Forms ?????? */
 .form-container {
   max-width: 580px;
   margin: 0 auto;
@@ -690,7 +690,7 @@ body.crt-scrolling {
   content: "// ";
 }
 
-/* ── Interactive Bash Form Inputs ── */
+/* ?????? Interactive Bash Form Inputs ?????? */
 .form-input-bash-wrapper {
   display: flex;
   align-items: center;
@@ -735,7 +735,7 @@ body.crt-scrolling {
   margin-left: 2px;
 }
 
-/* ── Execution Log Container ── */
+/* ?????? Execution Log Container ?????? */
 .execution-log-container {
   background: #000;
   border: 1px solid var(--border-bright);
@@ -772,7 +772,7 @@ body.crt-scrolling {
   text-shadow: 0 0 8px rgba(255, 51, 51, 0.4);
 }
 
-/* ── Tabs ── */
+/* ?????? Tabs ?????? */
 .tabs {
   display: flex;
   justify-content: center;
@@ -1005,7 +1005,7 @@ body.crt-scrolling {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
 }
 
-/* ── Mobile Cards ── */
+/* ?????? Mobile Cards ?????? */
 .mobile-cards {
   display: none;
 }
@@ -1110,7 +1110,7 @@ body.crt-scrolling {
   margin-top: 2px;
 }
 
-/* ── Forms ── */
+/* ?????? Forms ?????? */
 .form-container {
   display: flex;
   align-items: center;
@@ -1171,7 +1171,7 @@ body.crt-scrolling {
     0 0 15px rgba(0, 255, 65, 0.1);
 }
 
-/* ── Interactive Bash Form Inputs ── */
+/* ?????? Interactive Bash Form Inputs ?????? */
 .form-input-bash-wrapper {
   display: flex;
   align-items: center;
@@ -1233,7 +1233,7 @@ body.crt-scrolling {
   color: var(--text-muted);
 }
 
-/* ── Success Message ── */
+/* ?????? Success Message ?????? */
 .success-container {
   text-align: center;
 }
@@ -1257,7 +1257,7 @@ body.crt-scrolling {
   color: var(--text-dim);
 }
 
-/* ── Content Sections ── */
+/* ?????? Content Sections ?????? */
 .content-section {
   background: var(--bg-surface);
   border: 1px solid var(--border);
@@ -1342,7 +1342,7 @@ body.crt-scrolling {
 }
 
 .feature-list li::before {
-  content: "→ ";
+  content: "??? ";
   color: var(--text-muted);
 }
 
@@ -1384,7 +1384,7 @@ body.crt-scrolling {
   border-color: rgba(191, 127, 255, 0.25);
 }
 
-/* ── Scroll Indicator ── */
+/* ?????? Scroll Indicator ?????? */
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
@@ -1412,7 +1412,7 @@ body.crt-scrolling {
   animation: blink 1.5s ease-in-out infinite;
 }
 
-/* ── Contact Section ── */
+/* ?????? Contact Section ?????? */
 .contact-card {
   text-align: center;
   padding: 1.5rem 1.25rem;
@@ -1511,7 +1511,7 @@ body.crt-scrolling {
   font-size: 0.82rem;
 }
 
-/* ── Mobile Responsiveness ── */
+/* ?????? Mobile Responsiveness ?????? */
 @media (max-width: 940px) {
   .hero-title {
     font-size: 2.2rem;
@@ -1678,7 +1678,7 @@ body.crt-scrolling {
   }
 }
 
-/* ── Scrollbar ── */
+/* ?????? Scrollbar ?????? */
 html,
 body {
   scrollbar-width: thin;
@@ -1701,7 +1701,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 2px;
 }
 
-/* ── Footer ── */
+/* ?????? Footer ?????? */
 .footer {
   width: 100%;
   padding: 40px 20px 16px;
@@ -1888,7 +1888,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Boot Sequence Overlay ── */
+/* ?????? Boot Sequence Overlay ?????? */
 .boot-overlay {
   position: fixed;
   inset: 0;
@@ -1934,7 +1934,7 @@ body::-webkit-scrollbar-thumb {
   text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
 }
 
-/* ── Mock Shell & Live Feed ── */
+/* ?????? Mock Shell & Live Feed ?????? */
 .mock-shell {
   margin-top: 1.5rem;
   text-align: left;
@@ -1970,7 +1970,7 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
 }
 
-/* ── Live Feed ── */
+/* ?????? Live Feed ?????? */
 .live-feed {
   margin-top: 3rem;
   background: rgba(0, 0, 0, 0.4);
@@ -2024,7 +2024,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Glitch Effects ── */
+/* ?????? Glitch Effects ?????? */
 @keyframes glitch-anim-text {
   0% {
     text-shadow:
@@ -2143,7 +2143,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Tooltip ── */
+/* ?????? Tooltip ?????? */
 .score-header {
   display: flex;
   align-items: center;
@@ -2311,7 +2311,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Search Bar ── */
+/* ?????? Search Bar ?????? */
 .search-container {
   display: flex;
   justify-content: center;
@@ -2436,7 +2436,7 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.85rem;
 }
 
-/* ── Terminal Cyberpunk Pagination ── */
+/* ?????? Terminal Cyberpunk Pagination ?????? */
 .page {
   display: flex;
   flex-direction: column;
@@ -2553,7 +2553,7 @@ body::-webkit-scrollbar-thumb {
   display: none;
 }
 
-/* ── Leaderboard Rank Change ── */
+/* ?????? Leaderboard Rank Change ?????? */
 .rank-change {
   display: inline-block;
   font-size: 0.65rem;
@@ -2640,7 +2640,7 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
-/* ── Sync Changes Button & Card ── */
+/* ?????? Sync Changes Button & Card ?????? */
 .changes-btn {
   background: transparent;
   color: var(--cyan);
@@ -2810,7 +2810,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .changes-content-line::before {
-  content: "➔";
+  content: "???";
   color: var(--cyan);
   font-size: 0.7rem;
   margin-top: 2px;
@@ -3199,5 +3199,159 @@ input[type="checkbox"].compare-checkbox:checked::after {
   }
   .compare-chart-card {
     height: 300px;
+  }
+}
+
+
+
+/* -- Skeleton Loading States -- */
+
+/* Fade-in for rendered leaderboard rows (smooth skeleton?data transition) */
+#leaderboard-body > .leaderboard-row {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.skeleton-row {
+  display: grid;
+  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  gap: 8px;
+}
+
+.skeleton-cell {
+  height: 14px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-raised) 25%,
+    var(--green-muted) 50%,
+    var(--bg-raised) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 2px;
+}
+
+.skeleton-cell:nth-child(2) {
+  width: 160px;
+}
+
+.skeleton-cell:nth-child(3) {
+  width: 130px;
+}
+
+.skeleton-cell:nth-child(4),
+.skeleton-cell:nth-child(5),
+.skeleton-cell:nth-child(6) {
+  width: 35px;
+}
+
+.skeleton-cell:nth-child(7) {
+  width: 45px;
+}
+
+.skeleton-cell:nth-child(8) {
+  width: 55px;
+}
+
+.skeleton-row .skeleton-cell:first-child {
+  width: 40px;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Mobile Skeleton */
+.skeleton-card {
+  height: 82px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--green-muted) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green-dim);
+}
+
+/* -- Leaderboard Error State -- */
+.leaderboard-error {
+  display: none;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 51, 51, 0.3);
+  border-radius: 6px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  box-shadow:
+    0 0 20px rgba(255, 51, 51, 0.05),
+    inset 0 0 40px rgba(255, 51, 51, 0.02);
+}
+
+.leaderboard-error.active {
+  display: block;
+}
+
+.leaderboard-error-icon {
+  font-family: "Space Mono", monospace;
+  font-size: 2.5rem;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+}
+
+.leaderboard-error-msg {
+  font-family: "Space Mono", monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.leaderboard-error-desc {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -- Leaderboard Empty State -- */
+.leaderboard-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 940px) {
+  .skeleton-row {
+    display: none;
+  }
+
+  .skeleton-card {
+    display: block;
+  }
+}
+
+@media (min-width: 941px) {
+  .skeleton-card {
+    display: none;
   }
 }
