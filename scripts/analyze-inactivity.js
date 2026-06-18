@@ -41,14 +41,12 @@ async function fetchData(url) {
   console.log("Starting inactivity analysis...");
 
   for (const user of users) {
+    const username = user.username || user.id;
     if (!user.totalSolved || user.totalSolved === 0) {
-      console.log(
-        `${user.username || user.name || user.id}: skipped (0 solved / never active)`,
-      );
+      inactiveUsers.push(username);
       continue;
     }
 
-    const username = user.username || user.id;
     const profile = await fetchData(baseUrl + username);
     if (!profile) {
       console.log(`${username}: skipped (API error)`);
@@ -59,7 +57,8 @@ async function fetchData(url) {
     const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
     if (timestamps.length === 0) {
-      console.log(`${username}: skipped (no submission calendar)`);
+      console.log(`${username}: Inactive (no submission calendar)`);
+      inactiveUsers.push(username);
       continue;
     }
 
