@@ -214,12 +214,17 @@ async function computeRankChanges(currentSorted, filename) {
       const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
       const inactiveData = JSON.parse(rawInactive);
       if (Array.isArray(inactiveData.inactiveUsers)) {
-        inactiveData.inactiveUsers.forEach(id => inactiveUsersSet.add(id));
-        console.log(`Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`);
+        inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
+        console.log(
+          `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
+        );
       }
     }
   } catch (err) {
-    console.warn("Warning: Could not parse inactive-users.json, proceeding without skips:", err.message);
+    console.warn(
+      "Warning: Could not parse inactive-users.json, proceeding without skips:",
+      err.message,
+    );
   }
 
   const overallFilepath = path.join(DATA_DIR, "overall.json");
@@ -229,11 +234,13 @@ async function computeRankChanges(currentSorted, filename) {
       previousOverall = JSON.parse(fs.readFileSync(overallFilepath, "utf8"));
     }
   } catch (err) {
-    console.warn("No previous overall.json found, cannot recycle stale records.");
+    console.warn(
+      "No previous overall.json found, cannot recycle stale records.",
+    );
   }
 
   const historyMap = new Map();
-  previousOverall.forEach(oldUser => {
+  previousOverall.forEach((oldUser) => {
     if (oldUser.id) historyMap.set(oldUser.id, oldUser);
   });
 
@@ -253,9 +260,9 @@ async function computeRankChanges(currentSorted, filename) {
             easySolved: cache.data?.easySolved || 0,
             mediumSolved: cache.data?.mediumSolved || 0,
             hardSolved: cache.data?.hardSolved || 0,
-            totalSolved: cache.data?.totalSolved || 0
+            totalSolved: cache.data?.totalSolved || 0,
           },
-          score: cache.score || 0
+          score: cache.score || 0,
         });
         continue;
       }
