@@ -198,115 +198,125 @@
           </button>
         </div>
 
-        <div class="leaderboard">
-          <div class="leaderboard-header">
-            <div class="compare-checkbox-cell"></div>
-            <div>Rank</div>
-            <div>Name</div>
-            <div>LeetCode ID</div>
-            <div class="easy">Easy</div>
-            <div class="medium">Medium</div>
-            <div class="hard">Hard</div>
-            <div class="total">Total</div>
-            <div class="score-header">
-              Score
-              <div class="tooltip-container">
-                <span class="tooltip-icon">?</span>
-                <div class="tooltip-content">
-                  <strong>Score Calculation:</strong><br />
-                  Easy = 1 point<br />
-                  Medium = 3 points<br />
-                  Hard = 5 points<br />
-                  <a href="about.html">More details</a>
+        <table class="leaderboard">
+          <thead class="leaderboard-header">
+            <tr>
+              <th scope="col" class="compare-checkbox-cell"></th>
+              <th scope="col">Rank</th>
+              <th scope="col">Name</th>
+              <th scope="col">LeetCode ID</th>
+              <th scope="col" class="easy">Easy</th>
+              <th scope="col" class="medium">Medium</th>
+              <th scope="col" class="hard">Hard</th>
+              <th scope="col" class="total">Total</th>
+              <th scope="col" class="score-header">
+                Score
+                <div class="tooltip-container">
+                  <span class="tooltip-icon">?</span>
+                  <div class="tooltip-content">
+                    <strong>Score Calculation:</strong><br />
+                    Easy = 1 point<br />
+                    Medium = 3 points<br />
+                    Hard = 5 points<br />
+                    <a href="about.html">More details</a>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              </th>
+            </tr>
+          </thead>
 
-          <div id="leaderboard-body">
+          <tbody id="leaderboard-body">
             <!-- Skeleton rows — shown on initial load, cleared by renderLeaderboard() -->
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-            <div class="skeleton-row">
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-              <div class="skeleton-cell"></div>
-            </div>
-          </div>
-        </div>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+            <tr class="skeleton-row">
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+              <td class="skeleton-cell"></td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="mobile-cards" id="mobile-cards">
           <!-- Skeleton mobile cards — shown on initial load, cleared by renderLeaderboard() -->
@@ -524,7 +534,7 @@
         // Empty state — data exists but is empty array
         if (originalData.length === 0) {
           document.getElementById("leaderboard-body").innerHTML =
-            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+            '<tr class="leaderboard-empty"><td colspan="9">[SYS]: NO_LEADERBOARD_DATA_YET</td></tr>';
           document.getElementById("mobile-cards").innerHTML =
             '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
           document.getElementById("leaderboard-stats").innerHTML = "";
@@ -625,7 +635,7 @@
           : activeList.slice(startIndex, endIndex);
 
         if (displayActiveData.length === 0 && inactiveList.length === 0) {
-          const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
+          const emptyStateHtml = `<tr class="no-results"><td colspan="9">[SYS]: NO_MATCHING_USERS_FOUND</td></tr>`;
           body.innerHTML = emptyStateHtml;
           mobileCards.innerHTML = emptyStateHtml;
           return;
@@ -651,10 +661,12 @@
         ) {
           const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
 
-          const tableHeader = document.createElement("div");
+          const tableHeader = document.createElement("tr");
           tableHeader.className = "no-results";
-          tableHeader.style.gridColumn = "1 / -1";
-          tableHeader.innerText = dividerText;
+          const tableHeaderCell = document.createElement("td");
+          tableHeaderCell.setAttribute("colspan", "9");
+          tableHeaderCell.innerText = dividerText;
+          tableHeader.appendChild(tableHeaderCell);
           body.appendChild(tableHeader);
 
           const mobileHeader = document.createElement("div");

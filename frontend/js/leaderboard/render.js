@@ -110,11 +110,11 @@ function renderLeaderboardRow(user, rank) {
   const mediumScore = user.data.mediumSolved * mediumPoints;
   const hardScore = user.data.hardSolved * hardPoints;
 
-  const row = document.createElement("div");
+  const row = document.createElement("tr");
   row.className = "leaderboard-row";
 
   // Compare checkbox column
-  const checkboxCell = document.createElement("div");
+  const checkboxCell = document.createElement("td");
   checkboxCell.className = "compare-checkbox-cell";
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -135,25 +135,27 @@ function renderLeaderboardRow(user, rank) {
   row.appendChild(checkboxCell);
 
   // Rank (numeric — safe)
-  const rankDiv = document.createElement("div");
-  rankDiv.className = "rank";
+  const rankCell = document.createElement("td");
+  rankCell.className = "rank";
   if (rank === "") {
-    rankDiv.textContent = "[IDLE]";
-    rankDiv.style.color = "var(--text-dim)";
-    rankDiv.style.fontSize = "0.75rem";
+    rankCell.textContent = "[IDLE]";
+    rankCell.style.color = "var(--text-dim)";
+    rankCell.style.fontSize = "0.75rem";
   } else if (rank === "--") {
-    rankDiv.textContent = "[--]";
-    rankDiv.style.color = "var(--text-dim)";
+    rankCell.textContent = "[--]";
+    rankCell.style.color = "var(--text-dim)";
   } else {
-    rankDiv.textContent = rank;
+    rankCell.textContent = rank;
   }
-  row.appendChild(rankDiv);
+  row.appendChild(rankCell);
 
   // Name cell — tag is safe DOM element, name is user-controlled (textContent)
-  const nameDiv = document.createElement("div");
-  nameDiv.className = "name-cell";
+  const nameCell = document.createElement("td");
+  nameCell.className = "name-cell";
+  const nameInner = document.createElement("span");
+  nameInner.className = "name-cell-inner";
   if (rankTagEl) {
-    nameDiv.appendChild(rankTagEl);
+    nameInner.appendChild(rankTagEl);
   }
   const nameTextWrapper = document.createElement("span");
   nameTextWrapper.className = "name-text";
@@ -164,12 +166,13 @@ function renderLeaderboardRow(user, rank) {
     nameTextWrapper.appendChild(rankChangeEl);
   }
 
-  nameDiv.appendChild(nameTextWrapper);
-  row.appendChild(nameDiv);
+  nameInner.appendChild(nameTextWrapper);
+  nameCell.appendChild(nameInner);
+  row.appendChild(nameCell);
 
   // Username with link and external icon — id is user-controlled (textContent)
-  const usernameDiv = document.createElement("div");
-  usernameDiv.className = "username";
+  const usernameCell = document.createElement("td");
+  usernameCell.className = "username";
   const link = document.createElement("a");
   link.href = `https://leetcode.com/u/${user.id}`;
   link.target = "_blank";
@@ -177,46 +180,48 @@ function renderLeaderboardRow(user, rank) {
   link.className = "user-link";
   link.textContent = user.id;
   link.appendChild(createExternalIcon());
-  usernameDiv.appendChild(link);
-  row.appendChild(usernameDiv);
+  usernameCell.appendChild(link);
+  row.appendChild(usernameCell);
 
   // Easy (numeric — safe)
-  const easyDiv = document.createElement("div");
-  easyDiv.className = "easy";
-  easyDiv.textContent = user.data.easySolved;
-  row.appendChild(easyDiv);
+  const easyCell = document.createElement("td");
+  easyCell.className = "easy";
+  easyCell.textContent = user.data.easySolved;
+  row.appendChild(easyCell);
 
   // Medium (numeric — safe)
-  const mediumDiv = document.createElement("div");
-  mediumDiv.className = "medium";
-  mediumDiv.textContent = user.data.mediumSolved;
-  row.appendChild(mediumDiv);
+  const mediumCell = document.createElement("td");
+  mediumCell.className = "medium";
+  mediumCell.textContent = user.data.mediumSolved;
+  row.appendChild(mediumCell);
 
   // Hard (numeric — safe)
-  const hardDiv = document.createElement("div");
-  hardDiv.className = "hard";
-  hardDiv.textContent = user.data.hardSolved;
-  row.appendChild(hardDiv);
+  const hardCell = document.createElement("td");
+  hardCell.className = "hard";
+  hardCell.textContent = user.data.hardSolved;
+  row.appendChild(hardCell);
 
   // Total (numeric — safe)
-  const totalDiv = document.createElement("div");
-  totalDiv.className = "total";
-  totalDiv.textContent = user.data.totalSolved;
-  row.appendChild(totalDiv);
+  const totalCell = document.createElement("td");
+  totalCell.className = "total";
+  totalCell.textContent = user.data.totalSolved;
+  row.appendChild(totalCell);
 
   // Score with tooltip — all content is numeric or hardcoded labels
-  const scoreDiv = document.createElement("div");
-  scoreDiv.className = "mobile-score tooltip-score";
+  const scoreCell = document.createElement("td");
+  scoreCell.className = "score-cell";
+  const scoreInner = document.createElement("div");
+  scoreInner.className = "mobile-score tooltip-score";
 
   const scoreSpan = document.createElement("span");
   scoreSpan.textContent = user.score;
-  scoreDiv.appendChild(scoreSpan);
+  scoreInner.appendChild(scoreSpan);
 
   const caretSpan = document.createElement("span");
   caretSpan.className = "score-caret";
-  scoreDiv.appendChild(caretSpan);
+  scoreInner.appendChild(caretSpan);
 
-  scoreDiv.appendChild(
+  scoreInner.appendChild(
     buildScoreTooltip(
       user,
       easyPoints,
@@ -227,7 +232,8 @@ function renderLeaderboardRow(user, rank) {
       hardScore,
     ),
   );
-  row.appendChild(scoreDiv);
+  scoreCell.appendChild(scoreInner);
+  row.appendChild(scoreCell);
   return row;
 }
 
