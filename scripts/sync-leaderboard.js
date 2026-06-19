@@ -152,12 +152,12 @@ async function computeRankChanges(currentSorted, filename) {
 
   if (previousData && Array.isArray(previousData)) {
     previousData.forEach((user, idx) => {
-      previousRanks[user.id] = idx + 1;
+      previousRanks[user.id] = user.originalRank || idx + 1;
     });
   }
 
   currentSorted.forEach((user, idx) => {
-    const currentRank = idx + 1;
+    const currentRank = user.originalRank || idx + 1;
 
     if (previousRanks[user.id] === undefined) {
       user.rankChange = "NEW";
@@ -214,12 +214,17 @@ async function computeRankChanges(currentSorted, filename) {
       const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
       const inactiveData = JSON.parse(rawInactive);
       if (Array.isArray(inactiveData.inactiveUsers)) {
-        inactiveData.inactiveUsers.forEach(id => inactiveUsersSet.add(id));
-        console.log(`Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`);
+        inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
+        console.log(
+          `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
+        );
       }
     }
   } catch (err) {
-    console.warn("Warning: Could not parse inactive-users.json, proceeding without skips:", err.message);
+    console.warn(
+      "Warning: Could not parse inactive-users.json, proceeding without skips:",
+      err.message,
+    );
   }
 
   const overallFilepath = path.join(DATA_DIR, "overall.json");
@@ -229,11 +234,13 @@ async function computeRankChanges(currentSorted, filename) {
       previousOverall = JSON.parse(fs.readFileSync(overallFilepath, "utf8"));
     }
   } catch (err) {
-    console.warn("No previous overall.json found, cannot recycle stale records.");
+    console.warn(
+      "No previous overall.json found, cannot recycle stale records.",
+    );
   }
 
   const historyMap = new Map();
-  previousOverall.forEach(oldUser => {
+  previousOverall.forEach((oldUser) => {
     if (oldUser.id) historyMap.set(oldUser.id, oldUser);
   });
 
@@ -253,9 +260,9 @@ async function computeRankChanges(currentSorted, filename) {
             easySolved: cache.data?.easySolved || 0,
             mediumSolved: cache.data?.mediumSolved || 0,
             hardSolved: cache.data?.hardSolved || 0,
-            totalSolved: cache.data?.totalSolved || 0
+            totalSolved: cache.data?.totalSolved || 0,
           },
-          score: cache.score || 0
+          score: cache.score || 0,
         });
         continue;
       }
@@ -316,7 +323,6 @@ async function computeRankChanges(currentSorted, filename) {
   stableSortByScore(overallData);
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
-  const overallFilepath = path.join(DATA_DIR, "overall.json");
 
   previousOverall = [];
   try {
@@ -510,7 +516,7 @@ async function computeRankChanges(currentSorted, filename) {
     const previousMap = {};
     previousOverall.forEach((user, idx) => {
       previousMap[user.id] = {
-        rank: idx + 1,
+        rank: user.originalRank || idx + 1,
         totalSolved: user.data.totalSolved || 0,
       };
     });
@@ -521,7 +527,7 @@ async function computeRankChanges(currentSorted, filename) {
     let usersWithNewSolves = 0;
 
     overallData.forEach((user, idx) => {
-      const currentRank = idx + 1;
+      const currentRank = user.originalRank || idx + 1;
       const prev = previousMap[user.id];
 
       if (!prev) {
