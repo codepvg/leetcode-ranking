@@ -33,8 +33,7 @@ async function fetchUserData(username) {
       throw new Error(`HTTP ${response.status}`);
     }
     rawPerformanceData = await response.json();
-    studentHistoryArray = rawPerformanceData.history || [];
-    console.log("Successfully fetched user data:", studentHistoryArray);
+    userDataArray = rawPerformanceData.history || [];
     renderRankings(rawPerformanceData);
     updateChart();
   } catch (error) {
@@ -70,7 +69,7 @@ function renderRankings(data) {
   if (!profileRankingEl) return;
 
   if (data && data.ranking) {
-    profileRankingEl.textContent = `Number(data.ranking).toLocaleString()`;
+    profileRankingEl.textContent = Number(data.ranking).toLocaleString();
   } else {
     profileRankingEl.textContent = "--";
   }
