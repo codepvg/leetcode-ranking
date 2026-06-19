@@ -66,7 +66,7 @@ async function fetchData(url) {
     const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
     if (timestamps.length === 0) {
-      console.log(`💤 ${username}: Inactive (no submission calendar history)`);
+      console.log(`${username}: Inactive (no submission calendar history)`);
       inactiveUsers.push(username);
       continue;
     }
@@ -78,10 +78,10 @@ async function fetchData(url) {
     const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
 
     if (diffDays > THRESHOLD_DAYS) {
-      console.log(`💤 ${username}: Inactive (${diffDays} days ago)`);
+      console.log(`${username}: Inactive (${diffDays} days ago)`);
       inactiveUsers.push(username);
     } else {
-      console.log(`✅ ${username}: Active (${diffDays} days ago)`);
+      console.log(`${username}: Active (${diffDays} days ago)`);
     }
   }
 
