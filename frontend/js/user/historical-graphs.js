@@ -70,7 +70,7 @@ function renderRankings(data) {
   if (!profileRankingEl) return;
 
   if (data && data.ranking) {
-    profileRankingEl.textContent = `#${Number(data.ranking).toLocaleString()}`;
+    profileRankingEl.textContent = `Number(data.ranking).toLocaleString()`;
   } else {
     profileRankingEl.textContent = "--";
   }
