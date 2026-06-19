@@ -246,7 +246,6 @@ async function computeRankChanges(currentSorted, filename) {
     if (inactiveUsersSet.has(user.id)) {
       const cache = historyMap.get(user.id);
       if (cache) {
-        console.log(`⏭️  ${user.name} (${user.id}): Bypassed API (Reusing cached stats)`);
         overallData.push({
           name: cache.name,
           id: cache.id,
