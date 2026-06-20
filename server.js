@@ -5,11 +5,15 @@ const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
 const fetchUserInfo = require("./scripts/fetch-user-info");
+const { rateLimit } = require("express-rate-limit");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+// Trust Render.com proxy so req.ip returns real client IP
+app.set("trust proxy", 1);
 
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
 app.use((req, res, next) => {
@@ -123,6 +127,22 @@ app.get("/uptime", (req, res) => {
 app.get("/user/:username", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
+
+// ---- Rate limiter for API endpoint ----
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1-minute window
+  limit: parseInt(process.env.API_RATE_LIMIT, 10) || 30,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { error: "Rate limit exceeded", retryAfter: 60 },
+  handler: (req, res, next, options) => {
+    res.status(options.statusCode);
+    res.set("Retry-After", Math.ceil(options.windowMs / 1000));
+    res.json(options.message);
+  },
+});
+
+app.use("/api/user/:username", apiLimiter);
 
 app.get("/api/user/:username", async (req, res) => {
   const username = req.params.username;
