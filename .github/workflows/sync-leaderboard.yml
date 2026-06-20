@@ -11,6 +11,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   run-fetch:
@@ -41,9 +42,15 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Run sync loop
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           MAX_ITERATIONS=72
           INTERVAL=300
+          SUCCESS_COUNT=0
+          FAIL_COUNT=0
+          CONSECUTIVE_FAILS=0
+          ISSUE_CREATED=false
 
           for i in $(seq 1 $MAX_ITERATIONS); do
             echo "--- Iteration $i/$MAX_ITERATIONS ---"
@@ -56,7 +63,30 @@ jobs:
             # 2. Run sync
             export DATA_DIR=db-repo
             export DATA_REPO_TOKEN=${{ secrets.DATA_REPO_TOKEN }}
-            node scripts/sync-leaderboard.js
+
+            if node scripts/sync-leaderboard.js; then
+              SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+              CONSECUTIVE_FAILS=0
+            else
+              FAIL_COUNT=$((FAIL_COUNT + 1))
+              CONSECUTIVE_FAILS=$((CONSECUTIVE_FAILS + 1))
+              echo "::error::Iteration $i failed (#$FAIL_COUNT total, $CONSECUTIVE_FAILS consecutive)"
+
+              # Create a GitHub issue after 3 consecutive failures (once per run)
+              if [ $CONSECUTIVE_FAILS -ge 3 ] && [ "$ISSUE_CREATED" = "false" ]; then
+                ISSUE_CREATED=true
+                gh issue create \
+                  --title "⚠️ Sync workflow failing consistently" \
+                  --label "type:devops" \
+                  --body "The sync-leaderboard workflow has failed ${CONSECUTIVE_FAILS} consecutive times.
+
+              Last attempt: Iteration $i / $MAX_ITERATIONS
+              Timestamp: $(date -u)
+              Total failures: $FAIL_COUNT
+
+              Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              fi
+            fi
 
             # 3. Stage changes (everything except users.json)
             cd db-repo
@@ -88,4 +118,17 @@ jobs:
               sleep $INTERVAL
             fi
           done
-        continue-on-error: true
+
+          # Final summary
+          echo "=========================================="
+          echo "Sync loop summary"
+          echo "  Iterations: $MAX_ITERATIONS"
+          echo "  Successful: $SUCCESS_COUNT"
+          echo "  Failed:     $FAIL_COUNT"
+          echo "=========================================="
+
+          # Fail the step if any iteration failed
+          if [ $FAIL_COUNT -gt 0 ]; then
+            echo "::error::$FAIL_COUNT out of $MAX_ITERATIONS iterations failed."
+            exit 1
+          fi
