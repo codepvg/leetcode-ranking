@@ -206,12 +206,57 @@ async function computeRankChanges(currentSorted, filename) {
   }
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
+
+  const inactiveFilePath = path.join(DATA_DIR, "inactive-users.json");
+  const inactiveUsersSet = new Set();
+  try {
+    if (fs.existsSync(inactiveFilePath)) {
+      const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
+      const inactiveData = JSON.parse(rawInactive);
+      inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
+      console.log(
+        `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
+      );
+    }
+  } catch (err) {
+    console.warn(
+      "Warning: Could not parse inactive-users.json, proceeding without skips:",
+      err.message,
+    );
+  }
+
+  const overallFilepath = path.join(DATA_DIR, "overall.json");
+  let previousOverall = [];
+  try {
+    if (fs.existsSync(overallFilepath)) {
+      previousOverall = JSON.parse(fs.readFileSync(overallFilepath, "utf8"));
+    }
+  } catch (err) {
+    console.warn(
+      "No previous overall.json found, cannot recycle stale records.",
+    );
+  }
+
+  const historyMap = new Map();
+  previousOverall.forEach((oldUser) => {
+    historyMap.set(oldUser.id, oldUser);
+  });
+
   const interval = 0;
   let overallData = [];
 
   console.log(" ");
   console.log("Starting daily fetch...");
   for (const user of users) {
+    if (inactiveUsersSet.has(user.id)) {
+      const cache = historyMap.get(user.id);
+      if (cache) {
+        console.log(`${user.name}: recycled (inactive)`);
+        overallData.push(cache);
+        continue;
+      }
+    }
+
     const data = await fetchData(baseUrl + user.id);
     if (!data) {
       console.log(`${user.name}: skipped (API error)`);
@@ -267,15 +312,6 @@ async function computeRankChanges(currentSorted, filename) {
   stableSortByScore(overallData);
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
-  const overallFilepath = path.join(DATA_DIR, "overall.json");
-
-  let previousOverall = [];
-  try {
-    const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
-    previousOverall = JSON.parse(rawPrevious);
-  } catch (err) {
-    console.warn("No previous overall.json found, skipping diff.");
-  }
 
   await computeRankChanges(overallData, "overall.json");
   try {
