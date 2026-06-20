@@ -213,12 +213,10 @@ async function computeRankChanges(currentSorted, filename) {
     if (fs.existsSync(inactiveFilePath)) {
       const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
       const inactiveData = JSON.parse(rawInactive);
-      if (Array.isArray(inactiveData.inactiveUsers)) {
-        inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
-        console.log(
-          `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
-        );
-      }
+      inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
+      console.log(
+        `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
+      );
     }
   } catch (err) {
     console.warn(
@@ -241,7 +239,7 @@ async function computeRankChanges(currentSorted, filename) {
 
   const historyMap = new Map();
   previousOverall.forEach((oldUser) => {
-    if (oldUser.id) historyMap.set(oldUser.id, oldUser);
+    historyMap.set(oldUser.id, oldUser);
   });
 
   const interval = 0;
@@ -253,17 +251,8 @@ async function computeRankChanges(currentSorted, filename) {
     if (inactiveUsersSet.has(user.id)) {
       const cache = historyMap.get(user.id);
       if (cache) {
-        overallData.push({
-          name: cache.name,
-          id: cache.id,
-          data: {
-            easySolved: cache.data?.easySolved || 0,
-            mediumSolved: cache.data?.mediumSolved || 0,
-            hardSolved: cache.data?.hardSolved || 0,
-            totalSolved: cache.data?.totalSolved || 0,
-          },
-          score: cache.score || 0,
-        });
+        console.log(`${user.name}: recycled (inactive)`);
+        overallData.push(cache);
         continue;
       }
     }
@@ -323,15 +312,6 @@ async function computeRankChanges(currentSorted, filename) {
   stableSortByScore(overallData);
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
-  const overallFilepath = path.join(DATA_DIR, "overall.json");
-
-  previousOverall = [];
-  try {
-    const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
-    previousOverall = JSON.parse(rawPrevious);
-  } catch (err) {
-    console.warn("No previous overall.json found, skipping diff.");
-  }
 
   await computeRankChanges(overallData, "overall.json");
   try {
