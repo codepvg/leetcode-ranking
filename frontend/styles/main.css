@@ -855,11 +855,11 @@ body.crt-scrolling {
 }
 
 .leaderboard-header tr {
-  border-bottom: 1px solid var(--border-bright);
+  /* header bottom border is on th */
 }
 
 .leaderboard-header th {
-  padding: 0.7rem 1.25rem;
+  padding: 0.7rem 0.3rem;
   font-weight: 700;
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -870,11 +870,13 @@ body.crt-scrolling {
   top: 52px;
   z-index: 99;
   background: var(--bg-raised);
+  border-bottom: 1px solid var(--border-bright);
 }
 
 /* Column widths for the leaderboard table */
 .leaderboard-header th:nth-child(1) {
   width: 40px;
+  padding-left: 1.25rem;
 } /* checkbox */
 .leaderboard-header th:nth-child(2) {
   width: 55px;
@@ -898,6 +900,7 @@ body.crt-scrolling {
 } /* total */
 .leaderboard-header th:nth-child(9) {
   width: 85px;
+  padding-right: 1.25rem;
 } /* score */
 
 .leaderboard-row {
@@ -905,9 +908,17 @@ body.crt-scrolling {
 }
 
 .leaderboard-row td {
-  padding: 0.6rem 1.25rem;
+  padding: 0.6rem 0.3rem;
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
+}
+
+.leaderboard-row td:first-child {
+  padding-left: 1.25rem;
+}
+
+.leaderboard-row td:last-child {
+  padding-right: 1.25rem;
 }
 
 .leaderboard-row:last-child td {
@@ -1070,6 +1081,7 @@ body.crt-scrolling {
 
 .score-cell .mobile-score {
   display: inline-flex;
+  justify-content: center;
 }
 
 /* -- Mobile Cards -- */
@@ -2213,10 +2225,11 @@ body::-webkit-scrollbar-thumb {
 
 /* -- Tooltip -- */
 .score-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  text-align: center;
+}
+
+.score-header .tooltip-container {
+  margin-left: 6px;
 }
 
 .tooltip-container {
