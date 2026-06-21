@@ -578,7 +578,7 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
   console.log("Generating badges.json...");
   const badgesFilepath = path.join(DATA_DIR, "badges.json");
 
-  // 1. [SPEEDRUN] Badge: Top 3 users in weekly progress
+  // [SPEEDRUN] Badge: Top 3 users in weekly progress
   if (Array.isArray(weeklyData)) {
     weeklyData.slice(0, 3).forEach((user) => {
       if (badgesMap[user.id] && user.score > 0) {
@@ -587,6 +587,13 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
     });
   }
 
+  const filteredBadges = {};
+  for (const [uid, badges] of Object.entries(badgesMap)) {
+    if (badges.length > 0) {
+      filteredBadges[uid] = badges;
+    }
+  }
+  
   try {
     atomicWrite(badgesFilepath, badgesMap);
     console.log("badges.json saved successfully!");
