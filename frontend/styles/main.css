@@ -239,7 +239,13 @@ body.crt-scrolling {
   display: none !important;
 }
 
-.leaderboard.compare-mode .compare-checkbox-cell,
+/* Table context: use table-cell for proper table layout */
+.leaderboard.compare-mode .compare-checkbox-cell {
+  display: table-cell !important;
+  vertical-align: middle;
+  text-align: center;
+}
+
 .mobile-cards.compare-mode .compare-checkbox-cell {
   display: flex !important;
 }
@@ -828,37 +834,95 @@ body.crt-scrolling {
 
 /* --- Leaderboard --- */
 .leaderboard {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
   background: var(--bg-surface);
   border: 1px solid var(--border-bright);
   border-radius: 6px;
-  overflow: visible;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.03);
 }
 
 .leaderboard-header {
-  display: grid;
-  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
-  padding: 0.7rem 1.25rem;
   background: var(--bg-raised);
   font-weight: 700;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--green-dim);
-  border-bottom: 1px solid var(--border-bright);
+}
+
+.leaderboard-header tr {
+  /* header bottom border is on th */
+}
+
+.leaderboard-header th {
+  padding: 0.7rem 0.3rem;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--green-dim);
+  text-align: left;
   position: sticky;
   top: 52px;
   z-index: 99;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border-bright);
 }
 
+/* Column widths for the leaderboard table */
+.leaderboard-header th:nth-child(1) {
+  width: 40px;
+  padding-left: 1.25rem;
+} /* checkbox */
+.leaderboard-header th:nth-child(2) {
+  width: 55px;
+} /* rank */
+.leaderboard-header th:nth-child(3) {
+} /* name - auto */
+.leaderboard-header th:nth-child(4) {
+  width: 170px;
+} /* username */
+.leaderboard-header th:nth-child(5) {
+  width: 65px;
+} /* easy */
+.leaderboard-header th:nth-child(6) {
+  width: 65px;
+} /* medium */
+.leaderboard-header th:nth-child(7) {
+  width: 65px;
+} /* hard */
+.leaderboard-header th:nth-child(8) {
+  width: 85px;
+} /* total */
+.leaderboard-header th:nth-child(9) {
+  width: 85px;
+  padding-right: 1.25rem;
+} /* score */
+
 .leaderboard-row {
-  display: grid;
-  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
-  padding: 0.6rem 1.25rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.1s ease;
-  align-items: center;
   font-size: 0.88rem;
+}
+
+.leaderboard-row td {
+  padding: 0.6rem 0.3rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.leaderboard-row td:first-child {
+  padding-left: 1.25rem;
+}
+
+.leaderboard-row td:last-child {
+  padding-right: 1.25rem;
+}
+
+.leaderboard-row:last-child td {
+  border-bottom: none;
 }
 
 .leaderboard-row:nth-child(even) {
@@ -869,20 +933,19 @@ body.crt-scrolling {
   background: var(--green-muted);
 }
 
-.leaderboard-row:last-child {
-  border-bottom: none;
-}
-
 .rank {
-  display: flex;
-  align-items: center;
   font-size: 1rem;
   font-weight: 700;
   color: var(--green);
+  text-align: center;
 }
 
 .name-cell {
-  display: flex;
+  text-align: left;
+}
+
+.name-cell-inner {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 }
@@ -982,14 +1045,21 @@ body.crt-scrolling {
 
 .easy {
   color: #1cbaba;
+  text-align: center;
 }
 
 .medium {
   color: #ffb700;
+  text-align: center;
 }
 
 .hard {
   color: #f63737;
+  text-align: center;
+}
+
+.total {
+  text-align: center;
 }
 
 .score {
@@ -1003,6 +1073,15 @@ body.crt-scrolling {
   color: #ffffff;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+}
+
+.score-cell {
+  text-align: center;
+}
+
+.score-cell .mobile-score {
+  display: inline-flex;
+  justify-content: center;
 }
 
 /* -- Mobile Cards -- */
@@ -1573,6 +1652,7 @@ body.crt-scrolling {
     border-bottom: none;
   }
 
+  .leaderboard,
   .leaderboard-header,
   .leaderboard-row,
   .leaderboard .no-results {
@@ -2145,9 +2225,11 @@ body::-webkit-scrollbar-thumb {
 
 /* -- Tooltip -- */
 .score-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  text-align: center;
+}
+
+.score-header .tooltip-container {
+  margin-left: 6px;
 }
 
 .tooltip-container {
@@ -2864,20 +2946,15 @@ body::-webkit-scrollbar-thumb {
    LeetCode Leaderboard Peer Comparison Module
    ========================================================================== */
 
-/* --- Grid Adjustments for Comparison Mode --- */
+/* --- Table Adjustments for Comparison Mode --- */
 .compare-checkbox-cell {
   display: none;
-  align-items: center;
-  justify-content: center;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .leaderboard.compare-mode .compare-checkbox-cell {
-  display: flex;
-}
-
-.leaderboard.compare-mode .leaderboard-header,
-.leaderboard.compare-mode .leaderboard-row {
-  grid-template-columns: 40px 55px 1fr 170px 65px 65px 65px 85px 85px;
+  display: table-cell;
 }
 
 /* Custom Green/Terminal Style Checkboxes */
@@ -3205,17 +3282,13 @@ input[type="checkbox"].compare-checkbox:checked::after {
 /* -- Skeleton Loading States -- */
 
 /* Fade-in for rendered leaderboard rows (smooth skeleton?data transition) */
-#leaderboard-body > .leaderboard-row {
+#leaderboard-body > tr.leaderboard-row {
   animation: fadeIn 0.25s ease-out;
 }
 
-.skeleton-row {
-  display: grid;
-  grid-template-columns: 55px 1fr 170px 65px 65px 65px 85px 85px;
-  padding: 0.7rem 1.25rem;
+.skeleton-row td {
+  padding: 0.7rem 0.25rem;
   border-bottom: 1px solid var(--border);
-  align-items: center;
-  gap: 8px;
 }
 
 .skeleton-cell {
@@ -3231,31 +3304,34 @@ input[type="checkbox"].compare-checkbox:checked::after {
   border-radius: 2px;
 }
 
-.skeleton-cell:nth-child(2) {
+/* Skeleton column widths — match the <th> column widths */
+.skeleton-row td:nth-child(1) {
+  width: 20px;
+  margin: 0 auto;
+} /* checkbox */
+.skeleton-row td:nth-child(2) {
+} /* rank */
+.skeleton-row td:nth-child(3) {
   width: 160px;
-}
-
-.skeleton-cell:nth-child(3) {
+} /* name */
+.skeleton-row td:nth-child(4) {
   width: 130px;
-}
-
-.skeleton-cell:nth-child(4),
-.skeleton-cell:nth-child(5),
-.skeleton-cell:nth-child(6) {
+} /* username */
+.skeleton-row td:nth-child(5) {
   width: 35px;
-}
-
-.skeleton-cell:nth-child(7) {
+} /* easy */
+.skeleton-row td:nth-child(6) {
+  width: 35px;
+} /* medium */
+.skeleton-row td:nth-child(7) {
+  width: 35px;
+} /* hard */
+.skeleton-row td:nth-child(8) {
   width: 45px;
-}
-
-.skeleton-cell:nth-child(8) {
+} /* total */
+.skeleton-row td:nth-child(9) {
   width: 55px;
-}
-
-.skeleton-row .skeleton-cell:first-child {
-  width: 40px;
-}
+} /* score */
 
 @keyframes skeleton-shimmer {
   0% {
@@ -3352,4 +3428,22 @@ input[type="checkbox"].compare-checkbox:checked::after {
   .skeleton-card {
     display: none;
   }
+}
+
+/* -- Leaderboard Empty State (table context) -- */
+.leaderboard-empty td {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+}
+
+/* -- No Results (table context) -- */
+.no-results td {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
 }
