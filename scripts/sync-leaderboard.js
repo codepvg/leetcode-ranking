@@ -93,8 +93,8 @@ function checkHotStreak(userId, DATA_DIR, badgesMap) {
 
   try {
     const history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
-    if (history.length >= 7) {
-      const recentHistory = history.slice(-7);
+    if (history.length >= 8) {
+      const recentHistory = history.slice(-8);
       let consecutiveDaysMet = true;
 
       for (let j = 1; j < recentHistory.length; j++) {
