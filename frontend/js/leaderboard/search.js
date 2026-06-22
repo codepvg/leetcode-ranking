@@ -3,13 +3,25 @@ function setupSearchListeners() {
   const shortcutBadge = document.getElementById("search-shortcut");
   const clearBtn = document.getElementById("clear-search");
 
-  searchInput.addEventListener("input", (e) => {
-    currentSearchTerm = e.target.value.toLowerCase().trim();
+ function debounce(fn, delay) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), delay);
+    };
+  }
 
-    clearBtn.style.display = e.target.value.trim() !== "" ? "flex" : "none";
+  searchInput.addEventListener(
+    "input",
+    debounce((e) => {
+      currentSearchTerm = e.target.value.toLowerCase().trim();
 
-    applyFiltersAndRender();
-  });
+      clearBtn.style.display =
+        e.target.value.trim() !== "" ? "flex" : "none";
+
+      applyFiltersAndRender();
+    }, 300)
+  );
   clearBtn.addEventListener("click", () => {
     searchInput.value = "";
     currentSearchTerm = "";
