@@ -306,38 +306,45 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     historyMap.set(oldUser.id, oldUser);
   });
 
-  const interval = 0;
   let overallData = [];
 
   console.log(" ");
   console.log("Starting daily fetch...");
-  for (const user of users) {
-    if (inactiveUsersSet.has(user.id)) {
-      const cache = historyMap.get(user.id);
-      if (cache) {
-        console.log(`${user.name}: recycled (inactive)`);
-        overallData.push(cache);
-        continue;
-      }
-    }
 
-    const data = await fetchData(baseUrl + user.id);
-    if (!data) {
-      console.log(`${user.name}: skipped (API error)`);
-      continue;
-    }
-    const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
-    console.log(`${user.name}:`, data);
-    overallData.push({
-      name: user.name,
-      id: user.id,
-      data,
-      score,
-    });
+  const CONCURRENCY_LIMIT = 50;
 
-    if (interval > 0) {
-      await new Promise((resolve) => setTimeout(resolve, interval));
-    }
+  for (let i = 0; i < users.length; i += CONCURRENCY_LIMIT) {
+    const batch = users.slice(i, i + CONCURRENCY_LIMIT);
+
+    await Promise.all(
+      batch.map(async (user) => {
+        if (inactiveUsersSet.has(user.id)) {
+          const cache = historyMap.get(user.id);
+          if (cache) {
+            console.log(`${user.name}: recycled (inactive)`);
+            overallData.push(cache);
+            return;
+          }
+        }
+
+        const data = await fetchData(baseUrl + user.id);
+        if (!data) {
+          console.log(`${user.name}: skipped (API error)`);
+          return;
+        }
+
+        const score =
+          data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
+        console.log(`${user.name}:`, Object.values(data).join(" / "));
+
+        overallData.push({
+          name: user.name,
+          id: user.id,
+          data,
+          score,
+        });
+      }),
+    );
   }
   console.log("...");
   console.log(" ");
