@@ -34,7 +34,7 @@ async function fetchUserData(username) {
     }
     rawPerformanceData = await response.json();
     userDataArray = rawPerformanceData.history || [];
-    console.log("Successfully fetched user data:", userDataArray);
+    renderRankings(rawPerformanceData);
     updateChart();
   } catch (error) {
     console.log("error loading performance statics: ", error);
@@ -62,6 +62,17 @@ function setupFilterButtons() {
       });
     }
   });
+}
+
+function renderRankings(data) {
+  const profileRankingEl = document.getElementById("profile-ranking");
+  if (!profileRankingEl) return;
+
+  if (data && data.ranking) {
+    profileRankingEl.textContent = Number(data.ranking).toLocaleString();
+  } else {
+    profileRankingEl.textContent = "--";
+  }
 }
 
 function updateChart() {

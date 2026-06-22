@@ -217,6 +217,70 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
   });
 }
 
+/**
+ * Processes a timeframe-based leaderboard (daily/weekly/monthly) by computing
+ * per-user deltas from a previous snapshot, sorting, ranking, and writing output.
+ *
+ * @param {Array} sourceData - The overall dataset to deep-clone and process
+ * @param {string} DATA_DIR - Path to the data directory
+ * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
+ * @param {number} daysAgo - Number of days to look back for the snapshot file
+ */
+async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
+  const data = JSON.parse(JSON.stringify(sourceData));
+  console.log(" ");
+  console.log(`Loading previous ${periodName}'s file...`);
+  const previousFilepath = path.join(DATA_DIR, "daily", getFileName(daysAgo));
+  let previousData = [];
+  try {
+    const rawData = fs.readFileSync(previousFilepath, "utf8");
+    previousData = JSON.parse(rawData);
+    console.log(`Previous ${periodName}'s data loaded successfully`);
+  } catch (err) {
+    console.error(`Failed to load previous file: `, err.message);
+    process.exit(1);
+  }
+
+  console.log(" ");
+  console.log(`Calculating ${periodName} progress...`);
+  for (let i = 0; i < data.length; i++) {
+    const previousIndex = previousData.findIndex(
+      (obj) => obj.id === data[i].id,
+    );
+    if (previousIndex == -1) {
+      data.splice(i--, 1);
+      continue;
+    }
+    data[i].data.easySolved -= previousData[previousIndex].data.easySolved;
+    data[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
+    data[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+    data[i].score =
+      data[i].data.easySolved +
+      data[i].data.mediumSolved * 3 +
+      data[i].data.hardSolved * 5;
+    data[i].data.totalSolved =
+      data[i].data.easySolved +
+      data[i].data.mediumSolved +
+      data[i].data.hardSolved;
+  }
+  console.log("Calculation done");
+  console.log("");
+
+  console.log("Sorting calculated data...");
+  stableSortByScore(data);
+  assignCompetitionRanks(data);
+  console.log(`Writing sorted ${periodName} data to ${periodName}.json...`);
+  const filepath = path.join(DATA_DIR, `${periodName}.json`);
+  await computeRankChanges(data, `${periodName}.json`);
+  try {
+    atomicWrite(filepath, data);
+    console.log(`${periodName} data saved successfully`);
+  } catch (err) {
+    console.error(`Failed to write json file: `, err.message);
+    process.exit(1);
+  }
+}
+
 (async () => {
   const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "..", "data");
   console.log(`Using data directory: ${DATA_DIR}`);
@@ -260,29 +324,81 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
   });
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
-  const interval = 0;
+
+  const inactiveFilePath = path.join(DATA_DIR, "inactive-users.json");
+  const inactiveUsersSet = new Set();
+  try {
+    if (fs.existsSync(inactiveFilePath)) {
+      const rawInactive = fs.readFileSync(inactiveFilePath, "utf8");
+      const inactiveData = JSON.parse(rawInactive);
+      inactiveData.inactiveUsers.forEach((id) => inactiveUsersSet.add(id));
+      console.log(
+        `Loaded ${inactiveUsersSet.size} stale users into skip-filter lookup Set.`,
+      );
+    }
+  } catch (err) {
+    console.warn(
+      "Warning: Could not parse inactive-users.json, proceeding without skips:",
+      err.message,
+    );
+  }
+
+  const overallFilepath = path.join(DATA_DIR, "overall.json");
+  let previousOverall = [];
+  try {
+    if (fs.existsSync(overallFilepath)) {
+      previousOverall = JSON.parse(fs.readFileSync(overallFilepath, "utf8"));
+    }
+  } catch (err) {
+    console.warn(
+      "No previous overall.json found, cannot recycle stale records.",
+    );
+  }
+
+  const historyMap = new Map();
+  previousOverall.forEach((oldUser) => {
+    historyMap.set(oldUser.id, oldUser);
+  });
+
   let overallData = [];
 
   console.log(" ");
   console.log("Starting daily fetch...");
-  for (const user of users) {
-    const data = await fetchData(baseUrl + user.id);
-    if (!data) {
-      console.log(`${user.name}: skipped (API error)`);
-      continue;
-    }
-    const score = data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
-    console.log(`${user.name}:`, data);
-    overallData.push({
-      name: user.name,
-      id: user.id,
-      data,
-      score,
-    });
 
-    if (interval > 0) {
-      await new Promise((resolve) => setTimeout(resolve, interval));
-    }
+  const CONCURRENCY_LIMIT = 50;
+
+  for (let i = 0; i < users.length; i += CONCURRENCY_LIMIT) {
+    const batch = users.slice(i, i + CONCURRENCY_LIMIT);
+
+    await Promise.all(
+      batch.map(async (user) => {
+        if (inactiveUsersSet.has(user.id)) {
+          const cache = historyMap.get(user.id);
+          if (cache) {
+            console.log(`${user.name}: recycled (inactive)`);
+            overallData.push(cache);
+            return;
+          }
+        }
+
+        const data = await fetchData(baseUrl + user.id);
+        if (!data) {
+          console.log(`${user.name}: skipped (API error)`);
+          return;
+        }
+
+        const score =
+          data.easySolved + data.mediumSolved * 3 + data.hardSolved * 5;
+        console.log(`${user.name}:`, Object.values(data).join(" / "));
+
+        overallData.push({
+          name: user.name,
+          id: user.id,
+          data,
+          score,
+        });
+      }),
+    );
   }
   console.log("...");
   console.log(" ");
@@ -321,15 +437,6 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
   stableSortByScore(overallData);
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
-  const overallFilepath = path.join(DATA_DIR, "overall.json");
-
-  let previousOverall = [];
-  try {
-    const rawPrevious = fs.readFileSync(overallFilepath, "utf8");
-    previousOverall = JSON.parse(rawPrevious);
-  } catch (err) {
-    console.warn("No previous overall.json found, skipping diff.");
-  }
 
   await computeRankChanges(overallData, "overall.json", badgesMap);
   try {
@@ -511,6 +618,10 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+  // Process timeframe-based leaderboards using the shared function
+  await processTimeframe(overallData, DATA_DIR, "daily", 1);
+  await processTimeframe(overallData, DATA_DIR, "weekly", 7);
+  await processTimeframe(overallData, DATA_DIR, "monthly", 30);
 
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");
