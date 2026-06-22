@@ -51,11 +51,17 @@ function updateUserHistory(user, DATA_DIR) {
   }
 
   const userHistoryPath = path.join(historyDir, `${user.id}.json`);
-  let history = [];
+  let profileData = { leaderboardRanks: {}, history: [] };
 
   if (fs.existsSync(userHistoryPath)) {
     try {
-      history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+      const rawData = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+      if (Array.isArray(rawData)) {
+        profileData.history = rawData;
+      } else {
+        profileData = rawData;
+        if (!profileData.history) profileData.history = [];
+      }
     } catch (err) {
       console.error(
         `Failed to parse history for ${user.id}, resetting:`,
@@ -65,7 +71,9 @@ function updateUserHistory(user, DATA_DIR) {
   }
 
   const dateStr = getFileName(0).split("-").slice(0, 3).join("-");
-  const existingIndex = history.findIndex((entry) => entry.date === dateStr);
+  const existingIndex = profileData.history.findIndex(
+    (entry) => entry.date === dateStr,
+  );
 
   const newEntry = {
     date: dateStr,
@@ -75,14 +83,14 @@ function updateUserHistory(user, DATA_DIR) {
   };
 
   if (existingIndex !== -1) {
-    history[existingIndex] = newEntry;
+    profileData.history[existingIndex] = newEntry;
   } else {
-    history.push(newEntry);
+    profileData.history.push(newEntry);
   }
 
-  history.sort((a, b) => new Date(a.date) - new Date(b.date));
+  profileData.history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  atomicWrite(userHistoryPath, history);
+  atomicWrite(userHistoryPath, profileData);
 }
 
 function assignCompetitionRanks(sortedData) {
@@ -228,6 +236,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   try {
     atomicWrite(filepath, data);
     console.log(`${periodName} data saved successfully`);
+    return data;
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
@@ -394,9 +403,86 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   }
 
   // Process timeframe-based leaderboards using the shared function
-  await processTimeframe(overallData, DATA_DIR, "daily", 1);
-  await processTimeframe(overallData, DATA_DIR, "weekly", 7);
-  await processTimeframe(overallData, DATA_DIR, "monthly", 30);
+  const dailyData = await processTimeframe(overallData, DATA_DIR, "daily", 1);
+  const weeklyData = await processTimeframe(overallData, DATA_DIR, "weekly", 7);
+  const monthlyData = await processTimeframe(
+    overallData,
+    DATA_DIR,
+    "monthly",
+    30,
+  );
+
+  const overallMap = new Map(
+    overallData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const dailyMap = new Map(
+    dailyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const weeklyMap = new Map(
+    weeklyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const monthlyMap = new Map(
+    monthlyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+
+  const formatChange = (changeStr) => {
+    if (changeStr === "=" || changeStr === "NEW") return 0;
+    return parseInt(changeStr, 10) || 0;
+  };
+
+  overallData.forEach((user) => {
+    const userHistoryPath = path.join(DATA_DIR, "user-data", `${user.id}.json`);
+    if (!fs.existsSync(userHistoryPath)) return;
+
+    try {
+      const currentProfile = JSON.parse(
+        fs.readFileSync(userHistoryPath, "utf8"),
+      );
+
+      const overallInfo = overallMap.get(user.id) || {
+        rank: "--",
+        change: "=",
+      };
+      const dailyInfo = dailyMap.get(user.id) || { rank: "--", change: "=" };
+      const weeklyInfo = weeklyMap.get(user.id) || { rank: "--", change: "=" };
+      const monthlyInfo = monthlyMap.get(user.id) || {
+        rank: "--",
+        change: "=",
+      };
+
+      currentProfile.leaderboardRanks = {
+        overall: {
+          rank: overallInfo.rank,
+          change: formatChange(overallInfo.change),
+        },
+        daily: { rank: dailyInfo.rank, change: formatChange(dailyInfo.change) },
+        weekly: {
+          rank: weeklyInfo.rank,
+          change: formatChange(weeklyInfo.change),
+        },
+        monthly: {
+          rank: monthlyInfo.rank,
+          change: formatChange(monthlyInfo.change),
+        },
+      };
+
+      atomicWrite(userHistoryPath, currentProfile);
+    } catch (err) {
+      console.error(`Failed to inject ranks for user ${user.id}:`, err.message);
+    }
+  });
 
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");

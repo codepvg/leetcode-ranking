@@ -22,12 +22,28 @@ async function fetchUserInfo(username) {
     );
   }
 
+  let leaderboardRanks = {
+    overall: { rank: "--", change: 0 },
+    daily: { rank: "--", change: 0 },
+    weekly: { rank: "--", change: 0 },
+    monthly: { rank: "--", change: 0 },
+  };
+
   try {
     const cacheBuster = Date.now();
     const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/user-data/${username}.json?t=${cacheBuster}`;
     const response = await fetch(rawUrl);
     if (response.ok) {
-      history = await response.json();
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        history = data;
+      } else {
+        // If data is our new object structure, pull both properties safely
+        history = data.history || [];
+        if (data.leaderboardRanks) {
+          leaderboardRanks = data.leaderboardRanks;
+        }
+      }
     } else {
       console.warn(
         `No historical data found for user: ${username} (HTTP ${response.status})`,
@@ -46,6 +62,7 @@ async function fetchUserInfo(username) {
   return {
     username,
     ranking,
+    leaderboardRanks,
     history,
   };
 }
