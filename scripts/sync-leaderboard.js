@@ -704,7 +704,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
       filteredBadges[uid] = badges;
     }
   }
-  
+
   try {
     atomicWrite(badgesFilepath, badgesMap);
     console.log("badges.json saved successfully!");
