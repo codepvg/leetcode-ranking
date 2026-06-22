@@ -203,7 +203,7 @@ function updateFloatingCompareBar() {
   let bar = document.getElementById("floating-compare-bar");
 
   if (window.selectedUsers.length === 0) {
-    if (bar) bar.style.display = "none";
+    if (bar) bar.remove();
     return;
   }
 
@@ -211,6 +211,21 @@ function updateFloatingCompareBar() {
     bar = document.createElement("div");
     bar.id = "floating-compare-bar";
     bar.className = "floating-compare-bar";
+    // Event delegation: single listener handles all button clicks
+    bar.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      if (btn.id === "floating-btn-clear") {
+        clearSelectedUsers();
+      } else if (btn.id === "floating-btn-cancel") {
+        toggleCompareMode();
+      } else if (
+        btn.id === "floating-btn-compare" &&
+        window.selectedUsers.length >= 2
+      ) {
+        openCompareModal();
+      }
+    });
     document.body.appendChild(bar);
   }
 
@@ -229,19 +244,6 @@ function updateFloatingCompareBar() {
       <button id="floating-btn-cancel" class="btn-clear" style="color: var(--amber);">Cancel</button>
     </div>
   `;
-
-  // Bind click handlers
-  document
-    .getElementById("floating-btn-clear")
-    .addEventListener("click", clearSelectedUsers);
-  document
-    .getElementById("floating-btn-cancel")
-    .addEventListener("click", toggleCompareMode);
-  if (count >= 2) {
-    document
-      .getElementById("floating-btn-compare")
-      .addEventListener("click", openCompareModal);
-  }
 }
 
 /**
