@@ -207,18 +207,18 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
 
   if (previousData && Array.isArray(previousData)) {
     previousData.forEach((user, idx) => {
-      previousRanks[user.id] = user.originalRank || (idx + 1);
+      previousRanks[user.id] = user.originalRank || idx + 1;
     });
   }
 
   currentSorted.forEach((user, idx) => {
-    const currentRank = user.originalRank || (idx + 1);
+    const currentRank = user.originalRank || idx + 1;
 
     if (previousRanks[user.id] === undefined) {
       user.rankChange = "NEW";
     } else {
       let delta = previousRanks[user.id] - currentRank;
-      
+
       // Prevent wild rank jumps for users who have 0 score on short-term boards
       if (filename !== "overall.json" && user.score === 0) {
         delta = 0;
@@ -481,7 +481,7 @@ async function processTimeframe(
     const previousMap = {};
     previousOverall.forEach((user, idx) => {
       previousMap[user.id] = {
-        rank: user.originalRank || (idx + 1),
+        rank: user.originalRank || idx + 1,
         totalSolved: user.data.totalSolved || 0,
       };
     });
@@ -492,7 +492,7 @@ async function processTimeframe(
     let usersWithNewSolves = 0;
 
     overallData.forEach((user, idx) => {
-      const currentRank = user.originalRank || (idx + 1);
+      const currentRank = user.originalRank || idx + 1;
       const prev = previousMap[user.id];
 
       if (!prev) {
