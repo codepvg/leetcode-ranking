@@ -105,7 +105,7 @@ function checkHotStreak(userId, DATA_DIR, badgesMap) {
 
   try {
     const rawData = JSON.parse(fs.readFileSync(userDataPath, "utf8"));
-    const history = Array.isArray(rawData) ? rawData : (rawData.history || []);
+    const history = Array.isArray(rawData) ? rawData : rawData.history || [];
 
     if (history.length >= 8) {
       const recentHistory = history.slice(-8);

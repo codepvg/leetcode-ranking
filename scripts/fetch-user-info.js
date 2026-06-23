@@ -30,13 +30,13 @@ async function fetchUserInfo(username) {
     .then(async (res) => {
       if (res.ok) {
         const userJson = await res.json();
-        
+
         // Auto-Migration Check & Routing
         if (Array.isArray(userJson)) {
-           history = userJson;
+          history = userJson;
         } else {
-           history = userJson.history || [];
-           badges = userJson.badges || [];
+          history = userJson.history || [];
+          badges = userJson.badges || [];
         }
       } else {
         console.warn(
@@ -45,10 +45,7 @@ async function fetchUserInfo(username) {
       }
     })
     .catch((err) =>
-      console.error(
-        `Failed to fetch user data for ${username}:`,
-        err.message,
-      ),
+      console.error(`Failed to fetch user data for ${username}:`, err.message),
     );
 
   await Promise.allSettled([livePromise, userDataPromise]);
