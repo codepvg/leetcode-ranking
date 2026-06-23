@@ -85,6 +85,47 @@ function updateUserHistory(user, DATA_DIR) {
   atomicWrite(userHistoryPath, history);
 }
 
+function checkHotStreak(userId, DATA_DIR, badgesMap) {
+  const historyDir = path.join(DATA_DIR, "user-data");
+  const userHistoryPath = path.join(historyDir, `${userId}.json`);
+
+  if (!fs.existsSync(userHistoryPath)) return;
+
+  try {
+    const history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+    if (history.length >= 8) {
+      const recentHistory = history.slice(-8);
+      let consecutiveDaysMet = true;
+
+      for (let j = 1; j < recentHistory.length; j++) {
+        const todayTotals =
+          recentHistory[j].easy +
+          recentHistory[j].medium +
+          recentHistory[j].hard;
+        const yesterdayTotals =
+          recentHistory[j - 1].easy +
+          recentHistory[j - 1].medium +
+          recentHistory[j - 1].hard;
+
+        // If they didn't solve at least 1 problem compared to the day before, streak breaks
+        if (todayTotals - yesterdayTotals < 1) {
+          consecutiveDaysMet = false;
+          break;
+        }
+      }
+
+      if (consecutiveDaysMet) {
+        badgesMap[userId].push("HOT_STREAK");
+      }
+    }
+  } catch (err) {
+    console.error(
+      `Failed parsing user history for badge verification on ${userId}:`,
+      err.message,
+    );
+  }
+}
+
 function assignCompetitionRanks(sortedData) {
   let currentRank = 1;
   for (let i = 0; i < sortedData.length; i++) {
@@ -146,7 +187,7 @@ async function getYesterdaySnapshot(filePath) {
   }
 }
 
-async function computeRankChanges(currentSorted, filename) {
+async function computeRankChanges(currentSorted, filename, badgesMap = null) {
   let previousRanks = {};
   const previousData = await getYesterdaySnapshot(filename);
 
@@ -166,6 +207,12 @@ async function computeRankChanges(currentSorted, filename) {
       if (delta > 0) user.rankChange = `+${delta}`;
       else if (delta < 0) user.rankChange = `${delta}`;
       else user.rankChange = "=";
+
+      if (filename === "daily.json" && badgesMap && delta >= 5) {
+        if (badgesMap[user.id]) {
+          badgesMap[user.id].push("UP_LINK");
+        }
+      }
     }
   });
 }
@@ -179,7 +226,13 @@ async function computeRankChanges(currentSorted, filename) {
  * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
  * @param {number} daysAgo - Number of days to look back for the snapshot file
  */
-async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
+async function processTimeframe(
+  sourceData,
+  DATA_DIR,
+  periodName,
+  daysAgo,
+  badgesMap = null,
+) {
   const data = JSON.parse(JSON.stringify(sourceData));
   console.log(" ");
   console.log(`Loading previous ${periodName}'s file...`);
@@ -215,6 +268,10 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
       data[i].data.easySolved +
       data[i].data.mediumSolved +
       data[i].data.hardSolved;
+
+    if (periodName === "weekly" && data[i].data.totalSolved >= 7 && badgesMap) {
+      checkHotStreak(data[i].id, DATA_DIR, badgesMap);
+    }
   }
   console.log("Calculation done");
   console.log("");
@@ -224,7 +281,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   assignCompetitionRanks(data);
   console.log(`Writing sorted ${periodName} data to ${periodName}.json...`);
   const filepath = path.join(DATA_DIR, `${periodName}.json`);
-  await computeRankChanges(data, `${periodName}.json`);
+  await computeRankChanges(data, `${periodName}.json`, badgesMap);
   try {
     atomicWrite(filepath, data);
     console.log(`${periodName} data saved successfully`);
@@ -232,6 +289,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+  return data;
 }
 
 (async () => {
@@ -257,6 +315,8 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     }
   });
 
+  //
+
   console.log("Loading users...");
   const userFilePath = path.join(DATA_DIR, "users.json");
   let users = [];
@@ -268,6 +328,11 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     console.error("Failed to load users.json: ", err.message);
     process.exit(1);
   }
+
+  const badgesMap = {};
+  users.forEach((user) => {
+    badgesMap[user.id] = [];
+  });
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
 
@@ -384,7 +449,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
 
-  await computeRankChanges(overallData, "overall.json");
+  await computeRankChanges(overallData, "overall.json", badgesMap);
   try {
     atomicWrite(overallFilepath, overallData);
     console.log("Daily data saved successfully");
@@ -394,9 +459,15 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   }
 
   // Process timeframe-based leaderboards using the shared function
-  await processTimeframe(overallData, DATA_DIR, "daily", 1);
-  await processTimeframe(overallData, DATA_DIR, "weekly", 7);
-  await processTimeframe(overallData, DATA_DIR, "monthly", 30);
+  await processTimeframe(overallData, DATA_DIR, "daily", 1, badgesMap);
+  const weeklyData = await processTimeframe(
+    overallData,
+    DATA_DIR,
+    "weekly",
+    7,
+    badgesMap,
+  );
+  await processTimeframe(overallData, DATA_DIR, "monthly", 30, badgesMap);
 
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");
@@ -459,6 +530,32 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     console.log("changes.json saved successfully");
   } catch (err) {
     console.error("Failed to write changes.json: ", err.message);
+  }
+
+  console.log("Generating badges.json...");
+  const badgesFilepath = path.join(DATA_DIR, "badges.json");
+
+  // [SPEEDRUN] Badge: Top 3 users in weekly progress
+  if (Array.isArray(weeklyData)) {
+    weeklyData.slice(0, 3).forEach((user) => {
+      if (badgesMap[user.id] && user.score > 0) {
+        badgesMap[user.id].push("SPEEDRUN");
+      }
+    });
+  }
+
+  const filteredBadges = {};
+  for (const [uid, badges] of Object.entries(badgesMap)) {
+    if (badges.length > 0) {
+      filteredBadges[uid] = badges;
+    }
+  }
+
+  try {
+    atomicWrite(badgesFilepath, filteredBadges);
+    console.log("badges.json saved successfully!");
+  } catch (err) {
+    console.error("Failed to write badges.json:", err.message);
   }
 
   console.log("Writing sync timestamp...");
