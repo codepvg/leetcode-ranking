@@ -44,21 +44,28 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-function updateUserHistory(user, DATA_DIR) {
-  const historyDir = path.join(DATA_DIR, "user-data");
-  if (!fs.existsSync(historyDir)) {
-    fs.mkdirSync(historyDir, { recursive: true });
+function updateUserData(user, DATA_DIR, badgesMap = null) {
+  const userDataDir = path.join(DATA_DIR, "user-data");
+  if (!fs.existsSync(userDataDir)) {
+    fs.mkdirSync(userDataDir, { recursive: true });
   }
 
-  const userHistoryPath = path.join(historyDir, `${user.id}.json`);
+  const userDataPath = path.join(userDataDir, `${user.id}.json`);
+  let userData = { history: [], badges: [] };
   let history = [];
 
-  if (fs.existsSync(userHistoryPath)) {
+  if (fs.existsSync(userDataPath)) {
     try {
-      history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+      const rawData = JSON.parse(fs.readFileSync(userDataPath, "utf8"));
+      if (Array.isArray(rawData)) {
+        history = rawData;
+      } else {
+        userData = rawData;
+        history = userData.history || [];
+      }
     } catch (err) {
       console.error(
-        `Failed to parse history for ${user.id}, resetting:`,
+        `Failed to parse data for ${user.id}, resetting:`,
         err.message,
       );
     }
@@ -82,17 +89,24 @@ function updateUserHistory(user, DATA_DIR) {
 
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  atomicWrite(userHistoryPath, history);
+  userData.history = history;
+  if (badgesMap && badgesMap[user.id]) {
+    userData.badges = [...new Set(badgesMap[user.id])];
+  }
+
+  atomicWrite(userDataPath, userData);
 }
 
 function checkHotStreak(userId, DATA_DIR, badgesMap) {
-  const historyDir = path.join(DATA_DIR, "user-data");
-  const userHistoryPath = path.join(historyDir, `${userId}.json`);
+  const userDataDir = path.join(DATA_DIR, "user-data");
+  const userDataPath = path.join(userDataDir, `${userId}.json`);
 
-  if (!fs.existsSync(userHistoryPath)) return;
+  if (!fs.existsSync(userDataPath)) return;
 
   try {
-    const history = JSON.parse(fs.readFileSync(userHistoryPath, "utf8"));
+    const rawData = JSON.parse(fs.readFileSync(userDataPath, "utf8"));
+    const history = Array.isArray(rawData) ? rawData : rawData.history || [];
+
     if (history.length >= 8) {
       const recentHistory = history.slice(-8);
       let consecutiveDaysMet = true;
@@ -120,7 +134,7 @@ function checkHotStreak(userId, DATA_DIR, badgesMap) {
     }
   } catch (err) {
     console.error(
-      `Failed parsing user history for badge verification on ${userId}:`,
+      `Failed parsing user data for badge verification on ${userId}:`,
       err.message,
     );
   }
@@ -424,22 +438,6 @@ async function processTimeframe(
     process.exit(1);
   }
 
-  console.log("Updating historical user files...");
-  let historyUpdateFailures = 0;
-  overallData.forEach((user) => {
-    try {
-      updateUserHistory(user, DATA_DIR);
-    } catch (err) {
-      historyUpdateFailures++;
-      console.error(`Failed to update history for ${user.id}:`, err.message);
-    }
-  });
-  if (historyUpdateFailures > 0) {
-    console.warn(`${historyUpdateFailures} user history update(s) failed.`);
-  } else {
-    console.log("Historical user files updated successfully");
-  }
-
   overallData.forEach((user) => {
     user.data.totalSolved =
       user.data.easySolved + user.data.mediumSolved + user.data.hardSolved;
@@ -556,6 +554,22 @@ async function processTimeframe(
     console.log("badges.json saved successfully!");
   } catch (err) {
     console.error("Failed to write badges.json:", err.message);
+  }
+
+  console.log("Updating user data files...");
+  let userDataFailures = 0;
+  overallData.forEach((user) => {
+    try {
+      updateUserData(user, DATA_DIR, badgesMap);
+    } catch (err) {
+      userDataFailures++;
+      console.error(`Failed to update data for ${user.id}:`, err.message);
+    }
+  });
+  if (userDataFailures > 0) {
+    console.warn(`${userDataFailures} user data update(s) failed.`);
+  } else {
+    console.log("User data files updated successfully");
   }
 
   console.log("Writing sync timestamp...");
