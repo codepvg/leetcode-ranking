@@ -207,23 +207,30 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
 
   if (previousData && Array.isArray(previousData)) {
     previousData.forEach((user, idx) => {
-      previousRanks[user.id] = idx + 1;
+      previousRanks[user.id] = user.originalRank || idx + 1;
     });
   }
 
   currentSorted.forEach((user, idx) => {
-    const currentRank = idx + 1;
+    const currentRank = user.originalRank || idx + 1;
 
     if (previousRanks[user.id] === undefined) {
       user.rankChange = "NEW";
     } else {
-      const delta = previousRanks[user.id] - currentRank;
-      if (delta > 0) user.rankChange = `+${delta}`;
-      else if (delta < 0) user.rankChange = `${delta}`;
-      else user.rankChange = "=";
+      let delta = previousRanks[user.id] - currentRank;
 
-      if (filename === "daily.json" && badgesMap && delta >= 5) {
-        if (badgesMap[user.id]) {
+      // Prevent wild rank jumps for users who have 0 score on short-term boards
+      if (filename !== "overall.json" && user.score === 0) {
+        delta = 0;
+        user.rankChange = "=";
+      } else {
+        if (delta > 0) user.rankChange = `+${delta}`;
+        else if (delta < 0) user.rankChange = `${delta}`;
+        else user.rankChange = "=";
+      }
+
+      if (badgesMap && delta >= 5 && user.score > 0) {
+        if (badgesMap[user.id] && !badgesMap[user.id].includes("UP_LINK")) {
           badgesMap[user.id].push("UP_LINK");
         }
       }
@@ -474,7 +481,7 @@ async function processTimeframe(
     const previousMap = {};
     previousOverall.forEach((user, idx) => {
       previousMap[user.id] = {
-        rank: idx + 1,
+        rank: user.originalRank || idx + 1,
         totalSolved: user.data.totalSolved || 0,
       };
     });
@@ -485,7 +492,7 @@ async function processTimeframe(
     let usersWithNewSolves = 0;
 
     overallData.forEach((user, idx) => {
-      const currentRank = idx + 1;
+      const currentRank = user.originalRank || idx + 1;
       const prev = previousMap[user.id];
 
       if (!prev) {
@@ -530,9 +537,6 @@ async function processTimeframe(
     console.error("Failed to write changes.json: ", err.message);
   }
 
-  console.log("Generating badges.json...");
-  const badgesFilepath = path.join(DATA_DIR, "badges.json");
-
   // [SPEEDRUN] Badge: Top 3 users in weekly progress
   if (Array.isArray(weeklyData)) {
     weeklyData.slice(0, 3).forEach((user) => {
@@ -540,20 +544,6 @@ async function processTimeframe(
         badgesMap[user.id].push("SPEEDRUN");
       }
     });
-  }
-
-  const filteredBadges = {};
-  for (const [uid, badges] of Object.entries(badgesMap)) {
-    if (badges.length > 0) {
-      filteredBadges[uid] = badges;
-    }
-  }
-
-  try {
-    atomicWrite(badgesFilepath, filteredBadges);
-    console.log("badges.json saved successfully!");
-  } catch (err) {
-    console.error("Failed to write badges.json:", err.message);
   }
 
   console.log("Updating user data files...");
