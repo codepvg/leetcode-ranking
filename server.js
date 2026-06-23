@@ -4,12 +4,16 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const fetchStudentHistory = require("./scripts/fetch-student-info");
+const fetchUserInfo = require("./scripts/fetch-user-info");
+const { rateLimit } = require("express-rate-limit");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+// Trust Render.com proxy so req.ip returns real client IP
+app.set("trust proxy", 1);
 
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
 app.use((req, res, next) => {
@@ -35,10 +39,19 @@ app.use(
         // Inline scripts need a per-request nonce; external scripts from 'self'
         // are allowed automatically.
         scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`],
-        // Allow inline styles (style attributes) + Google Fonts stylesheet
-        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-        // Google Fonts
-        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        // Allow inline styles (style attributes) + Google Fonts and FontAwesome stylesheet
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+          "https://cdnjs.cloudflare.com",
+        ],
+        // Google Fonts and FontAwesome fonts
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdnjs.cloudflare.com",
+        ],
         // Images: self + data: URIs (used by matrix canvas)
         imgSrc: ["'self'", "data:"],
         // No plugins
@@ -93,11 +106,11 @@ app.get("/registration", (req, res) => {
 });
 
 app.get("/privacy", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "privacy.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "privacy.html"));
 });
 
 app.get("/terms", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "terms.html"));
+  serveHtml(res, path.join(__dirname, "frontend", "terms.html"));
 });
 
 // Redirect direct .html file access so nonce injection still applies
@@ -111,34 +124,48 @@ app.get("/uptime", (req, res) => {
   res.json({ status: "Website is running ✅" });
 });
 
-const studentCache = new Map();
+app.get("/user/:username", (req, res) => {
+  serveHtml(res, path.join(__dirname, "frontend", "user.html"));
+});
 
-app.get("/api/student/:username", async (req, res) => {
+// ---- Rate limiter for API endpoint ----
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1-minute window
+  limit: parseInt(process.env.API_RATE_LIMIT, 10) || 30,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { error: "Rate limit exceeded", retryAfter: 60 },
+  handler: (req, res, next, options) => {
+    res.status(options.statusCode);
+    res.set("Retry-After", Math.ceil(options.windowMs / 1000));
+    res.json(options.message);
+  },
+});
+
+app.use("/api/user/:username", apiLimiter);
+
+app.get("/api/user/:username", async (req, res) => {
   const username = req.params.username;
 
-  if (studentCache.has(username)) {
-    const cached = studentCache.get(username);
-    if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
-      return res.json(cached.data);
-    }
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!usernameRegex.test(username)) {
+    return res.status(400).json({ error: "Invalid username format" });
   }
 
   try {
-    const data = await fetchStudentHistory(username);
-
-    studentCache.set(username, { timestamp: Date.now(), data });
-
+    const data = await fetchUserInfo(username);
     res.json(data);
   } catch (err) {
     res.status(500).json({
-      error: "Failed to fetch student details",
+      error: "Failed to fetch user details",
       details: err.message,
     });
   }
 });
 
+// 404 handler
 app.use((req, res) => {
-  res.status(404).send("Page not found");
+  res.status(404).sendFile(path.join(__dirname, "frontend", "404.html"));
 });
 
 app.listen(PORT, () => {

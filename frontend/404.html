@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,4 +47,315 @@
     <a href="/registration">→ Registration</a>
   </div>
 </body>
+</html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Not Found | CodePVG</title>
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+    <style>
+      /* 404-specific overrides */
+      body {
+        background: var(--bg);
+        color: var(--green);
+        font-family: "Share Tech Mono", "Courier New", monospace;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* Matrix rain canvas */
+      #matrix {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.18;
+      }
+
+      /* Main panel */
+      .panel {
+        position: relative;
+        z-index: 1;
+        background: rgba(0, 10, 0, 0.85);
+        border: 1px solid rgba(0, 255, 65, 0.3);
+        border-radius: 4px;
+        padding: 2.5rem 3rem;
+        max-width: 680px;
+        width: 90%;
+        box-shadow:
+          0 0 40px rgba(0, 255, 65, 0.08),
+          inset 0 0 60px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Title */
+      .title {
+        font-size: 2.4rem;
+        font-weight: normal;
+        color: var(--green);
+        text-shadow:
+          0 0 20px rgba(0, 255, 65, 0.4),
+          0 0 40px rgba(0, 255, 65, 0.4);
+        letter-spacing: 2px;
+        margin-bottom: 0.4rem;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .subtitle {
+        color: #4a8c4a;
+        font-size: 0.85rem;
+        margin-bottom: 2rem;
+      }
+
+      /* Terminal lines */
+      .terminal-block {
+        margin-bottom: 1.4rem;
+      }
+
+      .line {
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .prompt {
+        color: var(--green);
+        text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+      }
+
+      .prompt-sym {
+        color: var(--green-dim);
+      }
+
+      .cmd {
+        color: #c9e8c9;
+      }
+
+      .error-line {
+        color: var(--red);
+        text-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+      }
+
+      .comment {
+        color: #4a8c4a;
+      }
+
+      .highlight {
+        color: var(--green);
+        font-weight: bold;
+        text-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+      }
+
+      .highlight a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+
+      .highlight a:hover {
+        color: #66ffaa;
+        text-shadow: 0 0 12px rgba(0, 255, 65, 0.4);
+      }
+
+      /* Divider */
+      .divider {
+        border: none;
+        border-top: 1px solid rgba(0, 255, 65, 0.3);
+        margin: 1.4rem 0;
+      }
+
+      /* Button area — centered */
+      .nav-links {
+        display: flex;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        margin-top: 1.8rem;
+        justify-content: center;
+      }
+
+      /* Scanline overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.05) 2px,
+          rgba(0, 0, 0, 0.05) 4px
+        );
+        pointer-events: none;
+        z-index: 2;
+      }
+      @media (max-width: 480px) {
+        .panel {
+          padding: 1.5rem 1.2rem;
+          width: 95%;
+        }
+        .title {
+          font-size: 1.6rem;
+        }
+
+        .subtitle {
+          font-size: 0.75rem;
+        }
+        .line {
+          font-size: 0.82rem;
+          line-height: 1.6;
+        }
+        .nav-links {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        .nav-links a {
+          text-align: center;
+          width: 100%;
+          box-sizing: border-box;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="matrix"></canvas>
+
+    <div class="panel">
+      <div class="title">404 — Not Found</div>
+      <div class="subtitle">
+        &gt; route resolution failed. filesystem integrity nominal.
+      </div>
+
+      <hr class="divider" />
+
+      <div class="terminal-block">
+        <div class="line">
+          <span class="prompt">guest@codepvg</span
+          ><span class="prompt-sym">:~$</span>
+          <span class="cmd" id="cd-line"> cd /unknown-path</span>
+        </div>
+        <div class="line error-line">
+          bash: cd: <span id="path-display">/unknown-path</span>: No such file
+          or directory
+        </div>
+      </div>
+
+      <div class="terminal-block">
+        <div class="line comment"># exit code: 404</div>
+        <div class="line comment">
+          # This route doesn't exist. Unlike your rank, which does.
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="terminal-block">
+        <div class="line">
+          <span class="prompt">guest@codepvg</span
+          ><span class="prompt-sym">:~$</span>
+          <span class="cmd"> ls /valid-routes</span>
+        </div>
+        <div class="line" style="padding-left: 1.2rem">
+          <span class="highlight"><a href="/">home/</a></span>
+          &nbsp;&nbsp;
+          <span class="highlight"><a href="/leaderboard">leaderboard/</a></span>
+          &nbsp;&nbsp;
+          <span class="highlight"
+            ><a href="/registration">registration/</a></span
+          >
+          &nbsp;&nbsp;
+          <span class="highlight"><a href="/about">about/</a></span>
+        </div>
+      </div>
+
+      <div class="line">
+        <span class="prompt">guest@codepvg</span
+        ><span class="prompt-sym">:~$</span>
+        <span
+          class="cursor"
+          style="
+            width: 9px;
+            height: 1rem;
+            background: var(--green);
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 6px;
+            animation: blink 1s step-end infinite;
+          "
+        ></span>
+      </div>
+
+      <div class="nav-links">
+        <a href="/leaderboard" class="btn btn-primary">view_leaderboard</a>
+        <a href="/registration" class="btn btn-secondary">register_now</a>
+      </div>
+    </div>
+
+    <script>
+      // Inject actual bad path
+      const p = window.location.pathname;
+      document.getElementById("cd-line").textContent = " cd " + p;
+      document.getElementById("path-display").textContent = p;
+
+      // Matrix rain
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()アイウエオカキクケコサシスセソタチツテトナニヌネノ";
+      const fontSize = 14;
+      let cols = Math.floor(canvas.width / fontSize);
+      let drops = Array(cols).fill(1);
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ff41";
+        ctx.font = fontSize + "px Share Tech Mono, monospace";
+
+        cols = Math.floor(canvas.width / fontSize);
+        if (drops.length < cols)
+          drops = drops.concat(Array(cols - drops.length).fill(1));
+
+        for (let i = 0; i < cols; i++) {
+          const char = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 40);
+    </script>
+  </body>
 </html>

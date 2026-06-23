@@ -17,6 +17,11 @@
     <script src="js/leaderboard/render.js"></script>
     <script src="js/leaderboard/pagination.js"></script>
     <script src="js/leaderboard/search.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js"
+      nonce="__NONCE__"
+    ></script>
+    <script src="js/leaderboard/compare.js" nonce="__NONCE__"></script>
 
     <meta
       name="description"
@@ -65,6 +70,8 @@
             "
             >__AWAITING_UPLINK__</span
           >
+          <span style="color: var(--text-muted); margin: 0 4px">|</span>
+          <button id="view-changes-btn" class="changes-btn">[CHANGES]</button>
         </div>
         <div
           id="next-sync-indicator"
@@ -94,35 +101,106 @@
           <button class="tab" data-tab="daily">Daily</button>
         </div>
 
-        <div class="search-container">
-          <div class="search-bar">
-            <span class="search-prefix">$ grep -i</span>
-            <input
-              type="text"
-              id="leaderboard-search"
-              class="search-input"
-              placeholder="pattern"
-              autocomplete="off"
-              spellcheck="false"
-            />
-
-            <span class="search-result-count" id="search-result-count"></span>
-            <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
-            <button
-              type="button"
-              id="clear-search"
-              class="clear-search-btn"
-              aria-label="Clear search"
+        <div
+          class="search-container"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              gap: 1rem;
+              width: 100%;
+              max-width: 600px;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              class="search-bar"
+              style="flex: 1 1 300px; max-width: 420px; margin-bottom: 0"
             >
-              ESC
-            </button>
+              <span class="search-prefix">$ grep -i</span>
+              <input
+                type="text"
+                id="leaderboard-search"
+                class="search-input"
+                placeholder="pattern"
+                autocomplete="off"
+                spellcheck="false"
+              />
+
+              <span class="search-result-count" id="search-result-count"></span>
+              <kbd class="search-shortcut" id="search-shortcut">Ctrl+K</kbd>
+              <button
+                type="button"
+                id="clear-search"
+                class="clear-search-btn"
+                aria-label="Clear search"
+              >
+                ESC
+              </button>
+            </div>
           </div>
         </div>
 
         <div id="leaderboard-stats"></div>
 
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 0.5rem;
+          "
+        >
+          <button
+            type="button"
+            id="compare-mode-toggle"
+            style="
+              background: var(--bg-raised);
+              border: 1px solid var(--border);
+              border-bottom: 1px solid var(--border-bright);
+              color: var(--amber);
+              font-family: inherit;
+              font-size: 0.82rem;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              padding: 3px 10px;
+              border-radius: 4px;
+              margin-right: 0.5rem;
+              white-space: nowrap;
+            "
+            onmouseover="
+              this.style.background = 'var(--amber-muted)';
+              this.style.borderColor = 'var(--amber-dim)';
+              this.style.textShadow = '0 0 5px rgba(255, 176, 0, 0.4)';
+            "
+            onmouseout="
+              if (!window.compareModeActive) {
+                this.style.background = 'var(--bg-raised)';
+                this.style.borderColor = 'var(--border)';
+                this.style.color = 'var(--amber)';
+                this.style.textShadow = 'none';
+              } else {
+                this.style.background = 'var(--green-muted)';
+                this.style.borderColor = 'var(--green-dim)';
+                this.style.color = 'var(--green)';
+                this.style.textShadow = '0 0 5px rgba(0, 255, 65, 0.3)';
+              }
+            "
+          >
+            [--compare-peers]
+          </button>
+        </div>
+
         <div class="leaderboard">
           <div class="leaderboard-header">
+            <div class="compare-checkbox-cell"></div>
             <div>Rank</div>
             <div>Name</div>
             <div>LeetCode ID</div>
@@ -145,10 +223,117 @@
             </div>
           </div>
 
-          <div id="leaderboard-body"></div>
+          <div id="leaderboard-body">
+            <!-- Skeleton rows — shown on initial load, cleared by renderLeaderboard() -->
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="mobile-cards" id="mobile-cards"></div>
+        <div class="mobile-cards" id="mobile-cards">
+          <!-- Skeleton mobile cards — shown on initial load, cleared by renderLeaderboard() -->
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+
+        <!-- Error State -->
+        <div id="leaderboard-error" class="leaderboard-error">
+          <div class="leaderboard-error-content">
+            <div class="leaderboard-error-icon">[!]</div>
+            <div class="leaderboard-error-msg">
+              LEADERBOARD_DATA_UNAVAILABLE
+            </div>
+            <div class="leaderboard-error-desc">
+              Failed to fetch leaderboard data. The upstream API may be
+              rate-limited or unreachable. Please try again.
+            </div>
+            <button id="retry-btn" class="btn btn-error">RETRY</button>
+          </div>
+        </div>
 
         <div id="pagination-controls" class="pagination-controls">
           <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
@@ -158,7 +343,31 @@
       </div>
     </main>
 
+    <!-- Sync Changes Modal Overlay -->
+    <div id="changes-modal-overlay" class="changes-modal-overlay">
+      <div class="changes-card">
+        <div class="changes-card-header">
+          <span class="changes-card-title">[ACTIVITY_LOG]</span>
+          <button id="close-changes-btn" class="changes-card-close">
+            [DISMISS]
+          </button>
+        </div>
+        <div id="changes-card-body" class="changes-card-body">
+          <!-- Content dynamically rendered here -->
+        </div>
+      </div>
+    </div>
+
     <script nonce="__NONCE__">
+      // ── Error State Helpers ──
+      function showError() {
+        document.getElementById("leaderboard-error").classList.add("active");
+      }
+
+      function hideError() {
+        document.getElementById("leaderboard-error").classList.remove("active");
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.addEventListener("click", () => {
@@ -168,10 +377,46 @@
 
         setupSearchListeners();
         setupPaginationListeners();
+        // Skeleton rows are already in #leaderboard-body — shown until renderLeaderboard() clears them
         fetchLeaderboardData();
+        // Poll every 2 minutes to detect new syncs
+        // Page Visibility API — pause polling when tab is hidden
+        let pollInterval;
+
+        function startPolling() {
+          clearInterval(pollInterval);
+          pollInterval = setInterval(fetchLeaderboardData, 2 * 60 * 1000);
+        }
+
+        function stopPolling() {
+          clearInterval(pollInterval);
+        }
+
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") {
+            fetchLeaderboardData(); // immediate refresh when tab becomes visible
+            startPolling();
+          } else {
+            stopPolling();
+          }
+        });
+
+        startPolling();
+
+        // Retry button — re-fetches data
+        document
+          .getElementById("retry-btn")
+          .addEventListener("click", function () {
+            hideError();
+            leaderboardData["overall"] = null;
+            leaderboardData["monthly"] = null;
+            leaderboardData["weekly"] = null;
+            leaderboardData["daily"] = null;
+            fetchLeaderboardData();
+          });
       });
 
-      const leaderboardData = {};
+      window.leaderboardData = {};
       let currentPage = 1;
       let itemsPerPage = 25;
       let activeDatasetType = "overall";
@@ -192,13 +437,26 @@
           ),
         );
 
+        let anySuccess = false;
         results.forEach((result, index) => {
           if (result.status === "fulfilled") {
-            leaderboardData[endpoints[index]] = result.value;
+            window.leaderboardData[endpoints[index]] = result.value;
+            anySuccess = true;
           } else {
             console.error("Failed to fetch", endpoints[index], result.reason);
           }
         });
+
+        // If ALL endpoints failed, show error state instead of blank page
+        if (!anySuccess) {
+          document.getElementById("leaderboard-body").innerHTML = "";
+          document.getElementById("mobile-cards").innerHTML = "";
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          hideError(); // reset in case retry was clicked
+          showError();
+          return;
+        }
+        hideError();
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
@@ -207,6 +465,12 @@
           );
           if (syncRes.ok) {
             const syncData = await syncRes.json();
+            // Trigger toast if sync time changed
+            const prevSyncTime = window._lastKnownSyncTime || null;
+            if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
+              showSyncToast();
+            }
+            window._lastKnownSyncTime = syncData.lastSync;
             const options = {
               month: "short",
               day: "2-digit",
@@ -253,16 +517,21 @@
       }
 
       function applyFiltersAndRender() {
-        if (!leaderboardData[activeDatasetType]) return;
+        if (!window.leaderboardData[activeDatasetType]) return;
 
-        const originalData = leaderboardData[activeDatasetType];
+        const originalData = window.leaderboardData[activeDatasetType];
 
-        const rankedData = originalData.map((user, index) => ({
-          ...user,
-          originalRank: index + 1,
-        }));
+        // Empty state — data exists but is empty array
+        if (originalData.length === 0) {
+          document.getElementById("leaderboard-body").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("mobile-cards").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          return;
+        }
 
-        const filteredData = rankedData.filter((user) => {
+        const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;
 
           return (
@@ -283,20 +552,37 @@
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        const overallDataset =
+          window.leaderboardData && window.leaderboardData["overall"]
+            ? window.leaderboardData["overall"]
+            : originalData || [];
+
+        const zeroScoreUserIds = new Set(
+          overallDataset
+            .filter((user) => user && user.score === 0)
+            .map((user) => user.id),
+        );
+
+        const renderableData = filteredData.filter(
+          (user) => user && !zeroScoreUserIds.has(user.id),
+        );
+
+        const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
         document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+          currentPage === totalPages;
+
         const statsEl = document.getElementById("leaderboard-stats");
 
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
         const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+          renderableData.length === 0
+            ? 0
+            : (currentPage - 1) * itemsPerPage + 1;
 
         const endRow = Math.min(
           currentPage * itemsPerPage,
-          filteredData.length,
+          renderableData.length,
         );
 
         statsEl.innerHTML = `
@@ -311,10 +597,11 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
+
+        renderLeaderboard(filteredData, zeroScoreUserIds, totalPages);
       }
 
-      function renderLeaderboard(data) {
+      function renderLeaderboard(data, zeroScoreUserIds, totalPages) {
         const body = document.getElementById("leaderboard-body");
         const mobileCards = document.getElementById("mobile-cards");
 
@@ -326,51 +613,222 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+        const activeList = data.filter(
+          (user) => !zeroScoreUserIds.has(user.id),
+        );
+        const inactiveList = data.filter((user) =>
+          zeroScoreUserIds.has(user.id),
+        );
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        const displayActiveData = isSearching
+          ? activeList
+          : activeList.slice(startIndex, endIndex);
 
-          mobileCards.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        if (displayActiveData.length === 0 && inactiveList.length === 0) {
+          const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
+          body.innerHTML = emptyStateHtml;
+          mobileCards.innerHTML = emptyStateHtml;
           return;
         }
 
-        displayData.forEach((user, index) => {
-          const rank = user.originalRank || index + 1;
-          const row = renderLeaderboardRow(user, rank);
-          const card = renderMobileCard(user, rank);
-          body.appendChild(row);
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
-      }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
+        displayActiveData.forEach((user, index) => {
+          let rank =
+            user.originalRank !== undefined
+              ? user.originalRank
+              : startIndex + index + 1;
+
+          if (activeDatasetType !== "overall" && user.score === 0) {
+            rank = "--";
           }
+
+          body.appendChild(renderLeaderboardRow(user, rank));
+          mobileCards.appendChild(renderMobileCard(user, rank));
         });
 
-        if (!leaderboardData[activeTab]) {
+        if (
+          inactiveList.length > 0 &&
+          (currentPage === totalPages || isSearching)
+        ) {
+          const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
+
+          const tableHeader = document.createElement("div");
+          tableHeader.className = "no-results";
+          tableHeader.style.gridColumn = "1 / -1";
+          tableHeader.innerText = dividerText;
+          body.appendChild(tableHeader);
+
+          const mobileHeader = document.createElement("div");
+          mobileHeader.className = "no-results";
+          mobileHeader.innerText = dividerText;
+          mobileCards.appendChild(mobileHeader);
+
+          inactiveList.forEach((user) => {
+            body.appendChild(renderLeaderboardRow(user, ""));
+            mobileCards.appendChild(renderMobileCard(user, ""));
+          });
+        }
+
+        renderPagination(activeList.length);
+      }
+
+      function setActiveTab(activeTab) {
+        if (!window.leaderboardData[activeTab]) {
           return;
         }
 
         activeDatasetType = activeTab;
         currentPage = 1;
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          if (tab.dataset.tab === activeTab) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
         applyFiltersAndRender();
       }
     </script>
+
+    <!-- User Comparison Modal Overlay -->
+    <div id="compare-modal" class="compare-modal-overlay">
+      <div class="compare-card">
+        <div class="compare-card-header">
+          <span class="compare-card-title">[SYSTEM_COMPARE_MODULE]</span>
+          <button id="close-compare-modal" class="compare-card-close">
+            [DISMISS]
+          </button>
+        </div>
+
+        <div class="compare-card-body">
+          <div
+            class="compare-loading"
+            id="compare-loading"
+            style="
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--green);
+            "
+          >
+            <span class="blink">[SYS_INIT]:</span> FETCHING PEER DATA...
+          </div>
+
+          <div
+            class="compare-error"
+            id="compare-error"
+            style="
+              display: none;
+              text-align: center;
+              padding: 2rem;
+              font-family: &quot;Fira Code&quot;, monospace;
+              color: var(--red);
+            "
+          >
+            [SYS_ERR]: FAILED_TO_FETCH_PEER_DATA. PLEASE TRY AGAIN.
+          </div>
+
+          <div
+            class="compare-results"
+            id="compare-results"
+            style="display: none"
+          >
+            <!-- Metrics Table -->
+            <div style="overflow-x: auto; margin-bottom: 1rem">
+              <table class="compare-table" id="compare-table-el">
+                <!-- Dynamically populated -->
+              </table>
+            </div>
+
+            <!-- Filter buttons for Progress Graph -->
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                margin: 1.5rem 0 1rem 0;
+                justify-content: center;
+              "
+            >
+              <button
+                id="compare-btn-overall"
+                class="btn btn-secondary active-filter"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Overall
+              </button>
+              <button
+                id="compare-btn-monthly"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Monthly
+              </button>
+              <button
+                id="compare-btn-weekly"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Weekly
+              </button>
+              <button
+                id="compare-btn-daily"
+                class="btn btn-secondary"
+                style="
+                  min-width: unset;
+                  width: auto;
+                  padding: 0.4rem 1rem;
+                  font-size: 0.8rem;
+                  margin: 0;
+                  font-family: &quot;Fira Code&quot;, monospace;
+                "
+              >
+                Daily
+              </button>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="compare-charts-row">
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// DIFFICULTY_BREAKDOWN</div>
+                <canvas id="compareDifficultyChart"></canvas>
+              </div>
+              <div class="compare-chart-card">
+                <div class="compare-chart-title">// PROGRESS_HISTORY</div>
+                <canvas id="compareProgressChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top button -->
+    <button id="scroll-top-btn" aria-label="Scroll to top">⮝</button>
+
+    <script src="js/leaderboard/mobile-scroll-top.js"></script>
+    <script src="js/leaderboard/sync-changes.js"></script>
     <script src="js/footer.js"></script>
     <script src="js/matrix.js"></script>
     <script src="js/terminal_ui.js"></script>

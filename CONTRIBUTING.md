@@ -2,41 +2,61 @@
 
 Thank you for your interest in contributing to CodePVG LeetCode Ranking.
 
-## Getting Started
+## Local Setup & Development
 
-1. Fork the repository.
-2. Clone your fork:
+1. Fork the repository and clone your fork:
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/leetcode-ranking.git
 cd leetcode-ranking
 ```
 
-3. Create a new branch for your changes:
+2. Create a new branch for your feature/fix:
 
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
-## Development
-
-Install dependencies:
+3. Install dependencies:
 
 ```bash
 npm install
-# or
-npm i
 ```
 
-Run the project locally:
+4. Start the local server:
 
 ```bash
 npm run dev
-# or
-node server.js
-# or
-npm start
 ```
+
+### Testing the Sync Script Locally
+
+The leaderboard data (such as `users.json` and historical stats) lives in a separate data repository to keep the main codebase clean. To test the `scripts/sync-leaderboard.js` script locally:
+
+1. Clone the data repository into a folder named `data` inside the project root (this folder is already ignored in `.gitignore`, so you never have to worry about accidentally pushing local data changes back to the main repository):
+
+```bash
+git clone https://github.com/codepvg/leetcode-ranking-data.git data
+```
+
+2. Run the synchronization script. It will automatically detect your local `data` folder and pull stats from the LeetCode API based on the users inside `data/users.json`:
+
+```bash
+node scripts/sync-leaderboard.js
+```
+
+3. Once it finishes, you can preview the newly generated `overall.json`, `daily.json`, `weekly.json`, and `monthly.json` files inside the `data` folder to verify your script changes.
+
+_(Note: To prevent GitHub API rate limits when the script fetches historical commit data, you can optionally set a Personal Access Token via the `DATA_REPO_TOKEN` environment variable.)_
+
+### Project Structure Overview
+
+Familiarize yourself with the core directories:
+
+- **`frontend/`**: Contains all static assets, HTML, CSS, and client-side JS controlling the UI.
+- **`scripts/`**: Contains automation logic (e.g., `sync-leaderboard.js`) used to fetch updates from the LeetCode API.
+- **`.github/workflows/`**: CI/CD GitHub Actions driving data synchronization and code formatting.
+- **`server.js`**: The Express server delivering the frontend files and configuring important security headers.
 
 ## Before You Start
 
@@ -74,6 +94,8 @@ Before submitting your Pull Request, please run the following command in the roo
 ```bash
 npx prettier --write .
 ```
+
+Alternatively, you can comment `/format` on your Pull Request, and our GitHub Actions bot will automatically format your code and push the commit for you.
 
 ### Frontend Changes
 

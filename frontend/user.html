@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">CodePVG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <script src="/js/navbar.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js"
+      nonce="__NONCE__"
+    ></script>
+    <style>
+      .analytics-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding-top: 1rem;
+      }
+      .page-title {
+        color: var(--cyan);
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+        margin-bottom: 2rem;
+        text-align: center;
+        font-size: 2rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .terminal-card {
+        background-color: var(--bg-surface);
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        position: relative;
+      }
+
+      .terminal-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--cyan),
+          transparent
+        );
+        opacity: 0.5;
+        border-radius: 8px 8px 0 0;
+      }
+
+      .card-header {
+        font-family: "Fira Code", monospace;
+        color: var(--text-dim);
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px dashed var(--border);
+        padding-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-title {
+        color: var(--text-muted);
+      }
+
+      .card-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--text-light);
+        margin-top: 0.5rem;
+        font-family: "Space Mono", monospace;
+      }
+
+      .streak-val {
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        display: inline-block;
+      }
+      .streak-current {
+        color: var(--green);
+        text-shadow: 0 0 5px rgba(0, 255, 100, 0.3);
+        display: inline-block;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+        justify-content: center;
+      }
+
+      .btn-filter {
+        background-color: var(--bg-dark);
+        color: var(--text-dim);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        font-family: "Fira Code", monospace;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-filter.active,
+      .btn-filter:hover {
+        background-color: rgba(0, 255, 100, 0.1);
+        border-color: var(--green);
+        color: var(--green);
+        text-shadow: 0 0 5px rgba(0, 255, 100, 0.4);
+      }
+
+      .charts-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (max-width: 900px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+        .charts-wrapper {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .goal-input-wrapper {
+        display: flex;
+        margin-top: 1rem;
+        gap: 0.5rem;
+      }
+      .goal-input {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+        color: var(--text-light);
+        padding: 8px 12px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+        outline: none;
+      }
+      .goal-input:focus {
+        border-color: var(--cyan);
+      }
+      .btn-save {
+        background: transparent;
+        color: var(--cyan);
+        border: 1px solid var(--cyan);
+        padding: 8px 12px;
+        cursor: pointer;
+        font-family: "Fira Code", monospace;
+        transition: all 0.2s;
+      }
+      .btn-save:hover {
+        background: rgba(0, 229, 255, 0.1);
+        text-shadow: 0 0 5px rgba(0, 229, 255, 0.4);
+      }
+
+      .badges-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .badge {
+        padding: 4px 10px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: help;
+        position: relative;
+        border: 1px solid;
+      }
+
+      .badge-streak {
+        color: #b08add;
+        background: rgba(176, 138, 221, 0.1);
+        border-color: rgba(176, 138, 221, 0.3);
+        text-shadow: 0 0 5px rgba(176, 138, 221, 0.3);
+      }
+
+      .badge-speedrun {
+        color: #ff4c4c;
+        background: rgba(255, 76, 76, 0.1);
+        border-color: rgba(255, 76, 76, 0.3);
+        text-shadow: 0 0 5px rgba(255, 76, 76, 0.3);
+      }
+
+      .badge-uplink {
+        color: var(--cyan);
+        background: rgba(0, 229, 255, 0.1);
+        border-color: rgba(0, 229, 255, 0.3);
+        text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
+      }
+
+      .badge[data-title]:hover::after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-5px);
+        background: var(--bg-dark);
+        border: 1px solid var(--border);
+        color: var(--text-light);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        z-index: 10;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+      }
+
+      /* Fix ChartJS canvas responsiveness */
+      .chart-container-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+      }
+
+      /* Rankings Banner Styles */
+      .ranks-banner {
+        margin-bottom: 1.5rem;
+        padding: 1rem 1.5rem;
+      }
+
+      .ranks-banner .card-header {
+        margin-bottom: 0.5rem;
+      }
+
+      .ranks-display-wrapper {
+        font-family: "Space Mono", monospace;
+        font-size: 0.9rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .rank-item .rank-label {
+        color: var(--text-dim);
+      }
+
+      .rank-item .rank-value {
+        margin-left: 0.5rem;
+      }
+
+      .active-rank .rank-value {
+        font-weight: bold;
+      }
+
+      .placeholder-rank {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <main class="page">
+      <div class="container analytics-container">
+        <h1 id="username-display" class="page-title">[USER_PROFILE]</h1>
+
+        <!-- Top Widgets Grid -->
+        <div class="dashboard-grid">
+          <!-- Streak Indicator Card -->
+          <div class="terminal-card">
+            <div class="card-header">
+              <span class="card-title">[SYS_STREAK]</span>
+              <span style="color: var(--text-dim)">// COMMIT_LOG</span>
+            </div>
+            <div>
+              <div
+                style="
+                  margin-bottom: 0.8rem;
+                  display: flex;
+                  align-items: baseline;
+                  justify-content: space-between;
+                "
+              >
+                <span
+                  style="
+                    color: var(--text-dim);
+                    font-size: 0.85rem;
+                    font-family: &quot;Space Mono&quot;, monospace;
+                  "
+                  >CURRENT:</span
+                >
+                <div>
+                  <span
+                    class="card-value streak-current"
+                    id="streak-current"
+                    style="font-size: 1.5rem"
+                    >--</span
+                  >
+                  <span style="color: var(--text-dim); font-size: 0.8rem"
+                    >DAYS</span
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  justify-content: space-between;
+                "
+              >
+                <span
+                  style="
+                    color: var(--text-dim);
+                    font-size: 0.85rem;
+                    font-family: &quot;Space Mono&quot;, monospace;
+                  "
+                  >LONGEST:</span
+                >
+                <div>
+                  <span
+                    class="card-value streak-val"
+                    id="streak-longest"
+                    style="font-size: 1.8rem"
+                    >--</span
+                  >
+                  <span style="color: var(--text-dim); font-size: 0.8rem"
+                    >DAYS</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Goal Setting Widget -->
+          <div class="terminal-card">
+            <div class="card-header">
+              <span class="card-title">[SYS_TARGETS]</span>
+              <span style="color: var(--text-dim)">// LOCAL_STORE</span>
+            </div>
+          </div>
+
+          <!-- Badge Wall -->
+          <div class="terminal-card">
+            <div class="card-header">
+              <span class="card-title">[SYS_BADGES]</span>
+              <span style="color: var(--text-dim)">// PRIVILEGES</span>
+            </div>
+            <div class="badges-container" id="badge-wall">
+              <div
+                class="badge badge-streak"
+                data-title="Solved >= 1 problem every day for 7 days"
+              >
+                [HOT_STREAK]
+              </div>
+              <div
+                class="badge badge-speedrun"
+                data-title="Top 3 problem-solving velocity this week"
+              >
+                [SPEEDRUN]
+              </div>
+              <div
+                class="badge badge-uplink"
+                data-title="Jumped 5+ positions in ranks"
+              >
+                [UP_LINK]
+              </div>
+              <div
+                style="
+                  color: var(--text-dim);
+                  font-size: 0.8rem;
+                  width: 100%;
+                  margin-top: 8px;
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                "
+              >
+                <span style="opacity: 0.5">_UNLOCKED</span>
+                <div
+                  style="
+                    flex: 1;
+                    height: 1px;
+                    background: var(--border);
+                    opacity: 0.3;
+                  "
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal-card ranks-banner">
+          <div class="card-header">
+            <span class="card-title">[SYS_RANKS]</span>
+            <span class="card-subtitle">// LEETCODE_LOCAL_RANKS</span>
+          </div>
+          <div class="ranks-display-wrapper">
+            <div class="rank-item active-rank">
+              <span class="rank-label">PROFILE:</span>
+              <span id="profile-ranking" class="rank-value streak-current"
+                >--</span
+              >
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">OVERALL:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">MONTHLY:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">WEEKLY:</span>
+              <span class="rank-value">--</span>
+            </div>
+            <div class="rank-item placeholder-rank">
+              <span class="rank-label">DAILY:</span>
+              <span class="rank-value">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historical Graphs Section -->
+        <div class="terminal-card" style="margin-bottom: 3rem">
+          <div class="card-header">
+            <span class="card-title">[HISTORICAL_DATA]</span>
+            <span style="color: var(--text-dim)">// RENDER_CHART</span>
+          </div>
+
+          <div class="button-group">
+            <button id="btn-weekly" class="btn-filter active">
+              ./weekly.sh
+            </button>
+            <button id="btn-monthly" class="btn-filter">./monthly.sh</button>
+            <button id="btn-overall" class="btn-filter">./overall.sh</button>
+          </div>
+
+          <div class="charts-wrapper">
+            <div class="chart-container-wrapper">
+              <canvas id="performanceChart"></canvas>
+            </div>
+            <div
+              class="chart-container-wrapper"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <canvas id="difficultyChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script nonce="__NONCE__" src="/js/user/historical-graphs.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/matrix.js"></script>
+    <script src="/js/terminal_ui.js"></script>
+  </body>
+</html>
