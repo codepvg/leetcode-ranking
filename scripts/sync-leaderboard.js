@@ -208,7 +208,7 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
       else if (delta < 0) user.rankChange = `${delta}`;
       else user.rankChange = "=";
 
-      if (filename === "overall.json" && badgesMap && delta >= 5) {
+      if (filename === "daily.json" && badgesMap && delta >= 5) {
         if (badgesMap[user.id]) {
           badgesMap[user.id].push("UP_LINK");
         }
@@ -226,7 +226,7 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
  * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
  * @param {number} daysAgo - Number of days to look back for the snapshot file
  */
-async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
+async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo, badgesMap = null) {
   const data = JSON.parse(JSON.stringify(sourceData));
   console.log(" ");
   console.log(`Loading previous ${periodName}'s file...`);
@@ -262,6 +262,10 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
       data[i].data.easySolved +
       data[i].data.mediumSolved +
       data[i].data.hardSolved;
+      
+    if (periodName === "weekly" && data[i].data.totalSolved >= 7 && badgesMap) {
+      checkHotStreak(data[i].id, DATA_DIR, badgesMap);
+    }
   }
   console.log("Calculation done");
   console.log("");
@@ -271,7 +275,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   assignCompetitionRanks(data);
   console.log(`Writing sorted ${periodName} data to ${periodName}.json...`);
   const filepath = path.join(DATA_DIR, `${periodName}.json`);
-  await computeRankChanges(data, `${periodName}.json`);
+  await computeRankChanges(data, `${periodName}.json`, badgesMap);
   try {
     atomicWrite(filepath, data);
     console.log(`${periodName} data saved successfully`);
@@ -279,6 +283,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
   }
+  return data;
 }
 
 (async () => {
@@ -447,181 +452,10 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     process.exit(1);
   }
 
-  let dailyData = JSON.parse(JSON.stringify(overallData));
-  console.log(" ");
-  console.log("Loading previous day's file...");
-  const previousDayFilepath = path.join(DATA_DIR, "daily", getFileName(1));
-  let previousData = [];
-  try {
-    const rawData = fs.readFileSync(previousDayFilepath, "utf8");
-    previousData = JSON.parse(rawData);
-    console.log("Previous day's data loaded successfully");
-  } catch (err) {
-    console.error(`Failed to load previous file: `, err.message);
-    process.exit(1);
-  }
-
-  console.log(" ");
-  console.log("Calculating daily progress...");
-  for (let i = 0; i < dailyData.length; i++) {
-    const previousIndex = previousData.findIndex(
-      (obj) => obj.id === dailyData[i].id,
-    );
-    if (previousIndex == -1) {
-      dailyData.splice(i--, 1);
-      continue;
-    }
-
-    dailyData[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    dailyData[i].data.mediumSolved -=
-      previousData[previousIndex].data.mediumSolved;
-    dailyData[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
-
-    dailyData[i].score =
-      dailyData[i].data.easySolved +
-      dailyData[i].data.mediumSolved * 3 +
-      dailyData[i].data.hardSolved * 5;
-    dailyData[i].data.totalSolved =
-      dailyData[i].data.easySolved +
-      dailyData[i].data.mediumSolved +
-      dailyData[i].data.hardSolved;
-  }
-  console.log("Calculation done");
-  console.log("");
-
-  console.log("Sorting calculated data...");
-  stableSortByScore(dailyData);
-  assignCompetitionRanks(dailyData);
-  console.log("Writing sorted daily data to daily.json...");
-  const dailyFilepath = path.join(DATA_DIR, "daily.json");
-  await computeRankChanges(dailyData, "daily.json");
-  try {
-    atomicWrite(dailyFilepath, dailyData);
-    console.log("Daily data saved successfully");
-  } catch (err) {
-    console.error(`Failed to write json file: `, err.message);
-    process.exit(1);
-  }
-
-  let weeklyData = JSON.parse(JSON.stringify(overallData));
-  console.log(" ");
-  console.log("Loading previous week's file...");
-  const previousWeekFilepath = path.join(DATA_DIR, "daily", getFileName(7));
-  previousData = [];
-  try {
-    const rawData = fs.readFileSync(previousWeekFilepath, "utf8");
-    previousData = JSON.parse(rawData);
-    console.log("Previous week's data loaded successfully");
-  } catch (err) {
-    console.error(`Failed to load previous file: `, err.message);
-    process.exit(1);
-  }
-
-  console.log(" ");
-  console.log("Calculating weekly progress...");
-  for (let i = 0; i < weeklyData.length; i++) {
-    const previousIndex = previousData.findIndex(
-      (obj) => obj.id === weeklyData[i].id,
-    );
-    if (previousIndex == -1) {
-      weeklyData.splice(i--, 1);
-      continue;
-    }
-    weeklyData[i].data.easySolved -=
-      previousData[previousIndex].data.easySolved;
-    weeklyData[i].data.mediumSolved -=
-      previousData[previousIndex].data.mediumSolved;
-    weeklyData[i].data.hardSolved -=
-      previousData[previousIndex].data.hardSolved;
-    weeklyData[i].score =
-      weeklyData[i].data.easySolved +
-      weeklyData[i].data.mediumSolved * 3 +
-      weeklyData[i].data.hardSolved * 5;
-    weeklyData[i].data.totalSolved =
-      weeklyData[i].data.easySolved +
-      weeklyData[i].data.mediumSolved +
-      weeklyData[i].data.hardSolved;
-
-    if (weeklyData[i].data.totalSolved >= 7) {
-      checkHotStreak(weeklyData[i].id, DATA_DIR, badgesMap);
-    }
-  }
-  console.log("Calculation done");
-  console.log("");
-
-  console.log("Sorting calculated data...");
-  stableSortByScore(weeklyData);
-  assignCompetitionRanks(weeklyData);
-  console.log("Writing sorted weekly data to weekly.json...");
-  const weeklyFilepath = path.join(DATA_DIR, "weekly.json");
-  await computeRankChanges(weeklyData, "weekly.json");
-  try {
-    atomicWrite(weeklyFilepath, weeklyData);
-    console.log("Weekly data saved successfully");
-  } catch (err) {
-    console.error(`Failed to write json file: `, err.message);
-    process.exit(1);
-  }
-
-  let monthlyData = JSON.parse(JSON.stringify(overallData));
-  console.log(" ");
-  console.log("Loading previous month's file...");
-  const previousMonthFilepath = path.join(DATA_DIR, "daily", getFileName(30));
-  previousData = [];
-  try {
-    const rawData = fs.readFileSync(previousMonthFilepath, "utf8");
-    previousData = JSON.parse(rawData);
-    console.log("Previous month's data loaded successfully");
-  } catch (err) {
-    console.error(`Failed to load previous file: `, err.message);
-    process.exit(1);
-  }
-
-  console.log(" ");
-  console.log("Calculating monthly progress...");
-  for (let i = 0; i < monthlyData.length; i++) {
-    const previousIndex = previousData.findIndex(
-      (obj) => obj.id === monthlyData[i].id,
-    );
-    if (previousIndex == -1) {
-      monthlyData.splice(i--, 1);
-      continue;
-    }
-    monthlyData[i].data.easySolved -=
-      previousData[previousIndex].data.easySolved;
-    monthlyData[i].data.mediumSolved -=
-      previousData[previousIndex].data.mediumSolved;
-    monthlyData[i].data.hardSolved -=
-      previousData[previousIndex].data.hardSolved;
-    monthlyData[i].score =
-      monthlyData[i].data.easySolved +
-      monthlyData[i].data.mediumSolved * 3 +
-      monthlyData[i].data.hardSolved * 5;
-    monthlyData[i].data.totalSolved =
-      monthlyData[i].data.easySolved +
-      monthlyData[i].data.mediumSolved +
-      monthlyData[i].data.hardSolved;
-  }
-  console.log("Calculation done");
-  console.log("");
-
-  console.log("Sorting calculated data...");
-  stableSortByScore(monthlyData);
-  assignCompetitionRanks(monthlyData);
-  console.log("Writing sorted monthly data to monthly.json...");
-  const monthlyFilepath = path.join(DATA_DIR, "monthly.json");
-  await computeRankChanges(monthlyData, "monthly.json");
-  try {
-    atomicWrite(monthlyFilepath, monthlyData);
-    console.log("Monthly data saved successfully");
-  } catch (err) {
-    console.error(`Failed to write json file: `, err.message);
-    process.exit(1);
-  }
   // Process timeframe-based leaderboards using the shared function
-  await processTimeframe(overallData, DATA_DIR, "daily", 1);
-  await processTimeframe(overallData, DATA_DIR, "weekly", 7);
-  await processTimeframe(overallData, DATA_DIR, "monthly", 30);
+  await processTimeframe(overallData, DATA_DIR, "daily", 1, badgesMap);
+  const weeklyData = await processTimeframe(overallData, DATA_DIR, "weekly", 7, badgesMap);
+  await processTimeframe(overallData, DATA_DIR, "monthly", 30, badgesMap);
 
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");
@@ -706,7 +540,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   }
 
   try {
-    atomicWrite(badgesFilepath, badgesMap);
+    atomicWrite(badgesFilepath, filteredBadges);
     console.log("badges.json saved successfully!");
   } catch (err) {
     console.error("Failed to write badges.json:", err.message);
