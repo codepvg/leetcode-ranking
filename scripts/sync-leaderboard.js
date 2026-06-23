@@ -226,7 +226,13 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
  * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
  * @param {number} daysAgo - Number of days to look back for the snapshot file
  */
-async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo, badgesMap = null) {
+async function processTimeframe(
+  sourceData,
+  DATA_DIR,
+  periodName,
+  daysAgo,
+  badgesMap = null,
+) {
   const data = JSON.parse(JSON.stringify(sourceData));
   console.log(" ");
   console.log(`Loading previous ${periodName}'s file...`);
@@ -262,7 +268,7 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo, badge
       data[i].data.easySolved +
       data[i].data.mediumSolved +
       data[i].data.hardSolved;
-      
+
     if (periodName === "weekly" && data[i].data.totalSolved >= 7 && badgesMap) {
       checkHotStreak(data[i].id, DATA_DIR, badgesMap);
     }
@@ -454,7 +460,13 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo, badge
 
   // Process timeframe-based leaderboards using the shared function
   await processTimeframe(overallData, DATA_DIR, "daily", 1, badgesMap);
-  const weeklyData = await processTimeframe(overallData, DATA_DIR, "weekly", 7, badgesMap);
+  const weeklyData = await processTimeframe(
+    overallData,
+    DATA_DIR,
+    "weekly",
+    7,
+    badgesMap,
+  );
   await processTimeframe(overallData, DATA_DIR, "monthly", 30, badgesMap);
 
   console.log("Generating changes.json...");

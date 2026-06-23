@@ -24,7 +24,7 @@ async function fetchUserInfo(username) {
       console.error(
         "Failed to fetch live profile ranking from API wrapper:",
         err.message,
-      )
+      ),
     );
 
   const historyPromise = fetch(rawUrl)
@@ -32,11 +32,16 @@ async function fetchUserInfo(username) {
       if (res.ok) {
         history = await res.json();
       } else {
-        console.warn(`No historical data found for user: ${username} (HTTP ${res.status})`);
+        console.warn(
+          `No historical data found for user: ${username} (HTTP ${res.status})`,
+        );
       }
     })
     .catch((err) =>
-      console.error(`Failed to fetch historical data for ${username}:`, err.message)
+      console.error(
+        `Failed to fetch historical data for ${username}:`,
+        err.message,
+      ),
     );
 
   const badgesPromise = fetch(badgesUrl)
@@ -45,11 +50,16 @@ async function fetchUserInfo(username) {
         const badgesMap = await res.json();
         badges = badgesMap[username] || [];
       } else {
-        console.warn(`Could not retrieve badges.json from GitHub (HTTP ${res.status})`);
+        console.warn(
+          `Could not retrieve badges.json from GitHub (HTTP ${res.status})`,
+        );
       }
     })
     .catch((err) =>
-      console.error(`Failed to fetch badges data for ${username}:`, err.message)
+      console.error(
+        `Failed to fetch badges data for ${username}:`,
+        err.message,
+      ),
     );
 
   await Promise.allSettled([livePromise, historyPromise, badgesPromise]);
