@@ -53,36 +53,44 @@ async function fetchData(url) {
   console.log(" ");
   console.log("Starting daily full sync inactivity analysis...");
 
-  for (const user of users) {
-    const username = user.id;
+  const CONCURRENCY_LIMIT = 50;
 
-    const profile = await fetchData(baseUrl + username);
-    if (!profile) {
-      console.log(`${username}: skipped (API error)`);
-      continue;
-    }
+  for (let i = 0; i < users.length; i += CONCURRENCY_LIMIT) {
+    const batch = users.slice(i, i + CONCURRENCY_LIMIT);
 
-    const calendar = profile.submissionCalendar;
-    const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
+    await Promise.all(
+      batch.map(async (user) => {
+        const username = user.id;
 
-    if (timestamps.length === 0) {
-      console.log(`${username}: Inactive (no submission calendar history)`);
-      inactiveUsers.push(username);
-      continue;
-    }
+        const profile = await fetchData(baseUrl + username);
+        if (!profile) {
+          console.log(`${username}: skipped (API error)`);
+          return;
+        }
 
-    const latestTimestampSeconds = Math.max(...timestamps);
-    const lastActiveDate = new Date(latestTimestampSeconds * 1000);
+        const calendar = profile.submissionCalendar;
+        const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
 
-    const diffTime = Math.abs(now - lastActiveDate);
-    const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
+        if (timestamps.length === 0) {
+          console.log(`${username}: Inactive (no submission calendar history)`);
+          inactiveUsers.push(username);
+          return;
+        }
 
-    if (diffDays > THRESHOLD_DAYS) {
-      console.log(`${username}: Inactive (${diffDays} days ago)`);
-      inactiveUsers.push(username);
-    } else {
-      console.log(`${username}: Active (${diffDays} days ago)`);
-    }
+        const latestTimestampSeconds = Math.max(...timestamps);
+        const lastActiveDate = new Date(latestTimestampSeconds * 1000);
+
+        const diffTime = Math.abs(now - lastActiveDate);
+        const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
+
+        if (diffDays > THRESHOLD_DAYS) {
+          console.log(`${username}: Inactive (${diffDays} days ago)`);
+          inactiveUsers.push(username);
+        } else {
+          console.log(`${username}: Active (${diffDays} days ago)`);
+        }
+      }),
+    );
   }
 
   console.log("...");
