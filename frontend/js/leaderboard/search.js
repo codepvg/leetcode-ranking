@@ -21,6 +21,7 @@ function setupSearchListeners() {
       applyFiltersAndRender();
     }, 300),
   );
+
   clearBtn.addEventListener("click", () => {
     searchInput.value = "";
     currentSearchTerm = "";
