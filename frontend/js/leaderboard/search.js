@@ -3,7 +3,7 @@ function setupSearchListeners() {
   const shortcutBadge = document.getElementById("search-shortcut");
   const clearBtn = document.getElementById("clear-search");
 
- function debounce(fn, delay) {
+  function debounce(fn, delay) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -16,11 +16,10 @@ function setupSearchListeners() {
     debounce((e) => {
       currentSearchTerm = e.target.value.toLowerCase().trim();
 
-      clearBtn.style.display =
-        e.target.value.trim() !== "" ? "flex" : "none";
+      clearBtn.style.display = e.target.value.trim() !== "" ? "flex" : "none";
 
       applyFiltersAndRender();
-    }, 300)
+    }, 300),
   );
 
   clearBtn.addEventListener("click", () => {
