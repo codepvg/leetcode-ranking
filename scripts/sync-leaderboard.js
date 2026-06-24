@@ -222,11 +222,11 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
       // Prevent wild rank jumps for users who have 0 score on short-term boards
       if (filename !== "overall.json" && user.score === 0) {
         delta = 0;
-        user.rankChange = "=";
+        user.rankChange = 0;
       } else {
         if (delta > 0) user.rankChange = `+${delta}`;
         else if (delta < 0) user.rankChange = `${delta}`;
-        else user.rankChange = "=";
+        else user.rankChange = 0;
       }
 
       if (badgesMap && delta >= 5 && user.score > 0) {

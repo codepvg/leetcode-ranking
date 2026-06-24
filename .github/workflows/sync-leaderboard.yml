@@ -15,14 +15,15 @@ permissions:
 
 jobs:
   run-fetch:
+    if: github.repository == 'codepvg/leetcode-ranking'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout logic repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout data repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: codepvg/leetcode-ranking-data
           token: ${{ secrets.DATA_REPO_TOKEN }}
