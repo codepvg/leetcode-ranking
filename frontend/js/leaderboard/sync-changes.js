@@ -47,24 +47,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btn.classList.add("pulse");
 
-    let html = "";
+    const fragment = document.createDocumentFragment();
+
     if (changes.rank_changes) {
       changes.rank_changes.forEach((rc) => {
         const arrow = rc.rank_delta > 0 ? "↑" : "↓";
         const color = rc.rank_delta > 0 ? "var(--green)" : "var(--red)";
-        html += `<div class="changes-content-line"><span style="color:${color}">${arrow}</span> <span><strong style="color:#fff;">${rc.username}</strong> moved #${rc.old_rank} → <strong style="color:var(--green)">#${rc.new_rank}</strong></span></div>`;
+
+        const line = document.createElement("div");
+        line.className = "changes-content-line";
+
+        const arrowSpan = document.createElement("span");
+        arrowSpan.style.color = color;
+        arrowSpan.textContent = arrow;
+        line.appendChild(arrowSpan);
+        line.appendChild(document.createTextNode(" "));
+
+        const detailSpan = document.createElement("span");
+        const nameStrong = document.createElement("strong");
+        nameStrong.style.color = "#fff";
+        // User-controlled display name (textContent only).
+        nameStrong.textContent = rc.username;
+        detailSpan.appendChild(nameStrong);
+        detailSpan.appendChild(
+          document.createTextNode(` moved #${rc.old_rank} → `),
+        );
+        const newRankStrong = document.createElement("strong");
+        newRankStrong.style.color = "var(--green)";
+        newRankStrong.textContent = `#${rc.new_rank}`;
+        detailSpan.appendChild(newRankStrong);
+
+        line.appendChild(detailSpan);
+        fragment.appendChild(line);
       });
     }
 
     if (changes.new_users && changes.new_users.length > 0) {
-      html += `<div class="changes-content-line"><span style="color:#fff;">${changes.new_users.length} new user(s) joined</span></div>`;
+      const line = document.createElement("div");
+      line.className = "changes-content-line";
+      const span = document.createElement("span");
+      span.style.color = "#fff";
+      span.textContent = `${changes.new_users.length} new user(s) joined`;
+      line.appendChild(span);
+      fragment.appendChild(line);
     }
 
     if (changes.total_new_solves && changes.total_new_solves > 0) {
-      html += `<div class="changes-content-line"><span style="color:#fff;">${changes.total_new_solves} new problems solved across ${changes.users_with_new_solves} users</span></div>`;
+      const line = document.createElement("div");
+      line.className = "changes-content-line";
+      const span = document.createElement("span");
+      span.style.color = "#fff";
+      span.textContent = `${changes.total_new_solves} new problems solved across ${changes.users_with_new_solves} users`;
+      line.appendChild(span);
+      fragment.appendChild(line);
     }
 
-    body.innerHTML = html;
+    body.innerHTML = "";
+    body.appendChild(fragment);
   }
 
   loadChanges();

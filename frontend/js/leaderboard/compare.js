@@ -231,19 +231,33 @@ function updateFloatingCompareBar() {
 
   bar.style.display = "flex";
 
-  const namesStr = window.selectedUsers.map((u) => u.name).join(", ");
   const count = window.selectedUsers.length;
 
+  // Static markup (no user-controlled data) is safe via innerHTML.
   bar.innerHTML = `
-    <div class="selected-list">
-      Comparing (<span class="selected-tag">${count}/3</span>): ${namesStr}
-    </div>
+    <div class="selected-list"></div>
     <div class="actions">
       <button id="floating-btn-compare" class="btn-compare" ${count < 2 ? "disabled" : ""}>Compare</button>
       <button id="floating-btn-clear" class="btn-clear">Clear</button>
       <button id="floating-btn-cancel" class="btn-clear" style="color: var(--amber);">Cancel</button>
     </div>
   `;
+
+  // Names are user-controlled, so build this part with safe DOM nodes
+  // (textContent) instead of interpolating into innerHTML.
+  const listDiv = bar.querySelector(".selected-list");
+  listDiv.appendChild(document.createTextNode("Comparing ("));
+  const tagSpan = document.createElement("span");
+  tagSpan.className = "selected-tag";
+  tagSpan.textContent = `${count}/3`;
+  listDiv.appendChild(tagSpan);
+  listDiv.appendChild(document.createTextNode("): "));
+  window.selectedUsers.forEach((u, idx) => {
+    listDiv.appendChild(document.createTextNode(u.name));
+    if (idx < window.selectedUsers.length - 1) {
+      listDiv.appendChild(document.createTextNode(", "));
+    }
+  });
 }
 
 /**
@@ -498,22 +512,34 @@ function populateComparisonTable() {
     });
   }
 
-  let html = "<thead><tr>";
+  table.innerHTML = "";
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
   headers.forEach((h) => {
-    html += `<th>${h}</th>`;
+    const th = document.createElement("th");
+    // Header may include user-controlled names (textContent only).
+    th.textContent = h;
+    headerRow.appendChild(th);
   });
-  html += "</tr></thead><tbody>";
+  thead.appendChild(headerRow);
 
+  const tbody = document.createElement("tbody");
   metrics.forEach((m) => {
-    html += `<tr><td>${m.label}</td>`;
+    const row = document.createElement("tr");
+    const labelCell = document.createElement("td");
+    labelCell.textContent = m.label;
+    row.appendChild(labelCell);
     m.values.forEach((v) => {
-      html += `<td>${v}</td>`;
+      const cell = document.createElement("td");
+      cell.textContent = v;
+      row.appendChild(cell);
     });
-    html += "</tr>";
+    tbody.appendChild(row);
   });
-  html += "</tbody>";
 
-  table.innerHTML = html;
+  table.appendChild(thead);
+  table.appendChild(tbody);
 }
 
 /**
