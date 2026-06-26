@@ -278,17 +278,30 @@ async function processTimeframe(
       data.splice(i--, 1);
       continue;
     }
-    data[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    data[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
-    data[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
-    data[i].score =
-      data[i].data.easySolved +
-      data[i].data.mediumSolved * 3 +
-      data[i].data.hardSolved * 5;
-    data[i].data.totalSolved =
-      data[i].data.easySolved +
-      data[i].data.mediumSolved +
-      data[i].data.hardSolved;
+   data[i].data.easySolved = Math.max(
+  0,
+  data[i].data.easySolved - previousData[previousIndex].data.easySolved
+);
+
+data[i].data.mediumSolved = Math.max(
+  0,
+  data[i].data.mediumSolved - previousData[previousIndex].data.mediumSolved
+);
+
+data[i].data.hardSolved = Math.max(
+  0,
+  data[i].data.hardSolved - previousData[previousIndex].data.hardSolved
+);
+
+data[i].score =
+  data[i].data.easySolved +
+  data[i].data.mediumSolved * 3 +
+  data[i].data.hardSolved * 5;
+
+data[i].data.totalSolved =
+  data[i].data.easySolved +
+  data[i].data.mediumSolved +
+  data[i].data.hardSolved;
 
     if (periodName === "weekly" && data[i].data.totalSolved >= 7 && badgesMap) {
       checkHotStreak(data[i].id, DATA_DIR, badgesMap);
