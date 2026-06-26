@@ -292,12 +292,8 @@ async function fetchUserData(userId) {
     origins.push(window.location.origin);
   }
   origins.push("http://localhost:3000");
-  origins.push(
-    "https://lc-backend-lyq2.onrend.com"
-  );
+  origins.push("https://lc-backend-lyq2.onrend.com");
 
-
-  
   let lastError = null;
   for (const origin of origins) {
     try {
