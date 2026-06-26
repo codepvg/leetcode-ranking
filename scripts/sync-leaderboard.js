@@ -278,9 +278,18 @@ async function processTimeframe(
       data.splice(i--, 1);
       continue;
     }
-    data[i].data.easySolved -= previousData[previousIndex].data.easySolved;
-    data[i].data.mediumSolved -= previousData[previousIndex].data.mediumSolved;
-    data[i].data.hardSolved -= previousData[previousIndex].data.hardSolved;
+    data[i].data.easySolved = Math.max(
+      0,
+      data[i].data.easySolved - previousData[previousIndex].data.easySolved,
+    );
+    data[i].data.mediumSolved = Math.max(
+      0,
+      data[i].data.mediumSolved - previousData[previousIndex].data.mediumSolved,
+    );
+    data[i].data.hardSolved = Math.max(
+      0,
+      data[i].data.hardSolved - previousData[previousIndex].data.hardSolved,
+    );
     data[i].score =
       data[i].data.easySolved +
       data[i].data.mediumSolved * 3 +
