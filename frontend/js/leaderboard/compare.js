@@ -4,7 +4,7 @@
  */
 
 window.selectedUsers = [];
-window.compareModeActive = false;
+          window.compareModeActive = false;
 
 let selectedUserData = [];
 let difficultyChartInstance = null;
