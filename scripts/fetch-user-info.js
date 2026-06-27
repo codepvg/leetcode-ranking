@@ -56,17 +56,13 @@ async function fetchUserInfo(username) {
         const apiData = await res.json();
         ranking = apiData.ranking || 0;
         contest = apiData.contest || null;
+      } else {
+        throw new Error(`LeetCode API wrapper returned status ${res.status}`);
       }
-    })
-    .catch((err) =>
-      console.error(
-        "Failed to fetch live profile ranking from API wrapper:",
-        err.message,
-      ),
-    );
+    });
 
-  // Wait for the concurrent live API task to complete
-  await Promise.allSettled([livePromise]);
+  // Wait for the live API task to complete
+  await livePromise;
 
   // Ensure history is sorted chronologically
   history.sort((a, b) => new Date(a.date) - new Date(b.date));

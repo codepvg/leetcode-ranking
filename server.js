@@ -142,6 +142,22 @@ const apiLimiter = rateLimit({
   },
 });
 
+// ---- Cache configuration ----
+const userCache = new Map();
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
+
+// Helper to prune cache to bound memory usage
+function pruneUserCache() {
+  if (userCache.size > 1000) {
+    const now = Date.now();
+    for (const [key, value] of userCache.entries()) {
+      if (now - value.timestamp > CACHE_TTL_MS) {
+        userCache.delete(key);
+      }
+    }
+  }
+}
+
 app.use("/api/user/:username", apiLimiter);
 
 app.get("/api/user/:username", async (req, res) => {
@@ -152,12 +168,36 @@ app.get("/api/user/:username", async (req, res) => {
     return res.status(400).json({ error: "Invalid username format" });
   }
 
+  const cached = userCache.get(username);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    console.log(`[Cache Hit] Serving cached data for user: ${username}`);
+    return res.json(cached.data);
+  }
+
   try {
+    console.log(`[Cache Miss] Fetching fresh data for user: ${username}`);
     const data = await fetchUserInfo(username);
+
+    pruneUserCache();
+    userCache.set(username, {
+      timestamp: Date.now(),
+      data,
+    });
+
     res.json(data);
   } catch (err) {
-    res.status(500).json({
-      error: "Failed to fetch user details",
+    if (cached) {
+      console.warn(
+        `[Cache Fallback] Failed to fetch fresh data for user: ${username}. Serving stale cached data. Error: ${err.message}`,
+      );
+      return res.json(cached.data);
+    }
+
+    console.error(
+      `[Cache Error] Failed to fetch data for user: ${username} (No cached fallback available). Error: ${err.message}`,
+    );
+    res.status(502).json({
+      error: "Failed to fetch user details from external LeetCode API wrapper",
       details: err.message,
     });
   }
