@@ -95,7 +95,7 @@ Before submitting your Pull Request, please run the following command in the roo
 npx prettier --write .
 ```
 
-Alternatively, you can comment `/format` on your Pull Request, and our GitHub Actions bot will automatically format your code and push the commit for you.
+For security reasons, the `/format` PR comment command can only be triggered by maintainers/collaborators — if you're an external contributor, please run Prettier locally as shown above before requesting a review.
 
 ### Frontend Changes
 
