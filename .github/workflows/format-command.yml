@@ -1,10 +1,5 @@
 name: format-command
 
-# This workflow no longer triggers on issue_comment directly. It only runs
-# after .github/workflows/slash-command-dispatch.yml has verified that the
-# commenter has write access to the repository and created a
-# "format-command" repository_dispatch event. This removes the unauthenticated
-# pwn-request path: untrusted commenters never reach this job.
 on:
   repository_dispatch:
     types: [format-command]
@@ -48,7 +43,7 @@ jobs:
               issue_number: context.payload.client_payload.github.payload.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "I have successfully run Prettier and pushed the formatting fixes to this PR.\n\n**Note for Contributors:** Because this commit was pushed by a bot, GitHub will not automatically re-run the CI checks. To trigger them to pass, you must either:\n- Push an empty commit locally (`git commit --allow-empty -m \"Trigger builds\"` and push)\n- Close and immediately reopen this Pull Request."
+              body: "I have successfully run Prettier and pushed the formatting fixes to this PR.\n\n**Note:** Since this commit was pushed by a bot, GitHub will not automatically re-run the CI checks. To trigger them, either:\n- Push an empty commit (`git commit --allow-empty -m \"Trigger builds\"` and push)\n- Close and immediately reopen this Pull Request."
             })
 
       - name: Post failure comment
