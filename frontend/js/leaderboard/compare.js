@@ -11,7 +11,19 @@ let difficultyChartInstance = null;
 let progressChartInstance = null;
 let currentGraphRange = "weekly"; // "weekly", "monthly", "overall"
 
-function updateDatasetButtons() {
+
+
+
+
+
+
+
+
+
+
+
+
+          function updateDatasetButtons() {
   const rangeButtons = {
     weekly: document.getElementById("compare-btn-weekly"),
     monthly: document.getElementById("compare-btn-monthly"),
