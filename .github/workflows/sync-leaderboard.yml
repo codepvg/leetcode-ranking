@@ -15,14 +15,15 @@ permissions:
 
 jobs:
   run-fetch:
+    if: github.repository == 'codepvg/leetcode-ranking'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout logic repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout data repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: codepvg/leetcode-ranking-data
           token: ${{ secrets.DATA_REPO_TOKEN }}
@@ -88,10 +89,11 @@ jobs:
               fi
             fi
 
-            # 3. Stage changes (everything except users.json)
+            # 3. Stage changes (everything except users.json and inactive-users.json)
             cd db-repo
             git add .
             git reset -q users.json
+            git reset -q inactive-users.json
             
             # Debug: show exactly what is staged
             echo "--- Git Status ---"

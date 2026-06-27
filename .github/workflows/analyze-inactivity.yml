@@ -8,6 +8,7 @@ on:
 
 jobs:
   analyze:
+    if: github.repository == 'codepvg/leetcode-ranking'
     runs-on: ubuntu-latest
 
     steps:

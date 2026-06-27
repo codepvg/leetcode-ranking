@@ -6,21 +6,11 @@ async function fetchUserInfo(username) {
 
   let history = [];
   let ranking = null;
+  let badges = [];
 
-  try {
-    const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
-    const apiResponse = await fetch(liveApiUrl);
-    if (apiResponse.ok) {
-      const apiData = await apiResponse.json();
-      // Captures the live ranking directly from the endpoint payload
-      ranking = apiData.ranking || 0;
-    }
-  } catch (err) {
-    console.error(
-      "Failed to fetch live profile ranking from API wrapper:",
-      err.message,
-    );
-  }
+  const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
+  const cacheBuster = Date.now();
+  const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/user-data/${username}.json?t=${cacheBuster}`;
 
   let leaderboardRanks = {
     overall: { rank: "--", change: 0 },
@@ -29,17 +19,19 @@ async function fetchUserInfo(username) {
     monthly: { rank: "--", change: 0 },
   };
 
+  // 1. Fetch historical data, ranks, and badges in a single network pass
   try {
-    const cacheBuster = Date.now();
-    const rawUrl = `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/user-data/${username}.json?t=${cacheBuster}`;
     const response = await fetch(rawUrl);
     if (response.ok) {
       const data = await response.json();
+
+      // Auto-Migration Check & Routing
       if (Array.isArray(data)) {
         history = data;
       } else {
-        // If data is our new object structure, pull both properties safely
+        // Safe object destructuring for the new profile structure
         history = data.history || [];
+        badges = data.badges || [];
         if (data.leaderboardRanks) {
           leaderboardRanks = data.leaderboardRanks;
         }
@@ -56,6 +48,24 @@ async function fetchUserInfo(username) {
     );
   }
 
+  // 2. Fetch live profile ranking from the wrapper API
+  const livePromise = fetch(liveApiUrl)
+    .then(async (res) => {
+      if (res.ok) {
+        const apiData = await res.json();
+        ranking = apiData.ranking || 0;
+      }
+    })
+    .catch((err) =>
+      console.error(
+        "Failed to fetch live profile ranking from API wrapper:",
+        err.message,
+      ),
+    );
+
+  // Wait for the concurrent live API task to complete
+  await Promise.allSettled([livePromise]);
+
   // Ensure history is sorted chronologically
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -63,6 +73,7 @@ async function fetchUserInfo(username) {
     username,
     ranking,
     leaderboardRanks,
+    badges,
     history,
   };
 }
