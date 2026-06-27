@@ -35,5 +35,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Thank you for submitting a pull request.\n\nPlease ensure your changes comply with the project's contribution guidelines and that all workflow checks pass successfully.\n\n### Formatting and Branching\n- Please confirm you have formatted your code locally using `npx prettier --write .`, or you can simply comment `/format` on this PR to have our bot do it for you!\n- Ensure this PR is made from a `feature/*` branch and not `main`.\n\n> **Note:** This project is currently maintained by a solo maintainer, so reviews and responses may sometimes take a little time. Thanks for your patience."
+              body: "Thank you for submitting a pull request.\n\nPlease ensure your changes comply with the project's contribution guidelines and that all workflow checks pass successfully.\n\n### Formatting and Branching\n- Please confirm you have formatted your code locally using `npx prettier --write .` before requesting a review.\n- Ensure this PR is made from a `feature/*` branch and not `main`.\n\n> **Note:** This project is currently maintained by a solo maintainer, so reviews and responses may sometimes take a little time. Thanks for your patience."
             })
