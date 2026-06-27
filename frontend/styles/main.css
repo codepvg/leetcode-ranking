@@ -1864,7 +1864,7 @@ body::-webkit-scrollbar-thumb {
 /* Footer responsive */
 @media (max-width: 900px) {
   .footer-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 28px;
     text-align: center;
   }
@@ -1883,7 +1883,7 @@ body::-webkit-scrollbar-thumb {
   .footer-section:nth-child(2),
   .footer-section:nth-child(3),
   .footer-section:nth-child(4) {
-    grid-column: 1 / -1;
+    grid-column: unset;
     justify-self: center;
   }
 }
