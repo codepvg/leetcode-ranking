@@ -7,6 +7,7 @@ async function fetchUserInfo(username) {
   let history = [];
   let ranking = null;
   let badges = [];
+  let contest = null;
 
   const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
   const cacheBuster = Date.now();
@@ -17,6 +18,7 @@ async function fetchUserInfo(username) {
       if (res.ok) {
         const apiData = await res.json();
         ranking = apiData.ranking || 0;
+        contest = apiData.contest || null;
       }
     })
     .catch((err) =>
@@ -57,6 +59,7 @@ async function fetchUserInfo(username) {
     username,
     ranking,
     badges,
+    contest,
     history,
   };
 }
