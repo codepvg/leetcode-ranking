@@ -44,14 +44,14 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-function updateUserData(user, DATA_DIR, badgesMap = null) {
+function updateUserData(user, DATA_DIR, badgesMap = null, ranksObj = null) {
   const userDataDir = path.join(DATA_DIR, "user-data");
   if (!fs.existsSync(userDataDir)) {
     fs.mkdirSync(userDataDir, { recursive: true });
   }
 
   const userDataPath = path.join(userDataDir, `${user.id}.json`);
-  let userData = { history: [], badges: [] };
+  let userData = { leaderboardRanks: {}, history: [], badges: [] };
   let history = [];
 
   if (fs.existsSync(userDataPath)) {
@@ -62,6 +62,7 @@ function updateUserData(user, DATA_DIR, badgesMap = null) {
       } else {
         userData = rawData;
         history = userData.history || [];
+        if (!userData.leaderboardRanks) userData.leaderboardRanks = {};
       }
     } catch (err) {
       console.error(
@@ -93,7 +94,9 @@ function updateUserData(user, DATA_DIR, badgesMap = null) {
   if (badgesMap && badgesMap[user.id]) {
     userData.badges = [...new Set(badgesMap[user.id])];
   }
-
+  if (ranksObj) {
+    userData.leaderboardRanks = ranksObj;
+  }
   atomicWrite(userDataPath, userData);
 }
 
@@ -315,6 +318,7 @@ async function processTimeframe(
   try {
     atomicWrite(filepath, data);
     console.log(`${periodName} data saved successfully`);
+    return data;
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
@@ -473,7 +477,13 @@ async function processTimeframe(
   }
 
   // Process timeframe-based leaderboards using the shared function
-  await processTimeframe(overallData, DATA_DIR, "daily", 1, badgesMap);
+  const dailyData = await processTimeframe(
+    overallData,
+    DATA_DIR,
+    "daily",
+    1,
+    badgesMap,
+  );
   const weeklyData = await processTimeframe(
     overallData,
     DATA_DIR,
@@ -481,12 +491,47 @@ async function processTimeframe(
     7,
     badgesMap,
   );
-  await processTimeframe(overallData, DATA_DIR, "monthly", 30, badgesMap);
+  const monthlyData = await processTimeframe(
+    overallData,
+    DATA_DIR,
+    "monthly",
+    30,
+    badgesMap,
+  );
+
+  const overallMap = new Map(
+    overallData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const dailyMap = new Map(
+    dailyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const weeklyMap = new Map(
+    weeklyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+  const monthlyMap = new Map(
+    monthlyData.map((u) => [
+      u.id,
+      { rank: u.originalRank || "--", change: u.rankChange || "=" },
+    ]),
+  );
+
+  const formatChange = (changeStr) => {
+    if (changeStr === "=" || changeStr === "NEW") return 0;
+    return parseInt(changeStr, 10) || 0;
+  };
 
   console.log("Generating changes.json...");
   const changesFilepath = path.join(DATA_DIR, "changes.json");
   try {
-    // Build lookup of previous solve counts and ranks
     const previousMap = {};
     previousOverall.forEach((user, idx) => {
       previousMap[user.id] = {
@@ -505,12 +550,10 @@ async function processTimeframe(
       const prev = previousMap[user.id];
 
       if (!prev) {
-        // User not in previous snapshot = newly joined
         newUsers.push(user.name);
         return;
       }
 
-      // Check solve count delta since last sync
       const currentTotal = user.data.totalSolved || 0;
       const delta = currentTotal - prev.totalSolved;
       if (delta > 0) {
@@ -518,14 +561,13 @@ async function processTimeframe(
         usersWithNewSolves++;
       }
 
-      // Check rank movement since last sync
       if (prev.rank !== currentRank) {
         rankChanges.push({
           username: user.name,
           id: user.id,
           old_rank: prev.rank,
           new_rank: currentRank,
-          rank_delta: prev.rank - currentRank, // +ve = moved up
+          rank_delta: prev.rank - currentRank,
         });
       }
     });
@@ -546,7 +588,6 @@ async function processTimeframe(
     console.error("Failed to write changes.json: ", err.message);
   }
 
-  // [SPEEDRUN] Badge: Top 3 users in weekly progress
   if (Array.isArray(weeklyData)) {
     weeklyData.slice(0, 3).forEach((user) => {
       if (badgesMap[user.id] && user.score > 0) {
@@ -555,18 +596,52 @@ async function processTimeframe(
     });
   }
 
-  console.log("Updating user data files...");
+  console.log(
+    "Updating user data files with history, badges, and pre-calculated ranks...",
+  );
   let userDataFailures = 0;
   overallData.forEach((user) => {
     try {
-      updateUserData(user, DATA_DIR, badgesMap);
+      const overallInfo = overallMap.get(user.id) || {
+        rank: "--",
+        change: "=",
+      };
+      const dailyInfo = dailyMap.get(user.id) || { rank: "--", change: "=" };
+      const weeklyInfo = weeklyMap.get(user.id) || { rank: "--", change: "=" };
+      const monthlyInfo = monthlyMap.get(user.id) || {
+        rank: "--",
+        change: "=",
+      };
+
+      const calculatedRanks = {
+        overall: {
+          rank: overallInfo.rank,
+          change: formatChange(overallInfo.change),
+        },
+        daily: { rank: dailyInfo.rank, change: formatChange(dailyInfo.change) },
+        weekly: {
+          rank: weeklyInfo.rank,
+          change: formatChange(weeklyInfo.change),
+        },
+        monthly: {
+          rank: monthlyInfo.rank,
+          change: formatChange(monthlyInfo.change),
+        },
+      };
+
+      // Single write pass maps everything cleanly
+      updateUserData(user, DATA_DIR, badgesMap, calculatedRanks);
     } catch (err) {
       userDataFailures++;
-      console.error(`Failed to update data for ${user.id}:`, err.message);
+      console.error(
+        `Failed to completely map metadata for ${user.id}:`,
+        err.message,
+      );
     }
   });
+
   if (userDataFailures > 0) {
-    console.warn(`${userDataFailures} user data update(s) failed.`);
+    console.warn(`${userDataFailures} user data map update(s) failed.`);
   } else {
     console.log("User data files updated successfully");
   }
