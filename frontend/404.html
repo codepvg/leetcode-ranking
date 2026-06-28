@@ -26,17 +26,6 @@
         position: relative;
       }
 
-      /* Matrix rain canvas */
-      #matrix {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        opacity: 0.18;
-      }
-
       /* Main panel */
       .panel {
         position: relative;
@@ -159,11 +148,20 @@
         pointer-events: none;
         z-index: 2;
       }
+
+      @media (max-width: 768px) {
+        .panel {
+          padding: 2rem 2rem;
+          max-width: 90%;
+        }
+      }
+
       @media (max-width: 480px) {
         .panel {
           padding: 1.5rem 1.2rem;
           width: 95%;
         }
+
         .title {
           font-size: 1.6rem;
         }
@@ -171,17 +169,22 @@
         .subtitle {
           font-size: 0.75rem;
         }
+
         .line {
           font-size: 0.82rem;
           line-height: 1.6;
         }
+
         .nav-links {
           flex-direction: column;
+          align-items: center;
           gap: 0.75rem;
         }
+
         .nav-links a {
           text-align: center;
           width: 100%;
+          max-width: 280px;
           box-sizing: border-box;
         }
       }
@@ -189,7 +192,7 @@
   </head>
 
   <body>
-    <canvas id="matrix"></canvas>
+    <canvas id="matrix-canvas"></canvas>
 
     <div class="panel">
       <div class="title">404 — Not Found</div>
@@ -262,50 +265,7 @@
       </div>
     </div>
 
-    <script>
-      // Inject actual bad path
-      const p = window.location.pathname;
-      document.getElementById("cd-line").textContent = " cd " + p;
-      document.getElementById("path-display").textContent = p;
-
-      // Matrix rain
-      const canvas = document.getElementById("matrix");
-      const ctx = canvas.getContext("2d");
-
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener("resize", resize);
-
-      const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()アイウエオカキクケコサシスセソタチツテトナニヌネノ";
-      const fontSize = 14;
-      let cols = Math.floor(canvas.width / fontSize);
-      let drops = Array(cols).fill(1);
-
-      function drawMatrix() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#00ff41";
-        ctx.font = fontSize + "px Share Tech Mono, monospace";
-
-        cols = Math.floor(canvas.width / fontSize);
-        if (drops.length < cols)
-          drops = drops.concat(Array(cols - drops.length).fill(1));
-
-        for (let i = 0; i < cols; i++) {
-          const char = chars[Math.floor(Math.random() * chars.length)];
-          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
-          drops[i]++;
-        }
-      }
-
-      setInterval(drawMatrix, 40);
-    </script>
+    <script src="js/404.js"></script>
+    <script src="js/matrix.js"></script>
   </body>
 </html>
