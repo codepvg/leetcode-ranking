@@ -35,6 +35,7 @@ app.use(
           "https://raw.githubusercontent.com",
           "https://leetcode-api-dun.vercel.app",
           "https://lc-backend-lyq2.onrender.com",
+          "https://cdn.jsdelivr.net",
         ],
         // Inline scripts need a per-request nonce; external scripts from 'self'
         // are allowed automatically.

@@ -175,24 +175,6 @@
               margin-right: 0.5rem;
               white-space: nowrap;
             "
-            onmouseover="
-              this.style.background = 'var(--amber-muted)';
-              this.style.borderColor = 'var(--amber-dim)';
-              this.style.textShadow = '0 0 5px rgba(255, 176, 0, 0.4)';
-            "
-            onmouseout="
-              if (!window.compareModeActive) {
-                this.style.background = 'var(--bg-raised)';
-                this.style.borderColor = 'var(--border)';
-                this.style.color = 'var(--amber)';
-                this.style.textShadow = 'none';
-              } else {
-                this.style.background = 'var(--green-muted)';
-                this.style.borderColor = 'var(--green-dim)';
-                this.style.color = 'var(--green)';
-                this.style.textShadow = '0 0 5px rgba(0, 255, 65, 0.3)';
-              }
-            "
           >
             [--compare-peers]
           </button>
