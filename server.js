@@ -169,24 +169,53 @@ app.get("/api/user/:username", async (req, res) => {
   }
 
   const cached = userCache.get(username);
-  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
-    console.log(`[Cache Hit] Serving cached data for user: ${username}`);
-    return res.json(cached.data);
+  const now = Date.now();
+
+  if (cached) {
+    if (now - cached.timestamp < CACHE_TTL_MS && cached.data) {
+      return res.json(cached.data);
+    }
+    
+    if (cached.promise) {
+      try {
+        const data = await cached.promise;
+        return res.json(data);
+      } catch (err) {
+        if (cached.data) {
+          console.warn(`[Cache Fallback] Serving stale data after pending fetch failed...`);
+          return res.json(cached.data);
+        }
+      }
+    }
   }
 
+  let fetchPromise;
   try {
-    console.log(`[Cache Miss] Fetching fresh data for user: ${username}`);
-    const data = await fetchUserInfo(username);
+    fetchPromise = fetchUserInfo(username);
+    
+    userCache.set(username, {
+      ...cached,
+      timestamp: cached ? cached.timestamp : 0, 
+      promise: fetchPromise
+    });
+
+    const data = await fetchPromise;
 
     pruneUserCache();
     userCache.set(username, {
       timestamp: Date.now(),
       data,
+      promise: null
     });
 
     res.json(data);
   } catch (err) {
-    if (cached) {
+    userCache.set(username, {
+      ...cached,
+      promise: null
+    });
+
+    if (cached && cached.data) {
       console.warn(
         `[Cache Fallback] Failed to fetch fresh data for user: ${username}. Serving stale cached data. Error: ${err.message}`,
       );
