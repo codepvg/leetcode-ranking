@@ -121,10 +121,17 @@
         const res = await fetch("/api/user/" + username);
         if (!res.ok) return 0;
         const data = await res.json();
-        if (metric === "easy") return data.easySolved ?? 0;
-        if (metric === "medium") return data.mediumSolved ?? 0;
-        if (metric === "hard") return data.hardSolved ?? 0;
-        return data.totalSolved ?? 0;
+        var history = data.history;
+        if (!Array.isArray(history) || history.length === 0) return 0;
+        var latest = history[history.length - 1];
+        if (metric === "easy") return Number(latest.easy) || 0;
+        if (metric === "medium") return Number(latest.medium) || 0;
+        if (metric === "hard") return Number(latest.hard) || 0;
+        return (
+          (Number(latest.easy) || 0) +
+          (Number(latest.medium) || 0) +
+          (Number(latest.hard) || 0)
+        );
       } catch {
         return 0;
       }
