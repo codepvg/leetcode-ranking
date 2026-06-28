@@ -175,14 +175,16 @@ app.get("/api/user/:username", async (req, res) => {
     if (now - cached.timestamp < CACHE_TTL_MS && cached.data) {
       return res.json(cached.data);
     }
-    
+
     if (cached.promise) {
       try {
         const data = await cached.promise;
         return res.json(data);
       } catch (err) {
         if (cached.data) {
-          console.warn(`[Cache Fallback] Serving stale data after pending fetch failed...`);
+          console.warn(
+            `[Cache Fallback] Serving stale data after pending fetch failed...`,
+          );
           return res.json(cached.data);
         }
       }
@@ -192,11 +194,11 @@ app.get("/api/user/:username", async (req, res) => {
   let fetchPromise;
   try {
     fetchPromise = fetchUserInfo(username);
-    
+
     userCache.set(username, {
       ...cached,
-      timestamp: cached ? cached.timestamp : 0, 
-      promise: fetchPromise
+      timestamp: cached ? cached.timestamp : 0,
+      promise: fetchPromise,
     });
 
     const data = await fetchPromise;
@@ -205,14 +207,14 @@ app.get("/api/user/:username", async (req, res) => {
     userCache.set(username, {
       timestamp: Date.now(),
       data,
-      promise: null
+      promise: null,
     });
 
     res.json(data);
   } catch (err) {
     userCache.set(username, {
       ...cached,
-      promise: null
+      promise: null,
     });
 
     if (cached && cached.data) {
