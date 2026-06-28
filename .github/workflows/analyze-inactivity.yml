@@ -1,0 +1,59 @@
+name: Scheduled Inactivity Analysis
+
+on:
+  schedule:
+    # Triggers the inactivity scan at 05:45, 11:45, 17:45, and 23:45
+    - cron: "45 5,11,17,23 * * *"
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    if: github.repository == 'codepvg/leetcode-ranking'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+        with:
+          path: code-repo
+
+      - name: Checkout Data Repository
+        uses: actions/checkout@v4
+        with:
+          repository: "codepvg/leetcode-ranking-data"
+          token: ${{ secrets.DATA_REPO_TOKEN }}
+          path: data-repo
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "code-repo/package-lock.json"
+
+      - name: Install Dependencies
+        run: |
+          cd code-repo
+          npm install
+
+      - name: Run Inactivity Analysis Script
+        env:
+          DATA_DIR: "${{ github.workspace }}/data-repo"
+        run: |
+          cd code-repo
+          node scripts/analyze-inactivity.js
+
+      - name: Commit and Push to Data Repo
+        run: |
+          cd data-repo
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add inactive-users.json
+
+          if git diff --staged --quiet; then
+            echo "No changes detected in inactivity data."
+          else
+            git commit -m "chore: update scheduled inactive-users.json snapshot"
+            git push
+          fi

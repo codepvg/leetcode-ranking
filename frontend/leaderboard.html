@@ -176,24 +176,6 @@
               margin-right: 0.5rem;
               white-space: nowrap;
             "
-            onmouseover="
-              this.style.background = 'var(--amber-muted)';
-              this.style.borderColor = 'var(--amber-dim)';
-              this.style.textShadow = '0 0 5px rgba(255, 176, 0, 0.4)';
-            "
-            onmouseout="
-              if (!window.compareModeActive) {
-                this.style.background = 'var(--bg-raised)';
-                this.style.borderColor = 'var(--border)';
-                this.style.color = 'var(--amber)';
-                this.style.textShadow = 'none';
-              } else {
-                this.style.background = 'var(--green-muted)';
-                this.style.borderColor = 'var(--green-dim)';
-                this.style.color = 'var(--green)';
-                this.style.textShadow = '0 0 5px rgba(0, 255, 65, 0.3)';
-              }
-            "
           >
             [--compare-peers]
           </button>
@@ -224,10 +206,122 @@
             </div>
           </div>
 
-          <div id="leaderboard-body"></div>
+          <div
+            id="leaderboard-body"
+            aria-live="polite"
+            aria-atomic="true"
+            aria-label="Leaderboard results"
+          >
+            <!-- Skeleton rows — shown on initial load, cleared by renderLeaderboard() -->
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+              <div class="skeleton-cell"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="mobile-cards" id="mobile-cards"></div>
+        <div class="mobile-cards" id="mobile-cards">
+          <!-- Skeleton mobile cards — shown on initial load, cleared by renderLeaderboard() -->
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        </div>
+
+        <!-- Error State -->
+        <div id="leaderboard-error" class="leaderboard-error">
+          <div class="leaderboard-error-content">
+            <div class="leaderboard-error-icon">[!]</div>
+            <div class="leaderboard-error-msg">
+              LEADERBOARD_DATA_UNAVAILABLE
+            </div>
+            <div class="leaderboard-error-desc">
+              Failed to fetch leaderboard data. The upstream API may be
+              rate-limited or unreachable. Please try again.
+            </div>
+            <button id="retry-btn" class="btn btn-error">RETRY</button>
+          </div>
+        </div>
 
         <div id="pagination-controls" class="pagination-controls">
           <button id="prev-page-btn" class="page-nav-btn">&lt; PREV</button>
@@ -253,6 +347,15 @@
     </div>
 
     <script nonce="__NONCE__">
+      // ── Error State Helpers ──
+      function showError() {
+        document.getElementById("leaderboard-error").classList.add("active");
+      }
+
+      function hideError() {
+        document.getElementById("leaderboard-error").classList.remove("active");
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".tab").forEach((tab) => {
           tab.addEventListener("click", () => {
@@ -262,6 +365,7 @@
 
         setupSearchListeners();
         setupPaginationListeners();
+        // Skeleton rows are already in #leaderboard-body — shown until renderLeaderboard() clears them
         fetchLeaderboardData();
         // Poll every 2 minutes to detect new syncs
         // Page Visibility API — pause polling when tab is hidden
@@ -286,6 +390,18 @@
         });
 
         startPolling();
+
+        // Retry button — re-fetches data
+        document
+          .getElementById("retry-btn")
+          .addEventListener("click", function () {
+            hideError();
+            leaderboardData["overall"] = null;
+            leaderboardData["monthly"] = null;
+            leaderboardData["weekly"] = null;
+            leaderboardData["daily"] = null;
+            fetchLeaderboardData();
+          });
       });
 
       window.leaderboardData = {};
@@ -309,13 +425,26 @@
           ),
         );
 
+        let anySuccess = false;
         results.forEach((result, index) => {
           if (result.status === "fulfilled") {
             window.leaderboardData[endpoints[index]] = result.value;
+            anySuccess = true;
           } else {
             console.error("Failed to fetch", endpoints[index], result.reason);
           }
         });
+
+        // If ALL endpoints failed, show error state instead of blank page
+        if (!anySuccess) {
+          document.getElementById("leaderboard-body").innerHTML = "";
+          document.getElementById("mobile-cards").innerHTML = "";
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          hideError(); // reset in case retry was clicked
+          showError();
+          return;
+        }
+        hideError();
 
         try {
           // Fetch directly from github to avoid needing a server redeploy for new data
@@ -380,6 +509,16 @@
 
         const originalData = window.leaderboardData[activeDatasetType];
 
+        // Empty state — data exists but is empty array
+        if (originalData.length === 0) {
+          document.getElementById("leaderboard-body").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("mobile-cards").innerHTML =
+            '<div class="leaderboard-empty">[SYS]: NO_LEADERBOARD_DATA_YET</div>';
+          document.getElementById("leaderboard-stats").innerHTML = "";
+          return;
+        }
+
         const filteredData = originalData.filter((user) => {
           if (!currentSearchTerm) return true;
 
@@ -401,20 +540,37 @@
           countEl.textContent = "";
           countEl.style.opacity = "0";
         }
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
 
+        const overallDataset =
+          window.leaderboardData && window.leaderboardData["overall"]
+            ? window.leaderboardData["overall"]
+            : originalData || [];
+
+        const zeroScoreUserIds = new Set(
+          overallDataset
+            .filter((user) => user && user.score === 0)
+            .map((user) => user.id),
+        );
+
+        const renderableData = filteredData.filter(
+          (user) => user && !zeroScoreUserIds.has(user.id),
+        );
+
+        const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
+        document.getElementById("prev-page-btn").disabled = currentPage === 1;
         document.getElementById("next-page-btn").disabled =
-          currentPage === Math.ceil(filteredData.length / itemsPerPage);
+          currentPage === totalPages;
+
         const statsEl = document.getElementById("leaderboard-stats");
 
-        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
         const startRow =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+          renderableData.length === 0
+            ? 0
+            : (currentPage - 1) * itemsPerPage + 1;
 
         const endRow = Math.min(
           currentPage * itemsPerPage,
-          filteredData.length,
+          renderableData.length,
         );
 
         statsEl.innerHTML = `
@@ -429,10 +585,11 @@
               | Page: ${currentPage}/${totalPages}
             </div>
           `;
-        renderLeaderboard(filteredData);
+
+        renderLeaderboard(filteredData, zeroScoreUserIds, totalPages);
       }
 
-      function renderLeaderboard(data) {
+      function renderLeaderboard(data, zeroScoreUserIds, totalPages) {
         const body = document.getElementById("leaderboard-body");
         const mobileCards = document.getElementById("mobile-cards");
 
@@ -444,51 +601,80 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        const displayData = isSearching
-          ? data
-          : data.slice(startIndex, endIndex);
+        const activeList = data.filter(
+          (user) => !zeroScoreUserIds.has(user.id),
+        );
+        const inactiveList = data.filter((user) =>
+          zeroScoreUserIds.has(user.id),
+        );
 
-        if (displayData.length === 0) {
-          body.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        const displayActiveData = isSearching
+          ? activeList
+          : activeList.slice(startIndex, endIndex);
 
-          mobileCards.innerHTML = `
-                        <div class="no-results">
-                            [SYS]: NO_MATCHING_USERS_FOUND
-                        </div>
-                    `;
+        if (displayActiveData.length === 0 && inactiveList.length === 0) {
+          const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
+          body.innerHTML = emptyStateHtml;
+          mobileCards.innerHTML = emptyStateHtml;
           return;
         }
 
-        displayData.forEach((user, index) => {
-          const rank =
+        displayActiveData.forEach((user, index) => {
+          let rank =
             user.originalRank !== undefined
               ? user.originalRank
               : startIndex + index + 1;
-          const row = renderLeaderboardRow(user, rank);
-          const card = renderMobileCard(user, rank);
-          body.appendChild(row);
-          mobileCards.appendChild(card);
-        });
-        renderPagination(data.length);
-      }
-      function setActiveTab(activeTab) {
-        document.querySelectorAll(".tab").forEach((tab) => {
-          tab.classList.remove("active");
-          if (tab.dataset.tab === activeTab) {
-            tab.classList.add("active");
+
+          if (activeDatasetType !== "overall" && user.score === 0) {
+            rank = "--";
           }
+
+          body.appendChild(renderLeaderboardRow(user, rank));
+          mobileCards.appendChild(renderMobileCard(user, rank));
         });
 
+        if (
+          inactiveList.length > 0 &&
+          (currentPage === totalPages || isSearching)
+        ) {
+          const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
+
+          const tableHeader = document.createElement("div");
+          tableHeader.className = "no-results";
+          tableHeader.style.gridColumn = "1 / -1";
+          tableHeader.innerText = dividerText;
+          body.appendChild(tableHeader);
+
+          const mobileHeader = document.createElement("div");
+          mobileHeader.className = "no-results";
+          mobileHeader.innerText = dividerText;
+          mobileCards.appendChild(mobileHeader);
+
+          inactiveList.forEach((user) => {
+            body.appendChild(renderLeaderboardRow(user, ""));
+            mobileCards.appendChild(renderMobileCard(user, ""));
+          });
+        }
+
+        renderPagination(activeList.length);
+      }
+
+      function setActiveTab(activeTab) {
         if (!window.leaderboardData[activeTab]) {
           return;
         }
 
         activeDatasetType = activeTab;
         currentPage = 1;
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          if (tab.dataset.tab === activeTab) {
+            tab.classList.add("active");
+          } else {
+            tab.classList.remove("active");
+          }
+        });
+
         applyFiltersAndRender();
       }
     </script>
@@ -548,6 +734,7 @@
               style="
                 display: flex;
                 gap: 10px;
+                flex-wrap: wrap;
                 margin: 1.5rem 0 1rem 0;
                 justify-content: center;
               "

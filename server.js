@@ -4,12 +4,16 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const fetchStudentHistory = require("./scripts/fetch-student-info");
+const fetchUserInfo = require("./scripts/fetch-user-info");
+const { rateLimit } = require("express-rate-limit");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+// Trust Render.com proxy so req.ip returns real client IP
+app.set("trust proxy", 1);
 
 // 1. Per-request nonce generator (used by CSP and HTML nonce injection)
 app.use((req, res, next) => {
@@ -31,6 +35,7 @@ app.use(
           "https://raw.githubusercontent.com",
           "https://leetcode-api-dun.vercel.app",
           "https://lc-backend-lyq2.onrender.com",
+          "https://cdn.jsdelivr.net",
         ],
         // Inline scripts need a per-request nonce; external scripts from 'self'
         // are allowed automatically.
@@ -124,27 +129,107 @@ app.get("/user/:username", (req, res) => {
   serveHtml(res, path.join(__dirname, "frontend", "user.html"));
 });
 
-const studentCache = new Map();
+// ---- Rate limiter for API endpoint ----
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1-minute window
+  limit: parseInt(process.env.API_RATE_LIMIT, 10) || 30,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { error: "Rate limit exceeded", retryAfter: 60 },
+  handler: (req, res, next, options) => {
+    res.status(options.statusCode);
+    res.set("Retry-After", Math.ceil(options.windowMs / 1000));
+    res.json(options.message);
+  },
+});
 
-app.get("/api/student/:username", async (req, res) => {
+// ---- Cache configuration ----
+const userCache = new Map();
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
+
+// Helper to prune cache to bound memory usage
+function pruneUserCache() {
+  if (userCache.size > 1000) {
+    const now = Date.now();
+    for (const [key, value] of userCache.entries()) {
+      if (now - value.timestamp > CACHE_TTL_MS) {
+        userCache.delete(key);
+      }
+    }
+  }
+}
+
+app.use("/api/user/:username", apiLimiter);
+
+app.get("/api/user/:username", async (req, res) => {
   const username = req.params.username;
 
-  if (studentCache.has(username)) {
-    const cached = studentCache.get(username);
-    if (Date.now() - cached.timestamp < 5 * 60 * 1000) {
+  const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+  if (!usernameRegex.test(username)) {
+    return res.status(400).json({ error: "Invalid username format" });
+  }
+
+  const cached = userCache.get(username);
+  const now = Date.now();
+
+  if (cached) {
+    if (now - cached.timestamp < CACHE_TTL_MS && cached.data) {
       return res.json(cached.data);
+    }
+
+    if (cached.promise) {
+      try {
+        const data = await cached.promise;
+        return res.json(data);
+      } catch (err) {
+        if (cached.data) {
+          console.warn(
+            `[Cache Fallback] Serving stale data after pending fetch failed...`,
+          );
+          return res.json(cached.data);
+        }
+      }
     }
   }
 
+  let fetchPromise;
   try {
-    const data = await fetchStudentHistory(username);
+    fetchPromise = fetchUserInfo(username);
 
-    studentCache.set(username, { timestamp: Date.now(), data });
+    userCache.set(username, {
+      ...cached,
+      timestamp: cached ? cached.timestamp : 0,
+      promise: fetchPromise,
+    });
+
+    const data = await fetchPromise;
+
+    pruneUserCache();
+    userCache.set(username, {
+      timestamp: Date.now(),
+      data,
+      promise: null,
+    });
 
     res.json(data);
   } catch (err) {
-    res.status(500).json({
-      error: "Failed to fetch student details",
+    userCache.set(username, {
+      ...cached,
+      promise: null,
+    });
+
+    if (cached && cached.data) {
+      console.warn(
+        `[Cache Fallback] Failed to fetch fresh data for user: ${username}. Serving stale cached data. Error: ${err.message}`,
+      );
+      return res.json(cached.data);
+    }
+
+    console.error(
+      `[Cache Error] Failed to fetch data for user: ${username} (No cached fallback available). Error: ${err.message}`,
+    );
+    res.status(502).json({
+      error: "Failed to fetch user details from external LeetCode API wrapper",
       details: err.message,
     });
   }
@@ -152,7 +237,8 @@ app.get("/api/student/:username", async (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "frontend", "404.html"));
+  res.status(404);
+  serveHtml(res, path.join(__dirname, "frontend", "404.html"));
 });
 
 app.listen(PORT, () => {

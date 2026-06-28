@@ -1,48 +1,23 @@
-name: Format Command
+name: format-command
 
 on:
-  issue_comment:
-    types: [created]
+  repository_dispatch:
+    types: [format-command]
 
 jobs:
   format:
-    name: "Format code via comment"
+    name: "Format code via /format command"
     runs-on: ubuntu-latest
-    # Only run if it's a PR and the comment contains /format
-    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/format')
     permissions:
       contents: write
       pull-requests: write
       issues: write
     steps:
-      - name: React to comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.reactions.createForIssueComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: context.payload.comment.id,
-              content: '+1'
-            })
-
-      - name: Get PR details
-        id: pr
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { data: pr } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            return pr;
-
-      - name: Checkout PR code
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          repository: ${{ fromJSON(steps.pr.outputs.result).head.repo.full_name }}
-          ref: ${{ fromJSON(steps.pr.outputs.result).head.ref }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -54,19 +29,45 @@ jobs:
         run: npx prettier --write .
 
       - name: Commit and push changes
+        id: auto_commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: auto-format code with Prettier (/format)"
           commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
       - name: Post completion comment
-        if: success()
+        if: success() && steps.auto_commit.outputs.changes_detected == 'true'
         uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.payload.client_payload.github.payload.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'I have successfully run Prettier and pushed the formatting fixes to this PR.\n\n **Note for Contributors:** Because this commit was pushed by a bot, GitHub will not automatically re-run the CI checks. To trigger them to pass, you must either:\n- Push an empty commit locally (`git commit --allow-empty -m "Trigger builds"` and push)\n- Close and immediately reopen this Pull Request.'
+              body: "All done! 💅 I've run Prettier and pushed the formatting fixes to this PR.\n\n**Just a heads up:** Since this commit was pushed by a bot, GitHub won't automatically re-run your CI checks. To trigger them, you can either:\n- Push an empty commit (`git commit --allow-empty -m \"Trigger builds\"` and push)\n- Close and immediately reopen this Pull Request."
+            })
+
+      - name: Post no-changes comment
+        if: success() && steps.auto_commit.outputs.changes_detected == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.payload.client_payload.github.payload.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Everything is beautifully formatted! ✨ No changes were needed."
+            })
+
+      - name: Post failure comment
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            github.rest.issues.createComment({
+              issue_number: context.payload.client_payload.github.payload.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Oops, something went wrong while running Prettier! 🫠\n\nPlease check the [workflow logs](${runUrl}) to see what happened, or just run \`npx prettier --write .\` locally instead.`
             })

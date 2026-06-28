@@ -6,7 +6,7 @@
 window.selectedUsers = [];
 window.compareModeActive = false;
 
-let selectedUserHistories = [];
+let selectedUserData = [];
 let difficultyChartInstance = null;
 let progressChartInstance = null;
 let currentGraphRange = "weekly"; // "weekly", "monthly", "overall"
@@ -37,6 +37,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("compare-mode-toggle");
   if (toggleBtn) {
     toggleBtn.addEventListener("click", toggleCompareMode);
+    toggleBtn.addEventListener("mouseover", function () {
+      this.style.background = "var(--amber-muted)";
+      this.style.borderColor = "var(--amber-dim)";
+      this.style.textShadow = "0 0 5px rgba(255, 176, 0, 0.4)";
+    });
+    toggleBtn.addEventListener("mouseout", function () {
+      if (!window.compareModeActive) {
+        this.style.background = "var(--bg-raised)";
+        this.style.borderColor = "var(--border)";
+        this.style.color = "var(--amber)";
+        this.style.textShadow = "none";
+      } else {
+        this.style.background = "var(--green-muted)";
+        this.style.borderColor = "var(--green-dim)";
+        this.style.color = "var(--green)";
+        this.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
+      }
+    });
   }
 
   const closeBtn = document.getElementById("close-compare-modal");
@@ -74,6 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  // Initialize compare mode from localStorage
+  initializeCompareMode();
 });
 
 /**
@@ -110,6 +131,38 @@ function toggleCompareMode() {
 }
 
 /**
+ * Initializes the compare mode and loads selections from localStorage on page load
+ */
+function initializeCompareMode() {
+  try {
+    const stored = localStorage.getItem("compare_users");
+    if (stored) {
+      window.selectedUsers = JSON.parse(stored);
+    }
+  } catch (err) {
+    console.error("Failed to load compare_users from localStorage:", err);
+  }
+
+  if (window.selectedUsers && window.selectedUsers.length > 0) {
+    window.compareModeActive = true;
+    const leaderboardEl = document.querySelector(".leaderboard");
+    const mobileCardsEl = document.getElementById("mobile-cards");
+    const toggleBtn = document.getElementById("compare-mode-toggle");
+
+    if (leaderboardEl) leaderboardEl.classList.add("compare-mode");
+    if (mobileCardsEl) mobileCardsEl.classList.add("compare-mode");
+    if (toggleBtn) {
+      toggleBtn.innerText = "[--exit-compare]";
+      toggleBtn.style.color = "var(--green)";
+      toggleBtn.style.background = "var(--green-muted)";
+      toggleBtn.style.borderColor = "var(--green-dim)";
+      toggleBtn.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
+    }
+    updateFloatingCompareBar();
+  }
+}
+
+/**
  * Handles adding or removing a user from the comparison array
  */
 function handleUserSelection(user, isChecked) {
@@ -130,7 +183,14 @@ function handleUserSelection(user, isChecked) {
     window.selectedUsers = window.selectedUsers.filter((u) => u.id !== user.id);
   }
 
-  // Synchronize desktop & mobile checkboxes for the same student
+  // Persist selections to localStorage
+  try {
+    localStorage.setItem("compare_users", JSON.stringify(window.selectedUsers));
+  } catch (err) {
+    console.error("Failed to save compare_users to localStorage:", err);
+  }
+
+  // Synchronize desktop & mobile checkboxes for the same user
   const checkboxes = document.querySelectorAll(
     `input.compare-checkbox[data-username="${user.id}"]`,
   );
@@ -144,6 +204,11 @@ function handleUserSelection(user, isChecked) {
  */
 function clearSelectedUsers() {
   window.selectedUsers = [];
+  try {
+    localStorage.removeItem("compare_users");
+  } catch (err) {
+    console.error("Failed to remove compare_users from localStorage:", err);
+  }
   const checkboxes = document.querySelectorAll("input.compare-checkbox");
   checkboxes.forEach((cb) => (cb.checked = false));
   updateFloatingCompareBar();
@@ -156,7 +221,7 @@ function updateFloatingCompareBar() {
   let bar = document.getElementById("floating-compare-bar");
 
   if (window.selectedUsers.length === 0) {
-    if (bar) bar.style.display = "none";
+    if (bar) bar.remove();
     return;
   }
 
@@ -164,18 +229,31 @@ function updateFloatingCompareBar() {
     bar = document.createElement("div");
     bar.id = "floating-compare-bar";
     bar.className = "floating-compare-bar";
+    // Event delegation: single listener handles all button clicks
+    bar.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      if (btn.id === "floating-btn-clear") {
+        clearSelectedUsers();
+      } else if (btn.id === "floating-btn-cancel") {
+        toggleCompareMode();
+      } else if (
+        btn.id === "floating-btn-compare" &&
+        window.selectedUsers.length >= 2
+      ) {
+        openCompareModal();
+      }
+    });
     document.body.appendChild(bar);
   }
 
   bar.style.display = "flex";
 
-  const namesStr = window.selectedUsers.map((u) => u.name).join(", ");
   const count = window.selectedUsers.length;
 
+  // Static markup (no user-controlled data) is safe via innerHTML.
   bar.innerHTML = `
-    <div class="selected-list">
-      Comparing (<span class="selected-tag">${count}/3</span>): ${namesStr}
-    </div>
+    <div class="selected-list"></div>
     <div class="actions">
       <button id="floating-btn-compare" class="btn-compare" ${count < 2 ? "disabled" : ""}>Compare</button>
       <button id="floating-btn-clear" class="btn-clear">Clear</button>
@@ -183,18 +261,21 @@ function updateFloatingCompareBar() {
     </div>
   `;
 
-  // Bind click handlers
-  document
-    .getElementById("floating-btn-clear")
-    .addEventListener("click", clearSelectedUsers);
-  document
-    .getElementById("floating-btn-cancel")
-    .addEventListener("click", toggleCompareMode);
-  if (count >= 2) {
-    document
-      .getElementById("floating-btn-compare")
-      .addEventListener("click", openCompareModal);
-  }
+  // Names are user-controlled, so build this part with safe DOM nodes
+  // (textContent) instead of interpolating into innerHTML.
+  const listDiv = bar.querySelector(".selected-list");
+  listDiv.appendChild(document.createTextNode("Comparing ("));
+  const tagSpan = document.createElement("span");
+  tagSpan.className = "selected-tag";
+  tagSpan.textContent = `${count}/3`;
+  listDiv.appendChild(tagSpan);
+  listDiv.appendChild(document.createTextNode("): "));
+  window.selectedUsers.forEach((u, idx) => {
+    listDiv.appendChild(document.createTextNode(u.name));
+    if (idx < window.selectedUsers.length - 1) {
+      listDiv.appendChild(document.createTextNode(", "));
+    }
+  });
 }
 
 /**
@@ -234,9 +315,9 @@ function showRetroNotification(message) {
 }
 
 /**
- * Resilient student data fetcher that tries local origin, localhost:3000, and production endpoints
+ * Resilient user data fetcher that tries local origin, localhost:3000, and production endpoints
  */
-async function fetchStudentHistoryData(userId) {
+async function fetchUserData(userId) {
   const origins = [];
 
   if (window.location.port !== "5500" && window.location.protocol !== "file:") {
@@ -248,7 +329,7 @@ async function fetchStudentHistoryData(userId) {
   let lastError = null;
   for (const origin of origins) {
     try {
-      const url = `${origin}/api/student/${userId}`;
+      const url = `${origin}/api/user/${userId}`;
       const res = await fetch(url);
       if (res.ok) {
         return await res.json();
@@ -258,13 +339,11 @@ async function fetchStudentHistoryData(userId) {
       lastError = err;
     }
   }
-  throw (
-    lastError || new Error("Failed to fetch student data from all endpoints")
-  );
+  throw lastError || new Error("Failed to fetch user data from all endpoints");
 }
 
 /**
- * Opens comparison overlay and fetches student history
+ * Opens comparison overlay and fetches user history
  */
 async function openCompareModal() {
   const modal = document.getElementById("compare-modal");
@@ -285,13 +364,13 @@ async function openCompareModal() {
 
   try {
     const fetchPromises = window.selectedUsers.map(async (user) => {
-      return fetchStudentHistoryData(user.id);
+      return fetchUserData(user.id);
     });
 
-    selectedUserHistories = await Promise.all(fetchPromises);
+    selectedUserData = await Promise.all(fetchPromises);
     console.log(
       "Successfully fetched compared users history:",
-      selectedUserHistories,
+      selectedUserData,
     );
 
     // Populate UI
@@ -377,7 +456,7 @@ function populateComparisonTable() {
   };
 
   const getHistoryData = (id) => {
-    const found = selectedUserHistories.find((sh) => sh.username === id);
+    const found = selectedUserData.find((sh) => sh.username === id);
     return found || {};
   };
 
@@ -451,22 +530,34 @@ function populateComparisonTable() {
     });
   }
 
-  let html = "<thead><tr>";
+  table.innerHTML = "";
+
+  const thead = document.createElement("thead");
+  const headerRow = document.createElement("tr");
   headers.forEach((h) => {
-    html += `<th>${h}</th>`;
+    const th = document.createElement("th");
+    // Header may include user-controlled names (textContent only).
+    th.textContent = h;
+    headerRow.appendChild(th);
   });
-  html += "</tr></thead><tbody>";
+  thead.appendChild(headerRow);
 
+  const tbody = document.createElement("tbody");
   metrics.forEach((m) => {
-    html += `<tr><td>${m.label}</td>`;
+    const row = document.createElement("tr");
+    const labelCell = document.createElement("td");
+    labelCell.textContent = m.label;
+    row.appendChild(labelCell);
     m.values.forEach((v) => {
-      html += `<td>${v}</td>`;
+      const cell = document.createElement("td");
+      cell.textContent = v;
+      row.appendChild(cell);
     });
-    html += "</tr>";
+    tbody.appendChild(row);
   });
-  html += "</tbody>";
 
-  table.innerHTML = html;
+  table.appendChild(thead);
+  table.appendChild(tbody);
 }
 
 /**
@@ -605,7 +696,7 @@ function renderProgressHistoryChart() {
   }
 
   // Slice histories by range and gather unique timeline dates
-  const filteredHistories = selectedUserHistories.map((sh) => {
+  const filteredHistories = selectedUserData.map((sh) => {
     let history = sh.history || [];
     let baseTotal = 0;
 
