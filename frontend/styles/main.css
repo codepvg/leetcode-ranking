@@ -3369,3 +3369,34 @@ input[type="checkbox"].compare-checkbox:checked::after {
     display: none;
   }
 }
+
+/* Hero responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .hero-content {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+    word-break: break-word;
+  }
+  .hero-subtitle {
+    font-size: 0.85rem;
+  }
+  .hero-content {
+    padding: 1.2rem;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 100%;
+  }
+}
