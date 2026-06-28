@@ -4,6 +4,56 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
+// Configure retry settings on axios response
+const MAX_RETRIES = 3;
+const INITIAL_DELAY_MS = 1000;
+
+axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const { config } = error;
+
+    if (!config) {
+      return Promise.reject(error);
+    }
+
+    config.__retryCount = config.__retryCount || 0;
+
+    const isRateLimited = error.response && error.response.status === 429;
+    const isServerError =
+      error.response &&
+      error.response.status >= 500 &&
+      error.response.status <= 599;
+    const isNetworkError =
+      !error.response ||
+      error.code === "ECONNABORTED" ||
+      error.message.includes("timeout");
+
+    const shouldRetry =
+      (isRateLimited || isServerError || isNetworkError) &&
+      config.__retryCount < MAX_RETRIES;
+
+    if (shouldRetry) {
+      config.__retryCount += 1;
+
+      // Exponential backoff with jitter
+      const backoffDelay =
+        INITIAL_DELAY_MS * Math.pow(2, config.__retryCount - 1);
+      const jitter = Math.random() * 200;
+      const delay = backoffDelay + jitter;
+
+      console.warn(
+        `[Retry ${config.__retryCount}/${MAX_RETRIES}] Request failed for ${config.url} (${error.message}). Retrying in ${Math.round(delay)}ms...`,
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      return axios(config);
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 function atomicWrite(filePath, data) {
   const dir = path.dirname(filePath);
   const ext = path.extname(filePath);
