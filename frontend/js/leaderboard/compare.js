@@ -37,6 +37,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("compare-mode-toggle");
   if (toggleBtn) {
     toggleBtn.addEventListener("click", toggleCompareMode);
+    toggleBtn.addEventListener("mouseover", function () {
+      this.style.background = "var(--amber-muted)";
+      this.style.borderColor = "var(--amber-dim)";
+      this.style.textShadow = "0 0 5px rgba(255, 176, 0, 0.4)";
+    });
+    toggleBtn.addEventListener("mouseout", function () {
+      if (!window.compareModeActive) {
+        this.style.background = "var(--bg-raised)";
+        this.style.borderColor = "var(--border)";
+        this.style.color = "var(--amber)";
+        this.style.textShadow = "none";
+      } else {
+        this.style.background = "var(--green-muted)";
+        this.style.borderColor = "var(--green-dim)";
+        this.style.color = "var(--green)";
+        this.style.textShadow = "0 0 5px rgba(0, 255, 65, 0.3)";
+      }
+    });
   }
 
   const closeBtn = document.getElementById("close-compare-modal");
