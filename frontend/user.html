@@ -354,6 +354,103 @@
               <span class="card-title">[SYS_TARGETS]</span>
               <span style="color: var(--text-dim)">// LOCAL_STORE</span>
             </div>
+
+            <!-- progress view -->
+            <div id="goal-display" style="display: none">
+              <div
+                id="goal-label"
+                style="
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  font-size: 0.78rem;
+                  color: var(--text-dim);
+                  margin-bottom: 0.4rem;
+                "
+              >
+                TARGET: --
+              </div>
+              <div
+                id="goal-bar"
+                style="
+                  font-family: &quot;Fira Code&quot;, monospace;
+                  font-size: 0.85rem;
+                  color: var(--green);
+                  letter-spacing: 1px;
+                  margin-bottom: 0.4rem;
+                  word-break: break-all;
+                "
+              >
+                [....................] 0%
+              </div>
+              <div
+                id="goal-count"
+                style="
+                  font-size: 0.78rem;
+                  color: var(--text-dim);
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  margin-bottom: 0.8rem;
+                "
+              >
+                0 / 0 solved this week
+              </div>
+              <div
+                id="goal-celebration"
+                style="display: none; margin-bottom: 0.6rem"
+              >
+                <span
+                  id="celebrate-text"
+                  style="
+                    color: var(--gold);
+                    font-family: &quot;Fira Code&quot;, monospace;
+                    font-size: 0.82rem;
+                    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+                  "
+                ></span>
+              </div>
+              <button
+                id="btn-reset-goal"
+                class="btn-save"
+                style="font-size: 0.78rem"
+              >
+                [RESET_TARGET]
+              </button>
+            </div>
+
+            <!-- set goal view -->
+            <div id="goal-setter" style="display: none">
+              <div
+                style="
+                  font-size: 0.78rem;
+                  color: var(--text-dim);
+                  font-family: &quot;Space Mono&quot;, monospace;
+                  margin-bottom: 0.6rem;
+                "
+              >
+                $ set weekly target
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem">
+                <select
+                  id="goal-metric"
+                  class="goal-input"
+                  style="flex: 1; cursor: pointer"
+                >
+                  <option value="total">TOTAL</option>
+                  <option value="easy">EASY</option>
+                  <option value="medium">MEDIUM</option>
+                  <option value="hard">HARD</option>
+                </select>
+              </div>
+              <div class="goal-input-wrapper">
+                <input
+                  id="goal-target-input"
+                  class="goal-input"
+                  type="number"
+                  min="1"
+                  max="500"
+                  placeholder="e.g. 10"
+                />
+                <button id="btn-save-goal" class="btn-save">[SET]</button>
+              </div>
+            </div>
           </div>
 
           <!-- Badge Wall -->
@@ -476,5 +573,6 @@
     <script src="/js/footer.js"></script>
     <script src="/js/matrix.js"></script>
     <script src="/js/terminal_ui.js"></script>
+    <script src="/js/user/goal-setter.js"></script>
   </body>
 </html>
