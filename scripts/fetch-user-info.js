@@ -29,7 +29,7 @@ async function fetchUserInfo(username) {
       // Auto-Migration Check & Routing
       if (Array.isArray(data)) {
         history = data;
-      } else {
+      } else if (data && typeof data === "object") {
         // Safe object destructuring for the new profile structure
         history = data.history || [];
         badges = data.badges || [];
@@ -64,6 +64,8 @@ async function fetchUserInfo(username) {
   await livePromise;
 
   // Ensure history is sorted chronologically
+  // Guard against a corrupted history file (e.g. non-array `history` field)
+  history = Array.isArray(history) ? history : [];
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return {
