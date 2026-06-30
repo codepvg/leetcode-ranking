@@ -460,7 +460,7 @@ async function processTimeframe(
   console.log(" ");
   console.log("Starting daily fetch...");
 
-  const CONCURRENCY_LIMIT = 50;
+  const CONCURRENCY_LIMIT = 20;
 
   for (let i = 0; i < users.length; i += CONCURRENCY_LIMIT) {
     const batch = users.slice(i, i + CONCURRENCY_LIMIT);
@@ -700,7 +700,7 @@ async function processTimeframe(
   const syncFilepath = path.join(DATA_DIR, "last-sync.json");
   try {
     const now = new Date();
-    const nextSync = new Date(now.getTime() + 5 * 60 * 1000);
+    const nextSync = new Date(now.getTime() + 15 * 60 * 1000);
     atomicWrite(syncFilepath, {
       lastSync: now.toISOString(),
       nextSync: nextSync.toISOString(),

@@ -46,8 +46,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          MAX_ITERATIONS=72
-          INTERVAL=300
+          MAX_ITERATIONS=24
+          INTERVAL=900
           SUCCESS_COUNT=0
           FAIL_COUNT=0
           CONSECUTIVE_FAILS=0
