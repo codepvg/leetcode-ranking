@@ -18,6 +18,7 @@ function setupSearchListeners() {
 
       clearBtn.style.display = e.target.value.trim() !== "" ? "flex" : "none";
 
+      currentPage = 1;
       applyFiltersAndRender();
     }, 300),
   );
@@ -29,6 +30,7 @@ function setupSearchListeners() {
     clearBtn.style.display = "none";
 
     searchInput.focus();
+    currentPage = 1;
     applyFiltersAndRender();
   });
 
@@ -53,6 +55,7 @@ function setupSearchListeners() {
       currentSearchTerm = "";
       clearBtn.style.display = "none";
       searchInput.blur();
+      currentPage = 1;
       applyFiltersAndRender();
     }
   });

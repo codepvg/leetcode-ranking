@@ -557,6 +557,7 @@
         );
 
         const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
+        window.totalPages = totalPages;
         document.getElementById("prev-page-btn").disabled = currentPage === 1;
         document.getElementById("next-page-btn").disabled =
           currentPage === totalPages;

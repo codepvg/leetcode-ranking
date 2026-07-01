@@ -8,9 +8,7 @@ function setupPaginationListeners() {
   });
 
   document.getElementById("next-page-btn")?.addEventListener("click", () => {
-    const totalPages = Math.ceil(
-      leaderboardData[activeDatasetType].length / itemsPerPage,
-    );
+    const totalPages = window.totalPages || 1;
 
     if (currentPage < totalPages) {
       currentPage++;
