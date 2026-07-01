@@ -23,6 +23,13 @@ function renderPagination(totalItems) {
 
   if (!pageNumbers) return;
 
+  const isSearching =
+    typeof currentSearchTerm !== "undefined" && currentSearchTerm.length > 0;
+  if (isSearching) {
+    pageNumbers.innerHTML = "";
+    return;
+  }
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   pageNumbers.innerHTML = "";
 

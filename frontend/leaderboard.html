@@ -556,38 +556,63 @@
           (user) => user && !zeroScoreUserIds.has(user.id),
         );
 
-        const totalPages = Math.ceil(renderableData.length / itemsPerPage) || 1;
-        window.totalPages = totalPages;
-        document.getElementById("prev-page-btn").disabled = currentPage === 1;
-        document.getElementById("next-page-btn").disabled =
-          currentPage === totalPages;
-
+        const isSearching = currentSearchTerm.length > 0;
         const statsEl = document.getElementById("leaderboard-stats");
 
-        const startRow =
-          renderableData.length === 0
-            ? 0
-            : (currentPage - 1) * itemsPerPage + 1;
+        if (isSearching) {
+          document.getElementById("prev-page-btn").disabled = true;
+          document.getElementById("next-page-btn").disabled = true;
+          window.totalPages = 1;
 
-        const endRow = Math.min(
-          currentPage * itemsPerPage,
-          renderableData.length,
-        );
+          const totalMatched = filteredData.length;
+          const startRow = totalMatched === 0 ? 0 : 1;
+          const endRow = totalMatched;
 
-        statsEl.innerHTML = `
-            <div style="
-              text-align:center;
-              color:var(--text-dim);
-              margin-bottom:1rem;
-              font-family:'Fira Code', monospace;
-            ">
-              Total Users: ${filteredData.length}
-              | Showing: ${startRow}-${endRow}
-              | Page: ${currentPage}/${totalPages}
-            </div>
-          `;
+          statsEl.innerHTML = `
+              <div style="
+                text-align:center;
+                color:var(--text-dim);
+                margin-bottom:1rem;
+                font-family:'Fira Code', monospace;
+              ">
+                Total Users: ${totalMatched}
+                | Showing: ${startRow}-${endRow}
+                | Page: 1/1
+              </div>
+            `;
+        } else {
+          const totalPages =
+            Math.ceil(renderableData.length / itemsPerPage) || 1;
+          window.totalPages = totalPages;
+          document.getElementById("prev-page-btn").disabled = currentPage === 1;
+          document.getElementById("next-page-btn").disabled =
+            currentPage === totalPages;
 
-        renderLeaderboard(filteredData, zeroScoreUserIds, totalPages);
+          const startRow =
+            renderableData.length === 0
+              ? 0
+              : (currentPage - 1) * itemsPerPage + 1;
+
+          const endRow = Math.min(
+            currentPage * itemsPerPage,
+            renderableData.length,
+          );
+
+          statsEl.innerHTML = `
+              <div style="
+                text-align:center;
+                color:var(--text-dim);
+                margin-bottom:1rem;
+                font-family:'Fira Code', monospace;
+              ">
+                Total Users: ${renderableData.length}
+                | Showing: ${startRow}-${endRow}
+                | Page: ${currentPage}/${totalPages}
+              </div>
+            `;
+        }
+
+        renderLeaderboard(filteredData, zeroScoreUserIds, window.totalPages);
       }
 
       function renderLeaderboard(data, zeroScoreUserIds, totalPages) {
