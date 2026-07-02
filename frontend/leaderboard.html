@@ -593,10 +593,10 @@
               ? 0
               : (currentPage - 1) * itemsPerPage + 1;
 
-          const endRow = Math.min(
-            currentPage * itemsPerPage,
-            renderableData.length,
-          );
+          const endRow =
+            currentPage === totalPages
+              ? filteredData.length
+              : currentPage * itemsPerPage;
 
           statsEl.innerHTML = `
               <div style="
@@ -605,7 +605,7 @@
                 margin-bottom:1rem;
                 font-family:'Fira Code', monospace;
               ">
-                Total Users: ${renderableData.length}
+                Total Users: ${filteredData.length}
                 | Showing: ${startRow}-${endRow}
                 | Page: ${currentPage}/${totalPages}
               </div>
