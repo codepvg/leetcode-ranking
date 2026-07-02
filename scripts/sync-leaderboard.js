@@ -478,6 +478,12 @@ async function processTimeframe(
 
         const data = await fetchData(baseUrl + user.id);
         if (!data) {
+          const cache = historyMap.get(user.id);
+          if (cache) {
+            console.log(`${user.name}: recycled (API error fallback)`);
+            overallData.push(cache);
+            return;
+          }
           console.log(`${user.name}: skipped (API error)`);
           return;
         }
