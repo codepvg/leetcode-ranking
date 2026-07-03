@@ -1,4 +1,5 @@
 async function fetchUserInfo(username) {
+  let liveSolved = null;
   const usernameRegex = /^[a-zA-Z0-9_-]+$/;
   if (!username || !usernameRegex.test(username)) {
     throw new Error("Invalid username format");
@@ -50,23 +51,47 @@ async function fetchUserInfo(username) {
   }
 
   // 2. Fetch live profile ranking from the wrapper API
-  const livePromise = fetch(liveApiUrl).then(async (res) => {
-    if (res.ok) {
-      const apiData = await res.json();
-      ranking = apiData.ranking || 0;
-      contest = apiData.contest || null;
-    } else {
-      throw new Error(`LeetCode API wrapper returned status ${res.status}`);
-    }
-  });
+  const res = await fetch(liveApiUrl);
 
-  // Wait for the live API task to complete
-  await livePromise;
+  if (!res.ok) {
+    throw new Error(`LeetCode API wrapper returned status ${res.status}`);
+  }
+
+  const apiData = await res.json();
+
+  liveSolved = {
+    easy: apiData.easySolved,
+    medium: apiData.mediumSolved,
+    hard: apiData.hardSolved,
+  };
+
+  ranking = apiData.ranking || 0;
+  contest = apiData.contest || null;
 
   // Ensure history is sorted chronologically
   // Guard against a corrupted history file (e.g. non-array `history` field)
   history = Array.isArray(history) ? history : [];
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const today = new Date().toISOString().split("T")[0];
+  let latestEntry = null;
+
+  for (let i = history.length - 1; i >= 0; i--) {
+    const entry = history[i];
+
+    if (
+      typeof entry.date === "string" &&
+      entry.date.startsWith(today)
+    ) {
+      latestEntry = entry;
+      break;
+    }
+  }
+
+  if (latestEntry && liveSolved) {
+    latestEntry.easy = liveSolved.easy;
+    latestEntry.medium = liveSolved.medium;
+    latestEntry.hard = liveSolved.hard;
+  }
 
   return {
     username,
