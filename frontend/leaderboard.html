@@ -411,93 +411,114 @@
       let currentSearchTerm = "";
 
       async function fetchLeaderboardData() {
-        const endpoints = ["overall", "monthly", "weekly", "daily"];
         const cacheBuster = Date.now();
-        // Fetch directly from github to avoid needing a server redeploy for new data
-        const results = await Promise.allSettled(
-          endpoints.map((type) =>
-            fetch(
-              `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
-            ).then((res) => {
-              if (!res.ok) throw new Error(`Failed to fetch ${type}`);
-              return res.json();
-            }),
-          ),
-        );
-
-        let anySuccess = false;
-        results.forEach((result, index) => {
-          if (result.status === "fulfilled") {
-            window.leaderboardData[endpoints[index]] = result.value;
-            anySuccess = true;
-          } else {
-            console.error("Failed to fetch", endpoints[index], result.reason);
-          }
-        });
-
-        // If ALL endpoints failed, show error state instead of blank page
-        if (!anySuccess) {
-          document.getElementById("leaderboard-body").innerHTML = "";
-          document.getElementById("mobile-cards").innerHTML = "";
-          document.getElementById("leaderboard-stats").innerHTML = "";
-          hideError(); // reset in case retry was clicked
-          showError();
-          return;
-        }
-        hideError();
+        let syncData = null;
+        let syncFetchFailed = false;
 
         try {
-          // Fetch directly from github to avoid needing a server redeploy for new data
+          // Fetch the lightweight sync info first
           const syncRes = await fetch(
             `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/last-sync.json?t=${cacheBuster}`,
           );
           if (syncRes.ok) {
-            const syncData = await syncRes.json();
-            // Trigger toast if sync time changed
-            const prevSyncTime = window._lastKnownSyncTime || null;
-            if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
-              showSyncToast();
-            }
-            window._lastKnownSyncTime = syncData.lastSync;
-            const options = {
-              month: "short",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              timeZoneName: "short",
-            };
-
-            const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
-            const formatted = date
-              .toLocaleString("en-US", options)
-              .toUpperCase();
-            document.getElementById("sync-time").innerText = formatted;
-
-            if (syncData.nextSync) {
-              const nextDate = new Date(syncData.nextSync);
-              const now = new Date();
-              if (nextDate > now) {
-                const diffMs = nextDate - now;
-                const diffMin = Math.ceil(diffMs / 60000);
-                document.getElementById("next-sync-time").innerText =
-                  `~${diffMin} MIN`;
-              } else {
-                document.getElementById("next-sync-time").innerText =
-                  "IMMINENT";
-              }
-            } else {
-              document.getElementById("next-sync-time").innerText = "~5 MIN";
-            }
+            syncData = await syncRes.json();
           } else {
-            document.getElementById("sync-time").innerText = "SYNC_FAILED";
-            document.getElementById("sync-time").style.color = "var(--red)";
-            document.getElementById("next-sync-time").innerText = "UNKNOWN";
+            syncFetchFailed = true;
           }
         } catch (e) {
           console.error("Failed to fetch sync time", e);
-          document.getElementById("sync-time").innerText = "OFFLINE";
+          syncFetchFailed = true;
+        }
+
+        const hasAllData =
+          window.leaderboardData &&
+          window.leaderboardData.overall &&
+          window.leaderboardData.monthly &&
+          window.leaderboardData.weekly &&
+          window.leaderboardData.daily;
+
+        // Skip fetching large JSON datasets if we already have the datasets
+        // loaded and the lastSync timestamp hasn't changed.
+        const shouldSkipDatasets =
+          syncData &&
+          hasAllData &&
+          window._lastKnownSyncTime &&
+          syncData.lastSync === window._lastKnownSyncTime;
+
+        if (!shouldSkipDatasets) {
+          const endpoints = ["overall", "monthly", "weekly", "daily"];
+          const results = await Promise.allSettled(
+            endpoints.map((type) =>
+              fetch(
+                `https://raw.githubusercontent.com/codepvg/leetcode-ranking-data/main/${type}.json?t=${cacheBuster}`,
+              ).then((res) => {
+                if (!res.ok) throw new Error(`Failed to fetch ${type}`);
+                return res.json();
+              }),
+            ),
+          );
+
+          let anySuccess = false;
+          results.forEach((result, index) => {
+            if (result.status === "fulfilled") {
+              window.leaderboardData[endpoints[index]] = result.value;
+              anySuccess = true;
+            } else {
+              console.error("Failed to fetch", endpoints[index], result.reason);
+            }
+          });
+
+          // If ALL endpoints failed, show error state instead of blank page
+          if (!anySuccess) {
+            document.getElementById("leaderboard-body").innerHTML = "";
+            document.getElementById("mobile-cards").innerHTML = "";
+            document.getElementById("leaderboard-stats").innerHTML = "";
+            hideError(); // reset in case retry was clicked
+            showError();
+            return;
+          }
+          hideError();
+        }
+
+        if (syncData) {
+          // Trigger toast if sync time changed
+          const prevSyncTime = window._lastKnownSyncTime || null;
+          if (prevSyncTime && syncData.lastSync !== prevSyncTime) {
+            showSyncToast();
+          }
+          window._lastKnownSyncTime = syncData.lastSync;
+          const options = {
+            month: "short",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            timeZoneName: "short",
+          };
+
+          const date = new Date(syncData.lastSync); // The raw JSON file uses lastSync, not lastUpdated
+          const formatted = date.toLocaleString("en-US", options).toUpperCase();
+          document.getElementById("sync-time").innerText = formatted;
+          document.getElementById("sync-time").style.color = ""; // Reset in case it was red
+
+          if (syncData.nextSync) {
+            const nextDate = new Date(syncData.nextSync);
+            const now = new Date();
+            if (nextDate > now) {
+              const diffMs = nextDate - now;
+              const diffMin = Math.ceil(diffMs / 60000);
+              document.getElementById("next-sync-time").innerText =
+                `~${diffMin} MIN`;
+            } else {
+              document.getElementById("next-sync-time").innerText = "IMMINENT";
+            }
+          } else {
+            document.getElementById("next-sync-time").innerText = "~5 MIN";
+          }
+          document.getElementById("next-sync-time").style.color = ""; // Reset in case it was red
+        } else if (syncFetchFailed) {
+          document.getElementById("sync-time").innerText = "SYNC_FAILED";
           document.getElementById("sync-time").style.color = "var(--red)";
-          document.getElementById("next-sync-time").innerText = "OFFLINE";
+          document.getElementById("next-sync-time").innerText = "UNKNOWN";
           document.getElementById("next-sync-time").style.color = "var(--red)";
         }
 
