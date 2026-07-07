@@ -317,8 +317,11 @@ async function processTimeframe(
     previousData = JSON.parse(rawData);
     console.log(`Previous ${periodName}'s data loaded successfully`);
   } catch (err) {
-    console.error(`Failed to load previous file: `, err.message);
-    process.exit(1);
+    console.error(
+      `Failed to load previous file for ${periodName}: `,
+      err.message,
+    );
+    throw err;
   }
 
   console.log(" ");
@@ -370,10 +373,9 @@ async function processTimeframe(
     console.log(`${periodName} data saved successfully`);
     return data;
   } catch (err) {
-    console.error(`Failed to write json file: `, err.message);
-    process.exit(1);
+    console.error(`Failed to write ${periodName}.json: `, err.message);
+    throw err;
   }
-  return data;
 }
 
 (async () => {
@@ -533,27 +535,33 @@ async function processTimeframe(
   }
 
   // Process timeframe-based leaderboards using the shared function
-  const dailyData = await processTimeframe(
-    overallData,
-    DATA_DIR,
-    "daily",
-    1,
-    badgesMap,
-  );
-  const weeklyData = await processTimeframe(
-    overallData,
-    DATA_DIR,
-    "weekly",
-    7,
-    badgesMap,
-  );
-  const monthlyData = await processTimeframe(
-    overallData,
-    DATA_DIR,
-    "monthly",
-    30,
-    badgesMap,
-  );
+  let dailyData, weeklyData, monthlyData;
+  try {
+    dailyData = await processTimeframe(
+      overallData,
+      DATA_DIR,
+      "daily",
+      1,
+      badgesMap,
+    );
+    weeklyData = await processTimeframe(
+      overallData,
+      DATA_DIR,
+      "weekly",
+      7,
+      badgesMap,
+    );
+    monthlyData = await processTimeframe(
+      overallData,
+      DATA_DIR,
+      "monthly",
+      30,
+      badgesMap,
+    );
+  } catch (err) {
+    console.error(`[FATAL] Timeframe processing aborted: ${err.message}`);
+    process.exit(1);
+  }
 
   const overallMap = new Map(
     overallData.map((u) => [
