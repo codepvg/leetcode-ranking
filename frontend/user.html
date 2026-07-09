@@ -271,6 +271,19 @@
       .placeholder-rank {
         opacity: 0.5;
       }
+      .badge-knight {
+        color: var(--gold);
+        background: rgba(255, 215, 0, 0.1);
+        border-color: rgba(255, 215, 0, 0.3);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+      }
+
+      .badge-guardian {
+        color: #ff4c4c;
+        background: rgba(255, 76, 76, 0.1);
+        border-color: rgba(255, 76, 76, 0.3);
+        text-shadow: 0 0 5px rgba(255, 76, 76, 0.3);
+      }
     </style>
   </head>
   <body>
@@ -535,6 +548,55 @@
           </div>
         </div>
 
+        <!-- Contest Profile Section -->
+        <div
+          id="contest-section"
+          class="terminal-card"
+          style="margin-bottom: 1.5rem; display: none"
+        >
+          <div class="card-header">
+            <span class="card-title">[CONTEST_PROFILE]</span>
+            <span class="card-subtitle" id="contest-badge-wrapper"
+              >// RATING_METRICS</span
+            >
+          </div>
+          <div class="ranks-display-wrapper">
+            <div class="rank-item active-rank">
+              <span class="rank-label">RATING:</span>
+              <span id="contest-rating" class="rank-value streak-current"
+                >--</span
+              >
+            </div>
+            <div class="rank-item">
+              <span class="rank-label">GLOBAL_RANK:</span>
+              <span
+                id="contest-global-rank"
+                class="rank-value text-light"
+                style="color: var(--text-light)"
+                >--</span
+              >
+            </div>
+            <div class="rank-item">
+              <span class="rank-label">TOP_PERCENTAGE:</span>
+              <span
+                id="contest-top-percentage"
+                class="rank-value text-light"
+                style="color: var(--text-light)"
+                >--</span
+              >
+            </div>
+            <div class="rank-item">
+              <span class="rank-label">ATTENDED:</span>
+              <span
+                id="contest-attended"
+                class="rank-value text-light"
+                style="color: var(--text-light)"
+                >--</span
+              >
+            </div>
+          </div>
+        </div>
+
         <!-- Historical Graphs Section -->
         <div class="terminal-card" style="margin-bottom: 3rem">
           <div class="card-header">
@@ -571,6 +633,7 @@
 
     <script nonce="__NONCE__" src="/js/user/historical-graphs.js"></script>
     <script src="/js/user/badges.js"></script>
+    <script src="/js/user/contest.js"></script>
     <script src="/js/footer.js"></script>
     <script src="/js/matrix.js"></script>
     <script src="/js/terminal_ui.js"></script>
