@@ -58,6 +58,10 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ![Leaderboard](assets/leaderboard.png)
 
+### Comparison
+
+![Comparison](assets/Comparison.png)
+
 ---
 
 ## Architecture
