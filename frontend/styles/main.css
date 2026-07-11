@@ -3509,3 +3509,103 @@ input[type="checkbox"].compare-checkbox:checked::after {
     margin-bottom: 0.5rem;
   }
 }
+
+/* ── Form Validation States ──────────────────────────────── */
+
+.field-valid .form-input {
+  border-color: var(--green) !important;
+  box-shadow: 0 0 0 1px var(--green), 0 0 8px rgba(0, 255, 65, 0.08);
+}
+
+.field-invalid .form-input {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 1px var(--red), 0 0 8px rgba(255, 51, 51, 0.12);
+  animation: shake 0.3s ease-in-out;
+}
+
+.input-error {
+  border-color: var(--red) !important;
+}
+
+.input-valid {
+  border-color: var(--green) !important;
+}
+
+.error-msg {
+  display: block;
+  min-height: 1.2em;
+  font-family: "Fira Code", monospace;
+  font-size: 0.72rem;
+  color: var(--red);
+  margin-top: 0.3rem;
+  transition: opacity 0.15s ease;
+}
+
+.char-count {
+  position: absolute;
+  bottom: -1.1rem;
+  right: 0;
+  font-family: "Fira Code", monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.char-count-ok {
+  color: var(--text-muted);
+}
+
+.char-count-warn {
+  color: var(--amber);
+}
+
+.char-count-over {
+  color: var(--red);
+}
+
+.btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.form-group.field-invalid .form-label::after {
+  content: " *";
+  color: var(--red);
+}
+
+@media (max-width: 480px) {
+  .char-count {
+    font-size: 0.6rem;
+    bottom: -1rem;
+  }
+  .error-msg {
+    font-size: 0.65rem;
+  }
+}
