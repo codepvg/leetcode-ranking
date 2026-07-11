@@ -4,6 +4,9 @@ const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
 
+const { setupRetryInterceptor } = require("./lib/retry-interceptor");
+setupRetryInterceptor();
+
 const THRESHOLD_DAYS = 90;
 const MS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
@@ -48,12 +51,13 @@ async function fetchData(url) {
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
   const inactiveUsers = [];
+  const unreachableUsers = [];
   const now = new Date();
 
   console.log(" ");
   console.log("Starting daily full sync inactivity analysis...");
 
-  const CONCURRENCY_LIMIT = 50;
+  const CONCURRENCY_LIMIT = 20;
 
   for (let i = 0; i < users.length; i += CONCURRENCY_LIMIT) {
     const batch = users.slice(i, i + CONCURRENCY_LIMIT);
@@ -64,7 +68,8 @@ async function fetchData(url) {
 
         const profile = await fetchData(baseUrl + username);
         if (!profile) {
-          console.log(`${username}: skipped (API error)`);
+          console.log(`${username}: unreachable (API error after retries)`);
+          unreachableUsers.push(username);
           return;
         }
 
@@ -100,6 +105,7 @@ async function fetchData(url) {
     generatedAt: now.toISOString(),
     thresholdDays: THRESHOLD_DAYS,
     inactiveUsers: inactiveUsers.sort(),
+    unreachableUsers: unreachableUsers.sort(),
   };
 
   console.log("Writing inactivity analysis data to inactive-users.json...");
