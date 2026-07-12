@@ -170,7 +170,10 @@ async function getYesterdaySnapshot(filePath) {
   const repo = "leetcode-ranking-data";
   const d = new Date();
   d.setDate(d.getDate() - 1);
-  const targetDate = d.toISOString().split("T")[0];
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const date = String(d.getDate()).padStart(2, "0");
+  const targetDate = `${year}-${month}-${date}`;
   const until = `${targetDate}T23:59:59Z`;
   const commitsUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${filePath}&until=${until}&per_page=1`;
 
