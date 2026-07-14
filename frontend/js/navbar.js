@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nav = document.createElement("nav");
   nav.className = "navbar";
+  nav.setAttribute('aria-label', 'Main navigation');
 
   const currentPath = window.location.pathname;
 

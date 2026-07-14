@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const footer = document.createElement("footer");
   footer.className = "footer";
+  footer.setAttribute('role', 'contentinfo');
+  footer.setAttribute('aria-label', 'Site footer');
 
   footer.innerHTML = `
     <div class="footer-container">
