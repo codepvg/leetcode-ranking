@@ -1,0 +1,55 @@
+async function loadLeaderboardRanks(username) {
+  const periods = ["overall", "monthly", "weekly", "daily"];
+
+  try {
+    const res = await fetch(`/api/user/${username}`);
+    if (!res.ok) throw new Error("API response error");
+
+    const data = await res.json();
+    const ranks = data.leaderboardRanks;
+    if (!ranks) return;
+
+    periods.forEach((period) => {
+      const rankEl = document.getElementById(`${period}-rank`);
+      const itemContainer = document.getElementById(`${period}-item`);
+
+      const rankData = ranks[period];
+
+      // Clean fallback if rank is not present, is '--', or has a 0 rank score
+      if (
+        !rankData ||
+        rankData.rank === "--" ||
+        rankData.rank === 0 ||
+        rankData.rank === null
+      ) {
+        if (rankEl) rankEl.textContent = "--";
+        if (itemContainer) itemContainer.classList.add("placeholder-rank");
+        return;
+      }
+
+      if (itemContainer) {
+        itemContainer.classList.remove("placeholder-rank");
+      }
+
+      if (rankEl) {
+        rankEl.textContent = Number(rankData.rank);
+      }
+    });
+  } catch (err) {
+    console.error("Error loading leaderboard ranks:", err);
+    periods.forEach((period) => {
+      const el = document.getElementById(`${period}-rank`);
+      if (el) el.textContent = "--";
+    });
+  }
+}
+
+// Automatically fire on load
+document.addEventListener("DOMContentLoaded", () => {
+  const pathSegments = window.location.pathname.split("/");
+  const username = pathSegments[pathSegments.length - 1];
+
+  if (username) {
+    loadLeaderboardRanks(username);
+  }
+});
