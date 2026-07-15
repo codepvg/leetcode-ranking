@@ -637,7 +637,9 @@ async function processTimeframe(
     "Updating user data files with history, badges, and pre-calculated ranks...",
   );
   try {
-    await fsPromises.mkdir(path.join(DATA_DIR, "user-data"), { recursive: true });
+    await fsPromises.mkdir(path.join(DATA_DIR, "user-data"), {
+      recursive: true,
+    });
   } catch (err) {
     if (err.code !== "EEXIST") throw err;
   }
@@ -720,4 +722,3 @@ async function processTimeframe(
     console.error(`Failed to write sync file: `, err.message);
   }
 })();
-
