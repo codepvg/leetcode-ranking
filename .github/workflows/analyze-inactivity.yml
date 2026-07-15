@@ -6,6 +6,9 @@ on:
     - cron: "45 5,11,17,23 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   analyze:
     if: github.repository == 'codepvg/leetcode-ranking'
