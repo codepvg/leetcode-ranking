@@ -55,12 +55,6 @@ async function updateUserDataAsync(
   ranksObj = null,
 ) {
   const userDataDir = path.join(DATA_DIR, "user-data");
-  try {
-    await fsPromises.mkdir(userDataDir, { recursive: true });
-  } catch (err) {
-    if (err.code !== "EEXIST") throw err;
-  }
-
   const userDataPath = path.join(userDataDir, `${user.id}.json`);
   let userData = { leaderboardRanks: {}, history: [], badges: [] };
   let history = [];
@@ -116,8 +110,6 @@ async function checkHotStreakAsync(userId, DATA_DIR, badgesMap) {
   const userDataDir = path.join(DATA_DIR, "user-data");
   const userDataPath = path.join(userDataDir, `${userId}.json`);
 
-  if (!fs.existsSync(userDataPath)) return;
-
   try {
     const fileHandle = await fsPromises.readFile(userDataPath, "utf8");
     const rawData = JSON.parse(fileHandle);
@@ -149,10 +141,12 @@ async function checkHotStreakAsync(userId, DATA_DIR, badgesMap) {
       }
     }
   } catch (err) {
-    console.error(
-      `Failed parsing user data for badge verification on ${userId}:`,
-      err.message,
-    );
+    if (err.code !== "ENOENT") {
+      console.error(
+        `Failed parsing user data for badge verification on ${userId}:`,
+        err.message,
+      );
+    }
   }
 }
 
@@ -358,7 +352,11 @@ async function processTimeframe(
   console.log(`Using data directory: ${DATA_DIR}`);
 
   // Clean up leftover tmp files from previous crashes
-  const tmpCleanupDirs = [DATA_DIR, path.join(DATA_DIR, "daily")];
+  const tmpCleanupDirs = [
+    DATA_DIR,
+    path.join(DATA_DIR, "daily"),
+    path.join(DATA_DIR, "user-data"),
+  ];
   tmpCleanupDirs.forEach((dirPath) => {
     try {
       if (fs.existsSync(dirPath)) {
@@ -638,6 +636,11 @@ async function processTimeframe(
   console.log(
     "Updating user data files with history, badges, and pre-calculated ranks...",
   );
+  try {
+    await fsPromises.mkdir(path.join(DATA_DIR, "user-data"), { recursive: true });
+  } catch (err) {
+    if (err.code !== "EEXIST") throw err;
+  }
   let userDataFailures = 0;
 
   const DISK_CONCURRENCY_LIMIT = 20;
@@ -717,3 +720,4 @@ async function processTimeframe(
     console.error(`Failed to write sync file: `, err.message);
   }
 })();
+
