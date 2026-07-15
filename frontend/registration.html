@@ -36,7 +36,7 @@
   </head>
 
   <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <canvas id="matrix-canvas"></canvas>
 
     <main class="page" id="main-content">
@@ -269,7 +269,18 @@
         const form = document.getElementById("registrationForm");
         form
           .querySelectorAll(".form-group")
-          .forEach((f) => (f.style.display = "block"));
+            .forEach((group) => {
+              group.style.display = "block"
+              const input = group.querySelector("input");
+              if (!input) return;
+              group.addEventListener("mousedown", (e) => {
+                if (e.target !== input) {
+                  e.preventDefault();
+                  input.focus();
+                }
+               })
+          });
+            
         document.getElementById("registerBtn").style.display = "inline-block";
         const execLog = document.getElementById("exec-log-box");
         if (execLog) execLog.style.display = "none";
