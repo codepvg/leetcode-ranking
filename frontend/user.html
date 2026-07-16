@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -189,7 +189,9 @@
         border: 1px solid;
       }
 
-      .badge-streak {
+
+
+      .badge-hotstreak {
         color: #b08add;
         background: rgba(176, 138, 221, 0.1);
         border-color: rgba(176, 138, 221, 0.3);
@@ -473,46 +475,7 @@
               <span style="color: var(--text-dim)">// PRIVILEGES</span>
             </div>
             <div class="badges-container" id="badge-wall">
-              <div
-                class="badge badge-streak"
-                data-title="Solved >= 1 problem every day for 7 days"
-              >
-                [HOT_STREAK]
-              </div>
-              <div
-                class="badge badge-speedrun"
-                data-title="Top 3 problem-solving velocity this week"
-              >
-                [SPEEDRUN]
-              </div>
-              <div
-                class="badge badge-uplink"
-                data-title="Jumped 5+ positions in ranks"
-              >
-                [UP_LINK]
-              </div>
-              <div
-                style="
-                  color: var(--text-dim);
-                  font-size: 0.8rem;
-                  width: 100%;
-                  margin-top: 8px;
-                  font-family: &quot;Space Mono&quot;, monospace;
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                "
-              >
-                <span style="opacity: 0.5">_UNLOCKED</span>
-                <div
-                  style="
-                    flex: 1;
-                    height: 1px;
-                    background: var(--border);
-                    opacity: 0.3;
-                  "
-                ></div>
-              </div>
+              <!-- Dynamically populated by badges.js -->
             </div>
           </div>
         </div>

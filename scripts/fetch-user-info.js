@@ -25,7 +25,6 @@ async function fetchUserInfo(username) {
 
   let history = [];
   let ranking = null;
-  let badges = [];
   let contest = null;
 
   const liveApiUrl = `https://leetcode-api-dun.vercel.app/${username}`;
@@ -51,7 +50,6 @@ async function fetchUserInfo(username) {
       } else if (data && typeof data === "object") {
         // Safe object destructuring for the new profile structure
         history = data.history || [];
-        badges = data.badges || [];
         if (data.leaderboardRanks) {
           leaderboardRanks = data.leaderboardRanks;
         }
@@ -91,7 +89,6 @@ async function fetchUserInfo(username) {
     username,
     ranking,
     leaderboardRanks,
-    badges,
     contest,
     history,
   };
