@@ -573,9 +573,13 @@
             .map((user) => user.id),
         );
 
-        const renderableData = filteredData.filter(
+        const activeList = filteredData.filter(
           (user) => user && !zeroScoreUserIds.has(user.id),
         );
+        const inactiveList = filteredData.filter(
+          (user) => user && zeroScoreUserIds.has(user.id),
+        );
+        const combinedData = [...activeList, ...inactiveList];
 
         const isSearching = currentSearchTerm.length > 0;
         const statsEl = document.getElementById("leaderboard-stats");
@@ -585,7 +589,7 @@
           document.getElementById("next-page-btn").disabled = true;
           window.totalPages = 1;
 
-          const totalMatched = filteredData.length;
+          const totalMatched = combinedData.length;
           const startRow = totalMatched === 0 ? 0 : 1;
           const endRow = totalMatched;
 
@@ -603,20 +607,20 @@
             `;
         } else {
           const totalPages =
-            Math.ceil(renderableData.length / itemsPerPage) || 1;
+            Math.ceil(combinedData.length / itemsPerPage) || 1;
           window.totalPages = totalPages;
           document.getElementById("prev-page-btn").disabled = currentPage === 1;
           document.getElementById("next-page-btn").disabled =
             currentPage === totalPages;
 
           const startRow =
-            renderableData.length === 0
+            combinedData.length === 0
               ? 0
               : (currentPage - 1) * itemsPerPage + 1;
 
           const endRow =
             currentPage === totalPages
-              ? filteredData.length
+              ? combinedData.length
               : currentPage * itemsPerPage;
 
           statsEl.innerHTML = `
@@ -626,14 +630,14 @@
                 margin-bottom:1rem;
                 font-family:'Fira Code', monospace;
               ">
-                Total Users: ${filteredData.length}
+                Total Users: ${combinedData.length}
                 | Showing: ${startRow}-${endRow}
                 | Page: ${currentPage}/${totalPages}
               </div>
             `;
         }
 
-        renderLeaderboard(filteredData, zeroScoreUserIds, window.totalPages);
+        renderLeaderboard(combinedData, zeroScoreUserIds, window.totalPages);
       }
 
       function renderLeaderboard(data, zeroScoreUserIds, totalPages) {
@@ -655,55 +659,57 @@
           zeroScoreUserIds.has(user.id),
         );
 
-        const displayActiveData = isSearching
-          ? activeList
-          : activeList.slice(startIndex, endIndex);
+        // Pre-assign activeIndex to active users to render their correct rank
+        activeList.forEach((user, index) => {
+          user.activeIndex = index;
+        });
 
-        if (displayActiveData.length === 0 && inactiveList.length === 0) {
+        const displayData = isSearching
+          ? data
+          : data.slice(startIndex, endIndex);
+
+        if (displayData.length === 0) {
           const emptyStateHtml = `<div class="no-results" style="grid-column: 1 / -1;">[SYS]: NO_MATCHING_USERS_FOUND</div>`;
           body.innerHTML = emptyStateHtml;
           mobileCards.innerHTML = emptyStateHtml;
           return;
         }
 
-        displayActiveData.forEach((user, index) => {
-          let rank =
-            user.originalRank !== undefined
-              ? user.originalRank
-              : startIndex + index + 1;
+        displayData.forEach((user) => {
+          if (inactiveList.length > 0 && user.id === inactiveList[0].id) {
+            const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
 
-          if (activeDatasetType !== "overall" && user.score === 0) {
-            rank = "--";
+            const tableHeader = document.createElement("div");
+            tableHeader.className = "no-results";
+            tableHeader.style.gridColumn = "1 / -1";
+            tableHeader.innerText = dividerText;
+            body.appendChild(tableHeader);
+
+            const mobileHeader = document.createElement("div");
+            mobileHeader.className = "no-results";
+            mobileHeader.innerText = dividerText;
+            mobileCards.appendChild(mobileHeader);
+          }
+
+          let rank;
+          if (zeroScoreUserIds.has(user.id)) {
+            rank = "";
+          } else {
+            rank =
+              user.originalRank !== undefined
+                ? user.originalRank
+                : (user.activeIndex !== undefined ? user.activeIndex + 1 : 1);
+
+            if (activeDatasetType !== "overall" && user.score === 0) {
+              rank = "--";
+            }
           }
 
           body.appendChild(renderLeaderboardRow(user, rank));
           mobileCards.appendChild(renderMobileCard(user, rank));
         });
 
-        if (
-          inactiveList.length > 0 &&
-          (currentPage === totalPages || isSearching)
-        ) {
-          const dividerText = "── [ SECTION: NO ACTIVITY YET ] ──";
-
-          const tableHeader = document.createElement("div");
-          tableHeader.className = "no-results";
-          tableHeader.style.gridColumn = "1 / -1";
-          tableHeader.innerText = dividerText;
-          body.appendChild(tableHeader);
-
-          const mobileHeader = document.createElement("div");
-          mobileHeader.className = "no-results";
-          mobileHeader.innerText = dividerText;
-          mobileCards.appendChild(mobileHeader);
-
-          inactiveList.forEach((user) => {
-            body.appendChild(renderLeaderboardRow(user, ""));
-            mobileCards.appendChild(renderMobileCard(user, ""));
-          });
-        }
-
-        renderPagination(activeList.length);
+        renderPagination(data.length);
       }
 
       function setActiveTab(activeTab) {
