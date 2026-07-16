@@ -2,12 +2,13 @@
 
 const axios = require("axios");
 const fs = require("fs");
+const fsPromises = require("fs").promises;
 const path = require("path");
 
 const { setupRetryInterceptor } = require("./lib/retry-interceptor");
 setupRetryInterceptor();
 
-function atomicWrite(filePath, data) {
+async function atomicWrite(filePath, data) {
   const dir = path.dirname(filePath);
   const ext = path.extname(filePath);
   const base = path.basename(filePath, ext);
@@ -16,8 +17,8 @@ function atomicWrite(filePath, data) {
     `${base}.tmp.${process.pid}.${Date.now()}${ext}`,
   );
 
-  fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), "utf8");
-  fs.renameSync(tmpPath, filePath);
+  await fsPromises.writeFile(tmpPath, JSON.stringify(data, null, 2), "utf8");
+  await fsPromises.rename(tmpPath, filePath);
 }
 
 async function fetchData(url) {
@@ -47,27 +48,24 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-function updateUserData(user, DATA_DIR, badgesMap = null, ranksObj = null) {
+async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
   const userDataDir = path.join(DATA_DIR, "user-data");
-  if (!fs.existsSync(userDataDir)) {
-    fs.mkdirSync(userDataDir, { recursive: true });
-  }
-
   const userDataPath = path.join(userDataDir, `${user.id}.json`);
-  let userData = { leaderboardRanks: {}, history: [], badges: [] };
+  let userData = { leaderboardRanks: {}, history: [] };
   let history = [];
 
-  if (fs.existsSync(userDataPath)) {
-    try {
-      const rawData = JSON.parse(fs.readFileSync(userDataPath, "utf8"));
-      if (Array.isArray(rawData)) {
-        history = rawData;
-      } else {
-        userData = rawData;
-        history = userData.history || [];
-        if (!userData.leaderboardRanks) userData.leaderboardRanks = {};
-      }
-    } catch (err) {
+  try {
+    const fileHandle = await fsPromises.readFile(userDataPath, "utf8");
+    const rawData = JSON.parse(fileHandle);
+    if (Array.isArray(rawData)) {
+      history = rawData;
+    } else {
+      userData = rawData;
+      history = userData.history || [];
+      if (!userData.leaderboardRanks) userData.leaderboardRanks = {};
+    }
+  } catch (err) {
+    if (err.code !== "ENOENT") {
       console.error(
         `Failed to parse data for ${user.id}, resetting:`,
         err.message,
@@ -94,56 +92,10 @@ function updateUserData(user, DATA_DIR, badgesMap = null, ranksObj = null) {
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   userData.history = history;
-  if (badgesMap && badgesMap[user.id]) {
-    userData.badges = [...new Set(badgesMap[user.id])];
-  }
   if (ranksObj) {
     userData.leaderboardRanks = ranksObj;
   }
-  atomicWrite(userDataPath, userData);
-}
-
-function checkHotStreak(userId, DATA_DIR, badgesMap) {
-  const userDataDir = path.join(DATA_DIR, "user-data");
-  const userDataPath = path.join(userDataDir, `${userId}.json`);
-
-  if (!fs.existsSync(userDataPath)) return;
-
-  try {
-    const rawData = JSON.parse(fs.readFileSync(userDataPath, "utf8"));
-    const history = Array.isArray(rawData) ? rawData : rawData.history || [];
-
-    if (history.length >= 8) {
-      const recentHistory = history.slice(-8);
-      let consecutiveDaysMet = true;
-
-      for (let j = 1; j < recentHistory.length; j++) {
-        const todayTotals =
-          recentHistory[j].easy +
-          recentHistory[j].medium +
-          recentHistory[j].hard;
-        const yesterdayTotals =
-          recentHistory[j - 1].easy +
-          recentHistory[j - 1].medium +
-          recentHistory[j - 1].hard;
-
-        // If they didn't solve at least 1 problem compared to the day before, streak breaks
-        if (todayTotals - yesterdayTotals < 1) {
-          consecutiveDaysMet = false;
-          break;
-        }
-      }
-
-      if (consecutiveDaysMet) {
-        badgesMap[userId].push("HOT_STREAK");
-      }
-    }
-  } catch (err) {
-    console.error(
-      `Failed parsing user data for badge verification on ${userId}:`,
-      err.message,
-    );
-  }
+  await atomicWrite(userDataPath, userData);
 }
 
 function assignCompetitionRanks(sortedData) {
@@ -207,7 +159,7 @@ async function getYesterdaySnapshot(filePath) {
   }
 }
 
-async function computeRankChanges(currentSorted, filename, badgesMap = null) {
+async function computeRankChanges(currentSorted, filename) {
   let previousRanks = {};
   const previousData = await getYesterdaySnapshot(filename);
 
@@ -234,12 +186,6 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
         else if (delta < 0) user.rankChange = `${delta}`;
         else user.rankChange = 0;
       }
-
-      if (badgesMap && delta >= 5 && user.score > 0) {
-        if (badgesMap[user.id] && !badgesMap[user.id].includes("UP_LINK")) {
-          badgesMap[user.id].push("UP_LINK");
-        }
-      }
     }
   });
 }
@@ -253,20 +199,14 @@ async function computeRankChanges(currentSorted, filename, badgesMap = null) {
  * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
  * @param {number} daysAgo - Number of days to look back for the snapshot file
  */
-async function processTimeframe(
-  sourceData,
-  DATA_DIR,
-  periodName,
-  daysAgo,
-  badgesMap = null,
-) {
+async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   const data = JSON.parse(JSON.stringify(sourceData));
   console.log(" ");
   console.log(`Loading previous ${periodName}'s file...`);
   const previousFilepath = path.join(DATA_DIR, "daily", getFileName(daysAgo));
   let previousData = [];
   try {
-    const rawData = fs.readFileSync(previousFilepath, "utf8");
+    const rawData = await fsPromises.readFile(previousFilepath, "utf8");
     previousData = JSON.parse(rawData);
     console.log(`Previous ${periodName}'s data loaded successfully`);
   } catch (err) {
@@ -279,52 +219,56 @@ async function processTimeframe(
 
   console.log(" ");
   console.log(`Calculating ${periodName} progress...`);
-  for (let i = 0; i < data.length; i++) {
-    const previousIndex = previousData.findIndex(
-      (obj) => obj.id === data[i].id,
-    );
-    if (previousIndex == -1) {
-      data.splice(i--, 1);
-      continue;
-    }
-    data[i].data.easySolved = Math.max(
-      0,
-      data[i].data.easySolved - previousData[previousIndex].data.easySolved,
-    );
-    data[i].data.mediumSolved = Math.max(
-      0,
-      data[i].data.mediumSolved - previousData[previousIndex].data.mediumSolved,
-    );
-    data[i].data.hardSolved = Math.max(
-      0,
-      data[i].data.hardSolved - previousData[previousIndex].data.hardSolved,
-    );
-    data[i].score =
-      data[i].data.easySolved +
-      data[i].data.mediumSolved * 3 +
-      data[i].data.hardSolved * 5;
-    data[i].data.totalSolved =
-      data[i].data.easySolved +
-      data[i].data.mediumSolved +
-      data[i].data.hardSolved;
 
-    if (periodName === "weekly" && data[i].data.totalSolved >= 7 && badgesMap) {
-      checkHotStreak(data[i].id, DATA_DIR, badgesMap);
-    }
+  const PROFILE_CONCURRENCY = 20;
+  for (let i = 0; i < data.length; i += PROFILE_CONCURRENCY) {
+    const chunk = data.slice(i, i + PROFILE_CONCURRENCY);
+    await Promise.all(
+      chunk.map(async (item) => {
+        const previousIndex = previousData.findIndex(
+          (obj) => obj.id === item.id,
+        );
+        if (previousIndex === -1) {
+          item._remove = true;
+          return;
+        }
+        item.data.easySolved = Math.max(
+          0,
+          item.data.easySolved - previousData[previousIndex].data.easySolved,
+        );
+        item.data.mediumSolved = Math.max(
+          0,
+          item.data.mediumSolved -
+            previousData[previousIndex].data.mediumSolved,
+        );
+        item.data.hardSolved = Math.max(
+          0,
+          item.data.hardSolved - previousData[previousIndex].data.hardSolved,
+        );
+
+        item.score =
+          item.data.easySolved +
+          item.data.mediumSolved * 3 +
+          item.data.hardSolved * 5;
+        item.data.totalSolved =
+          item.data.easySolved + item.data.mediumSolved + item.data.hardSolved;
+      }),
+    );
   }
+  const filteredData = data.filter((item) => !item._remove);
   console.log("Calculation done");
   console.log("");
 
   console.log("Sorting calculated data...");
-  stableSortByScore(data);
-  assignCompetitionRanks(data);
+  stableSortByScore(filteredData);
+  assignCompetitionRanks(filteredData);
   console.log(`Writing sorted ${periodName} data to ${periodName}.json...`);
   const filepath = path.join(DATA_DIR, `${periodName}.json`);
-  await computeRankChanges(data, `${periodName}.json`, badgesMap);
+  await computeRankChanges(filteredData, `${periodName}.json`);
   try {
-    atomicWrite(filepath, data);
+    await atomicWrite(filepath, filteredData);
     console.log(`${periodName} data saved successfully`);
-    return data;
+    return filteredData;
   } catch (err) {
     console.error(`Failed to write ${periodName}.json: `, err.message);
     throw err;
@@ -336,7 +280,11 @@ async function processTimeframe(
   console.log(`Using data directory: ${DATA_DIR}`);
 
   // Clean up leftover tmp files from previous crashes
-  const tmpCleanupDirs = [DATA_DIR, path.join(DATA_DIR, "daily")];
+  const tmpCleanupDirs = [
+    DATA_DIR,
+    path.join(DATA_DIR, "daily"),
+    path.join(DATA_DIR, "user-data"),
+  ];
   tmpCleanupDirs.forEach((dirPath) => {
     try {
       if (fs.existsSync(dirPath)) {
@@ -367,11 +315,6 @@ async function processTimeframe(
     console.error("Failed to load users.json: ", err.message);
     process.exit(1);
   }
-
-  const badgesMap = {};
-  users.forEach((user) => {
-    badgesMap[user.id] = [];
-  });
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
 
@@ -462,7 +405,7 @@ async function processTimeframe(
   console.log("Writing daily data to file...");
   const filepath = path.join(DATA_DIR, "daily", getFileName(0));
   try {
-    atomicWrite(filepath, overallData);
+    await atomicWrite(filepath, overallData);
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -478,9 +421,9 @@ async function processTimeframe(
   assignCompetitionRanks(overallData);
   console.log("Writing sorted daily data to overall file...");
 
-  await computeRankChanges(overallData, "overall.json", badgesMap);
+  await computeRankChanges(overallData, "overall.json");
   try {
-    atomicWrite(overallFilepath, overallData);
+    await atomicWrite(overallFilepath, overallData);
     console.log("Daily data saved successfully");
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
@@ -490,27 +433,9 @@ async function processTimeframe(
   // Process timeframe-based leaderboards using the shared function
   let dailyData, weeklyData, monthlyData;
   try {
-    dailyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "daily",
-      1,
-      badgesMap,
-    );
-    weeklyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "weekly",
-      7,
-      badgesMap,
-    );
-    monthlyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "monthly",
-      30,
-      badgesMap,
-    );
+    dailyData = await processTimeframe(overallData, DATA_DIR, "daily", 1);
+    weeklyData = await processTimeframe(overallData, DATA_DIR, "weekly", 7);
+    monthlyData = await processTimeframe(overallData, DATA_DIR, "monthly", 30);
   } catch (err) {
     console.error(`[FATAL] Timeframe processing aborted: ${err.message}`);
     process.exit(1);
@@ -592,7 +517,7 @@ async function processTimeframe(
     const noChanges =
       rankChanges.length === 0 && newUsers.length === 0 && totalNewSolves === 0;
 
-    atomicWrite(changesFilepath, {
+    await atomicWrite(changesFilepath, {
       sync_time: new Date().toISOString(),
       rank_changes: rankChanges,
       new_users: newUsers,
@@ -605,57 +530,74 @@ async function processTimeframe(
     console.error("Failed to write changes.json: ", err.message);
   }
 
-  if (Array.isArray(weeklyData)) {
-    weeklyData.slice(0, 3).forEach((user) => {
-      if (badgesMap[user.id] && user.score > 0) {
-        badgesMap[user.id].push("SPEEDRUN");
-      }
-    });
-  }
-
   console.log(
     "Updating user data files with history, badges, and pre-calculated ranks...",
   );
+  try {
+    await fsPromises.mkdir(path.join(DATA_DIR, "user-data"), {
+      recursive: true,
+    });
+  } catch (err) {
+    if (err.code !== "EEXIST") throw err;
+  }
   let userDataFailures = 0;
-  overallData.forEach((user) => {
-    try {
-      const overallInfo = overallMap.get(user.id) || {
-        rank: "--",
-        change: "=",
-      };
-      const dailyInfo = dailyMap.get(user.id) || { rank: "--", change: "=" };
-      const weeklyInfo = weeklyMap.get(user.id) || { rank: "--", change: "=" };
-      const monthlyInfo = monthlyMap.get(user.id) || {
-        rank: "--",
-        change: "=",
-      };
 
-      const calculatedRanks = {
-        overall: {
-          rank: overallInfo.rank,
-          change: formatChange(overallInfo.change),
-        },
-        daily: { rank: dailyInfo.rank, change: formatChange(dailyInfo.change) },
-        weekly: {
-          rank: weeklyInfo.rank,
-          change: formatChange(weeklyInfo.change),
-        },
-        monthly: {
-          rank: monthlyInfo.rank,
-          change: formatChange(monthlyInfo.change),
-        },
-      };
+  const DISK_CONCURRENCY_LIMIT = 20;
 
-      // Single write pass maps everything cleanly
-      updateUserData(user, DATA_DIR, badgesMap, calculatedRanks);
-    } catch (err) {
-      userDataFailures++;
-      console.error(
-        `Failed to completely map metadata for ${user.id}:`,
-        err.message,
-      );
-    }
-  });
+  for (let i = 0; i < overallData.length; i += DISK_CONCURRENCY_LIMIT) {
+    const batch = overallData.slice(i, i + DISK_CONCURRENCY_LIMIT);
+
+    await Promise.all(
+      batch.map(async (user) => {
+        try {
+          const overallInfo = overallMap.get(user.id) || {
+            rank: "--",
+            change: "=",
+          };
+          const dailyInfo = dailyMap.get(user.id) || {
+            rank: "--",
+            change: "=",
+          };
+          const weeklyInfo = weeklyMap.get(user.id) || {
+            rank: "--",
+            change: "=",
+          };
+          const monthlyInfo = monthlyMap.get(user.id) || {
+            rank: "--",
+            change: "=",
+          };
+
+          const calculatedRanks = {
+            overall: {
+              rank: overallInfo.rank,
+              change: formatChange(overallInfo.change),
+            },
+            daily: {
+              rank: dailyInfo.rank,
+              change: formatChange(dailyInfo.change),
+            },
+            weekly: {
+              rank: weeklyInfo.rank,
+              change: formatChange(weeklyInfo.change),
+            },
+            monthly: {
+              rank: monthlyInfo.rank,
+              change: formatChange(monthlyInfo.change),
+            },
+          };
+
+          // Executed asynchronously using fs.promises inside controlled chunk bounds
+          await updateUserDataAsync(user, DATA_DIR, calculatedRanks);
+        } catch (err) {
+          userDataFailures++;
+          console.error(
+            `Failed to completely map metadata for ${user.id}:`,
+            err.message,
+          );
+        }
+      }),
+    );
+  }
 
   if (userDataFailures > 0) {
     console.warn(`${userDataFailures} user data map update(s) failed.`);
@@ -668,7 +610,7 @@ async function processTimeframe(
   try {
     const now = new Date();
     const nextSync = new Date(now.getTime() + 15 * 60 * 1000);
-    atomicWrite(syncFilepath, {
+    await atomicWrite(syncFilepath, {
       lastSync: now.toISOString(),
       nextSync: nextSync.toISOString(),
     });
