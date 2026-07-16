@@ -48,11 +48,7 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
-async function updateUserDataAsync(
-  user,
-  DATA_DIR,
-  ranksObj = null,
-) {
+async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
   const userDataDir = path.join(DATA_DIR, "user-data");
   const userDataPath = path.join(userDataDir, `${user.id}.json`);
   let userData = { leaderboardRanks: {}, history: [] };
@@ -203,12 +199,7 @@ async function computeRankChanges(currentSorted, filename) {
  * @param {string} periodName - Label for the timeframe ("daily", "weekly", "monthly")
  * @param {number} daysAgo - Number of days to look back for the snapshot file
  */
-async function processTimeframe(
-  sourceData,
-  DATA_DIR,
-  periodName,
-  daysAgo,
-) {
+async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   const data = JSON.parse(JSON.stringify(sourceData));
   console.log(" ");
   console.log(`Loading previous ${periodName}'s file...`);
@@ -248,7 +239,7 @@ async function processTimeframe(
         item.data.mediumSolved = Math.max(
           0,
           item.data.mediumSolved -
-          previousData[previousIndex].data.mediumSolved,
+            previousData[previousIndex].data.mediumSolved,
         );
         item.data.hardSolved = Math.max(
           0,
@@ -324,8 +315,6 @@ async function processTimeframe(
     console.error("Failed to load users.json: ", err.message);
     process.exit(1);
   }
-
-
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
 
@@ -444,24 +433,9 @@ async function processTimeframe(
   // Process timeframe-based leaderboards using the shared function
   let dailyData, weeklyData, monthlyData;
   try {
-    dailyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "daily",
-      1,
-    );
-    weeklyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "weekly",
-      7,
-    );
-    monthlyData = await processTimeframe(
-      overallData,
-      DATA_DIR,
-      "monthly",
-      30,
-    );
+    dailyData = await processTimeframe(overallData, DATA_DIR, "daily", 1);
+    weeklyData = await processTimeframe(overallData, DATA_DIR, "weekly", 7);
+    monthlyData = await processTimeframe(overallData, DATA_DIR, "monthly", 30);
   } catch (err) {
     console.error(`[FATAL] Timeframe processing aborted: ${err.message}`);
     process.exit(1);
@@ -555,8 +529,6 @@ async function processTimeframe(
   } catch (err) {
     console.error("Failed to write changes.json: ", err.message);
   }
-
-
 
   console.log(
     "Updating user data files with history, badges, and pre-calculated ranks...",

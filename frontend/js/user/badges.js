@@ -1,7 +1,7 @@
 const ALL_BADGES = [
   { id: "HOT_STREAK", title: "Solved >= 1 problem every day for 7 days" },
   { id: "SPEEDRUN", title: "Top 3 problem-solving velocity this week" },
-  { id: "UP_LINK", title: "Jumped 5+ positions in overall ranks today" }
+  { id: "UP_LINK", title: "Jumped 5+ positions in overall ranks today" },
 ];
 
 async function loadBadges(username) {
@@ -25,7 +25,8 @@ async function loadBadges(username) {
       let streak = true;
       for (let j = 1; j < recent.length; j++) {
         const todayTotals = recent[j].easy + recent[j].medium + recent[j].hard;
-        const yesterdayTotals = recent[j - 1].easy + recent[j - 1].medium + recent[j - 1].hard;
+        const yesterdayTotals =
+          recent[j - 1].easy + recent[j - 1].medium + recent[j - 1].hard;
         if (todayTotals - yesterdayTotals < 1) {
           streak = false;
           break;
@@ -43,17 +44,21 @@ async function loadBadges(username) {
         const recent = history.slice(-8);
         const first = recent[0];
         const last = recent[recent.length - 1];
-        const weeklyScore = (last.easy - first.easy) + (last.medium - first.medium) * 3 + (last.hard - first.hard) * 5;
+        const weeklyScore =
+          last.easy -
+          first.easy +
+          (last.medium - first.medium) * 3 +
+          (last.hard - first.hard) * 5;
         if (weeklyScore > 0) earnedSet.add("SPEEDRUN");
       }
     }
 
     if (earnedSet.size === 0) return;
 
-    earnedSet.forEach(badgeId => {
+    earnedSet.forEach((badgeId) => {
       const badge = document.createElement("div");
 
-      const badgeDef = ALL_BADGES.find(b => b.id === badgeId);
+      const badgeDef = ALL_BADGES.find((b) => b.id === badgeId);
       const safeClass = badgeId.toLowerCase().replace("_", "");
 
       badge.className = `badge badge-${safeClass}`;
@@ -64,7 +69,6 @@ async function loadBadges(username) {
 
       badgeWall.appendChild(badge);
     });
-
   } catch (err) {
     console.error("Error loading user badges:", err);
   }
