@@ -2297,6 +2297,14 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.tooltip-score:hover {
+  z-index: 100;
+}
+
+.tooltip-score.active {
+  z-index: 100;
+}
+
 .tooltip-score.active .score-tooltip {
   opacity: 1;
   visibility: visible;
@@ -2884,6 +2892,10 @@ body::-webkit-scrollbar-thumb {
 .leaderboard-row:nth-child(-n + 3) .rank-change[data-tooltip]::before {
   top: 140%;
   bottom: auto;
+}
+
+.rank-change[data-tooltip]:hover {
+  z-index: 100;
 }
 
 .rank-change[data-tooltip]:hover::before {

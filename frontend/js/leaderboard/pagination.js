@@ -8,9 +8,7 @@ function setupPaginationListeners() {
   });
 
   document.getElementById("next-page-btn")?.addEventListener("click", () => {
-    const totalPages = Math.ceil(
-      leaderboardData[activeDatasetType].length / itemsPerPage,
-    );
+    const totalPages = window.totalPages || 1;
 
     if (currentPage < totalPages) {
       currentPage++;
@@ -24,6 +22,13 @@ function renderPagination(totalItems) {
   const pageNumbers = document.getElementById("page-numbers");
 
   if (!pageNumbers) return;
+
+  const isSearching =
+    typeof currentSearchTerm !== "undefined" && currentSearchTerm.length > 0;
+  if (isSearching) {
+    pageNumbers.innerHTML = "";
+    return;
+  }
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   pageNumbers.innerHTML = "";

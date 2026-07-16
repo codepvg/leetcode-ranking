@@ -10,9 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="icon" type="image/png" href="assets/logo.png" />
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <script src="/js/navbar.js"></script>
 
     <meta
       name="description"
@@ -372,30 +372,20 @@
           leetcodeInput.value = username;
         });
 
-        leetcodeInput.addEventListener("input", (e) => {
-          const cursorPosition = e.target.selectionStart;
-          const originalLength = e.target.value.length;
-
+        leetcodeInput.addEventListener("blur", (e) => {
           e.target.value = extractUsername(e.target.value);
-
-          const newLength = e.target.value.length;
-          const diff = originalLength - newLength;
-          e.target.setSelectionRange(
-            cursorPosition - diff,
-            cursorPosition - diff,
-          );
         });
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+          const leetcodeInput = document.getElementById("leetcodeId");
+          leetcodeInput.value = extractUsername(leetcodeInput.value);
+
           const nameVal = document.getElementById("name").value.trim();
-          const leetcodeVal = document
-            .getElementById("leetcodeId")
-            .value.trim();
+          const leetcodeVal = leetcodeInput.value.trim();
 
           // First, clear any previous error states
           const nameInput = document.getElementById("name");
-          const leetcodeInput = document.getElementById("leetcodeId");
 
           const nameTarget =
             nameInput.closest(".form-input-bash-wrapper") || nameInput;
@@ -592,8 +582,8 @@
           .addEventListener("click", dismissError);
       });
     </script>
-    <script src="js/footer.js"></script>
-    <script src="js/matrix.js"></script>
-    <script src="js/terminal_ui.js"></script>
+    <script src="/js/footer.js"></script>
+    <script src="/js/matrix.js"></script>
+    <script src="/js/terminal_ui.js"></script>
   </body>
 </html>

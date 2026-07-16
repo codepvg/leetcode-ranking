@@ -18,5 +18,7 @@ jobs:
           stale-pr-message: "This PR has been inactive for 14 days and has been marked as stale. If you are still working on it, please leave a comment."
           stale-issue-label: "stale"
           stale-pr-label: "stale"
+          exempt-issue-labels: "status:blocked"
+          exempt-pr-labels: "status:blocked"
           days-before-stale: 14
           days-before-close: 5
