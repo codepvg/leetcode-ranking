@@ -117,31 +117,44 @@
     }
 
     async function fetchSolvedCount(metric) {
-      try {
-        const res = await fetch("/api/user/" + username);
-        if (!res.ok) return 0;
-        const data = await res.json();
-        var history = data.history;
-        if (!Array.isArray(history) || history.length === 0) return 0;
-        var latest = history[history.length - 1];
-        if (metric === "easy") return Number(latest.easy) || 0;
-        if (metric === "medium") return Number(latest.medium) || 0;
-        if (metric === "hard") return Number(latest.hard) || 0;
-        return (
-          (Number(latest.easy) || 0) +
-          (Number(latest.medium) || 0) +
-          (Number(latest.hard) || 0)
-        );
-      } catch {
-        return 0;
+      const res = await fetch("/api/user/" + username);
+      if (!res.ok) {
+        throw new Error("Failed to fetch solved count: " + res.status);
       }
+      const data = await res.json();
+      const history = data.history;
+      if (!Array.isArray(history) || history.length === 0) return 0;
+      const latest = history[history.length - 1];
+      if (metric === "easy") return Number(latest.easy) || 0;
+      if (metric === "medium") return Number(latest.medium) || 0;
+      if (metric === "hard") return Number(latest.hard) || 0;
+      return (
+        (Number(latest.easy) || 0) +
+        (Number(latest.medium) || 0) +
+        (Number(latest.hard) || 0)
+      );
     }
 
     async function render() {
       const goal = loadGoal(username);
       if (goal) {
-        const solved = await fetchSolvedCount(goal.metric);
-        showProgress(goal, solved);
+        try {
+          const solved = await fetchSolvedCount(goal.metric);
+          showProgress(goal, solved);
+        } catch (e) {
+          console.error("Error loading goal progress:", e);
+          elLabel.textContent =
+            "TARGET: " +
+            goal.target +
+            " " +
+            goal.metric.toUpperCase() +
+            " / WEEK";
+          elBar.textContent = "[ FAILED TO SYNC PROGRESS ]";
+          elBar.style.color = "var(--red)";
+          elCount.textContent = "API error, please refresh later";
+          elDisplay.style.display = "block";
+          elSetter.style.display = "none";
+        }
       } else {
         showSetter();
       }
@@ -155,9 +168,22 @@
         return;
       }
       elInput.style.borderColor = "";
-      const goal = saveGoal(username, metric, target);
-      const solved = await fetchSolvedCount(metric);
-      showProgress(goal, solved);
+
+      try {
+        const solved = await fetchSolvedCount(metric);
+        const goal = saveGoal(username, metric, target);
+        showProgress(goal, solved);
+      } catch (e) {
+        console.error("Error setting goal:", e);
+        elInput.style.borderColor = "#ff4c4c";
+        elInput.value = "";
+        elInput.placeholder = "API Error, retry";
+      }
+    });
+
+    elInput.addEventListener("focus", function () {
+      elInput.placeholder = "e.g. 10";
+      elInput.style.borderColor = "";
     });
 
     elReset.addEventListener("click", function () {
