@@ -2869,7 +2869,8 @@ body::-webkit-scrollbar-thumb {
 .rank-change[data-tooltip]::before {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 140%;
+  bottom: 140%;      /* Default position */
+  top: auto;
   left: 50%;
   transform: translateX(-50%);
   background: var(--bg-raised);
@@ -2886,6 +2887,11 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
   transition: opacity 0.15s ease-in-out;
   box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+/* Prevent tooltip from overlapping the sticky header */
+.leaderboard-row:nth-child(-n + 3) .rank-change[data-tooltip]::before {
+  top: 140%;
+  bottom: auto;
 }
 
 .rank-change[data-tooltip]:hover {

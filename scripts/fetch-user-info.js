@@ -18,6 +18,7 @@ async function fetchWithTimeout(url, timeoutMs = 15000) {
 }
 
 async function fetchUserInfo(username) {
+  let liveSolved = null;
   const usernameRegex = /^[a-zA-Z0-9_-]+$/;
   if (!username || !usernameRegex.test(username)) {
     throw new Error("Invalid username format");
@@ -79,13 +80,33 @@ async function fetchUserInfo(username) {
     }
   });
 
-  // Wait for the live API task to complete
-  await livePromise;
+  ranking = apiData.ranking || 0;
+  contest = apiData.contest || null;
 
   // Ensure history is sorted chronologically
   // Guard against a corrupted history file (e.g. non-array `history` field)
   history = Array.isArray(history) ? history : [];
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const today = new Date().toISOString().split("T")[0];
+  let latestEntry = null;
+
+  for (let i = history.length - 1; i >= 0; i--) {
+    const entry = history[i];
+
+    if (
+      typeof entry.date === "string" &&
+      entry.date.startsWith(today)
+    ) {
+      latestEntry = entry;
+      break;
+    }
+  }
+
+  if (latestEntry && liveSolved) {
+    latestEntry.easy = liveSolved.easy;
+    latestEntry.medium = liveSolved.medium;
+    latestEntry.hard = liveSolved.hard;
+  }
 
   return {
     username,
