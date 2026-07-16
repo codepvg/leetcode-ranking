@@ -1,3 +1,9 @@
+const ALL_BADGES = [
+  { id: "HOT_STREAK", title: "Solved >= 1 problem every day for 7 days" },
+  { id: "SPEEDRUN", title: "Top 3 problem-solving velocity this week" },
+  { id: "UP_LINK", title: "Jumped 5+ positions in overall ranks today" },
+];
+
 async function loadBadges(username) {
   const badgeWall = document.getElementById("badge-wall");
   if (!badgeWall) return;
@@ -9,30 +15,57 @@ async function loadBadges(username) {
     if (!res.ok) throw new Error("API response error");
 
     const data = await res.json();
-    const earnedBadges = data.badges || [];
+    const history = data.history || [];
+    const ranks = data.leaderboardRanks || {};
 
-    if (earnedBadges.length === 0) {
-      return;
+    const earnedSet = new Set();
+
+    if (history.length >= 8) {
+      const recent = history.slice(-8);
+      let streak = true;
+      for (let j = 1; j < recent.length; j++) {
+        const todayTotals = recent[j].easy + recent[j].medium + recent[j].hard;
+        const yesterdayTotals =
+          recent[j - 1].easy + recent[j - 1].medium + recent[j - 1].hard;
+        if (todayTotals - yesterdayTotals < 1) {
+          streak = false;
+          break;
+        }
+      }
+      if (streak) earnedSet.add("HOT_STREAK");
     }
 
-    earnedBadges.forEach((type) => {
+    if (ranks.overall && parseInt(ranks.overall.change, 10) >= 5) {
+      earnedSet.add("UP_LINK");
+    }
+
+    if (ranks.weekly && ranks.weekly.rank !== "--" && ranks.weekly.rank <= 3) {
+      if (history.length >= 2) {
+        const recent = history.slice(-8);
+        const first = recent[0];
+        const last = recent[recent.length - 1];
+        const weeklyScore =
+          last.easy -
+          first.easy +
+          (last.medium - first.medium) * 3 +
+          (last.hard - first.hard) * 5;
+        if (weeklyScore > 0) earnedSet.add("SPEEDRUN");
+      }
+    }
+
+    if (earnedSet.size === 0) return;
+
+    earnedSet.forEach((badgeId) => {
       const badge = document.createElement("div");
 
-      badge.className = `badge badge-${type.toLowerCase().replace("_", "")}`;
-      badge.textContent = `[${type}]`;
+      const badgeDef = ALL_BADGES.find((b) => b.id === badgeId);
+      const safeClass = badgeId.toLowerCase().replace("_", "");
 
-      if (type === "HOT_STREAK")
-        badge.setAttribute(
-          "data-title",
-          "Solved >= 1 problem every day for 7 days",
-        );
-      if (type === "SPEEDRUN")
-        badge.setAttribute(
-          "data-title",
-          "Top 3 problem-solving velocity this week",
-        );
-      if (type === "UP_LINK")
-        badge.setAttribute("data-title", "Jumped 5+ positions in ranks");
+      badge.className = `badge badge-${safeClass}`;
+      badge.textContent = `[${badgeId}]`;
+      if (badgeDef) {
+        badge.setAttribute("data-title", badgeDef.title);
+      }
 
       badgeWall.appendChild(badge);
     });
