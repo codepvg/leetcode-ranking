@@ -606,8 +606,7 @@
               </div>
             `;
         } else {
-          const totalPages =
-            Math.ceil(combinedData.length / itemsPerPage) || 1;
+          const totalPages = Math.ceil(combinedData.length / itemsPerPage) || 1;
           window.totalPages = totalPages;
           document.getElementById("prev-page-btn").disabled = currentPage === 1;
           document.getElementById("next-page-btn").disabled =
@@ -698,7 +697,9 @@
             rank =
               user.originalRank !== undefined
                 ? user.originalRank
-                : (user.activeIndex !== undefined ? user.activeIndex + 1 : 1);
+                : user.activeIndex !== undefined
+                  ? user.activeIndex + 1
+                  : 1;
 
             if (activeDatasetType !== "overall" && user.score === 0) {
               rank = "--";
