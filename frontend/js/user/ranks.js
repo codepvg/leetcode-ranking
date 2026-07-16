@@ -47,8 +47,9 @@ async function loadLeaderboardRanks(username) {
 // Automatically fire on load
 document.addEventListener("DOMContentLoaded", () => {
   const pathSegments = window.location.pathname.split("/");
-  const username = pathSegments[pathSegments.length - 1];
-
+  const username =
+    pathSegments[pathSegments.length - 1] ||
+    pathSegments[pathSegments.length - 2];
   if (username) {
     loadLeaderboardRanks(username);
   }
