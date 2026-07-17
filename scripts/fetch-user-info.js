@@ -67,11 +67,17 @@ async function fetchUserInfo(username) {
   }
 
   // 2. Fetch live profile ranking from the wrapper API
+  let liveSolved = null;
   const livePromise = fetchWithTimeout(liveApiUrl).then(async (res) => {
     if (res.ok) {
       const apiData = await res.json();
       ranking = apiData.ranking || 0;
       contest = apiData.contest || null;
+      liveSolved = {
+        easy: apiData.easySolved || 0,
+        medium: apiData.mediumSolved || 0,
+        hard: apiData.hardSolved || 0,
+      };
     } else {
       throw new Error(`LeetCode API wrapper returned status ${res.status}`);
     }
@@ -84,6 +90,25 @@ async function fetchUserInfo(username) {
   // Guard against a corrupted history file (e.g. non-array `history` field)
   history = Array.isArray(history) ? history : [];
   history.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // Update or append today's entry with live solved counts
+  if (liveSolved) {
+    const today = new Date().toISOString().split("T")[0];
+    let todayEntry = history.find((entry) => entry.date === today);
+    if (!todayEntry) {
+      todayEntry = {
+        date: today,
+        easy: liveSolved.easy,
+        medium: liveSolved.medium,
+        hard: liveSolved.hard,
+      };
+      history.push(todayEntry);
+    } else {
+      todayEntry.easy = liveSolved.easy;
+      todayEntry.medium = liveSolved.medium;
+      todayEntry.hard = liveSolved.hard;
+    }
+  }
 
   return {
     username,
