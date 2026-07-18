@@ -2,6 +2,17 @@ const ALL_BADGES = [
   { id: "HOT_STREAK", title: "Solved >= 1 problem every day for 7 days" },
   { id: "SPEEDRUN", title: "Top 3 problem-solving velocity this week" },
   { id: "UP_LINK", title: "Jumped 5+ positions in overall ranks today" },
+<<<<<<< Updated upstream
+=======
+  {
+    id: "HARD_CARRY",
+    title: "Solved 5+ Hard problems and 0 Easy problems over the past 7 days",
+  },
+  {
+    id: "CENTURION",
+    title: "Solved a grand total of 100 or more problems",
+  },
+>>>>>>> Stashed changes
 ];
 
 async function loadBadges(username) {
@@ -33,6 +44,15 @@ async function loadBadges(username) {
         }
       }
       if (streak) earnedSet.add("HOT_STREAK");
+    }
+
+    if (history.length >= 1) {
+      const latest = history[history.length - 1];
+      const totalSolved =
+        (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
+      if (totalSolved >= 100) {
+        earnedSet.add("CENTURION");
+      }
     }
 
     if (ranks.overall && parseInt(ranks.overall.change, 10) >= 5) {
