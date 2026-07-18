@@ -284,6 +284,16 @@
         border-color: rgba(255, 76, 76, 0.3);
         text-shadow: 0 0 5px rgba(255, 76, 76, 0.3);
       }
+      .rank-change {
+        margin-left: 0.4rem;
+        font-size: 0.75rem;
+      }
+      .change-up {
+        color: var(--green);
+      }
+      .change-down {
+        color: var(--red);
+      }
     </style>
   </head>
   <body>
@@ -493,18 +503,22 @@
             <div class="rank-item" id="overall-item">
               <span class="rank-label">OVERALL:</span>
               <span id="overall-rank" class="rank-value">--</span>
+              <span id="overall-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="monthly-item">
               <span class="rank-label">MONTHLY:</span>
               <span id="monthly-rank" class="rank-value">--</span>
+              <span id="monthly-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="weekly-item">
               <span class="rank-label">WEEKLY:</span>
               <span id="weekly-rank" class="rank-value">--</span>
+              <span id="weekly-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="daily-item">
               <span class="rank-label">DAILY:</span>
               <span id="daily-rank" class="rank-value">--</span>
+              <span id="daily-change" class="rank-change"></span>
             </div>
           </div>
         </div>
