@@ -37,11 +37,14 @@ async function loadLeaderboardRanks(username) {
         if (change > 0) {
           changeEl.textContent = `(+${change})`;
           changeEl.className = "rank-change change-up";
+          changeEl.setAttribute("data-title", `Moved up ${change} ranks today`);
         } else if (change < 0) {
           changeEl.textContent = `(${change})`;
           changeEl.className = "rank-change change-down";
+          changeEl.setAttribute("data-title", `Fell ${Math.abs(change)} ranks today`);
         } else {
           changeEl.textContent = ""; // Hide if 0
+          changeEl.removeAttribute("data-title");
         }
       }
     });
