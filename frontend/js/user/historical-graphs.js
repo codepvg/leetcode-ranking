@@ -75,6 +75,11 @@ function renderRankings(data) {
   }
 }
 
+function parseLocalDate(dateStr) {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day, 0, 0, 0, 0);
+}
+
 function updateChart() {
   if (!userDataArray || userDataArray.length === 0) {
     return;
@@ -90,24 +95,26 @@ function updateChart() {
   if (currentView === "weekly") {
     filterDate = new Date();
     filterDate.setDate(now.getDate() - 7);
+    filterDate.setHours(0, 0, 0, 0);
   } else if (currentView === "monthly") {
     filterDate = new Date();
     filterDate.setDate(now.getDate() - 30);
+    filterDate.setHours(0, 0, 0, 0);
   }
 
   if (filterDate) {
     let preHistory = userDataArray.filter(
-      (item) => new Date(item.date) < filterDate,
+      (item) => parseLocalDate(item.date) < filterDate,
     );
-    preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
+    preHistory.sort((a, b) => a.date.localeCompare(b.date));
     if (preHistory.length > 0) {
       const pre = preHistory[preHistory.length - 1];
       baseEasy = Number(pre.easy) || 0;
       baseMedium = Number(pre.medium) || 0;
       baseHard = Number(pre.hard) || 0;
     } else if (userDataArray.length > 0) {
-      const earliest = [...userDataArray].sort(
-        (a, b) => new Date(a.date) - new Date(b.date),
+      const earliest = [...userDataArray].sort((a, b) =>
+        a.date.localeCompare(b.date),
       )[0];
       baseEasy = Number(earliest.easy) || 0;
       baseMedium = Number(earliest.medium) || 0;
@@ -117,7 +124,7 @@ function updateChart() {
 
   if (currentView !== "overall") {
     filteredData = userDataArray.filter(
-      (item) => new Date(item.date) >= filterDate,
+      (item) => parseLocalDate(item.date) >= filterDate,
     );
   } else {
     filteredData = [...userDataArray];
@@ -127,7 +134,7 @@ function updateChart() {
     filteredData = [...userDataArray];
   }
 
-  filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+  filteredData.sort((a, b) => a.date.localeCompare(b.date));
 
   const labels = filteredData.map((item) => item.date);
   const easyCounts = filteredData.map((item) =>
