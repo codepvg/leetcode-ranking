@@ -38,6 +38,8 @@ async function fetchUserInfo(username) {
     monthly: { rank: "--", change: 0 },
   };
 
+  let streak = { current: 0, longest: 0, lastUpdated: null };
+
   // 1. Fetch historical data, ranks, and badges in a single network pass
   try {
     const response = await fetchWithTimeout(rawUrl);
@@ -52,6 +54,9 @@ async function fetchUserInfo(username) {
         history = data.history || [];
         if (data.leaderboardRanks) {
           leaderboardRanks = data.leaderboardRanks;
+        }
+        if (data.streak) {
+          streak = data.streak;
         }
       }
     } else {
@@ -87,6 +92,7 @@ async function fetchUserInfo(username) {
 
   return {
     username,
+    streak,
     ranking,
     leaderboardRanks,
     contest,
