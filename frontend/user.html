@@ -23,6 +23,7 @@
         margin: 0 auto;
         padding-top: 1rem;
       }
+
       .page-title {
         color: var(--cyan);
         text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
@@ -93,6 +94,7 @@
         text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
         display: inline-block;
       }
+
       .streak-current {
         color: var(--green);
         text-shadow: 0 0 5px rgba(0, 255, 100, 0.3);
@@ -107,7 +109,7 @@
       }
 
       .btn-filter {
-        background-color: var(--bg-dark);
+        background-color: var(--bg);
         color: var(--text-dim);
         border: 1px solid var(--border);
         padding: 8px 16px;
@@ -134,6 +136,7 @@
         .dashboard-grid {
           grid-template-columns: 1fr;
         }
+
         .charts-wrapper {
           grid-template-columns: 1fr;
         }
@@ -144,6 +147,7 @@
         margin-top: 1rem;
         gap: 0.5rem;
       }
+
       .goal-input {
         flex: 1;
         background: rgba(0, 0, 0, 0.3);
@@ -154,9 +158,11 @@
         font-size: 0.9rem;
         outline: none;
       }
+
       .goal-input:focus {
         border-color: var(--cyan);
       }
+
       .btn-save {
         background: transparent;
         color: var(--cyan);
@@ -166,6 +172,7 @@
         font-family: "Fira Code", monospace;
         transition: all 0.2s;
       }
+
       .btn-save:hover {
         background: rgba(0, 229, 255, 0.1);
         text-shadow: 0 0 5px rgba(0, 229, 255, 0.4);
@@ -217,13 +224,14 @@
         text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
       }
 
-      .badge[data-title]:hover::after {
+      .badge[data-title]:hover::after,
+      .rank-change[data-title]:hover::after {
         content: attr(data-title);
         position: absolute;
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%) translateY(-5px);
-        background: var(--bg-dark);
+        background: var(--bg);
         border: 1px solid var(--border);
         color: var(--text-light);
         padding: 8px 12px;
@@ -278,6 +286,7 @@
       .placeholder-rank {
         opacity: 0.5;
       }
+
       .badge-knight {
         color: var(--gold);
         background: rgba(255, 215, 0, 0.1);
@@ -291,8 +300,24 @@
         border-color: rgba(255, 76, 76, 0.3);
         text-shadow: 0 0 5px rgba(255, 76, 76, 0.3);
       }
+
+      .rank-change {
+        margin-left: 0.4rem;
+        font-size: 0.75rem;
+        cursor: help;
+        position: relative;
+      }
+
+      .change-up {
+        color: var(--green);
+      }
+
+      .change-down {
+        color: var(--red);
+      }
     </style>
   </head>
+
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <canvas id="matrix-canvas"></canvas>
@@ -500,18 +525,22 @@
             <div class="rank-item" id="overall-item">
               <span class="rank-label">OVERALL:</span>
               <span id="overall-rank" class="rank-value">--</span>
+              <span id="overall-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="monthly-item">
               <span class="rank-label">MONTHLY:</span>
               <span id="monthly-rank" class="rank-value">--</span>
+              <span id="monthly-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="weekly-item">
               <span class="rank-label">WEEKLY:</span>
               <span id="weekly-rank" class="rank-value">--</span>
+              <span id="weekly-change" class="rank-change"></span>
             </div>
             <div class="rank-item" id="daily-item">
               <span class="rank-label">DAILY:</span>
               <span id="daily-rank" class="rank-value">--</span>
+              <span id="daily-change" class="rank-change"></span>
             </div>
           </div>
         </div>
