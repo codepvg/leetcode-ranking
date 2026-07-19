@@ -68,9 +68,11 @@ async function runBackfill() {
 
       const streaks = await calculateStreaks(userData.history);
 
-      userData.currentStreak = streaks.currentStreak;
-      userData.longestStreak = streaks.longestStreak;
-      userData.streakLastUpdated = streaks.lastUpdated;
+      userData.streak = {
+        current: streaks.currentStreak,
+        longest: streaks.longestStreak,
+        lastUpdated: streaks.lastUpdated,
+      };
 
       await fs.writeFile(filePath, JSON.stringify(userData, null, 2));
     }
