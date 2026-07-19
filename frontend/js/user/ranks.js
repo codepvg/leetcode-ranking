@@ -41,7 +41,10 @@ async function loadLeaderboardRanks(username) {
         } else if (change < 0) {
           changeEl.textContent = `[${change}]`;
           changeEl.className = "rank-change change-down";
-          changeEl.setAttribute("data-title", `Fell ${Math.abs(change)} ranks today`);
+          changeEl.setAttribute(
+            "data-title",
+            `Fell ${Math.abs(change)} ranks today`,
+          );
         } else {
           changeEl.textContent = ""; // Hide if 0
           changeEl.removeAttribute("data-title");
