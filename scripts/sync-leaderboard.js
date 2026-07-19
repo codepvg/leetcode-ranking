@@ -95,6 +95,40 @@ async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
   if (ranksObj) {
     userData.leaderboardRanks = ranksObj;
   }
+
+  const today = new Date().toISOString().split("T")[0];
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+  const totalSolvedToday =
+    (user.data.easySolved || 0) +
+    (user.data.mediumSolved || 0) +
+    (user.data.hardSolved || 0);
+
+  const totalSolvedYesterday =
+    history.length > 1
+      ? history[history.length - 2].easy +
+        history[history.length - 2].medium +
+        history[history.length - 2].hard
+      : 0;
+
+  if (userData.streakLastUpdated && userData.streakLastUpdated < yesterdayStr) {
+    userData.currentStreak = 0;
+  }
+
+  if (
+    totalSolvedToday > totalSolvedYesterday &&
+    userData.streakLastUpdated !== today
+  ) {
+    userData.currentStreak = (userData.currentStreak || 0) + 1;
+    userData.streakLastUpdated = today;
+
+    if (userData.currentStreak > (userData.longestStreak || 0)) {
+      userData.longestStreak = userData.currentStreak;
+    }
+  }
+
   await atomicWrite(userDataPath, userData);
 }
 
