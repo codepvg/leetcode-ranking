@@ -20,8 +20,8 @@ async function loadBadges(username) {
 
     const earnedSet = new Set();
 
-    if (history.length >= 8) {
-      const recent = history.slice(-8);
+    if (history.length >= 9) {
+      const recent = history.slice(-9, -1);
       let streak = true;
       for (let j = 1; j < recent.length; j++) {
         const todayTotals = recent[j].easy + recent[j].medium + recent[j].hard;
