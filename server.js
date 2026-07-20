@@ -81,16 +81,8 @@ app.use((req, res, next) => {
 // 4. HTML page routes — inject per-request nonce into __NONCE__ placeholders
 const htmlCache = {};
 function serveHtml(res, filePath) {
-  let stats;
-  try {
-    stats = fs.statSync(filePath);
-  } catch (err) {
-    return res.status(500).send("Error loading page");
-  }
-
-  const cached = htmlCache[filePath];
-  if (cached && cached.mtime >= stats.mtimeMs) {
-    const html = cached.data.replace(/__NONCE__/g, res.locals.nonce);
+  if (htmlCache[filePath]) {
+    const html = htmlCache[filePath].replace(/__NONCE__/g, res.locals.nonce);
     return res.type("html").send(html);
   }
 
@@ -98,7 +90,7 @@ function serveHtml(res, filePath) {
     if (err) {
       return res.status(500).send("Error loading page");
     }
-    htmlCache[filePath] = { mtime: stats.mtimeMs, data };
+    htmlCache[filePath] = data;
     const html = data.replace(/__NONCE__/g, res.locals.nonce);
     res.type("html").send(html);
   });
