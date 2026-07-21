@@ -2,8 +2,6 @@ const ALL_BADGES = [
   { id: "HOT_STREAK", title: "Solved >= 1 problem every day for 7 days" },
   { id: "SPEEDRUN", title: "Top 3 problem-solving velocity this week" },
   { id: "UP_LINK", title: "Jumped 5+ positions in overall ranks today" },
-<<<<<<< Updated upstream
-=======
   {
     id: "HARD_CARRY",
     title: "Solved 5+ Hard problems and 0 Easy problems over the past 7 days",
@@ -12,7 +10,6 @@ const ALL_BADGES = [
     id: "CENTURION",
     title: "Solved a grand total of 100 or more problems",
   },
->>>>>>> Stashed changes
 ];
 
 async function loadBadges(username) {
