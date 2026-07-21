@@ -36,7 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <p class="affiliation">
           affiliated: 
-          <a href="https://www.pvgcoet.ac.in/" target="_blank">PVG COET</a>
+          <a href="https://www.pvgcoet.ac.in/" target="_blank"
+  rel="noopener noreferrer">PVG COET</a>
         </p>
       </div>
 
@@ -53,25 +54,29 @@ document.addEventListener("DOMContentLoaded", () => {
   <h3>socials</h3>
   <ul>
     <li>
-      <a href="https://github.com/codepvg/" target="_blank">
+      <a href="https://github.com/codepvg/" target="_blank"
+  rel="noopener noreferrer">
         <i class="fab fa-github"></i> github
       </a>
     </li>
 
     <li>
-      <a href="https://www.linkedin.com/company/codepvg/" target="_blank">
+      <a href="https://www.linkedin.com/company/codepvg/" target="_blank"
+  rel="noopener noreferrer">
         <i class="fab fa-linkedin"></i> linkedin
       </a>
     </li>
 
     <li>
-      <a href="https://www.youtube.com/@codepvg529" target="_blank">
+      <a href="https://www.youtube.com/@codepvg529" target="_blank"
+  rel="noopener noreferrer">
         <i class="fab fa-youtube"></i> youtube
       </a>
     </li>
 
     <li>
-      <a href="https://chat.whatsapp.com/E5INVk1UJX6KL5oZK0wPAQ?mode=gi_t" target="_blank">
+      <a href="https://chat.whatsapp.com/E5INVk1UJX6KL5oZK0wPAQ?mode=gi_t" target="_blank"
+  rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i> whatsapp
       </a>
     </li>
@@ -81,8 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="footer-section">
         <h3>contact</h3>
         <ul>
-          <li><a href="mailto:codepvg@gmail.com" target="_blank">codepvg@gmail.com</a></li>
-          <li><a href="https://api.whatsapp.com/send/?phone=%2B919284205842&text&type=phone_number&app_absent=0" target="_blank">quick_chat</a></li>
+          <li><a href="mailto:codepvg@gmail.com" target="_blank"
+  rel="noopener noreferrer">codepvg@gmail.com</a></li>
+          <li><a href="https://api.whatsapp.com/send/?phone=%2B919284205842&text&type=phone_number&app_absent=0" target="_blank"
+  rel="noopener noreferrer">quick_chat</a></li>
         </ul>
       </div>
 
@@ -97,7 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="/terms" class="footer-link">Terms & Conditions</a>
       </div>
       <p>
-        developed && maintained by <a href="https://github.com/jagdish-15" target="_blank" class="footer-link">jagdish</a>
+        developed && maintained by <a href="https://github.com/jagdish-15" target="_blank"
+  rel="noopener noreferrer" class="footer-link">jagdish</a>
       </p>
     </div>
   `;

@@ -41,6 +41,14 @@ async function loadBadges(username) {
         }
       }
       if (streak) earnedSet.add("HOT_STREAK");
+
+      const first = recent[0];
+      const last = recent[recent.length - 1];
+      const solvedHard = last.hard - first.hard;
+      const solvedEasy = last.easy - first.easy;
+      if (solvedHard >= 5 && solvedEasy === 0) {
+        earnedSet.add("HARD_CARRY");
+      }
     }
 
     if (history.length >= 1) {

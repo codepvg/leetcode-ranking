@@ -705,7 +705,9 @@ function renderProgressHistoryChart() {
       let preHistory = history.filter(
         (item) => new Date(item.date) < filterDate,
       );
-      preHistory.sort((a, b) => new Date(a.date) - new Date(b.date));
+      preHistory = [...preHistory].sort(
+        (a, b) => new Date(a.date) - new Date(b.date),
+      );
       if (preHistory.length > 0) {
         const pre = preHistory[preHistory.length - 1];
         baseTotal =
@@ -715,7 +717,7 @@ function renderProgressHistoryChart() {
       } else if (history.length > 0) {
         // If there's no prehistory but they exist, use their earliest known record in the timeframe
         // to avoid spikes from '0 => total' when their real starting total isn't officially logged exactly before the range.
-        const earliest = history.sort(
+        const earliest = [...history].sort(
           (a, b) => new Date(a.date) - new Date(b.date),
         )[0];
         baseTotal =
@@ -727,7 +729,7 @@ function renderProgressHistoryChart() {
       history = history.filter((item) => new Date(item.date) >= filterDate);
     }
     // Make sure it's sorted chronologically
-    history.sort((a, b) => new Date(a.date) - new Date(b.date));
+    history = [...history].sort((a, b) => new Date(a.date) - new Date(b.date));
     return { username: sh.username, history, baseTotal };
   });
 
