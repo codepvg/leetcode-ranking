@@ -8,7 +8,9 @@ let currentView = "weekly";
 document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
   const pathSegments = currentPath.split("/");
-  const currentUsername = pathSegments[pathSegments.length - 1];
+  const currentUsername =
+    pathSegments[pathSegments.length - 1] ||
+    pathSegments[pathSegments.length - 2];
 
   const usernameHeading = document.getElementById("username-display");
   if (usernameHeading) {
