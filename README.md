@@ -123,6 +123,8 @@ Students can register using their LeetCode username to participate in the leader
 
 Leaderboard data is synchronized periodically, so newly registered users and recent submissions may take a few minutes to appear in the rankings.
 
+> **Tip:** If your profile does not appear immediately after registration, wait for the next synchronization cycle before attempting to register again.
+
 ---
 
 ## How to Run Locally
