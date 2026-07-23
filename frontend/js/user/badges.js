@@ -65,7 +65,7 @@ async function loadBadges(username) {
       }
     }
 
-   ALL_BADGES.forEach((badgeDef) => {
+    ALL_BADGES.forEach((badgeDef) => {
       const isEarned = earnedSet.has(badgeDef.id);
       const badge = document.createElement("div");
       const safeClass = badgeDef.id.toLowerCase().replace(/_/g, "");
@@ -84,7 +84,6 @@ async function loadBadges(username) {
     console.error("Error loading user badges:", err);
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const pathSegments = window.location.pathname.split("/");
