@@ -65,19 +65,18 @@ async function loadBadges(username) {
       }
     }
 
-    if (earnedSet.size === 0) return;
-
-    earnedSet.forEach((badgeId) => {
+    ALL_BADGES.forEach((badgeDef) => {
+      const isEarned = earnedSet.has(badgeDef.id);
       const badge = document.createElement("div");
+      const safeClass = badgeDef.id.toLowerCase().replace(/_/g, "");
 
-      const badgeDef = ALL_BADGES.find((b) => b.id === badgeId);
-      const safeClass = badgeId.toLowerCase().replace("_", "");
+      // Apply locked class if the user hasn't earned it
+      badge.className = isEarned
+        ? `badge badge-${safeClass}`
+        : `badge badge-${safeClass} badge-locked`;
 
-      badge.className = `badge badge-${safeClass}`;
-      badge.textContent = `[${badgeId}]`;
-      if (badgeDef) {
-        badge.setAttribute("data-title", badgeDef.title);
-      }
+      badge.textContent = `${badgeDef.id}`;
+      badge.setAttribute("data-title", badgeDef.title);
 
       badgeWall.appendChild(badge);
     });

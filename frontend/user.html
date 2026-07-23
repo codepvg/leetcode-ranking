@@ -216,7 +216,14 @@
         border-color: rgba(255, 0, 60, 0.4);
         text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
       }
-
+      .badge.badge-locked {
+        opacity: 0.4;
+        border-style: dashed;
+        filter: grayscale(80%);
+        color: var(--text-dim, #888);
+        background: rgba(255, 255, 255, 0.03);
+        text-shadow: none;
+      }
       .badge-uplink {
         color: var(--cyan);
         background: rgba(0, 229, 255, 0.1);
