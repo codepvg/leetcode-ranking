@@ -1132,6 +1132,8 @@ body.crt-scrolling {
 
 .form-group {
   margin-bottom: 1.5rem;
+  position: relative;
+  
 }
 
 .form-label {
@@ -1150,11 +1152,15 @@ body.crt-scrolling {
 
 .form-input {
   width: 100%;
+  box-sizing: border-box;
   padding: 0.75rem 1rem;
   border-radius: 4px;
   border: 1px solid var(--border-bright);
+  position: relative;
+  z-index: 2;
   background: var(--bg);
   color: var(--green);
+  cursor: text;
   font-family: "Fira Code", monospace;
   font-size: 0.9rem;
   outline: none;
