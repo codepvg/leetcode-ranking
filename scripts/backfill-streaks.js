@@ -6,7 +6,7 @@ const path = require("path");
 
 async function calculateStreaks(history) {
   if (!history || history.length === 0) {
-    return { currentStreak: 0, longestStreak: 0, lastUpdated: null };
+    return { currentStreak: 0, longestStreak: 0, lastActiveDate: null };
   }
 
   const sortedHistory = [...history].sort(
@@ -48,7 +48,7 @@ async function calculateStreaks(history) {
   return {
     currentStreak,
     longestStreak,
-    lastUpdated: lastActiveDate
+    lastActiveDate: lastActiveDate
       ? lastActiveDate.toISOString().split("T")[0]
       : null,
   };
@@ -71,7 +71,7 @@ async function runBackfill() {
       userData.streak = {
         current: streaks.currentStreak,
         longest: streaks.longestStreak,
-        lastUpdated: streaks.lastUpdated,
+        lastActiveDate: streaks.lastActiveDate,
       };
 
       await fs.writeFile(filePath, JSON.stringify(userData, null, 2));
