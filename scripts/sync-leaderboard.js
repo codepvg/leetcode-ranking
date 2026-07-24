@@ -102,7 +102,7 @@ async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
   const yesterdayStr = yesterday.toISOString().split("T")[0];
 
   if (!userData.streak) {
-    userData.streak = { current: 0, longest: 0, lastUpdated: null };
+    userData.streak = { current: 0, longest: 0, lastActiveDate: null };
   }
 
   const totalSolvedToday =
@@ -118,18 +118,18 @@ async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
       : 0;
 
   if (
-    userData.streak.lastUpdated &&
-    userData.streak.lastUpdated < yesterdayStr
+    userData.streak.lastActiveDate &&
+    userData.streak.lastActiveDate < yesterdayStr
   ) {
     userData.streak.current = 0;
   }
 
   if (
     totalSolvedToday > totalSolvedYesterday &&
-    userData.streak.lastUpdated !== today
+    userData.streak.lastActiveDate !== today
   ) {
     userData.streak.current += 1;
-    userData.streak.lastUpdated = today;
+    userData.streak.lastActiveDate = today;
 
     if (userData.streak.current > (userData.streak.longest || 0)) {
       userData.streak.longest = userData.streak.current;
