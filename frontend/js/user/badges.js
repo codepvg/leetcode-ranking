@@ -6,6 +6,10 @@ const ALL_BADGES = [
     id: "HARD_CARRY",
     title: "Solved 5+ Hard problems and 0 Easy problems over the past 7 days",
   },
+  {
+    id: "CENTURION",
+    title: "Solved a grand total of 100 or more problems",
+  },
 ];
 
 async function loadBadges(username) {
@@ -69,6 +73,15 @@ async function loadBadges(username) {
       const solvedEasy = last.easy - first.easy;
       if (solvedHard >= 5 && solvedEasy === 0) {
         earnedSet.add("HARD_CARRY");
+      }
+    }
+
+    if (history.length >= 1) {
+      const latest = history[history.length - 1];
+      const totalSolved =
+        (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
+      if (totalSolved >= 100) {
+        earnedSet.add("CENTURION");
       }
     }
 
