@@ -25,18 +25,43 @@ async function loadBadges(username) {
     const earnedSet = new Set();
 
     if (history.length >= 8) {
-      const recent = history.slice(-8);
-      let streak = true;
+      const recent = history.slice(-8, -1);
+      let streak = 0;
+      let isValid = true;
+
       for (let j = 1; j < recent.length; j++) {
         const todayTotals = recent[j].easy + recent[j].medium + recent[j].hard;
         const yesterdayTotals =
           recent[j - 1].easy + recent[j - 1].medium + recent[j - 1].hard;
-        if (todayTotals - yesterdayTotals < 1) {
-          streak = false;
+
+        if (todayTotals - yesterdayTotals >= 1) {
+          streak++;
+        } else {
+          isValid = false;
           break;
         }
       }
-      if (streak) earnedSet.add("HOT_STREAK");
+
+      if (isValid) {
+        const currentDay = history[history.length - 1];
+        const previousDay = history[history.length - 2];
+        const solvedToday =
+          currentDay.easy +
+            currentDay.medium +
+            currentDay.hard -
+            (previousDay.easy + previousDay.medium + previousDay.hard) >=
+          1;
+
+        if (solvedToday) {
+          streak++;
+        }
+      } else {
+        streak = 0;
+      }
+
+      if (streak >= 7) {
+        earnedSet.add("HOT_STREAK");
+      }
 
       const first = recent[0];
       const last = recent[recent.length - 1];
