@@ -57,6 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper.appendChild(input);
     wrapper.appendChild(suffix);
 
+    // Focus the input when clicking anywhere inside the wrapper
+    wrapper.addEventListener("click", (e) => {
+      if (e.target !== input) {
+        input.focus();
+      }
+    });
+
     // Remove structural borders from the input so the flex wrapper handles all boundaries
     input.classList.add("bash-active");
 
