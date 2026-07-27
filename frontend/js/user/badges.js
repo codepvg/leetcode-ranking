@@ -10,6 +10,11 @@ const ALL_BADGES = [
     id: "CENTURION",
     title: "Solved a grand total of 100 or more problems",
   },
+  {
+    id: "TOP_BRASS",
+    title: "Currently ranked in the top 10 on the overall leaderboard",
+  },
+  ,
 ];
 
 async function loadBadges(username) {
@@ -87,6 +92,17 @@ async function loadBadges(username) {
 
     if (ranks.overall && parseInt(ranks.overall.change, 10) >= 5) {
       earnedSet.add("UP_LINK");
+    }
+
+    if (
+      ranks.overall &&
+      ranks.overall.rank !== undefined &&
+      ranks.overall.rank !== "--"
+    ) {
+      const overallRank = parseInt(ranks.overall.rank, 10);
+      if (!isNaN(overallRank) && overallRank <= 10) {
+        earnedSet.add("TOP_BRASS");
+      }
     }
 
     if (ranks.weekly && ranks.weekly.rank !== "--" && ranks.weekly.rank <= 3) {
