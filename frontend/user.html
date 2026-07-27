@@ -230,7 +230,14 @@
         border-color: rgba(0, 229, 255, 0.3);
         text-shadow: 0 0 5px rgba(0, 229, 255, 0.3);
       }
-
+      .badge.badge-locked {
+        opacity: 0.4;
+        border-style: dashed;
+        filter: grayscale(80%);
+        color: var(--text-dim, #888);
+        background: rgba(255, 255, 255, 0.03);
+        text-shadow: none;
+      }
       .badge[data-title]:hover::after,
       .rank-change[data-title]:hover::after {
         content: attr(data-title);
