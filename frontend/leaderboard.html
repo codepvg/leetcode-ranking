@@ -408,6 +408,7 @@
       let currentPage = 1;
       let itemsPerPage = 25;
       let activeDatasetType = "overall";
+      window.activeDatasetType = "overall";
       let currentSearchTerm = "";
 
       async function fetchLeaderboardData() {
@@ -719,6 +720,7 @@
         }
 
         activeDatasetType = activeTab;
+        window.activeDatasetType = activeTab;
         currentPage = 1;
 
         document.querySelectorAll(".tab").forEach((tab) => {
