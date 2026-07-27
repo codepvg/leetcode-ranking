@@ -1,43 +1,22 @@
-let rawPerformanceData = [];
-let difficultyChartInstance = null;
-let userDataArray = [];
-let performanceChartInstance = null;
+export let rawPerformanceData = [];
+export let difficultyChartInstance = null;
+export let userDataArray = [];
+export let performanceChartInstance = null;
+export let currentView = "weekly";
 
-let currentView = "weekly";
-
-document.addEventListener("DOMContentLoaded", () => {
-  const currentPath = window.location.pathname;
-  const pathSegments = currentPath.split("/");
-  const currentUsername = pathSegments[pathSegments.length - 1];
-
-  const usernameHeading = document.getElementById("username-display");
-  if (usernameHeading) {
-    usernameHeading.innerText = `Performance Profile: @${currentUsername}`;
-  }
-
-  // Update page title dynamically
-  const pageTitle = document.getElementById("page-title");
-  if (pageTitle) {
-    pageTitle.textContent = `${currentUsername} — CodePVG`;
-  }
+export function fetchUserData(username, data) {
   setupFilterButtons();
-  fetchUserData(currentUsername);
-});
+  processGraphData(data);
+}
 
-async function fetchUserData(username) {
+function processGraphData(data) {
   try {
-    const apiUrl = `${window.location.origin}/api/user/${username}`;
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    rawPerformanceData = await response.json();
+    rawPerformanceData = data;
     userDataArray = rawPerformanceData.history || [];
     renderRankings(rawPerformanceData);
     updateChart();
   } catch (error) {
-    console.log("error loading performance statics: ", error);
+    console.log("error loading performance statistics: ", error);
   }
 }
 
@@ -48,13 +27,12 @@ function setupFilterButtons() {
     overall: document.getElementById("btn-overall"),
   };
   Object.keys(buttons).forEach((view) => {
-    if (buttons[view]) {
+    if (buttons[view] && !buttons[view].dataset.bound) {
+      buttons[view].dataset.bound = "true";
       buttons[view].addEventListener("click", () => {
-        // Remove active from all
         Object.values(buttons).forEach((btn) =>
           btn?.classList.remove("active"),
         );
-        // Add active to clicked
         buttons[view].classList.add("active");
 
         currentView = view;
