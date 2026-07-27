@@ -12,7 +12,7 @@ const ALL_BADGES = [
   },
 ];
 
-export function loadBadges(data) {
+export async function loadBadges(data) {
   const badgeWall = document.getElementById("badge-wall");
   if (!badgeWall) return;
 

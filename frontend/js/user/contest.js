@@ -1,4 +1,4 @@
-export function loadContestProfile(data) {
+export async function loadContestProfile(data) {
   const contestSection = document.getElementById("contest-section");
   if (!contestSection) return;
 

@@ -4,7 +4,7 @@ export let userDataArray = [];
 export let performanceChartInstance = null;
 export let currentView = "weekly";
 
-export function fetchUserData(username, data) {
+export async function fetchUserData(username, data) {
   setupFilterButtons();
   processGraphData(data);
 }

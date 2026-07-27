@@ -77,7 +77,7 @@ function extractSolvedCount(data, metric) {
   );
 }
 
-export function loadGoalSetter(username, data) {
+export async function loadGoalSetter(username, data) {
   const elDisplay = document.getElementById("goal-display");
   const elSetter = document.getElementById("goal-setter");
   const elBar = document.getElementById("goal-bar");
