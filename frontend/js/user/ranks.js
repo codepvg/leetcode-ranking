@@ -1,4 +1,4 @@
-export async function loadLeaderboardRanks(username) {
+export async function loadLeaderboardRanks(data) {
   const periods = ["overall", "monthly", "weekly", "daily"];
   try {
     const ranks = data.leaderboardRanks;
