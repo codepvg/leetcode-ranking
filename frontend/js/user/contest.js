@@ -1,13 +1,8 @@
-async function loadContestProfile(username) {
+export async function loadContestProfile(data) {
   const contestSection = document.getElementById("contest-section");
   if (!contestSection) return;
 
   try {
-    const res = await fetch(`/api/user/${username}`);
-    if (!res.ok) throw new Error("API response error");
-
-    const data = await res.json();
-
     // Check if contest data exists and the user has actually participated
     if (data.contest && data.contest.attendedContestsCount > 0) {
       contestSection.style.display = "block";
@@ -43,14 +38,3 @@ async function loadContestProfile(username) {
     console.error("Error loading contest profile:", err);
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const pathSegments = window.location.pathname.split("/");
-  const username =
-    pathSegments[pathSegments.length - 1] ||
-    pathSegments[pathSegments.length - 2];
-
-  if (username) {
-    loadContestProfile(username);
-  }
-});

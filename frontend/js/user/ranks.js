@@ -1,11 +1,6 @@
-async function loadLeaderboardRanks(username) {
+export async function loadLeaderboardRanks(data) {
   const periods = ["overall", "monthly", "weekly", "daily"];
-
   try {
-    const res = await fetch(`/api/user/${username}`);
-    if (!res.ok) throw new Error("API response error");
-
-    const data = await res.json();
     const ranks = data.leaderboardRanks;
     if (!ranks) return;
 
@@ -59,14 +54,3 @@ async function loadLeaderboardRanks(username) {
     });
   }
 }
-
-// Automatically fire on load
-document.addEventListener("DOMContentLoaded", () => {
-  const pathSegments = window.location.pathname.split("/");
-  const username =
-    pathSegments[pathSegments.length - 1] ||
-    pathSegments[pathSegments.length - 2];
-  if (username) {
-    loadLeaderboardRanks(username);
-  }
-});
