@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function typeCommand(element, text, callback) {
     element.parentElement.classList.remove("hidden");
     let i = 0;
-    element.innerHTML = "";
+    element.textContent = "";
 
     const typer = setInterval(() => {
       if (i < text.length) {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const logText =
         possibleLogs[Math.floor(Math.random() * possibleLogs.length)];
 
-      line.innerHTML = `<span class="feed-time">[${timestamp}]</span> ${logText}`;
+      line.textContent = `<span class="feed-time">[${timestamp}]</span> ${logText}`;
       content.appendChild(line);
 
       // Keep only the most recent logs

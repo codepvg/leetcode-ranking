@@ -104,8 +104,8 @@ async function fetchData(url) {
   const outputData = {
     generatedAt: now.toISOString(),
     thresholdDays: THRESHOLD_DAYS,
-    inactiveUsers: inactiveUsers.sort(),
-    unreachableUsers: unreachableUsers.sort(),
+    inactiveUsers: inactiveUsers.sort((a, b) => a - b),
+    unreachableUsers: unreachableUsers.sort((a, b) => a - b),
   };
 
   console.log("Writing inactivity analysis data to inactive-users.json...");
