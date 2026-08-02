@@ -3,6 +3,7 @@ import { loadContestProfile } from "./contest.js";
 import { loadGoalSetter } from "./goal-setter.js";
 import { fetchUserData } from "./historical-graphs.js";
 import { loadLeaderboardRanks } from "./ranks.js";
+import { loadStreakData } from "./streak.js";
 
 function getUsername() {
   const pathSegments = window.location.pathname.split("/");
@@ -35,6 +36,7 @@ async function initProfile() {
     const data = await res.json();
 
     // Distribute the single payload across all rendering modules simultaneously
+    loadStreakData(data);
     loadBadges(data);
     loadContestProfile(data);
     loadGoalSetter(username, data);
