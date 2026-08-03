@@ -49,10 +49,22 @@ async function fetchData(url) {
     process.exit(1);
   }
 
+  const stateFilePath = path.join(DATA_DIR, "activity-state.json");
+  let activityState = {};
+  try {
+    if (fs.existsSync(stateFilePath)) {
+      activityState = JSON.parse(fs.readFileSync(stateFilePath, "utf8"));
+      console.log("Loaded activity-state.json cache.");
+    }
+  } catch (err) {
+    console.warn("Failed to load activity-state.json, starting fresh cache.");
+  }
+
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
   const inactiveUsers = [];
   const unreachableUsers = [];
   const now = new Date();
+  const currentTimeMs = now.getTime();
 
   console.log(" ");
   console.log("Starting daily full sync inactivity analysis...");
@@ -65,6 +77,12 @@ async function fetchData(url) {
     await Promise.all(
       batch.map(async (user) => {
         const username = user.id;
+        const cachedRecord = activityState[username];
+
+        if (cachedRecord && cachedRecord.safeUntil && currentTimeMs < cachedRecord.safeUntil) {
+          console.log(`${username}: Active (Skipped via cache, safe until ${new Date(cachedRecord.safeUntil).toISOString().split('T')[0]})`);
+          return;
+        }
 
         const profile = await fetchData(baseUrl + username);
         if (!profile) {
@@ -87,6 +105,13 @@ async function fetchData(url) {
 
         const diffTime = Math.abs(now - lastActiveDate);
         const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
+
+        const safeUntilTimeMs = (latestTimestampSeconds * 1000) + (THRESHOLD_DAYS * MS_IN_A_DAY);
+
+        activityState[username] = {
+          safeUntil: safeUntilTimeMs,
+          lastChecked: currentTimeMs,
+        };
 
         if (diffDays > THRESHOLD_DAYS) {
           console.log(`${username}: Inactive (${diffDays} days ago)`);
@@ -115,6 +140,15 @@ async function fetchData(url) {
     console.log("Inactivity analysis data updated successfully!");
   } catch (err) {
     console.error("Failed to write inactive-users.json: ", err.message);
+    process.exit(1);
+  }
+
+  console.log("Writing activity state cache to activity-state.json...");
+  try {
+    atomicWrite(stateFilePath, activityState);
+    console.log("Activity state cache updated successfully!");
+  } catch (err) {
+    console.error("Failed to write activity-state.json: ", err.message);
     process.exit(1);
   }
 })();
