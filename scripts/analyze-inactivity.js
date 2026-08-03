@@ -79,8 +79,14 @@ async function fetchData(url) {
         const username = user.id;
         const cachedRecord = activityState[username];
 
-        if (cachedRecord && cachedRecord.safeUntil && currentTimeMs < cachedRecord.safeUntil) {
-          console.log(`${username}: Active (Skipped via cache, safe until ${new Date(cachedRecord.safeUntil).toISOString().split('T')[0]})`);
+        if (
+          cachedRecord &&
+          cachedRecord.safeUntil &&
+          currentTimeMs < cachedRecord.safeUntil
+        ) {
+          console.log(
+            `${username}: Active (Skipped via cache, safe until ${new Date(cachedRecord.safeUntil).toISOString().split("T")[0]})`,
+          );
           return;
         }
 
@@ -106,7 +112,8 @@ async function fetchData(url) {
         const diffTime = Math.abs(now - lastActiveDate);
         const diffDays = Math.floor(diffTime / MS_IN_A_DAY);
 
-        const safeUntilTimeMs = (latestTimestampSeconds * 1000) + (THRESHOLD_DAYS * MS_IN_A_DAY);
+        const safeUntilTimeMs =
+          latestTimestampSeconds * 1000 + THRESHOLD_DAYS * MS_IN_A_DAY;
 
         activityState[username] = {
           safeUntil: safeUntilTimeMs,
