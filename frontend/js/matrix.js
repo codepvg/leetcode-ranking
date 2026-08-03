@@ -94,5 +94,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // We don't want the matrix to be super smooth 60fps, Matrix screens look good around 30fps
-  setInterval(draw, 1000 / FPS);
+  clearInterval(window.__interval); window.__interval = setInterval(draw, 1000 / FPS);
 });
