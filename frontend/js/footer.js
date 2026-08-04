@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const footer = document.createElement("footer");
   footer.className = "footer";
 
-  footer.innerHTML = `
+  footer.textContent = `
     <div class="footer-container">
 
       <div class="footer-section brand">
