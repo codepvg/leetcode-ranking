@@ -77,7 +77,9 @@ async function ensureSnapshot(DATA_DIR, daysAgo) {
   // snapshot written earlier in this run, so there is always a fallback.
   const chosen = priors.length ? priors[priors.length - 1] : candidates[0];
   if (!chosen) {
-    console.warn(`WARNING: Snapshot for ${targetDate} is missing and no snapshot exists to fall back to`);
+    console.warn(
+      `WARNING: Snapshot for ${targetDate} is missing and no snapshot exists to fall back to`,
+    );
     return;
   }
 
