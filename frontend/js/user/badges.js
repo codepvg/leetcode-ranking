@@ -95,7 +95,7 @@ export async function loadBadges(data) {
       ranks.overall.rank !== "--"
     ) {
       const overallRank = parseInt(ranks.overall.rank, 10);
-      if (!isNaN(overallRank) && overallRank <= 10) {
+      if (!Number.isNaN(overallRank) && overallRank <= 10) {
         earnedSet.add("TOP_BRASS");
       }
     }
