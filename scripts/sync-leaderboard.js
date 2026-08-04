@@ -48,6 +48,46 @@ function getFileName(daysAgo) {
   return `${year}-${month}-${date}-${day}.json`;
 }
 
+/**
+ * Guarantee the daily snapshot `daysAgo` back exists, so processTimeframe can
+ * assume its baseline is present. If the expected file is missing, copy the
+ * latest available earlier snapshot into its place (a fallback), or — on a
+ * fresh repo with no earlier history — the just-written current snapshot, so a
+ * single missed cron day can't abort the whole sync (see #377).
+ *
+ * @param {string} DATA_DIR
+ * @param {number} daysAgo - look-back the timeframe needs (1 / 7 / 30)
+ */
+async function ensureSnapshot(DATA_DIR, daysAgo) {
+  const dailyDir = path.join(DATA_DIR, "daily");
+  const targetName = getFileName(daysAgo);
+  const targetPath = path.join(dailyDir, targetName);
+  if (fs.existsSync(targetPath)) return;
+
+  const targetDate = targetName.split("-").slice(0, 3).join("-"); // YYYY-MM-DD
+  const candidates = fs
+    .readdirSync(dailyDir)
+    .filter((f) => f.endsWith(".json") && !f.includes(".tmp."))
+    .map((name) => ({ name, date: name.split("-").slice(0, 3).join("-") }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  const priors = candidates.filter((c) => c.date < targetDate);
+  // Prefer the latest snapshot before the missing date; otherwise the oldest
+  // available (insufficient history). candidates always includes the current
+  // snapshot written earlier in this run, so there is always a fallback.
+  const chosen = priors.length ? priors[priors.length - 1] : candidates[0];
+  if (!chosen) {
+    console.warn(
+      `WARNING: Snapshot for ${targetDate} is missing and no snapshot exists to fall back to`,
+    );
+    return;
+  }
+
+  await fsPromises.copyFile(path.join(dailyDir, chosen.name), targetPath);
+  console.warn(`WARNING: Snapshot for ${targetDate} is missing`);
+  console.warn(`Created a fallback snapshot using ${chosen.date}`);
+}
+
 async function updateUserDataAsync(user, DATA_DIR, ranksObj = null) {
   const userDataDir = path.join(DATA_DIR, "user-data");
   const userDataPath = path.join(userDataDir, `${user.id}.json`);
@@ -469,6 +509,12 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
   } catch (err) {
     console.error(`Failed to write json file: `, err.message);
     process.exit(1);
+  }
+
+  // Recover any missing look-back snapshot once, up front, so a single missed
+  // cron day can't abort the whole sync and freeze every user's data (#377).
+  for (const daysAgo of [1, 7, 30]) {
+    await ensureSnapshot(DATA_DIR, daysAgo);
   }
 
   // Process timeframe-based leaderboards using the shared function
