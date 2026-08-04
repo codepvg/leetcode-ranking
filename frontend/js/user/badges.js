@@ -14,7 +14,11 @@ const ALL_BADGES = [
     id: "TOP_BRASS",
     title: "Currently ranked in the top 10 on the overall leaderboard",
   },
-  ,
+  {
+    id: "BALANCED",
+    title:
+      "Solved at least 5 Easy, Medium, and Hard with counts within 5% of each other",
+  },
 ];
 
 export async function loadBadges(data) {
@@ -82,6 +86,23 @@ export async function loadBadges(data) {
         (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
       if (totalSolved >= 100) {
         earnedSet.add("CENTURION");
+      }
+    }
+
+    if (history.length >= 1) {
+      const latest = history[history.length - 1];
+      const easy = latest.easy || 0;
+      const medium = latest.medium || 0;
+      const hard = latest.hard || 0;
+
+      if (easy >= 5 && medium >= 5 && hard >= 5) {
+        const maxCount = Math.max(easy, medium, hard);
+        const minCount = Math.min(easy, medium, hard);
+        const diff = maxCount - minCount;
+
+        if (diff <= 0.05 * maxCount) {
+          earnedSet.add("BALANCED");
+        }
       }
     }
 
