@@ -204,11 +204,25 @@ async function computeRankChanges(currentSorted, filename) {
   let previousRanks = {};
   const previousData = await getYesterdaySnapshot(filename);
 
-  if (previousData && Array.isArray(previousData)) {
-    previousData.forEach((user, idx) => {
-      previousRanks[user.id] = user.originalRank || idx + 1;
+  // getYesterdaySnapshot() returns null on ANY error (network, GitHub API,
+  // rate-limit, missing commit). Falling through with an empty previousRanks
+  // would flag EVERY user as "NEW" below, wiping all rank arrows — and that
+  // gets persisted to JSON, so one transient hiccup sticks until the next clean
+  // run. When the snapshot is unusable, leave rank changes neutral instead of
+  // fabricating a board-wide "NEW".
+  if (!previousData || !Array.isArray(previousData)) {
+    console.warn(
+      `⚠️  No usable previous snapshot for ${filename}; leaving rank changes neutral (not marking users as NEW).`,
+    );
+    currentSorted.forEach((user) => {
+      user.rankChange = 0;
     });
+    return;
   }
+
+  previousData.forEach((user, idx) => {
+    previousRanks[user.id] = user.originalRank || idx + 1;
+  });
 
   currentSorted.forEach((user, idx) => {
     const currentRank = user.originalRank || idx + 1;
