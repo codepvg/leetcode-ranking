@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function typeCommand(element, text, callback) {
     element.parentElement.classList.remove("hidden");
     let i = 0;
-    element.innerHTML = "";
+    element.textContent = "";
 
     const typer = setInterval(() => {
       if (i < text.length) {
