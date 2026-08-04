@@ -118,3 +118,5 @@ async function fetchData(url) {
     process.exit(1);
   }
 })();
+
+.catch(err => console.error("Promise.all failed:", err));
