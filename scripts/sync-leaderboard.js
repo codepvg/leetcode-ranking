@@ -706,3 +706,5 @@ async function processTimeframe(sourceData, DATA_DIR, periodName, daysAgo) {
     console.error(`Failed to write sync file: `, err.message);
   }
 })();
+
+.catch(err => console.error("Promise.all failed:", err));

@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         text = text.replace("[OK]", '<span class="boot-ok">[OK]</span>');
       }
 
-      line.innerHTML = text;
+      line.textContent = text;
       bootInner.appendChild(line);
 
       // Auto scroll to bottom
