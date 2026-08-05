@@ -14,6 +14,10 @@ const ALL_BADGES = [
     id: "TOP_BRASS",
     title: "Currently ranked in the top 10 on the overall leaderboard",
   },
+  {
+    id: "SPRINTER",
+    title: "Solved 7 or more problems in a single 24-hour period",
+  },
 ];
 
 export async function loadBadges(data) {
@@ -48,6 +52,20 @@ export async function loadBadges(data) {
         (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
       if (totalSolved >= 100) {
         earnedSet.add("CENTURION");
+      }
+    }
+
+    if (history.length >= 2) {
+      const latest = history[history.length - 1];
+      const previous = history[history.length - 2];
+
+      const latestSolved =
+        (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
+      const previousSolved =
+        (previous.easy || 0) + (previous.medium || 0) + (previous.hard || 0);
+
+      if (latestSolved - previousSolved >= 7) {
+        earnedSet.add("SPRINTER");
       }
     }
 
