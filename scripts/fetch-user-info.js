@@ -86,10 +86,8 @@ async function fetchUserInfo(username) {
   // Wait for the live API task to complete
   await livePromise;
 
-  // Ensure history is sorted chronologically
   // Guard against a corrupted history file (e.g. non-array `history` field)
   history = Array.isArray(history) ? history : [];
-  history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   // Update or append today's entry with live solved counts
   if (liveSolved) {
@@ -109,6 +107,9 @@ async function fetchUserInfo(username) {
       todayEntry.hard = liveSolved.hard;
     }
   }
+
+  // Ensure history is sorted chronologically after all modifications
+  history.sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return {
     username,
