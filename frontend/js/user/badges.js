@@ -50,7 +50,7 @@ export async function loadBadges(data) {
       }
 
       if (isValid) {
-        const currentDay = history[history.length - 1];
+        const currentDay = history.at(-1);
         const previousDay = history[history.length - 2];
         const solvedToday =
           currentDay.easy +
