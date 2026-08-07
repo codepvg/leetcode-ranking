@@ -136,7 +136,7 @@ async function fetchData(url) {
   const outputData = {
     generatedAt: now.toISOString(),
     thresholdDays: THRESHOLD_DAYS,
-    inactiveUsers: inactiveUsers.sort(),
+    inactiveUsers: inactiveUsers.sort((a, b) => a - b),
     unreachableUsers: unreachableUsers.sort(),
   };
 
