@@ -19,6 +19,10 @@ const ALL_BADGES = [
     title:
       "Solved at least 5 Easy, Medium, and Hard with counts within 5% of each other",
   },
+  {
+    id: "SPRINTER",
+    title: "Solved 7 or more problems in a single 24-hour period",
+  },
 ];
 
 export async function loadBadges(data) {
@@ -32,45 +36,12 @@ export async function loadBadges(data) {
     const ranks = data.leaderboardRanks || {};
     const earnedSet = new Set();
 
+    if (data.streak && data.streak.current >= 7) {
+      earnedSet.add("HOT_STREAK");
+    }
+
     if (history.length >= 8) {
       const recent = history.slice(-8, -1);
-      let streak = 0;
-      let isValid = true;
-
-      for (let j = 1; j < recent.length; j++) {
-        const todayTotals = recent[j].easy + recent[j].medium + recent[j].hard;
-        const yesterdayTotals =
-          recent[j - 1].easy + recent[j - 1].medium + recent[j - 1].hard;
-
-        if (todayTotals - yesterdayTotals >= 1) {
-          streak++;
-        } else {
-          isValid = false;
-          break;
-        }
-      }
-
-      if (isValid) {
-        const currentDay = history[history.length - 1];
-        const previousDay = history[history.length - 2];
-        const solvedToday =
-          currentDay.easy +
-            currentDay.medium +
-            currentDay.hard -
-            (previousDay.easy + previousDay.medium + previousDay.hard) >=
-          1;
-
-        if (solvedToday) {
-          streak++;
-        }
-      } else {
-        streak = 0;
-      }
-
-      if (streak >= 7) {
-        earnedSet.add("HOT_STREAK");
-      }
-
       const first = recent[0];
       const last = recent[recent.length - 1];
       const solvedHard = last.hard - first.hard;
@@ -103,6 +74,20 @@ export async function loadBadges(data) {
         if (diff <= 0.05 * maxCount) {
           earnedSet.add("BALANCED");
         }
+      }
+    }
+
+    if (history.length >= 2) {
+      const latest = history[history.length - 1];
+      const previous = history[history.length - 2];
+
+      const latestSolved =
+        (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
+      const previousSolved =
+        (previous.easy || 0) + (previous.medium || 0) + (previous.hard || 0);
+
+      if (latestSolved - previousSolved >= 7) {
+        earnedSet.add("SPRINTER");
       }
     }
 
@@ -140,7 +125,6 @@ export async function loadBadges(data) {
       const badge = document.createElement("div");
       const safeClass = badgeDef.id.toLowerCase().replace(/_/g, "");
 
-      // Apply locked class if the user hasn't earned it
       badge.className = isEarned
         ? `badge badge-${safeClass}`
         : `badge badge-${safeClass} badge-locked`;
