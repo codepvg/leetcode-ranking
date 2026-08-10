@@ -94,6 +94,7 @@ jobs:
             git add .
             git reset -q users.json
             git reset -q inactive-users.json
+            git reset -q activity-state.json
             
             # Debug: show exactly what is staged
             echo "--- Git Status ---"
