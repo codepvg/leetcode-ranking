@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let decoded = 0;
 
     const interval = setInterval(() => {
-      titleSpan.innerText = targetText
+      titleSpan.textContent = targetText
         .split("")
         .map((letter, index) => {
           if (index < decoded) return targetText[index];

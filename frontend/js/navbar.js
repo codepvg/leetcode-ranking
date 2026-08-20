@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const currentPath = window.location.pathname;
 
-  nav.innerHTML = `
+  nav.textContent = `
     <div class="container">
       <a href="/" class="nav-brand">
         <img src="/assets/logo.png" alt="CodePVG Logo" class="nav-logo" />
