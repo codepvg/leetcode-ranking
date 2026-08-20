@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     titles.forEach((title) => {
       title.dataset.original = title.innerText.trim();
-      title.innerText = "";
+      title.textContent = "";
       observer.observe(title);
     });
 
