@@ -3226,6 +3226,23 @@ input[type="checkbox"].compare-checkbox:checked::after {
   pointer-events: auto;
 }
 
+.leaderboard-user-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.leaderboard-user-link:visited,
+.leaderboard-user-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.leaderboard-user-link:hover {
+  color: var(--accent-color, #00ff66);
+  text-decoration: none;
+}
+
 @keyframes compareSlideInRight {
   from {
     transform: translateX(120%);

@@ -251,6 +251,13 @@ app.get("/api/user/:username", async (req, res) => {
   }
 });
 
+app.get("/user/:username", (req, res) => {
+  const username = req.params.username;
+  serveHtml(res, path.join(__dirname, "frontend", "user.html"), {
+    __USERNAME__: username,
+  });
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404);

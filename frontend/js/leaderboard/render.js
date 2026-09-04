@@ -155,16 +155,17 @@ function renderLeaderboardRow(user, rank) {
   if (rankTagEl) {
     nameDiv.appendChild(rankTagEl);
   }
-  const nameTextWrapper = document.createElement("span");
-  nameTextWrapper.className = "name-text";
-  nameTextWrapper.appendChild(document.createTextNode(user.name));
+  const nameLink = document.createElement("a");
+  nameLink.href = `/user/${encodeURIComponent(user.id)}`;
+  nameLink.className = "name-text leaderboard-user-link";
+  nameLink.textContent = user.name;
 
   if (rankChangeEl) {
-    nameTextWrapper.appendChild(document.createTextNode(" "));
-    nameTextWrapper.appendChild(rankChangeEl);
+    nameLink.appendChild(document.createTextNode(" "));
+    nameLink.appendChild(rankChangeEl);
   }
 
-  nameDiv.appendChild(nameTextWrapper);
+  nameDiv.appendChild(nameLink);
   row.appendChild(nameDiv);
 
   // Username with link and external icon — id is user-controlled (textContent)
@@ -314,13 +315,22 @@ function renderMobileCard(user, rank) {
   const mobileRankTagEl = createRankTagElement(rank);
   const mobileRankChangeEl =
     user.score > 0 ? createRankChangeElement(user.rankChange) : null;
+
   if (mobileRankTagEl) {
     mobileName.appendChild(mobileRankTagEl);
   }
-  mobileName.appendChild(document.createTextNode(user.name));
+
+  const mobileNameLink = document.createElement("a");
+  mobileNameLink.href = `/user/${encodeURIComponent(user.id)}`;
+  mobileNameLink.className = "leaderboard-user-link";
+  mobileNameLink.textContent = user.name;
+
   if (mobileRankChangeEl) {
-    mobileName.appendChild(mobileRankChangeEl);
+    mobileNameLink.appendChild(document.createTextNode(" "));
+    mobileNameLink.appendChild(mobileRankChangeEl);
   }
+
+  mobileName.appendChild(mobileNameLink);
   card.appendChild(mobileName);
 
   // Username — id is user-controlled (textContent)
