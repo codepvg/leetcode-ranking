@@ -26,10 +26,10 @@ function atomicWrite(filePath, data) {
 async function fetchData(url) {
   try {
     const res = await axios.get(url, { timeout: 15000 });
-    return res.data;
+    return { data: res.data, status: res.status };
   } catch (err) {
     console.error(`API failed for ${url}: ${err.message}`);
-    return null;
+    return { data: null, status: err.response?.status || 500 };
   }
 }
 
@@ -58,6 +58,29 @@ async function fetchData(url) {
     }
   } catch (err) {
     console.warn("Failed to load activity-state.json, starting fresh cache.");
+  }
+
+  const invalidUsersFilePath = path.join(DATA_DIR, "invalid-users.json");
+  const invalidUsersMap = {};
+  try {
+    if (fs.existsSync(invalidUsersFilePath)) {
+      const rawInvalid = fs.readFileSync(invalidUsersFilePath, "utf8");
+      const parsed = JSON.parse(rawInvalid);
+      const list = Array.isArray(parsed) ? parsed : parsed.invalidUsers || [];
+      list.forEach((entry) => {
+        const u = typeof entry === "string" ? entry : entry.username;
+        invalidUsersMap[u] =
+          typeof entry === "string"
+            ? {
+                username: entry,
+                flaggedAt: new Date().toISOString(),
+                reason: "Existing entry",
+              }
+            : entry;
+      });
+    }
+  } catch (err) {
+    console.warn("Failed to load invalid-users.json, starting fresh.");
   }
 
   const baseUrl = "https://leetcode-api-dun.vercel.app/";
@@ -90,15 +113,51 @@ async function fetchData(url) {
           return;
         }
 
-        const profile = await fetchData(baseUrl + username);
+        const { data: profile, status } = await fetchData(baseUrl + username);
+
+        // Check for HTTP 404 OR HTTP 200 containing error payload ("does not exist")
+        // Check for HTTP 404 OR exact GraphQL error message from API
+        const isInvalidUser =
+          status === 404 ||
+          profile?.errors?.some(
+            (err) => err.message === "That user does not exist.",
+          );
+
+        if (isInvalidUser) {
+          console.log(
+            `${username}: Invalid account - flagged for manual verification`,
+          );
+          if (!invalidUsersMap[username]) {
+            invalidUsersMap[username] = {
+              username,
+              flaggedAt: new Date().toISOString(),
+              reason:
+                status === 404
+                  ? "HTTP 404 Not Found"
+                  : "API: That user does not exist.",
+            };
+          }
+          return;
+        }
         if (!profile) {
-          console.log(`${username}: unreachable (API error after retries)`);
+          console.log(
+            `${username}: unreachable (API error status ${status} after retries)`,
+          );
           unreachableUsers.push(username);
           return;
         }
 
-        const calendar = profile.submissionCalendar;
-        const timestamps = calendar ? Object.keys(calendar).map(Number) : [];
+        let calendarObj = profile.submissionCalendar;
+        if (typeof calendarObj === "string") {
+          try {
+            calendarObj = JSON.parse(calendarObj);
+          } catch (e) {
+            calendarObj = null;
+          }
+        }
+        const timestamps = calendarObj
+          ? Object.keys(calendarObj).map(Number)
+          : [];
 
         if (timestamps.length === 0) {
           console.log(`${username}: Inactive (no submission calendar history)`);
@@ -156,6 +215,24 @@ async function fetchData(url) {
     console.log("Activity state cache updated successfully!");
   } catch (err) {
     console.error("Failed to write activity-state.json: ", err.message);
+    process.exit(1);
+  }
+
+  console.log("Writing manual verification list to invalid-users.json...");
+  try {
+    const invalidOutputArray = Object.values(invalidUsersMap).sort((a, b) =>
+      a.username.localeCompare(b.username),
+    );
+
+    atomicWrite(invalidUsersFilePath, {
+      generatedAt: now.toISOString(),
+      invalidUsers: invalidOutputArray,
+    });
+    console.log(
+      "invalid-users.json updated successfully with manual verification entries!",
+    );
+  } catch (err) {
+    console.error("Failed to write invalid-users.json: ", err.message);
     process.exit(1);
   }
 })();
