@@ -188,8 +188,8 @@ function renderStatsDifficultyChart(stats) {
       datasets: [
         {
           data: [stats.totalEasy, stats.totalMedium, stats.totalHard],
-          backgroundColor: ["#00ff41", "#ffb000", "#ff3333"],
-          borderColor: ["#00cc33", "#cc8e00", "#cc0000"],
+          backgroundColor: ["#00b8a3", "#ffc01e", "#ff375f"],
+          borderColor: ["#008e7e", "#d9a31a", "#d92f51"],
           borderWidth: 1,
         },
       ],

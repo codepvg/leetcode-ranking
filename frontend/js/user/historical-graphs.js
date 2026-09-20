@@ -158,8 +158,8 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Easy",
           data: easy,
-          borderColor: "#10b981",
-          backgroundColor: "rgba(16, 185, 129, 0.1)",
+          borderColor: "#00b8a3",
+          backgroundColor: "rgba(0, 184, 163, 0.1)",
           tension: 0.3,
           fill: true,
           spanGaps: true,
@@ -167,8 +167,8 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Medium",
           data: medium,
-          borderColor: "#f59e0b",
-          backgroundColor: "rgba(245, 158, 11, 0.1)",
+          borderColor: "#ffc01e",
+          backgroundColor: "rgba(255, 192, 30, 0.1)",
           tension: 0.3,
           fill: true,
           spanGaps: true,
@@ -176,8 +176,8 @@ function renderChartCanvas(labels, easy, medium, hard) {
         {
           label: "Hard",
           data: hard,
-          borderColor: "#ef4444",
-          backgroundColor: "rgba(239, 68, 68, 0.1)",
+          borderColor: "#ff375f",
+          backgroundColor: "rgba(255, 55, 95, 0.1)",
           tension: 0.3,
           fill: true,
           spanGaps: true,
@@ -250,7 +250,7 @@ function renderDifficultyChart(easy, medium, hard) {
         {
           data: e + m + h === 0 ? [1] : [e, m, h],
           backgroundColor:
-            e + m + h === 0 ? ["#475569"] : ["#10b981", "#f59e0b", "#ef4444"],
+            e + m + h === 0 ? ["#475569"] : ["#00b8a3", "#ffc01e", "#ff375f"],
           borderWidth: 2,
         },
       ],
