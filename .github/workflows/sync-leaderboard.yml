@@ -94,6 +94,7 @@ jobs:
             git add .
             git reset -q HEAD -- users.json || true
             git reset -q HEAD -- inactive-users.json || true
+            git reset -q HEAD -- invalid-users.json || true
             git reset -q HEAD -- activity-state.json || true
             
             # Debug: show exactly what is staged
