@@ -60,7 +60,7 @@ A quick preview of the platform UI. The appearance may evolve as the project dev
 
 ### Comparison
 
-![Comparison](assets/Comparison.png)
+![Comparison](assets/comparison.png)
 
 ---
 
