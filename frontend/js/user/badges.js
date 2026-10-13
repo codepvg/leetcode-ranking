@@ -81,12 +81,17 @@ export async function loadBadges(data) {
       const latest = history[history.length - 1];
       const previous = history[history.length - 2];
 
+      // History stores calendar dates as YYYY-MM-DD.
+      const dayInMs = 24 * 60 * 60 * 1000;
+      const dateDifference =
+        Date.parse(latest.date) - Date.parse(previous.date);
+
       const latestSolved =
         (latest.easy || 0) + (latest.medium || 0) + (latest.hard || 0);
       const previousSolved =
         (previous.easy || 0) + (previous.medium || 0) + (previous.hard || 0);
 
-      if (latestSolved - previousSolved >= 7) {
+      if (dateDifference === dayInMs && latestSolved - previousSolved >= 7) {
         earnedSet.add("SPRINTER");
       }
     }
