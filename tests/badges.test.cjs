@@ -78,6 +78,11 @@ test("HARD_CARRY needs five Hard and no Easy solves in the recent window", async
     easy: i >= 6 ? 1 : 0,
   }));
   assert.equal(await badgeEarned("HARD_CARRY", { history: withEasy }), false);
+  const fewHard = history.map((entry, i) => ({
+    ...entry,
+    hard: i >= 6 ? 4 : 0,
+  }));
+  assert.equal(await badgeEarned("HARD_CARRY", { history: fewHard }), false);
 });
 
 test("CENTURION needs at least 100 total solves", async () => {
