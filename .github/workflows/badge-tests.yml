@@ -6,6 +6,8 @@ on:
     paths:
       - "frontend/js/user/badges.js"
       - "tests/badges.test.cjs"
+  push:
+    branches: [main]
 
 jobs:
   test:
