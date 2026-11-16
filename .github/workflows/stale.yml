@@ -20,5 +20,5 @@ jobs:
           stale-pr-label: "stale"
           exempt-issue-labels: "status:blocked"
           exempt-pr-labels: "status:blocked"
-          days-before-stale: 80
-          days-before-close: 10
+          days-before-stale: 333
+          days-before-close: 32
